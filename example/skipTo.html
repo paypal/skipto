@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SkipTo Menu Example Page</title> 
+</head>
+<body>
+    <header role="banner">
+        <hgroup>
+            <h1>SkipTo Menu Example</h1>
+        </hgroup>
+    </header>
+    <section>
+        <article>
+            <header>
+                <h1>Pastrami</h1>
+            </header>
+            <section>
+                Boudin pastrami cow ham leberkas doner ground round pork. Turducken swine bresaola, flank kielbasa ground round beef ribs chuck meatball shoulder tail leberkas biltong pastrami andouille. Drumstick jowl brisket ribeye ham jerky shank cow bacon. Ham swine chuck, ball tip frankfurter meatball short loin bacon andouille ribeye beef ribs shoulder tail spare ribs bresaola. Swine meatball leberkas bacon. Beef ribs short loin pork belly meatloaf pastrami bacon pig andouille ham jowl pork chop shoulder jerky ribeye. Meatball doner t-bone strip steak tail biltong ham hock, shank jowl.
+            </section>
+        </article>
+        <article>
+            <header>
+                <h1>Turkey</h1>
+            </header>
+            <section>
+                Turkey tri-tip sirloin tail hamburger, pancetta prosciutto pork chop pork tongue. Salami drumstick bacon jerky, pork sausage ham prosciutto capicola pancetta beef ribs fatback. Bresaola andouille sirloin, fatback beef ribs shoulder leberkas tongue. Shankle shank turducken, flank jerky leberkas strip steak chuck pancetta tail venison pork belly meatball.
+            </section>
+        </article>
+        <article>
+            <header>
+                <h1>Ribeye</h1>
+            </header>
+            <section>
+                Ribeye turkey beef ribs, ground round pork chop cow venison capicola shank pastrami. Salami pork ball tip tongue chicken tenderloin sausage short loin. Prosciutto jerky chuck sausage. Tri-tip shankle short ribs cow pastrami, sirloin drumstick pig ball tip shank meatball ground round hamburger.
+            </section>
+        </article>
+        <article>
+            <header>
+                <h1>Beef Chuck</h1>
+            </header>
+            <section>
+                Doner beef chuck, tongue cow strip steak pork chop meatloaf pastrami short loin sausage ham hock. Pork belly corned beef meatball salami rump pork chop boudin kielbasa leberkas sausage sirloin pig pork venison. Pork tri-tip prosciutto, ground round meatloaf frankfurter filet mignon sirloin turducken. Flank sausage swine pork loin jerky sirloin. Andouille chuck sausage frankfurter meatball.
+            </section>
+        </article>
+    </section>
+    <footer role="contentinfo">
+      <div>
+        Copyright &copy; 2013
+      </div>
+    </footer>
+    <script>!function(appConfig){"use strict";var SkipTo={};SkipTo.prototype={hasHeading:false,dropdownHTML:null,config:{headings:"h1 ,h2, h3, h4, h5, h6",landmarks:'[role="contentinfo"], [role="main"], [role="navigation"], [role="search"]',accessKey:"0",wrap:"true"},setUpConfig:function(appConfig){var localConfig=this.config,name,appConfigSettings=typeof appConfig.settings!=="undefined"?appConfig.settings.skipTo:{};for(name in appConfigSettings){if(localConfig.hasOwnProperty(name)){localConfig[name]=appConfigSettings[name]}}},init:function(appConfig){this.setUpConfig(appConfig);var div=document.createElement("div"),attachElement=document.body;this.addStyles('.skipTo{padding: .5em;  position: absolute;  top: -5em;  left: 0;  background: transparent;  color:#000000;-webkit-transition:top .5s ease-out, background .5s linear;-moz-transition:top .5s ease-out, background .5s linear;-o-transition:top .5s ease-out, background .5s linear;transition:top .5s ease-out, background .5s linear;}.skipTo:focus { position: absolute; top:0;    left: 0;background: #ccc;-webkit-transition:top .1s ease-in, background .3s linear;-moz-transition:top .1s ease-in, background .3s linear;-o-transition:top .1s ease-in, background .3s linear;transition:top .1s ease-in, background .3s linear;}.dropup,.dropMenu{position:relative;}.dropMenu-toggle{*margin-bottom:-3px;}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0 none}.caret{border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid #000;content:"";display:inline-block;height:0;vertical-align:top;width:0}.dropMenu .caret{margin-left:2px;margin-top:8px}.dropMenu-menu{background-clip:padding-box;background-color:#FFF;border:1px solid rgba(0,0,0,0.15);border-radius:4px 4px 4px 4px;box-shadow:0 6px 12px rgba(0,0,0,0.176);display:none;float:left;left:0;list-style:none outside none !important;min-width:160px;position:absolute;top:100%;z-index:1000;margin:2px 0 0;padding:5px 0}.dropMenu-menu .divider{background-color:#E5E5E5;border-bottom:1px solid #FFF;height:2px;overflow:hidden;margin:9px 0}.dropMenu-menu > li > a{clear:both;color:#333;display:block;font-weight:400;line-height:20px;padding:3px 20px;text-decoration:none;}.dropMenu-menu > li > a:hover,.dropMenu-menu > li > a:focus,.dropMenu-submenu:hover > a,.dropMenu-submenu:focus > a{background-color:#357EBD;background-image:linear-gradient(to bottom,#428BCA,#357EBD);background-repeat:repeat-x;color:#FFF;text-decoration:none}.dropMenu-menu > .active > a,.dropMenu-menu > .active > a:hover,.dropMenu-menu > .active > a:focus{background-color:#357EBD;background-image:linear-gradient(to bottom,#428BCA,#357EBD);background-repeat:repeat-x;color:#FFF;outline:0 none;text-decoration:none}.dropMenu-menu > .disabled > a,.dropMenu-menu > .disabled > a:hover,.dropMenu-menu > .disabled > a:focus{color:#999}.dropMenu-menu > .disabled > a:hover,.dropMenu-menu > .disabled > a:focus{background-color:transparent;background-image:none;cursor:default;text-decoration:none}.dropup .caret,.navbar-fixed-bottom .dropMenu .caret{border-bottom:4px solid #000;border-top:0 none;content:""}.dropup .dropMenu-menu,.navbar-fixed-bottom .dropMenu .dropMenu-menu{bottom:100%;margin-bottom:1px;top:auto}.dropMenu-submenu > .dropMenu-menu{border-top-left-radius:0;left:100%;margin-left:-1px;margin-top:-6px;top:0}.dropup .dropMenu-submenu > .dropMenu-menu{border-bottom-left-radius:0;bottom:0;margin-bottom:-2px;margin-top:0;top:auto}.dropMenu-submenu > a:after{content:" ";display:block;float:right;height:0;margin-right:-10px;margin-top:5px;width:0;border-color:transparent transparent transparent #CCC;border-style:solid;border-width:5px 0 5px 5px}.dropMenu-submenu:hover > a:after{border-left-color:#FFF}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left > .dropMenu-menu{border-top-right-radius:0;left:-100%;margin-left:10px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}.typeahead{z-index:1051}.dropup,.dropMenu,.dropMenu-submenu{position:relative}.dropMenu-menu.pull-right,.pull-right > .dropMenu-menu{left:auto;right:0}.open > .dropMenu-menu,.dropMenu-submenu:hover > .dropMenu-menu{display:block}');this.dropdownHTML='<a accesskey="'+this.config.accessKey+'" data-wrap="'+this.config.wrap+'"class="dropMenu-toggle skipTo" id="drop4" role="button" aria-haspopup="true" ';this.dropdownHTML+='aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">Skip to<b class="caret"></b></a>';this.dropdownHTML+='<ul id="menu1" class="dropMenu-menu" role="menu" aria-labelledby="drop4" style="top:3%; text-align:left">';this.getHeadings();this.getLandMarks();this.dropdownHTML+="</ul>";if(this.hasHeading){div.className="dropMenu";attachElement.insertBefore(div,attachElement.firstChild);div.innerHTML=this.dropdownHTML;this.addListeners()}},getHeadings:function(){var headings=document.querySelectorAll(this.config.headings),i,j,heading,id;for(i=0,j=headings.length;i<j;i=i+1){this.hasHeading=true;heading=headings[i];id=heading.getAttribute("id")||heading.innerHTML.replace(/\s+/g,"_").toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g,"")+"_"+i;heading.tabIndex="-1";heading.setAttribute("id",id);this.dropdownHTML+='<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';this.dropdownHTML+=' href="#';this.dropdownHTML+=id;this.dropdownHTML+='">';this.dropdownHTML+=heading.innerHTML.replace(/<\/?[^>]+>/gi,"");this.dropdownHTML+="</a></li>"}},getLandMarks:function(){var landmarks=document.querySelectorAll(this.config.landmarks),k,l,landmark,id1,role;for(k=0,l=landmarks.length;k<l;k=k+1){this.hasHeading=true;landmark=landmarks[k];id1=landmark.getAttribute("id")||"ui-skip-"+Math.floor(Math.random()*100+1);landmark.tabIndex="-1";landmark.setAttribute("id",id1);role=landmark.getAttribute("role");if(role==="contentinfo"){role="footer"}this.dropdownHTML+='<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';this.dropdownHTML+=' href="#';this.dropdownHTML+=id1+'">';this.dropdownHTML+=role;this.dropdownHTML+=" landmark role</a></li>"}},addStyles:function(cssString){var ss1=document.createElement("style");ss1.setAttribute("type","text/css");var hh1=document.getElementsByTagName("head")[0];hh1.appendChild(ss1);if(ss1.styleSheet){ss1.styleSheet.cssText=cssString}else{var tt1=document.createTextNode(cssString);ss1.appendChild(tt1)}},addListeners:function(){window.addEventListener("hashchange",function(){var element=document.getElementById(location.hash.substring(1));if(element){if(!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)){element.tabIndex=-1}element.focus()}},false)}};SkipTo.prototype.init(appConfig)}(window.Drupal||window.Wordpress||{});!function(){"use strict";var Dropdown={};Dropdown.prototype={btn:null,prt:null,wrap:"false",clearMenus:function(){var self=this;setTimeout(function(){var isActive=self.prt.classList.contains("open");if(!isActive||self.prt.contains(document.activeElement)){return}self.prt.classList.remove("open");self.btn.setAttribute("aria-expanded","false")},150)},toggleOptList:function(e){this.btn=e.target;this.prt=this.btn.parentNode;if(typeof this.btn.dataset.wrap!=="undefined"){this.wrap=this.btn.dataset.wrap}this.prt.classList.toggle("open");if(this.prt.classList.contains("open")){this.btn.setAttribute("aria-expanded","true")}else{this.btn.setAttribute("aria-expanded","false")}this.prt.querySelectorAll("[role=menu] li:not(.divider) a")[0].focus()},navigateMenus:function(e){var keyCode=e.keyCode||e.which,arrow={enter:32,up:38,esc:27,down:40},isActive=this.prt.classList.contains("open"),items=this.prt.querySelectorAll("[role=menu] li:not(.divider) a"),index=Array.prototype.indexOf.call(items,e.target);if(!/(32|38|40|27)/.test(keyCode)){return}e.preventDefault();switch(keyCode){case arrow.down:index=index+1;break;case arrow.up:index=index-1;break;case arrow.esc:if(isActive){this.btn.click();this.btn.focus();return}break}if(index<0){if(this.wrap==="true"){index=items.length-1}else{index=0}}if(index===items.length){if(this.wrap==="true"){index=0}else{index=items.length-1}}items.item(index).focus()},init:function(){var toggle=document.getElementsByClassName("dropMenu-toggle"),toggleBtn,k,l,menu,items,i,j,item;for(k=0,l=toggle.length;k<l;k=k+1){toggleBtn=toggle[k];menu=document.getElementById(toggleBtn.dataset.target);items=menu.getElementsByTagName("a");toggleBtn.addEventListener("click",this.toggleOptList.bind(this),false);for(i=0,j=items.length;i<j;i=i+1){item=items[i];item.addEventListener("keydown",this.navigateMenus.bind(this));item.addEventListener("blur",this.clearMenus.bind(this))}}}};Dropdown.prototype.init()}();
+/*
+//@ sourceMappingURL=./compiled/js/skipTo.min.js.map
+*/</script> 
+</body>
+</html>

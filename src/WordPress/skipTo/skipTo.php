@@ -1,0 +1,162 @@
+<?php
+ /*
+	Plugin Name: SkipTo
+	Plugin URI: https://github.com/paypal/SkipTo
+	Description: A simple way to expand the usefullness of your site's "Skip To Content" functionality.
+	Version: 1.1
+	Author: Nawaz Khan, Victor Tsaran, Ron Feathers, and Marc Kocher
+	Author URI: https://github.com/paypal
+	License: Apache-2.0
+*/
+
+	function skipto_load_js_and_css() {
+		wp_register_style( 'skipTo.css', plugins_url( 'skipTo/css/skipTo.css' , dirname(__FILE__) ), '', '1.1');
+		wp_enqueue_style( 'skipTo.css');
+
+		wp_register_script( 'skipInit.js', plugins_url( 'skipTo/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
+		wp_enqueue_script( 'skipInit.js' );
+
+		wp_register_script( 'skipTo.js', plugins_url( 'skipTo/js/skipTo.js' , dirname(__FILE__) ), '', '1.1', true);
+		wp_enqueue_script( 'skipTo.js' );
+	}
+
+	add_action('wp_loaded', 'skipto_load_js_and_css');
+	add_action('admin_menu', 'skip_settings_menu');
+
+	function skip_settings_menu() {
+		add_options_page('Skip To Configurations', 'SkipTo', 'manage_options', 'SkipId', 'skipTo_options');
+	}
+
+
+	function skipTo_options() {
+		if (!current_user_can( 'manage_options' )) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+		}
+		$headings_list=array(
+								"h1"=>"Headings Level1",
+								"h2" => "Headings Level2",
+								"h3" => "Headings Level3",
+								"h4" => "Headings Level 4",
+								"h5" => "Headings Level5",
+								"h6" => "Headings Level6"
+							);
+		$landmarks_list=array(
+								"role-search" => "Search Landmarks",
+								"role-banner" => "Banner Landmarks",
+								"role-navigation" => "Navigation Landmarks",
+								"role-complementary" => "Complementary Landmarks",
+								"role-contentinfo" => "Contentinfo Landmarks",
+								"role-main" => "Main Landmarks"
+							);
+
+		$conf_file=  plugin_dir_path(__FILE__) . 'js/skipToInit.js';
+		$post_headings='';
+		$post_roles='';
+
+		if(!empty($_POST)){
+			foreach(array_keys($_POST) as $k) {
+				if (array_key_exists($k, $headings_list)){ 
+					$post_headings .= ',' . $k; 
+				}
+				if (array_key_exists($k, $landmarks_list)){ 
+					$post_roles .= ',[' . str_replace("-","=",$k) . ']'; 
+				}
+			}
+
+			$post_headings = substr($post_headings, 1);
+			$post_roles = substr($post_roles, 1);
+			$accesskey = $_POST['accesskey'];
+
+			if(!empty($post_headings) or !empty($post_roles)) {
+				$arrw = array();
+				if(empty($post_headings)) {
+					$post_headings = 'false';
+				}
+				if(empty($post_roles)){
+					$post_roles = 'false';
+				}
+				if(empty($accesskey)){
+						$accesskey = '0';
+				}
+
+				$arrw['settings']['skipTo']['headings'] =  $post_headings;
+				$arrw['settings']['skipTo']['landmarks'] = $post_roles;
+				$arrw['settings']['skipTo']['accesskey'] = $accesskey;
+				$arrw['settings']['skipTo']['wrap'] = $_POST['wrap'];
+
+				$fputcontents = 'var Wordpress =' . json_encode($arrw) . ';';
+				file_put_contents($conf_file,  $fputcontents);
+				echo '<div class="updated"><p><strong>Skip To Settings saved.</strong></p></div>';
+			} 
+		}	
+
+		$contents = file_get_contents($conf_file);
+		$contents = preg_replace("/(var|;|Wordpress)/", " ", $contents); 
+		$contents = substr_replace($contents, $str_replacement, strpos($contents, '='), strlen('=')); 
+		$arr = json_decode( $contents, true);
+
+		$headings = $arr['settings']['skipTo']['headings'];
+		$landmarks = $arr['settings']['skipTo']['landmarks'];
+		$accesskey = $arr['settings']['skipTo']['accesskey'];
+		$wrap = $arr['settings']['skipTo']['wrap'];
+?>
+		<div class="wrap">
+			<h2>SkipTo Settings</h2>
+			<form name="form1" method="post" action="">
+				<div style="width:40%; overflow:hidden; padding-top:40px">
+					<div style="float:left; font-weight:bold" id="headings">Headings</div>
+					<div style="float:left; padding-left:160px;" aria-labelledby="headings">
+						<?php
+							$headings_arr=array_map('trim',explode(",",$headings));
+							foreach ($headings_list as $key => $value){
+								$hFld .= '<label style="display:block;"><input type="checkbox" name="' . $key . '"';
+								if(in_array($key, $headings_arr)) {
+									$hFld .= ' checked ';
+								}	
+								$hFld .= ' style="margin-right:10px">' . $value . '</label>';
+							}
+							echo $hFld;
+						?>
+					</div>
+					<br clear="all" />
+					<div style="float:left; padding-top:50px; font-weight:bold" id="landmarks">Landmarks</div>
+					<div style="float:left; padding-left:150px; padding-top:50px;" aria-labelledby="landmarks">
+						<?php
+							$landmarks_arr=array_map('trim',explode(",",$landmarks));
+							$landmarks_arr = preg_replace("/(\[|\])/" , "", $landmarks_arr); 
+							$landmarks_arr = preg_replace("/(=)/" , "-", $landmarks_arr); 
+								foreach ($landmarks_list as $key => $value){
+									$lFld.= '<label style="display:block;"><input type="checkbox" name="'.$key.'"';
+									if(in_array($key, $landmarks_arr)) $lFld.=' checked ';
+									$lFld.=' style="margin-right:10px">'.$value.'</label>';
+								}
+							echo $lFld;
+						?>
+					</div>					
+					<br clear="all">
+					<div style="float:left; padding-top:50px; font-weight:bold">
+						<label for="akey">Access Keys</label>
+					</div>
+					<div style="float:left; padding-left:140px; padding-top:50px;">
+							<input id="akey" type="text" name="accesskey" aria-describedBy="headHelp" value="<?php echo $accesskey ?>" size="2" style="border-color:#000000">
+							<span class="help" id="headHelp">E.g. :  0</span>
+					</div>
+					<br clear="all">
+					<fieldset>
+						<div style="float:left; padding-top:50px; font-weight:bold; padding-left:0px;">
+							<legend>Wrap Menu on Key Down</legend>
+						</div>
+						<div style="float:left; padding-left:75px; padding-top:50px;">
+							<input type="radio" id="wrap1" name="wrap"  value="true" <?php if($wrap === 'true'){ echo 'checked'; }?>><label for="wrap1">True</label>
+							<input type="radio" id="wrap2" name="wrap"  value="false" <?php if($wrap === 'false'){ echo 'checked'; }?>> <label for="wrap2">False</label>
+						</div>
+					</fieldset>
+				</div>
+				<p class="submit">
+					<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
+				</p>
+			</form>
+		</div>
+	<?php
+	}
+?>	
