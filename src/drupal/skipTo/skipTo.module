@@ -4,7 +4,7 @@
  * A simple module that provides a menu of headings and ARIA landmarks on a page (configurable).
  */
 
-drupal_add_css(drupal_get_path('module', 'skipTo') . '/css/skipTo.css', array('type' => 'file'));
+//drupal_add_css(drupal_get_path('module', 'skipTo') . '/css/skipTo.css', array('type' => 'file'));
 
 function skipTo_init() {
 	$menuBuilderConfig = array(
@@ -15,7 +15,7 @@ function skipTo_init() {
 		'accessKey' => variable_get('accessKey', '0'),
 		'wrap' => variable_get('wrap', "true")
 	);
-	drupal_add_js(drupal_get_path('module', 'skipTo') . '/js/skipTo.js', array('type' => 'file', 'scope' => 'footer'));
+	drupal_add_js(drupal_get_path('module', 'skipTo') . '/js/SkipTo.js', array('type' => 'file', 'scope' => 'footer'));
 	drupal_add_js(array('skipTo' => $menuBuilderConfig), "setting");
 }
 
