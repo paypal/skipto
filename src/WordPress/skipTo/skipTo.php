@@ -14,8 +14,8 @@
 		wp_register_script( 'skipInit.js', plugins_url( 'skipTo/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
 		wp_enqueue_script( 'skipInit.js' );
 
-		wp_register_script( 'SkipTo.min.js', plugins_url( 'skipTo/js/SkipTo.js' , dirname(__FILE__) ), '', '1.1', true);
-		wp_enqueue_script( 'SkipTo.min.js' );
+		wp_register_script( 'SkipTo.js', plugins_url( 'skipTo/js/SkipTo.js' , dirname(__FILE__) ), '', '1.1', true);
+		wp_enqueue_script( 'SkipTo.js' );
 	}
 
 	add_action('wp_loaded', 'skipto_load_js_and_css');
