@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 			files: ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js'],
 			options: {
 				jshintrc: "./src/js/.jshintrc"
-			}   
+			}
 		},
 
 		less: {
@@ -18,18 +18,18 @@ module.exports = function(grunt) {
 				files: {
 					'compiled/css/<%= pkg.name %>.css': ['src/less/<%= pkg.name %>.less']
 				}
-			}		
+			}
 		},
 
 		uglify: {
 			options: {
 				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
 				mangle: false
-		//	  , beautify: true
+				//	  , beautify: true
 			},
 			dist: {
 				files: {
-				  './compiled/js/<%= pkg.name %>.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
+					'./compiled/js/<%= pkg.name %>.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
 				}
 			}
 		},
@@ -41,18 +41,30 @@ module.exports = function(grunt) {
 						'cssContent': '<%= grunt.file.read("compiled/css/SkipTo.css") %>'
 					}
 				},
-			files: [
-				{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.js'], dest: './compiled/js/'}
+				files: [{
+						expand: true,
+						flatten: true,
+						src: ['./compiled/js/<%= pkg.name %>.js'],
+						dest: './compiled/js/'
+					}
 				]
 			}
 		},
 		copy: {
-				main: {
-					files: [
-						{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.js'], dest: './src/WordPress/skipTo/js'},
-						{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.js'], dest: './src/Drupal/skipTo/js'}
+			main: {
+				files: [{
+						expand: true,
+						flatten: true,
+						src: ['./compiled/js/<%= pkg.name %>.js'],
+						dest: './src/WordPress/skipTo/js'
+					}, {
+						expand: true,
+						flatten: true,
+						src: ['./compiled/js/<%= pkg.name %>.js'],
+						dest: './src/Drupal/skipTo/js'
+					}
 
-						]
+				]
 			}
 
 		},
@@ -62,8 +74,13 @@ module.exports = function(grunt) {
 					mode: 'zip',
 					archive: './compiled/WordPress/<%= pkg.name %>.zip'
 				},
-				files: [
-					 {expand: true, cwd: './src/WordPress/',src: ['**'], dest: '.', filter: 'isFile'}
+				files: [{
+						expand: true,
+						cwd: './src/WordPress/',
+						src: ['**'],
+						dest: '.',
+						filter: 'isFile'
+					}
 					//{expand: true, cwd: './src/WordPress/', src: ['**'], dest: 'compiled/WordPress/'}
 				]
 			},
@@ -72,16 +89,21 @@ module.exports = function(grunt) {
 					mode: 'tar',
 					archive: './compiled/Drupal/<%= pkg.name %>.tar'
 				},
-				files: [
-					{expand: true, cwd: './src/Drupal/',src: ['**'], dest: '.', filter: 'isFile'}
+				files: [{
+						expand: true,
+						cwd: './src/Drupal/',
+						src: ['**'],
+						dest: '.',
+						filter: 'isFile'
+					}
 				]
-			}			
+			}
 		},
 		clean: {
 			compiled: {
-				src: ["compiled/*" ,"./src/WordPress/skipTo/js/<%= pkg.name %>.js","./src/Drupal/skipTo/js/<%= pkg.name %>.js"]
-			} 
-		}	 
+				src: ["compiled/*", "./src/WordPress/skipTo/js/<%= pkg.name %>.js", "./src/Drupal/skipTo/js/<%= pkg.name %>.js"]
+			}
+		}
 
 	});
 
@@ -95,8 +117,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['jshint']);
 	grunt.registerTask('wordpress', ['compress:WordPress']);
-	grunt.registerTask('drupal', ['compress:Drupal']);	
-	grunt.registerTask('default', ['jshint', 'less', 'uglify','replace','copy']);
-	grunt.registerTask('all', ['jshint', 'less', 'uglify','replace','copy','compress']);
-	
+	grunt.registerTask('drupal', ['compress:Drupal']);
+	grunt.registerTask('default', ['jshint', 'less', 'uglify', 'replace', 'copy']);
+	grunt.registerTask('all', ['jshint', 'less', 'uglify', 'replace', 'copy', 'compress']);
+
 };
