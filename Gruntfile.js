@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-				  './compiled/js/<%= pkg.name %>.min.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
+				  './compiled/js/<%= pkg.name %>.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
 				}
 			}
 		},
@@ -42,15 +42,15 @@ module.exports = function(grunt) {
 					}
 				},
 			files: [
-				{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.min.js'], dest: './compiled/js/'}
+				{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.js'], dest: './compiled/js/'}
 				]
 			}
 		},
 		copy: {
 				main: {
 					files: [
-						{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.min.js'], dest: './src/WordPress/skipTo/js'},
-						{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.min.js'], dest: './src/Drupal/skipTo/js'}
+						{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.js'], dest: './src/WordPress/skipTo/js'},
+						{expand: true, flatten: true, src: ['./compiled/js/<%= pkg.name %>.js'], dest: './src/Drupal/skipTo/js'}
 
 						]
 			}
@@ -76,7 +76,12 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './src/Drupal/',src: ['**'], dest: '.', filter: 'isFile'}
 				]
 			}			
-		}		 
+		},
+		clean: {
+			compiled: {
+				src: ["compiled/*" ,"./src/WordPress/skipTo/js/<%= pkg.name %>.js","./src/Drupal/skipTo/js/<%= pkg.name %>.js"]
+			} 
+		}	 
 
 	});
 
@@ -86,6 +91,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.registerTask('test', ['jshint']);
 	grunt.registerTask('wordpress', ['compress:WordPress']);
