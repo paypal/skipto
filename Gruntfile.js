@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 					yuicompress: true
 				},
 				files: {
-					'compiled/css/<%= pkg.name %>.css': ['src/less/<%= pkg.name %>.less']
+					'src/css/<%= pkg.name %>.css': ['src/less/<%= pkg.name %>.less']
 				}
 			}
 		},
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 			dist: {
 				options: {
 					variables: {
-						'cssContent': '<%= grunt.file.read("compiled/css/SkipTo.css") %>'
+						'cssContent': '<%= grunt.file.read("src/css/SkipTo.css") %>'
 					}
 				},
 				files: [{
