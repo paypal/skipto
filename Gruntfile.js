@@ -20,7 +20,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-
+		concat: {
+			options: {
+				separator: ';'
+			},			
+			dist: {
+				files: {
+					'./compiled/js/<%= pkg.name %>.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
+				}
+			}
+		},
 		uglify: {
 			options: {
 				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
@@ -29,7 +38,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'./compiled/js/<%= pkg.name %>.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
+					'./compiled/js/<%= pkg.name %>.min.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
 				}
 			}
 		},
@@ -46,7 +55,14 @@ module.exports = function(grunt) {
 						flatten: true,
 						src: ['./compiled/js/<%= pkg.name %>.js'],
 						dest: './compiled/js/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['./compiled/js/<%= pkg.name %>.min.js'],
+						dest: './compiled/js/'
 					}
+
 				]
 			}
 		},
@@ -109,6 +125,7 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-copy');
@@ -118,7 +135,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', ['jshint']);
 	grunt.registerTask('wordpress', ['compress:WordPress']);
 	grunt.registerTask('drupal', ['compress:Drupal']);
-	grunt.registerTask('default', ['jshint', 'less', 'uglify', 'replace', 'copy']);
-	grunt.registerTask('all', ['jshint', 'less', 'uglify', 'replace', 'copy', 'compress']);
+	grunt.registerTask('default', ['jshint', 'less', 'concat', 'uglify', 'replace', 'copy']);
+	grunt.registerTask('all', ['jshint', 'less', 'concat', 'uglify', 'replace', 'copy', 'compress']);
 
 };

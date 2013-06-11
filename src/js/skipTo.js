@@ -30,7 +30,7 @@
 
 			var div = document.createElement('div'),
 				attachElement = document.body;
-			this.addStyles('@@cssContent');
+			this.addStyles("@@cssContent");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo" id="drop4" role="button" aria-haspopup="true" ';
 			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">Skip to<b class="caret"></b></a>';
