@@ -2,8 +2,8 @@
 # SkipTo, v1.0
 ======
 
-SkipTo is a replacement for your old classic "Skipnav" (so please use it as such)!
-This script will create a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
+The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
 ## How it works
 1. The SkipTo menu becomes visible the first time the user tabs into the page.
@@ -38,6 +38,9 @@ You may feel slightly adventurous and decide to change some colors or even enhan
 
 4. If everything went well, you should have a new directory called "compiled" with the necessary files in it.
 5. See instructions above on which files you need to get the SkipTo script running on your web site.
+
+## Cleaning up
+If you would like to revert your local code repository to its initial state, simply run "grunt clean" from the root directory.
 
 ## Of course, we want feedback!
 Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.
