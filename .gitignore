@@ -1,0 +1,21 @@
+# Compiled source    #
+######################
+# Grunt should be run locally, dont check in the built files
+compiled
+
+# Node Modules       #
+######################
+# npm install should be run locally, don't check in those files
+node_modules
+
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
