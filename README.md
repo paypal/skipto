@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# SkipTo, v1.0
-======
+# SkipTo
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
@@ -46,5 +44,6 @@ If you would like to revert your local code repository to its initial state, sim
 Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.
 
 Happy skipping!
+
 PayPal Accessibility Gang
-[](http://www.twitter.com/PayPalInclusive)
+(http://www.twitter.com/PayPalInclusive)
