@@ -14,7 +14,7 @@ If you are using Drupal or Wordpress, you are in great luck! We are providing pl
 
 ## What about plain Javascript?
 All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
-If you would liek to be able to debug your production-ready script, include the provided skipTo.min.map file as well.
+If you would like to be able to debug your production-ready script, include the provided skipTo.min.map file as well.
 
 To use the skipTo script, just include it at the bottom of your HTML page or template, as follows:
 
@@ -25,7 +25,7 @@ You may feel slightly adventurous and decide to change some colors or even enhan
 
 1.  [Get NodeJS from http://nodejs.org](http://nodejs.org) and install it on the operating system of your choice.
 2.  Get the [latest code from Github from http://github.com/paypal/SkipTo](http://github.com/paypal/SkipTo).
-3.  After unzipping or downloading the source code into the directory of your choice, switch to it and type these commands:
+3.  After unzipping or downloading the source code into the directory of your choice, switch to that directory and type these commands:
 
 	npm install  
 	grunt
