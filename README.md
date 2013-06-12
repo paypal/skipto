@@ -65,3 +65,5 @@ PayPal Accessibility Gang
 
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
+
+**The rest of the PayPal Accessibility Team.
