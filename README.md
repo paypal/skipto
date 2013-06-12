@@ -30,6 +30,7 @@ You may feel slightly adventurous and decide to change some colors or even enhan
 3.  After unzipping or downloading the source code into the directory of your choice, switch to that directory and type these commands:
 
 ```shell
+sudo npm install grunt-cli -g
 npm install  
 grunt
 ```
