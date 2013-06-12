@@ -1,16 +1,16 @@
 # SkipTo
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
 ## How it works
 1.  The SkipTo menu becomes visible the first time the user tabs into the page.
 2.  Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.
 3.  Use arrow keys to select your choice and press ENTER to skip to it.
-4.  If you decide to reach the menu again, simply press the built-in access key (0 by default).
+4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#AccessKeys) for More information on how to use them.
 
 ## Wow, how do I get it on my web site?
-If you are using Drupal or Wordpress, you are in great luck! We are providing plugins for both of these content management systems. Simply search the repository of plugins and install it just like you would install any other plugins.
+If you are using Drupal or Wordpress, you are very close to being in great luck! :) We will be  providing plugins for both of these content management systems... Very soon...
 
 ## What about plain Javascript?
 All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
@@ -68,3 +68,11 @@ PayPal Accessibility Gang
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
 **The rest of the PayPal Accessibility Team.
+
+## <a id="AccessKeys">Access keys</a>
+Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
+
+*  Microsoft Internet Explorer -- ALT+0.
+*  Mozilla Firefox -- ALT+SHIFT+0.
+*  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
+*  Safari -- CONTROL+0.
