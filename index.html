@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Skipto : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Skipto</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/paypal/SkipTo">View on GitHub</a>
+
+          <h1 id="project_title">Skipto</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/paypal/SkipTo/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/paypal/SkipTo/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="skipto-v10" class="anchor" href="#skipto-v10"><span class="octicon octicon-link"></span></a>SkipTo, v1.0</h1>
+
+<h1></h1>
+
+<p>SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
+The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.</p>
+
+<h2>
+<a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h2>
+
+<ol>
+<li> The SkipTo menu becomes visible the first time the user tabs into the page.</li>
+<li> Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.</li>
+<li> Use arrow keys to select your choice and press ENTER to skip to it.</li>
+<li> If you decide to reach the menu again, simply press the built-in access key (0 by default).</li>
+</ol><h2>
+<a name="wow-how-do-i-get-it-on-my-web-site" class="anchor" href="#wow-how-do-i-get-it-on-my-web-site"><span class="octicon octicon-link"></span></a>Wow, how do I get it on my web site?</h2>
+
+<p>If you are using Drupal or Wordpress, you are in great luck! We are providing plugins for both of these content management systems. Simply search the repository of plugins and install it just like you would install any other plugins.</p>
+
+<h2>
+<a name="what-about-plain-javascript" class="anchor" href="#what-about-plain-javascript"><span class="octicon octicon-link"></span></a>What about plain Javascript?</h2>
+
+<p>All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
+If you would liek to be able to debug your production-ready script, include the provided skipTo.min.map file as well.</p>
+
+<p>To use the skipTo script, just include it at the bottom of your HTML page or template, as follows:</p>
+
+<p><code>&lt;script type="text/javascript" src="SkipTo.js"&gt;&lt;/script&gt;</code></p>
+
+<h2>
+<a name="compiling-css-and-javascript" class="anchor" href="#compiling-css-and-javascript"><span class="octicon octicon-link"></span></a>Compiling CSS and JavaScript</h2>
+
+<p>You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.</p>
+
+<ol>
+<li> <a href="http://nodejs.org">Get NodeJS from http://nodejs.org</a> and install it on the operating system of your choice.</li>
+<li> Get the <a href="http://github.com/paypal/SkipTo">latest code from Github from http://github.com/paypal/SkipTo</a>.</li>
+<li>
+<p>After unzipping or downloading the source code into the directory of your choice, switch to it and type these commands:</p>
+
+<p>npm install<br>
+grunt</p>
+</li>
+<li><p>If everything went well, you should have a new directory called "compiled" with the necessary files in it.</p></li>
+<li><p>See instructions above on which files you need to get the SkipTo script running on your web site.</p></li>
+</ol><h2>
+<a name="cleaning-up" class="anchor" href="#cleaning-up"><span class="octicon octicon-link"></span></a>Cleaning up</h2>
+
+<p>If you would like to revert your local code repository to its initial state, simply run </p>
+
+<pre><code>grunt clean
+</code></pre>
+
+<p>from the root directory of your repository.</p>
+
+<h2>
+<a name="of-course-we-want-feedback" class="anchor" href="#of-course-we-want-feedback"><span class="octicon octicon-link"></span></a>Of course, we want feedback!</h2>
+
+<p>Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.</p>
+
+<p>Happy skipping!
+PayPal Accessibility Gang
+<a href="http://www.twitter.com/PayPalInclusive"></a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Skipto maintained by <a href="https://github.com/paypal">paypal</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
