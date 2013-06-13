@@ -3,16 +3,18 @@
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
+![Example Screen Shot](http://paypal.github.io/SkipTo/images/example_screen_shot.png "Example Screen Shot")
+
 ## How it works
 1.  The SkipTo menu becomes visible the first time the user tabs into the page.
 2.  Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.
 3.  Use arrow keys to select your choice and press ENTER to skip to it.
-4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#AccessKeys) for More information on how to use them.
+4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## Wow, how do I get it on my web site?
 If you are using Drupal or Wordpress, you are very close to being in great luck! :) We will be  providing plugins for both of these content management systems... Very soon...
 
-## What about plain Javascript?
+## What about plain JavaScript?
 All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided skipTo.min.map file as well.
 
