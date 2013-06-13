@@ -1,145 +1,166 @@
 <?php
 /**
  * @file
- * A simple module that provides a menu of headings and ARIA landmarks on a page (configurable).
+ * A module that provides a menu of headings and ARIA landmarks on a page.
  */
 
-//drupal_add_css(drupal_get_path('module', 'skipTo') . '/css/skipTo.css', array('type' => 'file'));
-
+/**
+ * Implements hook_init().
+ */
 function skipTo_init() {
-	$menuBuilderConfig = array(
-		'headingsArray' => variable_get('headingsArray', 'none'),
-		'headings' => variable_get('headings', 'none'),
-		'landmarksArray' => variable_get('landmarksArray', 'none'),
-		'landmarks' => variable_get('landmarks', 'none'),
-		'accessKey' => variable_get('accessKey', '0'),
-		'wrap' => variable_get('wrap', "true")
-	);
-	drupal_add_js(drupal_get_path('module', 'skipTo') . '/js/SkipTo.js', array('type' => 'file', 'scope' => 'footer'));
-	drupal_add_js(array('skipTo' => $menuBuilderConfig), "setting");
+  $menu_builder_config = array(
+    'headings_array' => variable_get('headings_array', 'none'),
+    'headings' => variable_get('headings', 'none'),
+    'landmarks_array' => variable_get('landmarks_array', 'none'),
+    'landmarks' => variable_get('landmarks', 'none'),
+    'accessKey' => variable_get('accessKey', '0'),
+    'wrap' => variable_get('wrap', "true"),
+  );
+  drupal_add_js(drupal_get_path('module', 'skipTo') . '/js/skipTo.js',
+    array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js(array('skipTo' => $menu_builder_config), "setting");
 }
 
 /**
- * Implements hook_help.
+ * Implements hook_help().
  *
  * Displays help and module information.
- *
- * @param path
- *	 Which path of the site we're using to display help
- * @param arg
- *	 Array that holds the current path as returned from arg() function
  */
 function skipTo_help($path, $arg) {
-	switch ($path) {
-		case "admin/help#skipTo":
-			return '<p>' . t("Displays a nice menu with links to specified headings on the current page") . '</p>';
-			break;
-	}
+  switch ($path) {
+    case "admin/help#skipTo":
+      return '<p>' .
+        t("Displays a menu linking to headings on the current page") .
+        '</p>';
+  }
 }
 
 /**
  * Implements hook_menu().
  */
 function skipTo_menu() {
-	$items = array();
-	$items['admin/config/content/skipTo'] = array(
-		'title' => 'SkipTo',
-		'description' => 'Configuration for SkipTo module',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('skipTo_form'),
-		'access arguments' => array('access administration pages'),
-		'type' => MENU_NORMAL_ITEM,
-	);
-	return $items;
+  $items = array();
+  $items['admin/config/content/skipTo'] = array(
+    'title' => 'SkipTo',
+    'description' => 'Configuration for SkipTo module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('skipTo_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
 }
 
 /**
- * Page callback: Skip Menu settings
+ * Page callback: Skip Menu settings.
  *
  * @see skipTo_menu()
  */
 function skipTo_form($form, &$form_state) {
-	$form['headingsArray'] = array(
-		'#type' => 'checkboxes',
-		'#title' => t('Headings to aggregate'),
-		'#default_value' => variable_get('headingsArray', 'h1, h2'),
-		'#options' => array("h1" => "h1", "h2" => "h2", "h3" => "h3", "h4" => "h4", "h5" => "h5" ),
-		'#description' => t('The level of headings to make the menu from (Default is h1, h2).'),
-		'#required' => TRUE
-	);
-	$form['headings'] = array(
-		'#type' => 'hidden',
-		'#value' => variable_get('headings', 'h1, h2')
-	);
-	$form['landmarksArray'] = array(
-		'#type' => 'checkboxes',
-		'#title' => t('Landmark roles to aggregate'),
-		'#default_value' => variable_get('landmarksArray', '[role="contentinfo"], [role="main"], [role="navigation"], [role="search"]'),
-		'#options' => array("contentinfo" => "contentinfo", "main" => "main", "navigation" => "navigation", "search" => "search" ),
-		'#description' => t('The types of landmark roles to use. Defaults to: contentinfo, main, navigation, search.'),
-		'#required' => TRUE
-	);
-	$form['landmarks'] = array(
-		'#type' => 'hidden',
-		'#value' => variable_get('landmarks', '[role="contentinfo"], [role="main"], [role="navigation"], [role="search"]')
-	);
-	$form['accessKey'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Access Key'),
-		'#default_value' => variable_get('accessKey', "0"),
-		'#description' => t('Set a custom access key for the menu'),
-		'#required' => TRUE
-	);
-	$form['wrap'] = array(
-		'#type' => 'radios',
-		'#title' => t('Wrap Menu'),
-		'#default_value' => variable_get('wrap', 'true'),
-		'#description' => t('When you tab to the last item in the menu, should it wrap to the first? Defaults to wrapping.'),
-		'#options' => array("true" => t('Wrap'), "false" => t('Do not Wrap')),
-		'#required' => FALSE
-	);
-	$form['#submit'][] = 'skipTo_form_submit';
+  $form['headings_array'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Headings to aggregate'),
+    '#default_value' => variable_get('headings_array', 'h1, h2'),
+    '#options' => array(
+      "h1" => "h1",
+      "h2" => "h2",
+      "h3" => "h3",
+      "h4" => "h4",
+      "h5" => "h5",),
+    '#description' => t('The level of headings to make the menu from
+                         (Default is h1, h2).'),
+    '#required' => TRUE,
+  );
+  $form['headings'] = array(
+    '#type' => 'hidden',
+    '#value' => variable_get('headings', 'h1, h2'),
+  );
+  $form['landmarks_array'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Landmark roles to aggregate'),
+    '#default_value' => variable_get('landmarks_array',
+                                      '[role="contentinfo"],
+                                       [role="main"],
+                                       [role="navigation"],
+                                       [role="search"]'),
+    '#options' => array(
+      "contentinfo" => "contentinfo",
+      "main" => "main",
+      "navigation" => "navigation",
+      "search" => "search",),
+    '#description' => t('The types of landmark roles to use.  
+                         Defaults to: contentinfo, main, navigation, search.'),
+    '#required' => TRUE,
+  );
+  $form['landmarks'] = array(
+    '#type' => 'hidden',
+    '#value' => variable_get('landmarks',
+                              '[role="contentinfo"],
+                               [role="main"],
+                               [role="navigation"],
+                               [role="search"]'),
+  );
+  $form['accessKey'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Access Key'),
+    '#default_value' => variable_get('accessKey', "0"),
+    '#description' => t('Set a custom access key for the menu'),
+    '#required' => TRUE,
+  );
+  $form['wrap'] = array(
+    '#type' => 'radios',
+    '#title' => t('Wrap Menu'),
+    '#default_value' => variable_get('wrap', 'true'),
+    '#description' => t('When you tab to the last item in the menu,
+                          should it wrap to the first? Defaults to wrapping.'),
+    '#options' => array("true" => t('Wrap'), "false" => t('Do not Wrap')),
+    '#required' => FALSE,
+  );
+  $form['#submit'][] = 'skipTo_form_submit';
 
-	return system_settings_form($form);
+  return system_settings_form($form);
 }
 
+/**
+ * Implements form_submit().
+ */
 function skipTo_form_submit($form, &$form_state) {
-	form_state_values_clean($form_state);
+  form_state_values_clean($form_state);
 
-	$headingsArray = $form['headingsArray']['#value'];
-	$headingString = "";
-	$landmarksArray = $form['landmarksArray']['#value'];
-	$landmarkString = "";
-	$landmarkStringForMessaging = "";
+  $headings_array = $form['headings_array']['#value'];
+  $heading_string = "";
+  $landmarks_array = $form['landmarks_array']['#value'];
+  $landmark_string = "";
+  $landmark_string_for_messaging = "";
 
+  foreach ($headings_array as $key) {
+    $heading_string .= $key;
+    if (end($headings_array) !== $key) {
+      $heading_string .= ', ';
+    }
+  }
 
-	foreach($headingsArray as $key ){
-		$headingString .= $key;
-		if(end($headingsArray) !== $key){
-			$headingString .= ', '; // not the last element
-		}
-	}
-	foreach($landmarksArray as $key ){
-		$landmarkString .= '[role="' . $key . '"]';
-		$landmarkStringForMessaging  .= $key;
-		if(end($landmarksArray) !== $key){
-			$landmarkString .= ', '; // not the last element
-			$landmarkStringForMessaging  .= ', ';
-		}
-	}
-	if(isset($_POST)){
-		form_set_value($form['headings'], $headingString, $form_state);
-		form_set_value($form['landmarks'], $landmarkString, $form_state);
-	}
+  foreach ($landmarks_array as $key) {
+    $landmark_string .= '[role="' . $key . '"]';
+    $landmark_string_for_messaging  .= $key;
+    if (end($landmarks_array) !== $key) {
+      $landmark_string .= ', ';
+      $landmark_string_for_messaging  .= ', ';
+    }
+  }
+  if (isset($_POST)) {
+    form_set_value($form['headings'], $heading_string, $form_state);
+    form_set_value($form['landmarks'], $landmark_string, $form_state);
+  }
 
-	drupal_set_message("SkipTo Menu Settings updated:"
-						. "<br /><strong>Headings :</strong> " 
-						. $headingString 
-						. "<br /><strong>Landmark roles:</strong> " 
-						. $landmarkStringForMessaging
-						. "<br /><strong>Access Key:</strong> "
-						. $form['accessKey']['#value']
-						. "<br /><strong>Wrap Menu:</strong> "
-						. $form['wrap']['#value']
-						);
+  drupal_set_message("SkipTo Menu Settings updated:"
+            . "<br /><strong>Headings :</strong> "
+            . $heading_string
+            . "<br /><strong>Landmark roles:</strong> "
+            . $landmark_string_for_messaging
+            . "<br /><strong>Access Key:</strong> "
+            . $form['accessKey']['#value']
+            . "<br /><strong>Wrap Menu:</strong> "
+            . $form['wrap']['#value']
+            );
 }

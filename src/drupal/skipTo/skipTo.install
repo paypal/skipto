@@ -1,0 +1,33 @@
+<?php
+/**
+ * @file
+ * Provides install and uninstall functions for skipTo module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function skipTo_install() {
+  variable_set('headings_array', array(
+                                  "h1" => "h1",
+                                  "h2" => "h2")
+                                );
+  variable_set('landmarks_array', array(
+                                  '[role="contentinfo"]' => '[role="contentinfo"]',
+                                  '[role="main"]' => '[role="main"]',
+                                  '[role="navigation"]' => '[role="navigation"]',
+                                  '[role="search"]' => '[role="search"]',)
+                                );
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function skipTo_uninstall() {
+  variable_del('headings_array');
+  variable_del('headings');
+  variable_del('landmarks_array');
+  variable_del('landmarks');
+  variable_del('accessKey');
+  variable_del('wrap');
+}
