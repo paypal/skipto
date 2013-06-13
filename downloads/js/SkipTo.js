@@ -125,7 +125,7 @@
 
 	SkipTo.prototype.init(appConfig);
 
-}(window.Drupal || window.Wordpress || {}));
+}(window.Drupal || window.Wordpress || window.skipConfig || {}));
 ;(function () {
 	"use strict";
 
