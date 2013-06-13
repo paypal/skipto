@@ -10,13 +10,15 @@
 function skipTo_install() {
   variable_set('headings_array', array(
                                   "h1" => "h1",
-                                  "h2" => "h2")
+                                  "h2" => "h2"
+                                  )
                                 );
   variable_set('landmarks_array', array(
-                                  '[role="contentinfo"]' => '[role="contentinfo"]',
-                                  '[role="main"]' => '[role="main"]',
-                                  '[role="navigation"]' => '[role="navigation"]',
-                                  '[role="search"]' => '[role="search"]',)
+                                  "contentinfo" => "contentinfo",
+                                  "main" => "main",
+                                  "search" => "search",
+                                  "navigation" => "navigation"
+                                  )
                                 );
 }
 
