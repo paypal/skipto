@@ -17,11 +17,9 @@ All you need are either skipTo.js or skip.min.js from the "compiled/js" director
 If you would like to be able to debug your production-ready script, include the provided skipTo.min.map file as well.
 
 To use the skipTo script, just include it at the bottom of your HTML page or template, as follows:
-
-```javascript
+```html
 <script type="text/javascript" src="skipTo.js"></script>
 ```
-
 ## Compiling CSS and JavaScript
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
@@ -29,23 +27,20 @@ You may feel slightly adventurous and decide to change some colors or even enhan
 2.  Get the [latest code from Github from http://github.com/paypal/SkipTo](http://github.com/paypal/SkipTo).
 3.  After unzipping or downloading the source code into the directory of your choice, switch to that directory and type these commands:
 
-```shell
-sudo npm install grunt-cli -g
-npm install  
-grunt
-```
-
-4.  If everything went well, you should have a new directory called "compiled" with the necessary files in it.
+  ```sh
+   sudo npm install grunt-cli -g
+   npm install  
+   grunt
+  ```
+4.  You should now have a directory called <code>**compiled**</code> with the necessary files in it.
 5.  See instructions above on which files you need to get the SkipTo script running on your web site.
 
 ## Cleaning up
 If you would like to revert your local code repository to its initial state, simply run 
-
-```shell
+```sh
 grunt clean
 ```
- from the root directory of your repository.
-
+from the root directory of your repository.
 ## Of course, we want feedback!
 Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.
 
