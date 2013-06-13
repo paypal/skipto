@@ -6,6 +6,22 @@ module.exports = function(grunt) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+		greaseBanner: 
+			'// -----------------------------------------------------' + '\n' +
+			'// Title: Skip to Options User script' + '\n' +
+			'// version: <%= pkg.version %>' + '\n' +
+			'// Date: <%=grunt.template.today("yyyy-mm-dd")%>' + '\n' +
+			'// Author: <%= pkg.author %>' + '\n' +
+			'// Homepage: <%= pkg.homepage %>' + '\n' +
+			'// Copyright (c) 2013, PayPal Inc' + '\n' +
+			'// -----------------------------------------------------' + '\n' +
+			'//' + '\n' +
+			'// ==UserScript==' + '\n' +
+			'// @name <%=pkg.name %>' + '\n' +
+			'// @namespace <%=pkg.name %>' + '\n' +
+			'// @description <%=pkg.description%>' + '\n' +
+			'// @include *' + '\n' +
+			'// ==/UserScript==' + '\n' + '\n',
 		jshint: {
 			files: ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js'],
 			options: {
@@ -26,14 +42,20 @@ module.exports = function(grunt) {
 			}
 		},
 		concat: {
-			options: {
-				separator: ';'
-			},			
-			dist: {
-				files: {
-					'./compiled/js/<%= pkg.name %>.js': ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
-				}
-			}
+			core: {
+				options: {
+					separator: ';'
+				},
+				src:   ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js'],
+				dest:  './compiled/js/<%= pkg.name %>.js'
+			},
+			gm: {
+				options: {
+					banner: '<%= greaseBanner %>'
+				},
+				src:   './compiled/js/<%= pkg.name %>.min.js',
+				dest:  './compiled/js/<%= pkg.name %>.user.js'
+			}			
 		},
 		uglify: {
 			options: {
@@ -59,16 +81,9 @@ module.exports = function(grunt) {
 				files: [{
 						expand: true,
 						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.js'],
-						dest: './compiled/js/'
-					},
-					{
-						expand: true,
-						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.min.js'],
+						src: ['./compiled/js/<%= pkg.name %>.js', './compiled/js/<%= pkg.name %>.min.js'],
 						dest: './compiled/js/'
 					}
-
 				]
 			}
 		},
@@ -103,7 +118,6 @@ module.exports = function(grunt) {
 						dest: '.',
 						filter: 'isFile'
 					}
-					//{expand: true, cwd: './src/WordPress/', src: ['**'], dest: 'compiled/WordPress/'}
 				]
 			},
 			Drupal: {
@@ -140,8 +154,9 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['jshint']);
 	grunt.registerTask('wordpress', ['compress:WordPress']);
-	grunt.registerTask('drupal', ['compress:Drupal']);
-	grunt.registerTask('default', ['jshint', 'less', 'concat', 'uglify', 'replace', 'copy']);
-	grunt.registerTask('all', ['jshint', 'less', 'concat', 'uglify', 'replace', 'copy', 'compress']);
+	grunt.registerTask('drupal', ['compress:Drupal']);	
+	grunt.registerTask('gm', 'concat:gm');
+	grunt.registerTask('default', ['jshint', 'less', 'concat:core', 'uglify', 'replace', 'copy','concat:gm']);
+	grunt.registerTask('all', ['jshint', 'less', 'concat:core', 'uglify', 'replace', 'copy', 'compress', 'concat:gm']);
 
 };
