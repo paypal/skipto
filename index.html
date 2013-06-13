@@ -26,16 +26,16 @@
 			<section id="main_content" class="inner" role="main">
 				<h1> <a name="skipto-v10" class="anchor" href="#skipto-v10"><span class="octicon octicon-link"></span></a>SkipTo, v1.0</h1>
 
-					<p>SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-					The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.</p>
+					<p>SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)! The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.</p>
 					
 					<h2><a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h2>
 
 					<ol>
 						<li> The SkipTo menu becomes visible the first time the user tabs into the page.</li>
-						<li> Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.</li>
+						<li> Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.
+						</li>
 						<li> Use arrow keys to select your choice and press ENTER to skip to it.</li>
-						<li> If you decide to reach the menu again, simply press the built-in access key (0 by default).</li>
+						<li> If you decide to reach the menu again, simply press the built-in access key (0 by default).See the notes on <a href="#accesskeys">Access keys</a> for More information on how to use them.</li>
 					</ol>
 
 					<h2>
@@ -73,7 +73,8 @@
 					</ol>
 
 					<p>After unzipping or downloading the source code into the directory of your choice, switch to it and type these commands:</p>
-<pre><code>$ npm install
+<pre><code>$ sudo npm install grunt-cli -g
+$ npm install
 $ grunt</code></pre>
 					</li>
 					<li><p>If everything went well, you should have a new directory called "compiled" with the necessary files in it.</p></li>
@@ -93,6 +94,41 @@ $ grunt</code></pre>
 					<p>Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.</p>
 
 					<p>Happy skipping! PayPal Accessibility Gang<a href="http://www.twitter.com/PayPalInclusive"></a></p>
+
+
+					<h2 id="authors">Authors</h2>
+					<p>
+						<ul>
+						<li>
+							<strong>Nawaz Khan</strong>&nbsp;||&nbsp;<a href="https://github.com/mpnkhan">https://github.com/mpnkhan</a> || <a href="https://twitter.com/mpnkhan">@mpnkhan</a>
+						</li>
+						<li>
+							<strong>Victor Tsaran</strong>&nbsp;||&nbsp;<a href="https://github.com/vick08">https://github.com/vick08</a> || <a href="https://twitter.com/vick08">@vick08</a>
+
+						</li>
+						<li>
+			<strong>Ron Feathers</strong>&nbsp;||&nbsp;<a href="https://github.com/rfeathers">https://github.com/rfeathers</a> || <a href="https://twitter.com/ronfeathers">@ronfeathers</a>
+						</li>
+
+						<li>
+							<strong>Marc Kocher</strong>&nbsp;||&nbsp;<a href="https://github.com/mdkocher">https://github.com/mdkocher</a> || <a href="https://twitter.com/marckocher">@marckocher</a>
+						</li>
+						<li>
+							**The rest of the PayPal Accessibility Team.
+						</li>	
+					</p>
+
+					<h2 id="accesskeys">Access keys</h2>
+					<p>
+						Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
+					</p>
+					<ul>
+						<li> Microsoft Internet Explorer -- ALT+0.</li>
+						<li> Mozilla Firefox -- ALT+SHIFT+0.</li>
+						<li> Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).</li>
+						<li> Safari -- CONTROL+0.</li>
+					</ul>
+
 
 			</section>
 		</div>
