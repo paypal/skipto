@@ -92,12 +92,12 @@ module.exports = function(grunt) {
 				files: [{
 						expand: true,
 						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.js'],
+						src: ['./compiled/js/<%= pkg.name %>.min.js'],
 						dest: './src/WordPress/skipTo/js'
 					}, {
 						expand: true,
 						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.js'],
+						src: ['./compiled/js/<%= pkg.name %>.min.js'],
 						dest: './src/Drupal/skipTo/js'
 					}
 

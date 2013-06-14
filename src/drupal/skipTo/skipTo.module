@@ -16,7 +16,7 @@ function skipTo_init() {
     'accessKey' => variable_get('accessKey', '0'),
     'wrap' => variable_get('wrap', "true"),
   );
-  drupal_add_js(drupal_get_path('module', 'skipTo') . '/js/skipTo.js',
+  drupal_add_js(drupal_get_path('module', 'skipTo') . '/js/SkipTo.min.js',
     array('type' => 'file', 'scope' => 'footer'));
   drupal_add_js(array('skipTo' => $menu_builder_config), "setting");
 }

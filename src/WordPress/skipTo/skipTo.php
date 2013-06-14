@@ -14,7 +14,7 @@
 		wp_register_script( 'skipInit.js', plugins_url( 'skipTo/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
 		wp_enqueue_script( 'skipInit.js' );
 
-		wp_register_script( 'SkipTo.js', plugins_url( 'skipTo/js/SkipTo.js' , dirname(__FILE__) ), '', '1.1', true);
+		wp_register_script( 'SkipTo.js', plugins_url( 'skipTo/js/SkipTo.min.js' , dirname(__FILE__) ), '', '1.1', true);
 		wp_enqueue_script( 'SkipTo.js' );
 	}
 
@@ -81,6 +81,7 @@
 				$arrw['settings']['skipTo']['landmarks'] = $post_roles;
 				$arrw['settings']['skipTo']['accesskey'] = $accesskey;
 				$arrw['settings']['skipTo']['wrap'] = $_POST['wrap'];
+				$arrw['settings']['skipTo']['visibility'] = $_POST['visibility'];
 
 				$fputcontents = 'var Wordpress =' . json_encode($arrw) . ';';
 				file_put_contents($conf_file,  $fputcontents);
@@ -97,6 +98,7 @@
 		$landmarks = $arr['settings']['skipTo']['landmarks'];
 		$accesskey = $arr['settings']['skipTo']['accesskey'];
 		$wrap = $arr['settings']['skipTo']['wrap'];
+		$visibility = $arr['settings']['skipTo']['visibility'];
 ?>
 		<div class="wrap">
 			<h2>SkipTo Settings</h2>
@@ -144,17 +146,30 @@
 						<div style="float:left; padding-top:50px; font-weight:bold; padding-left:0px;">
 							<legend>Wrap Menu on Key Down</legend>
 						</div>
-						<div style="float:left; padding-left:75px; padding-top:50px;">
+						<div style="float:left; padding-left:71px; padding-top:50px;">
 							<input type="radio" id="wrap1" name="wrap"  value="true" <?php if($wrap === 'true'){ echo 'checked'; }?>><label for="wrap1">True</label>
 							<input type="radio" id="wrap2" name="wrap"  value="false" <?php if($wrap === 'false'){ echo 'checked'; }?>> <label for="wrap2">False</label>
 						</div>
 					</fieldset>
+
+					<br clear="all">
+					<fieldset>
+						<div style="float:left; padding-top:50px; font-weight:bold; padding-left:0px;">
+							<legend>Show SkipTo link</legend>
+						</div>
+						<div style="float:left; padding-left:117px; padding-top:50px;">
+							<input type="radio" id="v1" name="visibility"  value="onFocus" <?php if($visibility === 'onFocus'){ echo 'checked'; }?>><label for="v1"> on Keyboard focus</label>
+							<input type="radio" id="v2" name="visibility"  value="onLoad" <?php if($visibility === 'onLoad'){ echo 'checked'; }?>> <label for="v2"> when page loads</label>
+						</div>
+					</fieldset>
+
+
 				</div>
-				<p class="submit">
+				<p class="submit" style="padding-left:216px">
 					<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
 				</p>
 			</form>
 		</div>
-	<?php
+<?php
 	}
-?>	
+?>
