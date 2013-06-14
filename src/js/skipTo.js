@@ -6,8 +6,8 @@
 		hasHeading: false,
 		dropdownHTML: null,
 		config: {
-			headings: 'h1 ,h2, h3',
-			landmarks: '[role="main"],[role="search"]',
+			headings: 'h1, h2, h3',
+			landmarks: '[role=navigation], [role="main"], [role="search"]',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus"
