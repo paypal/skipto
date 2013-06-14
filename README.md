@@ -12,7 +12,8 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## Wow, how do I get it on my web site?
-If you are using Drupal or Wordpress, you are very close to being in great luck! :) We will be  providing plugins for both of these content management systems... Very soon...
+If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems from the main [SkipTo Github Page](http://paypal.github.io/SkipTo).
+To sweeten your day even more, the GreeceMonkey script and Safari bookmarklet are also available from the page above. Enjoy!
 
 ## What about plain JavaScript?
 All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
@@ -22,6 +23,40 @@ To use the skipTo script, just include it at the bottom of your HTML page or tem
 ```html
 <script type="text/javascript" src="skipTo.js"></script>
 ```
+
+Please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
+
+## Configuring SkipTo options
+By default, SkipTo menu will inlcude the following places on the page:
+* Heading (level 1, 2 and 3).
+* ARIA landmarks (navigation, main and search).
+
+and options:
+* The "access key" is set to 0.
+* The menu is set not to wrap.
+
+You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
+If you are using either WordPress plugin or Drupal module, you can change the SkipTo options under the "settings" section of your particular content management system. If, however, you are utilizing the plain vanilla Javascript, you will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
+
+```html
+<script>
+var skipToConfig =
+{
+"settings": {
+"skipTo": {
+"headings": "h1 ,h2, h3",
+"landmarks": "[role=navigation],[role=main],[role=search]",
+"accesskey": "0",
+"wrap": "true"
+}
+}
+};
+
+</script>
+```
+
+The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.
+
 ## Compiling CSS and JavaScript
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
