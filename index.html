@@ -59,12 +59,53 @@
 					</h2>
 
 					<p>All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
-					If you would liek to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.</p>
+					If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.</p>
 
 					<p>To use the skipTo script, just include it at the bottom of your HTML page or template, as follows:</p>
 
 					<p><code>&lt;script type="text/javascript" src="SkipTo.min.js"&gt;&lt;/script&gt;</code></p>
 					<p>	You can also download <a href="./downloads/js/SkipTo.min.js">SkipTo.min.js</a> for including it from your source
+					</p>
+					<p>Please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.</p>
+						
+					<h2>
+					<a name="configuring-skipto-options" class="anchor" href="#configuring-skipto-options"><span class="octicon octicon-link"></span></a>Configuring SkipTo options</h2>
+
+					<p>By default, SkipTo menu will inlcude the following places on the page:</p>
+
+					<ul>
+					<li>Heading (level 1, 2 and 3).</li>
+					<li>ARIA landmarks (navigation, main and search).</li>
+					</ul><p>and options:</p>
+
+					<ul>
+					<li>The "access key" is set to 0.</li>
+					<li>The menu is set not to wrap.</li>
+					<li>SkipTo link is visible when it receives focus.You can set it to "onLoad" to make it visible always</li>
+
+					</ul><p>You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
+					If you are using either WordPress plugin or Drupal module, you can change the SkipTo options under the "settings" section of your particular content management system. If, however, you are utilizing the plain vanilla Javascript, you will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:</p>
+
+					<div class="highlight">
+<pre><span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">skipToConfig</span> <span class="o">=</span>
+<span class="p">{</span>
+	<span class="s2">"settings"</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s2">"skipTo"</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s2">"headings"</span><span class="o">:</span> <span class="s2">"h1 ,h2, h3"</span><span class="p">,</span>
+		<span class="s2">"landmarks"</span><span class="o">:</span> <span class="s2">"[role=navigation],[role=main],[role=search]"</span><span class="p">,</span>
+		<span class="s2">"accesskey"</span><span class="o">:</span> <span class="s2">"0"</span><span class="p">,</span>
+		<span class="s2">"wrap"</span><span class="o">:</span> <span class="s2">"true"</span><span class="p">,</span>
+		<span class="s2">"visibility"</span><span class="o">:</span> <span class="s2">"onFocus"</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nt">&lt;/script&gt;</span>
+</pre>
+					</div>
+
+					<p>The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.</p>
 
 					<h2>
 						<a name="compiling-css-and-javascript" class="anchor" href="#compiling-css-and-javascript"><span class="octicon octicon-link"></span></a>Compiling CSS and JavaScript
