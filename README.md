@@ -34,6 +34,7 @@ By default, SkipTo menu will inlcude the following places on the page:
 and options:
 * The "access key" is set to 0.
 * The menu is set not to wrap.
+* The menu is visible on keyboard focus only (can be changed to be always visible via the "onload" parameter).
 
 You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
 If you are using either WordPress plugin or Drupal module, you can change the SkipTo options under the "settings" section of your particular content management system. If, however, you are utilizing the plain vanilla Javascript, you will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
