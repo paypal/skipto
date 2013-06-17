@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 		},
 		clean: {
 			compiled: {
-				src: ["compiled/*", "./src/WordPress/skipTo/js/<%= pkg.name %>.js", "./src/Drupal/skipTo/js/<%= pkg.name %>.js"]
+				src: ["compiled/*", "./src/WordPress/skipTo/js/<%= pkg.name %>.min.js", "./src/Drupal/skipTo/js/<%= pkg.name %>.min.js"]
 			}
 		}
 
