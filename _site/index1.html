@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+		<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+		<meta name="description" content="Skipto"/>
+		<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+		<title>Skipto</title>
+	</head>
+
+	<body>
+		<!-- HEADER -->
+		<div id="header_wrap" class="outer">
+				<header class="inner" role="banner">
+					<a id="forkme_banner" href="https://github.com/paypal/SkipTo">View on GitHub</a>
+					<h1 id="project_title">Skipto</h1>
+					<section id="downloads">
+						<a class="zip_download_link" href="https://github.com/paypal/SkipTo/zipball/master">Download this project as a .zip file</a>
+						<a class="tar_download_link" href="https://github.com/paypal/SkipTo/tarball/master">Download this project as a tar.gz file</a>
+					</section>
+				</header>
+		</div>
+
+		<!-- MAIN CONTENT -->
+		<div id="main_content_wrap" class="outer">
+			<section id="main_content" class="inner" role="main">
+				<h1> <a name="skipto-v10" class="anchor" href="#skipto-v10"><span class="octicon octicon-link"></span></a>SkipTo, v1.0</h1>
+
+					<p>SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)! The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.</p>
+					
+					<h2><a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h2>
+
+					<ol>
+						<li> The SkipTo menu becomes visible the first time the user tabs into the page.</li>
+						<li> Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.
+						</li>
+						<li> Use arrow keys to select your choice and press ENTER to skip to it.</li>
+						<li> If you decide to reach the menu again, simply press the built-in access key (0 by default).See the notes on <a href="#accesskeys">Access keys</a> for More information on how to use them.</li>
+					</ol>
+
+					<h2>
+						<a name="wow-how-do-i-get-it-on-my-web-site" class="anchor" href="#wow-how-do-i-get-it-on-my-web-site"><span class="octicon octicon-link"></span></a>Wow, how do I get it on my web site?
+					</h2>
+
+					<p>If you are using Drupal or Wordpress, you are in great luck! We are providing plugins for both of these content management systems. Simply download the plugins and install it just like you would install any other plugins.
+						<ol>
+							<li><a href="./downloads/WordPress/SkipTo.zip">Wordpress plugin zip</a></li>
+					  	<li><a href="./downloads/Drupal/SkipTo.tar">Drupal plugin Tar</a></li>
+					  	<li><a href="./downloads/js/SkipTo.user.js">GreaseMonkey User Script</a></li>
+					  	<li>
+							<a href="javascript:(function(){var scr=document.createElement('SCRIPT');scr.type='text/javascript';scr.src='http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js?';document.getElementsByTagName('head')[0].appendChild(scr);})();">Skip To</a> bookmarklet
+						</li>	
+
+					  </ol>	
+					</p>
+
+					<h2>
+						<a name="what-about-plain-javascript" class="anchor" href="#what-about-plain-javascript"><span class="octicon octicon-link"></span></a>What about plain Javascript?
+					</h2>
+
+					<p>All you need are either skipTo.js or skip.min.js from the "compiled/js" directory. Please note that skipTo.min.js is a minified (a lighter version) of the script.
+					If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.</p>
+
+					<p>To use the skipTo script, just include it at the bottom of your HTML page or template, as follows:</p>
+
+					<p><code>&lt;script type="text/javascript" src="SkipTo.min.js"&gt;&lt;/script&gt;</code></p>
+					<p>	You can also download <a href="./downloads/js/SkipTo.min.js">SkipTo.min.js</a> for including it from your source
+					</p>
+					<p>Please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.</p>
+						
+					<h2>
+					<a name="configuring-skipto-options" class="anchor" href="#configuring-skipto-options"><span class="octicon octicon-link"></span></a>Configuring SkipTo options</h2>
+
+					<p>By default, SkipTo menu will inlcude the following places on the page:</p>
+
+					<ul>
+					<li>Heading (level 1, 2 and 3).</li>
+					<li>ARIA landmarks (navigation, main and search).</li>
+					</ul><p>and options:</p>
+
+					<ul>
+					<li>The "access key" is set to 0.</li>
+					<li>The menu is set not to wrap.</li>
+					<li>SkipTo link is visible when it receives focus.You can set it to "onLoad" to make it visible always</li>
+
+					</ul><p>You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
+					If you are using either WordPress plugin or Drupal module, you can change the SkipTo options under the "settings" section of your particular content management system. If, however, you are utilizing the plain vanilla Javascript, you will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:</p>
+
+					<div class="highlight">
+<pre><span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">skipToConfig</span> <span class="o">=</span>
+<span class="p">{</span>
+	<span class="s2">"settings"</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s2">"skipTo"</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s2">"headings"</span><span class="o">:</span> <span class="s2">"h1 ,h2, h3"</span><span class="p">,</span>
+		<span class="s2">"landmarks"</span><span class="o">:</span> <span class="s2">"[role=navigation],[role=main],[role=search]"</span><span class="p">,</span>
+		<span class="s2">"accesskey"</span><span class="o">:</span> <span class="s2">"0"</span><span class="p">,</span>
+		<span class="s2">"wrap"</span><span class="o">:</span> <span class="s2">"true"</span><span class="p">,</span>
+		<span class="s2">"visibility"</span><span class="o">:</span> <span class="s2">"onFocus"</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nt">&lt;/script&gt;</span>
+</pre>
+					</div>
+
+					<p>The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.</p>
+
+					<h2>
+						<a name="compiling-css-and-javascript" class="anchor" href="#compiling-css-and-javascript"><span class="octicon octicon-link"></span></a>Compiling CSS and JavaScript
+					</h2>
+
+					<p>You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.</p>
+
+					<ol>
+						<li> Get NodeJS from <a href="http://nodejs.org">http://nodejs.org</a> and install it on the operating system of your choice.</li>
+						<li> Get the latest code from Github from <a href="http://github.com/paypal/SkipTo">http://github.com/paypal/SkipTo</a>.</li>
+					</ol>
+
+					<p>After unzipping or downloading the source code into the directory of your choice, switch to it and type these commands:</p>
+<pre><code>$ sudo npm install grunt-cli -g
+$ npm install
+$ grunt</code></pre>
+					</li>
+					<li><p>You should have a new directory called "compiled" with the necessary files in it.</p></li>
+					<li><p>See instructions above on which files you need to get the SkipTo script running on your web site.</p></li>
+					</ol><h2>
+					<a name="cleaning-up" class="anchor" href="#cleaning-up"><span class="octicon octicon-link"></span></a>Cleaning up</h2>
+
+					<p>If you would like to revert your local code repository to its initial state, simply run </p>
+
+					<pre><code>$ grunt clean
+					</code></pre>
+
+					<p>from the root directory of your repository.</p>
+
+					<h2><a name="of-course-we-want-feedback" class="anchor" href="#of-course-we-want-feedback"><span class="octicon octicon-link"></span></a>Of course, we want feedback!</h2>
+
+					<p>Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.</p>
+
+					<p>Happy skipping! PayPal Accessibility Gang<a href="http://www.twitter.com/PayPalInclusive"></a></p>
+
+
+					<h2 id="authors">Authors</h2>
+					<p>
+						<ul>
+						<li>
+							<strong>Nawaz Khan</strong>&nbsp;||&nbsp;<a href="https://github.com/mpnkhan">https://github.com/mpnkhan</a> || <a href="https://twitter.com/mpnkhan">@mpnkhan</a>
+						</li>
+						<li>
+							<strong>Victor Tsaran</strong>&nbsp;||&nbsp;<a href="https://github.com/vick08">https://github.com/vick08</a> || <a href="https://twitter.com/vick08">@vick08</a>
+
+						</li>
+						<li>
+			<strong>Ron Feathers</strong>&nbsp;||&nbsp;<a href="https://github.com/rfeathers">https://github.com/rfeathers</a> || <a href="https://twitter.com/ronfeathers">@ronfeathers</a>
+						</li>
+
+						<li>
+							<strong>Marc Kocher</strong>&nbsp;||&nbsp;<a href="https://github.com/mdkocher">https://github.com/mdkocher</a> || <a href="https://twitter.com/marckocher">@marckocher</a>
+						</li>
+						<li>
+							**The rest of the PayPal Accessibility Team.
+						</li>	
+					</p>
+
+					<h2 id="accesskeys">Access keys</h2>
+					<p>
+						Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
+					</p>
+					<ul>
+						<li> Microsoft Internet Explorer -- ALT+0.</li>
+						<li> Mozilla Firefox -- ALT+SHIFT+0.</li>
+						<li> Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).</li>
+						<li> Safari -- CONTROL+0.</li>
+					</ul>
+
+
+			</section>
+		</div>
+
+		<!-- FOOTER  -->
+		<div id="footer_wrap" class="outer" role="contentinfo">
+			<footer class="inner">
+				<p class="copyright">Skipto maintained by <a href="https://github.com/paypal">PayPal</a></p>
+				<p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+			</footer>
+		</div>
+<script>
+	var SkipToConfig =	{
+		"settings": {
+			"skipTo": {
+				"headings": "h1 ,h2, h3",
+				"landmarks": "[role=banner],[role=main],[role=search]",
+				"accesskey": "0",
+				"wrap": "true"
+			}
+		}
+	};
+
+</script>
+
+<script type="text/javascript" src="downloads/js/SkipTo.min.js"></script>      
+
+	</body>
+</html>
