@@ -1,4 +1,3 @@
-markdown:      maruku
-markdown_ext:  markdown,mkd,mkdn,md
+markdown: redcarpet
 path: http://paypal.github.io/SkipTo
 modulename : SkipTo

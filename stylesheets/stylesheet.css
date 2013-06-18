@@ -106,7 +106,7 @@ footer p {
 
 a {
   text-decoration: none;
-  color: #007edf;
+  color: #1164C1;
   text-shadow: none;
 
   transition: color 0.5s ease;
@@ -121,14 +121,11 @@ a {
   -ms-transition: text-shadow 0.5s ease;
 }
 
-#main_content a:hover {
-  color: #0069ba;
-  text-shadow: #0090ff 0px 0px 2px;
-}
+a:hover, a:focus {text-decoration: underline;}
 
-footer a:hover {
-  color: #43adff;
-  text-shadow: #0090ff 0px 0px 2px;
+footer a {
+  color: #F2F2F2;
+  text-decoration: underline;
 }
 
 em {
@@ -281,7 +278,7 @@ Full-Width Styles
   z-index: 10;
   padding: 10px 50px 10px 10px;
   color: #fff;
-  background: url('../images/blacktocat.png') #0090ff no-repeat 95% 50%;
+  background: url('../images/blacktocat.png') #1164C1 no-repeat 95% 50%;
   font-weight: 700;
   box-shadow: 0 0 10px rgba(0,0,0,.5);
   border-bottom-left-radius: 2px;
@@ -357,7 +354,7 @@ Full-Width Styles
 }
 
 #main_content_wrap {
-  background: #f2f2f2;
+  background: #fff;
   border-top: 1px solid #111;
   border-bottom: 1px solid #111;
 }
