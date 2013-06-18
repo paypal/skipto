@@ -1,6 +1,8 @@
 ---
 layout: index
 ---
+
+
 # SkipTo
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
@@ -48,15 +50,15 @@ If you are using either WordPress plugin or Drupal module, you can change the Sk
 <script>
 var skipToConfig =
 {
-"settings": {
-"skipTo": {
-"headings": "h1 ,h2, h3",
-"landmarks": "[role=navigation],[role=main],[role=search]",
-"accesskey": "0",
-"wrap": "true",
-"visibility": "onfocus"
-}
-}
+	"settings": {
+	"skipTo": {
+	"headings": "h1 ,h2, h3",
+	"landmarks": "[role=navigation],[role=main],[role=search]",
+	"accesskey": "0",
+	"wrap": "true",
+	"visibility": "onfocus"
+	}
+	}
 };
 
 </script>
