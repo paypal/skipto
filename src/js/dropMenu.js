@@ -27,7 +27,6 @@
 			if(typeof this.btn.dataset.wrap !== 'undefined') {
 				this.wrap = this.btn.dataset.wrap;
 			}
-			//toggles (i.e. adds or removes) the existence of a class in classList
 			this.prt.classList.toggle('open');
 			//Set Aria-expanded to true only if the class open exists in dropMenu div
 			if (this.prt.classList.contains('open')) {
@@ -41,7 +40,7 @@
 		navigateMenus: function (e) {
 			var keyCode = e.keyCode || e.which,
 				arrow = {
-					enter: 32,
+					spacebar: 32,
 					up: 38,
 					esc: 27,
 					down: 40
@@ -49,6 +48,7 @@
 				isActive = this.prt.classList.contains('open'),
 				items = this.prt.querySelectorAll('[role=menu] li:not(.divider) a'),
 				index = Array.prototype.indexOf.call(items, e.target);
+	
 
 			if (!/(32|38|40|27)/.test(keyCode)) {
 				return;
@@ -98,12 +98,20 @@
 				i,
 				j,
 				item;
+				
 			for (k = 0, l = toggle.length; k < l; k = k + 1) {
 				toggleBtn = toggle[k];
 				menu = document.getElementById(toggleBtn.dataset.target);
 				items = menu.getElementsByTagName("a");
 
 				toggleBtn.addEventListener('click', this.toggleOptList.bind(this), false);
+				toggleBtn.addEventListener('keydown', function(e){
+					var keyCode = e.keyCode || e.which;
+					if(keyCode === '32'){
+						this.click(e);
+						e.preventDefault();
+					}
+				});
 
 				for (i = 0, j = items.length; i < j; i = i + 1) {
 					item = items[i];

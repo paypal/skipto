@@ -19,3 +19,7 @@ node_modules
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Jekyll Generated pages
+######################
+_site
