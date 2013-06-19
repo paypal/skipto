@@ -37,8 +37,8 @@
 			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">Skip to<b class="caret"></b></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-labelledby="drop4" style="top:3%; text-align:left">';
 
-			this.getHeadings();
 			this.getLandMarks();
+			this.getHeadings();
 
 			this.dropdownHTML += '</ul>';
 
@@ -91,8 +91,13 @@
 				this.dropdownHTML += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';
 				this.dropdownHTML += ' href="#';
 				this.dropdownHTML += id1 + '">';
-				this.dropdownHTML += role;
-				this.dropdownHTML += ' landmark role</a></li>';
+				this.dropdownHTML += role.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+				if (role === 'main') {
+					this.dropdownHTML += ' Content';
+				}else{
+					this.dropdownHTML += ' Landmark role';
+				}
+				this.dropdownHTML += '</a></li>';
 			}
 		},
 		addStyles: function (cssString) {
