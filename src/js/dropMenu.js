@@ -6,6 +6,7 @@
 	Dropdown.prototype = {
 		btn: null,
 		prt: null,
+		menu: null,
 		wrap: "false",
 
 		clearMenus: function () {
@@ -23,9 +24,10 @@
 		toggleOptList: function (e) {
 			this.btn = e.target;
 			this.prt = this.btn.parentNode;
+			this.menu = document.getElementById(this.btn.getAttribute('data-target'));
 
-			if(typeof this.btn.dataset.wrap !== 'undefined') {
-				this.wrap = this.btn.dataset.wrap;
+			if(typeof this.btn.getAttribute('data-wrap') !== 'undefined') {
+				this.wrap = this.btn.getAttribute('data-wrap');
 			}
 			this.prt.classList.toggle('open');
 			//Set Aria-expanded to true only if the class open exists in dropMenu div
@@ -34,7 +36,11 @@
 			} else {
 				this.btn.setAttribute('aria-expanded', 'false');
 			}
-			this.prt.querySelectorAll('[role=menu] li:not(.divider) a')[0].focus();
+			try {
+				this.menu.getElementsByTagName('a')[0].focus();
+			}
+			catch(err){
+			}
 		},
 
 		navigateMenus: function (e) {
@@ -46,7 +52,7 @@
 					down: 40
 				},
 				isActive = this.prt.classList.contains('open'),
-				items = this.prt.querySelectorAll('[role=menu] li:not(.divider) a'),
+				items = this.menu.getElementsByTagName("a"),
 				index = Array.prototype.indexOf.call(items, e.target);
 	
 
@@ -97,14 +103,17 @@
 				items,
 				i,
 				j,
+				self=this,
 				item;
 				
 			for (k = 0, l = toggle.length; k < l; k = k + 1) {
 				toggleBtn = toggle[k];
-				menu = document.getElementById(toggleBtn.dataset.target);
+				menu = document.getElementById(toggleBtn.getAttribute('data-target'));
 				items = menu.getElementsByTagName("a");
 
-				toggleBtn.addEventListener('click', this.toggleOptList.bind(this), false);
+				toggleBtn.addEventListener('click', function(e) {
+					self.toggleOptList(e);
+				});
 				toggleBtn.addEventListener('keydown', function(e){
 					var keyCode = e.keyCode || e.which;
 					if(keyCode === '32'){
@@ -115,8 +124,13 @@
 
 				for (i = 0, j = items.length; i < j; i = i + 1) {
 					item = items[i];
-					item.addEventListener('keydown', this.navigateMenus.bind(this));
-					item.addEventListener('blur', this.clearMenus.bind(this));
+					item.addEventListener('keydown', function(e) {
+						self.navigateMenus(e);
+					});
+
+					item.addEventListener('blur', function(e) {
+						self.clearMenus(e);
+					});
 				}
 			}
 		} //end init
