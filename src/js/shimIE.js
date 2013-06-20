@@ -169,6 +169,9 @@
 /* End classList.js */
 
 	// Apply addEventListener to all the prototypes where it should be available.
+
+if (!Window.prototype.addEventListener){
+
 	HTMLDocument.prototype.addEventListener =
 	Element.prototype.addEventListener =
 	Window.prototype.addEventListener = function (type, fCallback, capture)
@@ -206,8 +209,7 @@
 	  });
 	}
 
-	// Extend Event.prototype with a few of the W3C standard APIs on Event
-	// Add 'target' object (read-only)
+	// Extend Event.prototype with a few of the W3C standard APIs on Event Add 'target' object (read-only)
 	Object.defineProperty(Event.prototype, 'target', {
 	  get: function() {
 		return this.srcElement;
@@ -220,7 +222,7 @@
 	Event.prototype.preventDefault = function () {
 	  this.returnValue = false;
 	};
-
+}
  // http://ajaxian.com/archives/creating-a-queryselector-for-ie-that-runs-at-native-speed
 
   if (!document.querySelectorAll) {
@@ -290,6 +292,5 @@ if (!Array.prototype.indexOf) {
 	return -1;
   }
 }
-
 
 }());
