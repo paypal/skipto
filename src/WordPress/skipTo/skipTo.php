@@ -10,7 +10,6 @@
 */
 
 	$skipTo_url = 'http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js';
-	//$skipTo_url =  plugins_url( 'skipTo/js/SkipTo.min.js' , dirname(__FILE__) );
 
 	function skipto_load_js_and_css() {
 		global $skipTo_url;
