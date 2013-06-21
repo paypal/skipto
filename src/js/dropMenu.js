@@ -116,7 +116,7 @@
 				});
 				toggleBtn.addEventListener('keydown', function(e){
 					var keyCode = e.keyCode || e.which;
-					if(keyCode === '32'){
+					if(keyCode === 32){						//SpaceBar should open the menu
 						this.click(e);
 						e.preventDefault();
 					}
