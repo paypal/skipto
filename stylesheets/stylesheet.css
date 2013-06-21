@@ -100,7 +100,7 @@ p {
   margin: 10px 0 15px 0;
 }
 
-footer p {
+#footer_wrap p {
   color: #f2f2f2;
 }
 
@@ -123,7 +123,7 @@ a {
 
 a:hover, a:focus {text-decoration: underline;}
 
-footer a {
+#footer_wrap a {
   color: #F2F2F2;
   text-decoration: underline;
 }
