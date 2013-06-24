@@ -71,7 +71,7 @@ module.exports = function(grunt) {
 				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
 				banner: '<%= banner %>',
 				mangle: false,
-				preserveComments: 'some'
+				sourceMappingURL: 'http://paypal.github.io/SkipTo/downloads/js/<%= pkg.name %>.min.map'
 				//	  , beautify: true
 			},
 			dist: {
