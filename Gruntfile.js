@@ -5,7 +5,14 @@ module.exports = function(grunt) {
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n' ,
+
+		bannerCond:	
+			'/*@cc_on @*/\n' +
+			'/*@if (@_jscript_version >= 5.8) @*/\n',
+
+		footer: '/*@end @*/\n',
+
 		greaseBanner: 
 			'// -----------------------------------------------------' + '\n' +
 			'// Title: Skip to Options User script' + '\n' +
@@ -44,7 +51,9 @@ module.exports = function(grunt) {
 		concat: {
 			core: {
 				options: {
-					separator: ';'
+					separator: ';',
+					banner: '<%= banner %> <%= bannerCond %>',
+					footer: '<%= footer %>'
 				},
 				src:   ['src/js/shimIE.js','src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js'],
 				dest:  './compiled/js/<%= pkg.name %>.js'
@@ -61,7 +70,8 @@ module.exports = function(grunt) {
 			options: {
 				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
 				banner: '<%= banner %>',
-				mangle: false
+				mangle: false,
+				preserveComments: 'some'
 				//	  , beautify: true
 			},
 			dist: {
