@@ -22,6 +22,7 @@ All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" direct
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
+
 ```html
 <script type="text/javascript" src="http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js"></script>
 ```
