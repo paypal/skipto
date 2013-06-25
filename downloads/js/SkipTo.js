@@ -1,3 +1,8 @@
+/*! SkipTo - v1.0.0 - 2013-06-25
+* https://github.paypal.com/pkhan/SkipTo
+* Copyright (c) 2013 ; Licensed Apache-2.0 */
+ /*@cc_on @*/
+/*@if (@_jscript_version >= 5.8) @*/
 (function () {
 
 	/*global self, document, DOMException */
@@ -568,4 +573,4 @@ if (!Array.prototype.indexOf) {
 
 	Dropdown.prototype.init();
 
-}());
+}());/*@end @*/

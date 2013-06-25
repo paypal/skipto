@@ -3,7 +3,9 @@ layout: index
 ---
 
 
-# SkipTo
+# SkipTo, version 1.0
+## by PayPal Accessibility Team 
+see the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
@@ -25,11 +27,12 @@ All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" direct
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
+
 ```html
-<script type="text/javascript" src="SkipTo.min.js"></script>
+<script type="text/javascript" src="http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js"></script>
 ```
 
-Please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
+Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
 
 ## Configuring SkipTo options
 By default, SkipTo menu will inlcude the following places on the page:
@@ -95,7 +98,7 @@ Happy skipping!
 PayPal Accessibility Gang
 (http://www.twitter.com/PayPalInclusive)
 
-## Authors
+## <a name="authors"></a>Authors
 **Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
 
@@ -110,7 +113,7 @@ PayPal Accessibility Gang
 
 **The rest of the PayPal Accessibility Team.
 
-##Access keys
+## <a name="access-keys"></a>Access keys
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
 
 *  Microsoft Internet Explorer -- ALT+0.
