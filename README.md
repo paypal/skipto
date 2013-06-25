@@ -1,4 +1,6 @@
-# SkipTo
+# SkipTo, version 1.0
+## by PayPal Accessibility Team 
+see the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
@@ -90,7 +92,7 @@ Happy skipping!
 PayPal Accessibility Gang
 (http://www.twitter.com/PayPalInclusive)
 
-## Authors
+## <a name="authors"></a>Authors
 **Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
 
