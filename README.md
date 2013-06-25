@@ -23,10 +23,10 @@ If you would like to be able to debug your production-ready script, include the 
 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
 ```html
-<script type="text/javascript" src="SkipTo.min.js"></script>
+<script type="text/javascript" src="http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js"></script>
 ```
 
-Please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
+Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
 
 ## Configuring SkipTo options
 By default, SkipTo menu will inlcude the following places on the page:
