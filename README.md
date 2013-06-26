@@ -14,7 +14,7 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## Wow, how do I get it on my web site?
-If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems from the main [SkipTo Github Page](http://paypal.github.io/SkipTo).
+If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems that you can [download from the SkipTo Github Page](http://paypal.github.io/SkipTo).
 To sweeten your day even more, the GreaseMonkey script and Safari bookmarklet are also available from the page above. Enjoy!
 
 ## What about plain JavaScript?
