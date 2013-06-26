@@ -14,7 +14,7 @@
 	function skipto_load_js_and_css() {
 		global $skipTo_url;
 
-		wp_register_script( 'skipInit.js', plugins_url( 'skipTo/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
+		wp_register_script( 'skipInit.js', plugins_url( 'skip-to/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
 		wp_enqueue_script( 'skipInit.js' );
 
 		wp_register_script( 'SkipTo.js', $skipTo_url, '', '1.1', true);
