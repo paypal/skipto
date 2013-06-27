@@ -7,11 +7,11 @@
     "Navigation",
     "Skip to"
   ],
-  "homepage": "https://github.paypal.com/pkhan/SkipTo",
+  "homepage": "https://github.com/paypal/SkipTo",
   "author": "PayPal Inc.",
   "repository": {
     "type": "git",
-    "url": "https://github.paypal.com/pkhan/SkipTo.git"
+    "url": "https://github.com/paypal/SkipTo"
   },
   "licenses": [
     {
