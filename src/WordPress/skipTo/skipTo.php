@@ -3,13 +3,13 @@
 	Plugin Name: SkipTo
 	Plugin URI: https://github.com/paypal/SkipTo
 	Description: A simple way to expand the usefullness of your site's "Skip To Content" functionality.
-	Version: 0.1.0
+	Version: 0.1.2
 	Author: Nawaz Khan, Victor Tsaran, Ron Feathers, and Marc Kocher
 	Author URI: https://github.com/paypal
 	License: Apache-2.0
 */
 
-	$skipTo_url = 'http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js';
+	$skipTo_url = '//www.paypalobjects.com/webstatic/uie/SkipTo.min.js';
 
 	function skipto_load_js_and_css() {
 		global $skipTo_url;

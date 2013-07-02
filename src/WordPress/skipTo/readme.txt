@@ -2,13 +2,13 @@
 Plugin Name: SkipTo
 Plugin URI: https://github.com/paypal/SkipTo
 Description: A simple way to expand the usefullness of your site's "Skip To Content" functionality.
-Version: 0.1.0
+Version: 0.1.2
 Tags: skip to, accessibility
 License: Apache-2.0
 
 == Description ==
 
-# SkipTo
+# [SkipTo](http://paypal.github.io/SkipTo/)
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
@@ -28,10 +28,21 @@ If you would prefer to do things manually then follow these instructions:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Edit settings
 
+== Screenshots ==
+
+1. Example of the menu in action.
+
 == Changelog ==
 
 = 0.1.0 =
 * Initial release
+
+= 0.1.1 =
+* Changed the path to the JS to reflect the plugin name.
+
+= 0.1.2 =
+* Changed the SkipToMin.js to pull from the PayPal CDN, so the plugin now supports HTTPS. 
+* Updates to the readme. 
 
 == Authors ==
 **Nawaz Khan**
