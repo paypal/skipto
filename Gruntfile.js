@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 		banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n' ,
 
 		bannerCond:	
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 			'// Date: <%=grunt.template.today("yyyy-mm-dd")%>' + '\n' +
 			'// Author: <%= pkg.author %>' + '\n' +
 			'// Homepage: <%= pkg.homepage %>' + '\n' +
-			'// Copyright (c) 2013, PayPal Inc' + '\n' +
+			'// Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>' + '\n' +
 			'// -----------------------------------------------------' + '\n' +
 			'//' + '\n' +
 			'// ==UserScript==' + '\n' +
@@ -69,7 +69,8 @@ module.exports = function(grunt) {
 		uglify: {
 			options: {
 				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
-				banner: '<%= banner %>',
+				banner: '<%= banner %> <%= bannerCond %>',
+				footer: '<%= footer %>',
 				mangle: false,
 				sourceMappingURL: 'http://paypal.github.io/SkipTo/downloads/js/<%= pkg.name %>.min.map'
 				//	  , beautify: true
