@@ -112,7 +112,7 @@
 				if (role === 'main') {
 					this.dropdownHTML += ' Content';
 				}else{
-					this.dropdownHTML += ' Landmark role';
+					this.dropdownHTML += ' Landmark';
 				}
 				this.dropdownHTML += '</a></li>';
 			}
