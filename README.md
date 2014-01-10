@@ -119,4 +119,4 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Copyright and license
 
-Copyright 2014, eBay Software Foundation under [the BSD license](LICENSE.md).
+Copyright 2014, eBay Software Foundation under the [BSD license](LICENSE.md).
