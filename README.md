@@ -115,8 +115,8 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Mozilla Firefox -- ALT+SHIFT+0.
 *  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
 *  Safari -- CONTROL+0.
-*  
+
 
 ## Copyright and license
 
-Copyright 2013, eBay Software Foundation under [the BSD license](BSDLicense.txt).
+Copyright 2014, eBay Software Foundation under [the BSD license](LICENSE.md).
