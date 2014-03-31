@@ -20,11 +20,12 @@
 	var SkipTo = {};
 
 	SkipTo.prototype = {
-		hasHeading: false,
+		elementsArr:  [],
 		dropdownHTML: null,
 		config: {
 			headings: 'h1, h2, h3, h4',
 			landmarks: '[role="banner"], [role="navigation"], [role="main"], [role="search"]',
+			ids: '#a1, #a2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus"
@@ -47,7 +48,8 @@
 			this.setUpConfig(appConfig);
 
 			var div = document.createElement('div'),
-				attachElement = document.body;
+				attachElement = document.body,
+				htmlStr = '';
 			this.addStyles("@@cssContent");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility +'" id="drop4" role="button" aria-haspopup="true" ';
@@ -56,10 +58,12 @@
 
 			this.getLandMarks();
 			this.getHeadings();
+			this.getIdElements();
 
-			this.dropdownHTML += '</ul>';
+			htmlStr = this.getdropdownHTML();
+			this.dropdownHTML += htmlStr + '</ul>';
 
-			if (this.hasHeading) {
+			if ( htmlStr.length >0 ) {
 				div.className = "dropMenu";
 				attachElement.insertBefore(div, attachElement.firstChild);
 				div.innerHTML = this.dropdownHTML;
@@ -72,19 +76,15 @@
 				i,
 				j,
 				heading,
-				id;
+				id,
+				val;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
-				this.hasHeading = true;
 				heading = headings[i];
 				id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
 				heading.tabIndex = "-1";
 				heading.setAttribute('id', id);
-				this.dropdownHTML += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';
-				this.dropdownHTML += ' href="#';
-				this.dropdownHTML += id;
-				this.dropdownHTML += '">';
-				this.dropdownHTML += heading.innerHTML.replace(/<\/?[^>]+>/gi, '');
-				this.dropdownHTML += '</a></li>';
+				val = heading.innerHTML.replace(/<\/?[^>]+>/gi, '');
+				this.elementsArr[id] = val;
 			}
 		},
 
@@ -94,9 +94,10 @@
 				l,
 				landmark,
 				id1,
-				role;
+				role,
+				val;
+
 			for (k = 0, l = landmarks.length; k < l; k = k + 1) {
-				this.hasHeading = true;
 				landmark = landmarks[k];
 				id1 = landmark.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
 				landmark.tabIndex = "-1";
@@ -105,18 +106,50 @@
 				if (role === 'contentinfo') {
 					role = 'footer';
 				} //contentinfo is ambiguous
-				this.dropdownHTML += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';
-				this.dropdownHTML += ' href="#';
-				this.dropdownHTML += id1 + '">';
-				this.dropdownHTML += role.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+				val = role.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 				if (role === 'main') {
-					this.dropdownHTML += ' Content';
+					val += ' Content';
 				}else{
-					this.dropdownHTML += ' Landmark';
+					val += ' Landmark';
 				}
-				this.dropdownHTML += '</a></li>';
+				this.elementsArr[id1] = val;
 			}
 		},
+
+		getIdElements: function () {
+			var els = document.querySelectorAll(this.config.ids),
+				i,
+				j,
+				el,
+				id,
+				val;
+
+			for (i = 0, j = els.length; i < j; i = i + 1) {
+				el = els[i];
+				id = el.getAttribute('id');
+				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();
+
+				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
+				this.elementsArr[id] = val;
+			}
+		},
+
+		getdropdownHTML: function(){
+			var key,
+				val,
+				htmlStr = '' ;
+
+			// window.console.log(this.elementsArr);
+
+			for (key in this.elementsArr) {
+				val = this.elementsArr[key];
+				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+				htmlStr += key + '">' + val;
+				htmlStr += '</a></li>';
+			}
+			return htmlStr;
+		},
+
 		addStyles: function (cssString) {
 			var ss1 = document.createElement('style'),
 				hh1 = document.getElementsByTagName('head')[0],
