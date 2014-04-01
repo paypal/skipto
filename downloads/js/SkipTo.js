@@ -1,6 +1,6 @@
-/*! SkipTo - v1.0.0 - 2013-12-06
+/*! SkipTo - v1.0.0 - 2014-04-01
 * https://github.com/paypal/SkipTo
-* Copyright (c) 2013 eBay Software Foundation; Licensed BSD */
+* Copyright (c) 2014 eBay Software Foundation; Licensed BSD */
  /*@cc_on @*/
 /*@if (@_jscript_version >= 5.8) @*/
 /* ========================================================================
@@ -306,11 +306,12 @@ if (!Array.prototype.indexOf) {
 	var SkipTo = {};
 
 	SkipTo.prototype = {
-		hasHeading: false,
+		elementsArr:  [],
 		dropdownHTML: null,
 		config: {
-			headings: 'h1, h2, h3',
-			landmarks: '[role=navigation], [role="main"], [role="search"]',
+			headings: 'h1, h2, h3, h4',
+			landmarks: '[role="banner"], [role="navigation"], [role="main"], [role="search"]',
+			ids: '#a1, #a2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus"
@@ -333,7 +334,8 @@ if (!Array.prototype.indexOf) {
 			this.setUpConfig(appConfig);
 
 			var div = document.createElement('div'),
-				attachElement = document.body;
+				attachElement = document.body,
+				htmlStr = '';
 			this.addStyles(".skipTo{padding:.5em;position:absolute;background:transparent;color:#000;-webkit-transition:top .5s ease-out,background .5s linear;-moz-transition:top .5s ease-out,background .5s linear;-o-transition:top .5s ease-out,background .5s linear;transition:top .5s ease-out,background .5s linear}.skipTo:focus{position:absolute;top:0;left:0;background:#ccc;-webkit-transition:top .1s ease-in,background .3s linear;-moz-transition:top .1s ease-in,background .3s linear;-o-transition:top .1s ease-in,background .3s linear;transition:top .1s ease-in,background .3s linear}.onFocus{top:-5em;left:0}.onLoad{top:0;left:0;background:#ccc}.dropup,.dropMenu{position:relative}.dropMenu-toggle{*margin-bottom:-3px}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0}.caret{display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #000;border-right:4px solid transparent;border-left:4px solid transparent;content:''}.dropMenu .caret{margin-top:8px;margin-left:2px}.dropMenu-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.dropMenu-menu.pull-right{right:0;left:auto}.dropMenu-menu .divider{*width:100%;height:1px;margin:9px 1px;*margin:-5px 0 5px;overflow:hidden;background-color:#e5e5e5;border-bottom:1px solid #fff}.dropMenu-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:normal;line-height:20px;color:#333;white-space:nowrap;text-decoration:none}.dropMenu-menu>li>a:hover,.dropMenu-menu>li>a:focus,.dropMenu-submenu:hover>a,.dropMenu-submenu:focus>a{text-decoration:none;color:#fff;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.active>a,.dropMenu-menu>.active>a:hover,.dropMenu-menu>.active>a:focus{color:#fff;text-decoration:none;outline:0;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.disabled>a,.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{color:#999}.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{text-decoration:none;background-color:transparent;background-image:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);cursor:default}.open{*z-index:1000}.open>.dropMenu-menu{display:block}.pull-right>.dropMenu-menu{right:0;left:auto}.dropup .caret,.navbar-fixed-bottom .dropMenu .caret{border-top:0;border-bottom:4px solid #000;content:''}.dropup .dropMenu-menu,.navbar-fixed-bottom .dropMenu .dropMenu-menu{top:auto;bottom:100%;margin-bottom:1px}.dropMenu-submenu{position:relative}.dropMenu-submenu>.dropMenu-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px}.dropMenu-submenu:hover>.dropMenu-menu{display:block}.dropup .dropMenu-submenu>.dropMenu-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0}.dropMenu-submenu>a:after{display:block;content:' ';float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#ccc;margin-top:5px;margin-right:-10px}.dropMenu-submenu:hover>a:after{border-left-color:#fff}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left>.dropMenu-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility +'" id="drop4" role="button" aria-haspopup="true" ';
@@ -342,10 +344,12 @@ if (!Array.prototype.indexOf) {
 
 			this.getLandMarks();
 			this.getHeadings();
+			this.getIdElements();
 
-			this.dropdownHTML += '</ul>';
+			htmlStr = this.getdropdownHTML();
+			this.dropdownHTML += htmlStr + '</ul>';
 
-			if (this.hasHeading) {
+			if ( htmlStr.length >0 ) {
 				div.className = "dropMenu";
 				attachElement.insertBefore(div, attachElement.firstChild);
 				div.innerHTML = this.dropdownHTML;
@@ -358,19 +362,15 @@ if (!Array.prototype.indexOf) {
 				i,
 				j,
 				heading,
-				id;
+				id,
+				val;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
-				this.hasHeading = true;
 				heading = headings[i];
 				id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
 				heading.tabIndex = "-1";
 				heading.setAttribute('id', id);
-				this.dropdownHTML += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';
-				this.dropdownHTML += ' href="#';
-				this.dropdownHTML += id;
-				this.dropdownHTML += '">';
-				this.dropdownHTML += heading.innerHTML.replace(/<\/?[^>]+>/gi, '');
-				this.dropdownHTML += '</a></li>';
+				val = heading.innerHTML.replace(/<\/?[^>]+>/gi, '');
+				this.elementsArr[id] = val;
 			}
 		},
 
@@ -380,9 +380,10 @@ if (!Array.prototype.indexOf) {
 				l,
 				landmark,
 				id1,
-				role;
+				role,
+				val;
+
 			for (k = 0, l = landmarks.length; k < l; k = k + 1) {
-				this.hasHeading = true;
 				landmark = landmarks[k];
 				id1 = landmark.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
 				landmark.tabIndex = "-1";
@@ -391,18 +392,50 @@ if (!Array.prototype.indexOf) {
 				if (role === 'contentinfo') {
 					role = 'footer';
 				} //contentinfo is ambiguous
-				this.dropdownHTML += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem"';
-				this.dropdownHTML += ' href="#';
-				this.dropdownHTML += id1 + '">';
-				this.dropdownHTML += role.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+				val = role.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 				if (role === 'main') {
-					this.dropdownHTML += ' Content';
+					val += ' Content';
 				}else{
-					this.dropdownHTML += ' Landmark role';
+					val += ' Landmark';
 				}
-				this.dropdownHTML += '</a></li>';
+				this.elementsArr[id1] = val;
 			}
 		},
+
+		getIdElements: function () {
+			var els = document.querySelectorAll(this.config.ids),
+				i,
+				j,
+				el,
+				id,
+				val;
+
+			for (i = 0, j = els.length; i < j; i = i + 1) {
+				el = els[i];
+				id = el.getAttribute('id');
+				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();
+
+				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
+				this.elementsArr[id] = val;
+			}
+		},
+
+		getdropdownHTML: function(){
+			var key,
+				val,
+				htmlStr = '' ;
+
+			// window.console.log(this.elementsArr);
+
+			for (key in this.elementsArr) {
+				val = this.elementsArr[key];
+				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+				htmlStr += key + '">' + val;
+				htmlStr += '</a></li>';
+			}
+			return htmlStr;
+		},
+
 		addStyles: function (cssString) {
 			var ss1 = document.createElement('style'),
 				hh1 = document.getElementsByTagName('head')[0],
