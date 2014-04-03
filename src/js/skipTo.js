@@ -29,7 +29,8 @@
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus",
-			customClass: ""
+			customClass: "",
+			attachElement: document.body
 		},
 
 		setUpConfig: function (appConfig) {
@@ -49,7 +50,7 @@
 			this.setUpConfig(appConfig);
 
 			var div = document.createElement('div'),
-				attachElement = document.body,
+				attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
 				htmlStr = '';
 			this.addStyles("@@cssContent");
 
