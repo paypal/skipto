@@ -4,7 +4,8 @@
 @white:                 #fff;
 @grayDark:              #333;
 @linkColor:             #08c;
-@zindexdropMenu:          1000;
+@zindexdropMenu:        1000;
+@zindexskipTo:          1000;
 @linkColorHover:        darken(@linkColor, 15%);
 @grayLight:             #999;
 @dropMenuBackground:            @white;
@@ -105,6 +106,8 @@
 	top:0;
 	left: 0;
 	background: @skipToFocusbackgroundcolor;
+	z-index: @zindexskipTo;
+	text-decoration:underline;
 	.transition(~"top .1s ease-in, background .3s linear");
 }
 
