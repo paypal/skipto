@@ -1,7 +1,7 @@
 {
   "name": "SkipTo",
   "description": "This module provides a way for keyboard and screen reader users to skip to the most important places on the page from a single menu.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "keywords": [
     "Skip",
     "Navigation",
@@ -34,7 +34,7 @@
     "grunt-contrib-concat": "~0.3.0"
   },
   "readmeFilename": "README.md",
-  "gitHead": "0ea5fa4c470abca69a6e4cdb8b8b3131a90c3be4",
+  "gitHead": "641457dfeea57fbedfba5ba2a65ce0c33ac411b7",
   "main": "Gruntfile.js",
   "directories": {
     "example": "example",
