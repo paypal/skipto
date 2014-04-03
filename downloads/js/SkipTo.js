@@ -311,7 +311,7 @@ if (!Array.prototype.indexOf) {
 		config: {
 			headings: 'h1, h2, h3, h4',
 			landmarks: '[role="banner"], [role="navigation"], [role="main"], [role="search"]',
-			ids: '##SkipToA1, ##SkipToA2',
+			ids: '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus",
