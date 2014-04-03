@@ -25,10 +25,11 @@
 		config: {
 			headings: 'h1, h2, h3, h4',
 			landmarks: '[role="banner"], [role="navigation"], [role="main"], [role="search"]',
-			ids: '#a1, #a2',
+			ids: '##SkipToA1, ##SkipToA2',
 			accessKey: '0',
 			wrap: "false",
-			visibility: "onFocus"
+			visibility: "onFocus",
+			customClass: ""
 		},
 
 		setUpConfig: function (appConfig) {
@@ -52,7 +53,7 @@
 				htmlStr = '';
 			this.addStyles("@@cssContent");
 
-			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility +'" id="drop4" role="button" aria-haspopup="true" ';
+			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
 			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">Skip to<b class="caret"></b></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-labelledby="drop4" style="top:3%; text-align:left">';
 
