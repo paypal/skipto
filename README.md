@@ -1,4 +1,4 @@
-# SkipTo, version 1.0
+# SkipTo, version 2.0
 ## by PayPal Accessibility Team 
 see the [Authors](#authors) section for more information.
 
@@ -13,7 +13,7 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 3.  Use arrow keys to select your choice and press ENTER to skip to it.
 4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
-## Wow, how do I get it on my web site?
+## How do I get it on my web site?
 If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems that you can [download from the SkipTo Github Page](http://paypal.github.io/SkipTo).
 To sweeten your day even more, the GreaseMonkey script and Safari bookmarklet are also available from the page above. Enjoy!
 
@@ -32,8 +32,10 @@ Note that by default the path is set to load the script from the Github external
 ## Configuring SkipTo options
 By default, SkipTo menu will inlcude the following places on the page:
 
-*  Heading (level 1, 2 and 3).
-*  ARIA landmarks (navigation, main and search).
+*  Heading (level 1, 2, 3 and 4).
+*  ARIA landmarks (banner, navigation, main and search).
+*  Any element with the id specified via the configuration file.
+*  Any element with the custom class specified via the configuration file.
 
 and options:
 
@@ -50,19 +52,34 @@ var skipToConfig =
 {
 	"settings": {
 	"skipTo": {
-	"headings": "h1 ,h2, h3",
-	"landmarks": "[role=navigation],[role=main],[role=search]",
+	"headings": "h1, h2, h3, h4",
+	"landmarks": "[role=banner], [role=navigation], [role=main], [role=search]",
+	"ids": "#SkipToA1, #SkipToA2",
+	"customClass": "MyClass",
 	"accesskey": "0",
 	"wrap": "true",
-	"visibility": "onfocus"
+	"visibility": "onfocus",
+	"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
 	}
 	}
 };
-
 </script>
 ```
 
 The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.
+
+### Notes
+*  Most parameters are optional.
+*  SkipTo can be attached to any element on the page (see the "attachElement" parameter). if no "attachElement" is found, the script will be attached as the first element after body.
+*  When the custom class is specified (see the customClass parameter), the user can override the style, EG
+
+```CSS
+.dropMenu .MyCustomClass {
+	background:  red;
+	left: 50px;
+	top: 50px;
+}
+```
 
 ## Compiling CSS and JavaScript
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
