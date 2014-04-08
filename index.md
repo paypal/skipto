@@ -130,7 +130,7 @@ PayPal Accessibility Gang
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
-**The rest of the PayPal Accessibility Team.
+**The rest of the PayPal Accessibility Team.**
 
 ## <a name="access-keys"></a>Access keys
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
