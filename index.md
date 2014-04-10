@@ -110,6 +110,7 @@ If you would like to revert your local code repository to its initial state, sim
 grunt clean
 ```
 from the root directory of your repository.
+
 ## Of course, we want feedback!
 Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.
 
@@ -118,7 +119,7 @@ Happy skipping!
 PayPal Accessibility Gang
 (http://www.twitter.com/PayPalInclusive)
 
-## <a name="authors"></a>Authors
+## <a name="authors">Authors</a>
 **Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
 
@@ -133,7 +134,7 @@ PayPal Accessibility Gang
 
 **The rest of the PayPal Accessibility Team.**
 
-## <a name="access-keys"></a>Access keys
+## <a name="access-keys">Access keys</a>
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
 
 *  Microsoft Internet Explorer -- ALT+0.
