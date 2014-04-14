@@ -5,7 +5,7 @@ layout: index
 
 # SkipTo, version 2.0
 ## by PayPal Accessibility Team 
-see the [Authors](#authors) section for more information.
+See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
@@ -14,7 +14,7 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 
 ## How it works
 1.  The SkipTo menu becomes visible the first time the user tabs into the page.
-2.  Once the keyboard focus is on the menu, pressing the ENTER key will pull down the list of high-level headings and landmarks on the current page.
+2.  Once the keyboard focus is on the menu, pressing the ENTER or the SPACEBAR key will pull down the list of high-level headings and landmarks on the current page.
 3.  Use arrow keys to select your choice and press ENTER to skip to it.
 4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
@@ -37,7 +37,7 @@ To use the SkipTo script, just include it at the bottom of your HTML page or tem
 Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
 
 ## Configuring SkipTo options
-By default, SkipTo menu will inlcude the following places on the page:
+By default, SkipTo menu will include the following places on the page:
 
 *  Heading (level 1, 2, 3 and 4).
 *  ARIA landmarks (banner, navigation, main and search).
@@ -58,15 +58,15 @@ If you are using either WordPress plugin or Drupal module, you can change the Sk
 var skipToConfig =
 {
 	"settings": {
-	"skipTo": {
-	"headings": "h1, h2, h3, h4",
-	"landmarks": "[role=banner], [role=navigation], [role=main], [role=search]",
-	"ids": "#SkipToA1, #SkipToA2",
-	"customClass": "MyClass",
-	"accesskey": "0",
-	"wrap": "true",
-	"visibility": "onfocus",
-	"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
+		"skipTo": {
+			"headings": "h1, h2, h3, h4",
+			"landmarks": "[role=banner], [role=navigation], [role=main], [role=search]",
+			"ids": "#SkipToA1, #SkipToA2",
+			"customClass": "MyClass",
+			"accesskey": "0",
+			"wrap": "true",
+			"visibility": "onfocus",
+			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
 		}
 	}
 };
