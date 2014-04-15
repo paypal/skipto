@@ -117,7 +117,7 @@ Please do not hesitate to raise issues and comment on Github if something doesn'
 Happy skipping!
 
 PayPal Accessibility Gang
-[@PayPalInclusive](http://www.twitter.com/PayPalInclusive)
+[Twitter: @PayPalInclusive](http://www.twitter.com/PayPalInclusive)
 
 ## <a name="authors">Authors</a>
 **Nawaz Khan**
