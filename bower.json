@@ -1,0 +1,25 @@
+{
+  "name": "SkipTo",
+  "version": "1.0.0",
+  "homepage": "https://github.com/paypal/SkipTo",
+  "authors": [
+    "eBay Software Foundation"
+  ],
+  "description": "This module provides a way for keyboard and screen reader users to skip to the most important places on the page from a single menu.",
+  "main": "compiled/js/SkipTo.js",
+  "keywords": [
+    "Skip",
+    "Navigation",
+    "Skip to",
+    "Skip to Main"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ]
+}
