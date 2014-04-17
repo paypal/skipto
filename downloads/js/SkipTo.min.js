@@ -1,4 +1,4 @@
-/*! SkipTo - v2.0.0 - 2014-04-03
+/*! SkipTo - v1.0.0 - 2014-04-17
 * https://github.com/paypal/SkipTo
 * Copyright (c) 2014 eBay Software Foundation; Licensed BSD */
  /*@cc_on @*/

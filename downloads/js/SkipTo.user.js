@@ -1,7 +1,7 @@
 // -----------------------------------------------------
 // Title: Skip to Options User script
-// version: 2.0.0
-// Date: 2014-04-03
+// version: 1.0.0
+// Date: 2014-04-17
 // Author: eBay Software Foundation
 // Homepage: https://github.com/paypal/SkipTo
 // Copyright (c) 2014 eBay Software Foundation
@@ -14,7 +14,7 @@
 // @include *
 // ==/UserScript==
 
-/*! SkipTo - v2.0.0 - 2014-04-03
+/*! SkipTo - v1.0.0 - 2014-04-17
 * https://github.com/paypal/SkipTo
 * Copyright (c) 2014 eBay Software Foundation; Licensed BSD */
  /*@cc_on @*/
