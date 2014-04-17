@@ -7,7 +7,7 @@ compiled
 ######################
 # npm install should be run locally, don't check in those files
 node_modules
-
+npm-debug.log
 
 # OS generated files #
 ######################

@@ -1,7 +1,7 @@
 {
   "name": "SkipTo",
   "description": "This module provides a way for keyboard and screen reader users to skip to the most important places on the page from a single menu.",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "keywords": [
     "Skip",
     "Navigation",
