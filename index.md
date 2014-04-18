@@ -10,7 +10,7 @@ See the [Authors](#authors) section for more information.
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
-![Example Screen Shot](http://paypal.github.io/SkipTo/images/example_screen_shot.png "Example Screen Shot")
+![Example Screen Shot](http://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
 1.  The SkipTo menu becomes visible the first time the user tabs into the page.
@@ -31,7 +31,7 @@ If you would like to be able to debug your production-ready script, include the 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
 
 ```html
-<script type="text/javascript" src="http://paypal.github.io/SkipTo/downloads/js/SkipTo.min.js"></script>
+<script type="text/javascript" src="http://paypal.github.io/skipto/downloads/js/SkipTo.min.js"></script>
 ```
 
 Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
@@ -93,7 +93,7 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
 1.  [Get NodeJS from http://nodejs.org](http://nodejs.org) and install it on the operating system of your choice.
-2.  Get the [latest code from Github from http://github.com/paypal/SkipTo](http://github.com/paypal/SkipTo).
+2.  Get the [latest code from Github from http://github.com/paypal/skipto](http://github.com/paypal/skipto).
 3.  After unzipping or downloading the source code into the directory of your choice, switch to that directory and type these commands:
 
   ```sh
@@ -112,7 +112,7 @@ grunt clean
 from the root directory of your repository.
 
 ## Of course, we want feedback!
-Please do not hesitate to raise issues and comment on Github if something doesn't work or you have ideas on how to improve the script.
+Please do not hesitate to [raise issues and comment on Github]((https://github.com/paypal/skipto/issues) if something doesn't work or you have ideas on how to improve the script.
 
 Happy skipping!
 
