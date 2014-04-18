@@ -14,10 +14,10 @@
 	function skipto_load_js_and_css() {
 		global $skipTo_url;
 
-		wp_register_script( 'skipInit.js', plugins_url( 'skip-to/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
+		wp_register_script( 'skipInit.js', plugins_url( 'skipto/js/skipToInit.js' , dirname(__FILE__) ), '', '1.1', true);
 		wp_enqueue_script( 'skipInit.js' );
 
-		wp_register_script( 'SkipTo.js', $skipTo_url, '', '1.1', true);
+		wp_register_script( 'SkipTo.js', $skipTo_url, '', '', true);
 		wp_enqueue_script( 'SkipTo.js' );
 	}
 
@@ -85,6 +85,9 @@
 				$arrw['settings']['skipTo']['accesskey'] = $accesskey;
 				$arrw['settings']['skipTo']['wrap'] = $_POST['wrap'];
 				$arrw['settings']['skipTo']['visibility'] = $_POST['visibility'];
+				$arrw['settings']['skipTo']['ids'] = $_POST['idsandclass'];
+				$arrw['settings']['skipTo']['customClass'] = $_POST['customclass'];
+				$arrw['settings']['skipTo']['attachElement'] = $_POST['attachelement'];
 
 				$fputcontents = 'var Wordpress =' . json_encode($arrw) . ';';
 				file_put_contents($conf_file,  $fputcontents);
@@ -102,11 +105,15 @@
 		$accesskey = $arr['settings']['skipTo']['accesskey'];
 		$wrap = $arr['settings']['skipTo']['wrap'];
 		$visibility = $arr['settings']['skipTo']['visibility'];
+
+		$idsandclass = $arr['settings']['skipTo']['ids'];
+		$customclass = $arr['settings']['skipTo']['customClass'];
+		$attachelement = $arr['settings']['skipTo']['attachElement'];
 ?>
 		<div class="wrap">
 			<h2>SkipTo Settings</h2>
 			<form name="form1" method="post" action="">
-				<div style="width:40%; overflow:hidden; padding-top:40px">
+				<div style="width:70%; overflow:hidden; padding-top:40px">
 					<div style="float:left; font-weight:bold" id="headings">Headings</div>
 					<div style="float:left; padding-left:160px;" aria-labelledby="headings">
 						<?php
@@ -166,6 +173,31 @@
 						</div>
 					</fieldset>
 
+					<br clear="all">
+					<div style="float:left; padding-top:50px; font-weight:bold">
+						<label for="cusid">List of Ids and Class</label>
+					</div>
+					<div style="float:left; padding-left:100px; padding-top:50px;">
+							<input id="cusid" type="text" name="idsandclass" aria-describedBy="cusIDHelp" value="<?php echo $idsandclass ?>"  style="border-color:#000000">
+							<span class="help" id="cusIDHelp">E.g. :  #SkipToA1, #SkipToA2 , .skipClass</span>
+					</div>
+
+					<br clear="all">
+					<div style="float:left; padding-top:50px; font-weight:bold">
+						<label for="cusclass">Custom Class</label>
+					</div>
+					<div style="float:left; padding-left:140px; padding-top:50px;">
+							<input id="cusclass" type="text" name="customclass" aria-describedBy="cusClassHlp" value="<?php echo $customclass ?>"  style="border-color:#000000">
+							<span class="help" id="cusClassHlp">E.g. :  MyClass</span>
+					</div>
+					<br clear="all">
+					<div style="float:left; padding-top:50px; font-weight:bold">
+						<label for="attachElem">Attach Element</label>
+					</div>
+					<div style="float:left; padding-left:130px; padding-top:50px;">
+							<input id="attachElem" type="text" name="attachelement" aria-describedBy="attachElemHelp" value="<?php echo $attachelement ?>"  style="border-color:#000000">
+							<span class="help" id="attachElemHelp">E.g. :  .MyCustomClass or #MyCustomId</span>
+					</div>
 
 				</div>
 				<p class="submit" style="padding-left:216px">
