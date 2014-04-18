@@ -1,22 +1,22 @@
 {
   "name": "SkipTo",
-  "description": "This module provides a way for keyboard and screen reader users to skip to the most important places on the page from a single menu.",
-  "version": "2.0.0",
+  "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to quickly skip to the most important places on the webpage.",
+  "version": "1.0.0",
   "keywords": [
-    "Skip",
+    "accessibility",
     "Navigation",
     "Skip to"
   ],
-  "homepage": "https://github.com/paypal/SkipTo",
-  "author": "eBay Software Foundation",
+  "homepage": "https://github.com/paypal/skipto",
+  "author": "PayPal Accessibility Team",
   "repository": {
     "type": "git",
-    "url": "https://github.com/paypal/SkipTo"
+    "url": "https://github.com/paypal/skipto"
   },
   "licenses": [
     {
       "type": "BSD",
-      "url": "https://github.com/paypal/SkipTo/blob/master/BSDLicense.txt"
+      "url": "https://github.com/paypal/skipto/blob/master/BSDLicense.txt"
     }
   ],
   "devDependencies": {
