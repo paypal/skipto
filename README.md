@@ -1,3 +1,5 @@
+<img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
+
 # SkipTo, version 1.0
 ## by PayPal Accessibility Team 
 See the [Authors](#authors) section for more information.
