@@ -1,8 +1,8 @@
 === Skip To ===
 Plugin Name: SkipTo
 Plugin URI: https://github.com/paypal/SkipTo
-Description: A simple way to expand the usefullness of your site's "Skip To Content" functionality.
-Version: 0.1.2
+Description: This plugin enhances the accessibility of your website for keyboard and screen reader users by providing a dynamically-generated and highly-configurable menu of the most important places on the page..
+Version: 0.1.3
 Tags: skip to, accessibility
 License: Apache-2.0
 
@@ -20,7 +20,7 @@ The SkipTo script creates a drop-down menu consisting of the most important plac
 
 == Installation ==
 
-The quickest method for installing the importer is to install the plug in from the WordPress plugin directory.
+The quickest method for installing the importer is to install the plugin from the WordPress plugin directory.
 
 If you would prefer to do things manually then follow these instructions:
 
