@@ -112,7 +112,7 @@ grunt clean
 from the root directory of your repository.
 
 ## Of course, we want feedback!
-Please do not hesitate to [raise issues and comment on Github]((https://github.com/paypal/skipto/issues) if something doesn't work or you have ideas on how to improve the script.
+Please do not hesitate to [raise issues and comment on Github](https://github.com/paypal/skipto/issues) if something doesn't work or you have ideas on how to improve the script.
 
 Happy skipping!
 
