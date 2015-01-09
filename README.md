@@ -32,8 +32,13 @@ Note that by default the path is set to load the script from the Github external
 ## Configuring SkipTo options
 By default, SkipTo menu will include the following places on the page:
 
-*  Heading (level 1, 2, 3 and 4).
-*  ARIA landmarks (banner, navigation, main and search).
+*  Headings to include in page outline (level 1, 2, 3 and 4).
+*  ARIA landmarks to be considered main content (i.e. main).
+*  HTML5 section elements to be considered main content (i.e. main element).
+*  ARIA landmarks to be considered navigation content (i.e. navigation).
+*  HTML5 section elements to be considered navigation content (i.e. nav element).
+*  ARIA landmarks to be considered search content (i.e. search).
+*  HTML5 section elements to be considered search content (i.e. section[class=search]).
 *  Any element with the id specified via the configuration file.
 *  Any element with the custom class specified via the configuration file.
 
