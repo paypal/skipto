@@ -143,6 +143,7 @@ PayPal Accessibility Gang
 [https://github.com/jongund](https://github.com/jongund)
 
 **Nicholas Hoyt**
+[https://github.com/nhoyt](https://github.com/nhoyt)
 
 
 **The rest of the PayPal Accessibility and University of Illinois team.
