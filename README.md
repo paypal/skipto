@@ -1,7 +1,5 @@
-<img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
-
-# SkipTo, version 1.0
-## by PayPal Accessibility Team 
+# SkipTo, version 1.x
+## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
@@ -126,7 +124,10 @@ PayPal Accessibility Gang
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
-**The rest of the PayPal Accessibility Team.
+**Jon Gunderson**
+[https://github.com/jongund](https://github.com/jongund)
+
+**The rest of the PayPal Accessibility and University of Illinois team.
 
 ## <a name="access-keys">Access keys</a>
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
