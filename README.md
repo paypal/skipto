@@ -1,5 +1,5 @@
 # SkipTo, version 1.x
-## by PayPal Accessibility Team and University of Illinois
+## by PayPal and University of Illinois (DRES) Accessibility Team
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such) and this version is a branch from the PayPal SkipTo implementation!
