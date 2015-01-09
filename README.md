@@ -52,14 +52,23 @@ var skipToConfig =
 {
 	"settings": {
 		"skipTo": {
-			"headings": "h1, h2, h3, h4",
-			"landmarks": "[role=banner], [role=navigation], [role=main], [role=search]",
-			"ids": "#SkipToA1, #SkipToA2",
-			"customClass": "MyClass",
-			"accesskey": "0",
-			"wrap": "true",
-			"visibility": "onfocus",
-			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
+			"buttonLabel"    : "Jump To...",
+			"menuLabel"      : "Jump To and Page Outline",
+			"landmarksLabel" : "Jump To",			
+			"headingsLabel"  : "Page Outline",
+			"headings"       : "h1, h2, h3",
+			"mainLandmarks"  : "[role="main"]",
+			"mainSections"   : "main",
+			"navLandmarks"   : "[role=navigation]",
+			"navSections"    : "nav'"
+			"searchLandmarks": "[role=search]",
+			"searchSections" : "",
+			"ids"            : "#SkipToA1, #SkipToA2",
+			"customClass"    : "MyClass",
+			"accesskey"      : "0",
+			"wrap"           : "true",
+			"visibility"     : "onfocus",
+			"attachElement"  : ".MyCustomClass" // or "attachElement": "#MyCustomId"
 		}
 	}
 };
@@ -126,6 +135,9 @@ PayPal Accessibility Gang
 
 **Jon Gunderson**
 [https://github.com/jongund](https://github.com/jongund)
+
+**Nicholas Hoyt**
+
 
 **The rest of the PayPal Accessibility and University of Illinois team.
 
