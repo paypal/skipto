@@ -32,6 +32,7 @@ Note that by default the path is set to load the script from the Github external
 ## Configuring SkipTo options
 By default, SkipTo menu will include the following places on the page:
 
+*  Labels for menu sections 
 *  Headings to include in page outline (level 1, 2, 3 and 4).
 *  ARIA landmarks to be considered main content (i.e. main).
 *  HTML5 section elements to be considered main content (i.e. main element).
@@ -62,7 +63,7 @@ var skipToConfig =
 			"landmarksLabel" : "Jump To",			
 			"headingsLabel"  : "Page Outline",
 			"headings"       : "h1, h2, h3",
-			"mainLandmarks"  : "[role="main"]",
+			"mainLandmarks"  : "[role=main]",
 			"mainSections"   : "main",
 			"navLandmarks"   : "[role=navigation]",
 			"navSections"    : "nav'"
