@@ -141,3 +141,13 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Mozilla Firefox -- ALT+SHIFT+0.
 *  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
 *  Safari -- CONTROL+0.
+
+
+## Skipto Gallery
+[An inclusive car booking company in Bangalore](http://www.kickstartcabs.com/)
+
+[Sai Gagan Accessibility Solutions](http://sgaccessibility.com/sites/) 
+
+[Srinivasu blog](http://srinivasu.org/blog/) 
+
+If you like your site to be listed in this list, please comment on this [github ticket](https://github.com/paypal/skipto/issues/21)
