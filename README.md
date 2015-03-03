@@ -114,7 +114,7 @@ PayPal Accessibility Gang
 [Twitter: @PayPalInclusive](http://www.twitter.com/PayPalInclusive)
 
 ## <a name="authors">Authors</a>
-**Nawaz Khan**
+**Prem Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
 
 **Victor Tsaran**
