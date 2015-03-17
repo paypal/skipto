@@ -167,14 +167,6 @@
 			return name;
 		},
 
-		setTarget: function(node, id) {
-			node.id = id;
-//		node.tabindex = "-1";
-//			var target = document.createElement('a');
-//			target.id = id;
-//			node.insertBefore(target, node.firstChild);
-		},
-
 		getHeadings: function () {
 			var headings = document.querySelectorAll(this.config.headings),
 				i,
@@ -184,7 +176,8 @@
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
 				heading = headings[i];
 				id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
-				this.setTarget(heading, id);
+				heading.tabIndex = "-1";
+				heading.setAttribute('id', id);
 				this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
 			}
 		},
@@ -194,15 +187,16 @@
 				k,
 				l,
 				section,
-				id,
+				id1,
 				role,
 				val,
 				name;
 
 			for (k = 0, l = sections.length; k < l; k = k + 1) {
 				section = sections[k];
-				id = section.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
-				this.setTarget(section, id);
+				id1 = section.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
+				section.tabIndex = "-1";
+				section.setAttribute('id', id1);
 				role = section.tagName.toLowerCase();
 				val = this.normalizeName(role);
 
@@ -217,7 +211,7 @@
 					}
 				}
 
-				this.landmarkElementsArr[id] = val;
+				this.landmarkElementsArr[id1] = val;
 			}
 		},
 
@@ -227,15 +221,16 @@
 				k,
 				l,
 				landmark,
-				id,
+				id1,
 				role,
 				name,
 				val;
 
 			for (k = 0, l = landmarks.length; k < l; k = k + 1) {
 				landmark = landmarks[k];
-				id = landmark.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
-				this.setTarget(landmark, id);
+				id1 = landmark.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
+				landmark.tabIndex = "-1";
+				landmark.setAttribute('id', id1);
 				role = landmark.getAttribute('role');
 				name = this.getAccessibleName(landmark);
 
@@ -261,7 +256,7 @@
 						val += ' Content';
 					}
 				}
-				this.landmarkElementsArr[id] = val;
+				this.landmarkElementsArr[id1] = val;
 			}
 		},
 
