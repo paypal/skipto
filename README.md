@@ -7,7 +7,7 @@ See the [Authors](#authors) section for more information.
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
-![Example Screen Shot](example_screen_shot.png "Example Screen Shot")
+![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
 1.  The SkipTo menu becomes visible the first time the user tabs into the page.
