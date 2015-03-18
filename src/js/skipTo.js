@@ -62,6 +62,7 @@
 			var div = document.createElement('div'),
 			attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
 			htmlStr = '';
+			div.setAttribute('id', 'skipToMenu');
 			div.setAttribute('role', 'complementary');
 			div.setAttribute('title', 'Skip To Keyboard Navigation');
 

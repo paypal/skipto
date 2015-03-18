@@ -143,7 +143,7 @@
 
 // dropMenu arrow/caret
 // --------------------
-.caret {
+#skipToMenu .caret {
 	display: inline-block;
 	width: 0;
 	height: 0;
@@ -156,7 +156,7 @@
 }
 
 // Place the caret
-.dropMenu .caret {
+#skipToMenu .dropMenu .caret {
 	margin-top: 8px;
 	margin-left: 2px;
 }
@@ -305,8 +305,8 @@
 // ------------------------------------------------------
 // Just add .dropup after the standard .dropMenu class and you're set, bro.
 // TODO: abstract this so that the navbar fixed styles are not placed here?
-.dropup,
-.navbar-fixed-bottom .dropMenu {
+#skipToMenu .dropup,
+#skipToMenu .navbar-fixed-bottom .dropMenu {
 	// Reverse the caret
 	.caret {
 		border-top: 0;
