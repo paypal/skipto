@@ -25,18 +25,15 @@
 		idElementsArr:  [],
 		dropdownHTML: null,
 		config: {
-			buttonLabel: 'Jump To...',
-			menuLabel: 'Jump To and Page Outline',
-			landmarksLabel: 'Jump To',
+			buttonLabel:    'Skip To...',
+			menuLabel:      'Skip To and Page Outline',
+			landmarksLabel: 'Skip To',
 			headingsLabel:  'Page Outline',
-			headings: 'h1, h2, h3',
-			mainLandmarks: '[role="main"]',
-			mainSections: 'main',
-			navLandmarks: '[role="Navigation"]',
-			navSections: 'nav',
-			searchLandmarks: '[role="search"]',
-			searchSections: '',
-			ids: '#SkipToA1, #SkipToA2',
+			main:      'main, [role="main"]',
+			landmarks: '[role="navigation"], [role="search"]',
+			sections:  'nav',
+			headings:  'h1, h2, h3',
+			ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus",
@@ -74,17 +71,13 @@
 			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<b class="caret"></b></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-label="' + this.config.menuLabel + '" style="top:3%; text-align:left">';
 
-			this.getLandMarks(this.config.mainLandmarks);
-			this.getSections(this.config.mainSections);
+			this.getLandMarks(this.config.main);
+			this.getLandMarks(this.config.landmarks);
+			this.getSections(this.config.sections);
 
-			this.getLandMarks(this.config.navLandmarks);
-			this.getSections(this.config.navSections);
-
-			this.getLandMarks(this.config.searchLandmarks);
-//			this.getSections(this.config.searchSections);
+			this.getIdElements();
 
 			this.getHeadings();
-			this.getIdElements();
 
 			htmlStr = this.getdropdownHTML();
 			this.dropdownHTML += htmlStr + '</ul>';
@@ -168,7 +161,9 @@
 		},
 
 		getHeadings: function () {
-			var headings = document.querySelectorAll(this.config.headings),
+			var targets = this.config.headings;
+			if (typeof targets !== 'string' || targets.length === 0) return;
+			var headings = document.querySelectorAll(targets),
 				i,
 				j,
 				heading,
@@ -183,6 +178,7 @@
 		},
 
 		getSections: function (targets) {
+			if (typeof targets !== 'string' || targets.length === 0) return;
 			var sections = document.querySelectorAll(targets),
 				k,
 				l,
@@ -217,6 +213,7 @@
 
 
 		getLandMarks: function (targets) {
+			if (typeof targets !== 'string' || targets.length === 0) return;
 			var landmarks = document.querySelectorAll(targets),
 				k,
 				l,
@@ -290,7 +287,7 @@
 
 			for (key in this.landmarkElementsArr) {
 				if (landmarkSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#">' + this.config.landmarksLabel + '</a></li>';
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#" aria-label="' + this.config.landmarksLabel + '">' + this.config.landmarksLabel + '</a></li>';
 					landmarkSep = false;
 				}
 				val = this.landmarkElementsArr[key];
@@ -301,7 +298,7 @@
 
 			for (key in this.idElementsArr) {
 				if (landmarkSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#">' + this.config.landmarksLabel + '</a></li>';
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#" aria-label="' + this.config.landmarksLabel + '">' + this.config.landmarksLabel + '</a></li>';
 					landmarkSep = false;
 				}
 				val = this.idElementsArr[key];
@@ -312,7 +309,7 @@
 
 			for (key in this.headingElementsArr) {
 				if (headingSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#">' + this.config.headingsLabel + '</a></li>';
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#" aria-label="' + this.config.headingsLabel + '">' + this.config.headingsLabel + '</a></li>';
 					headingSep = false;
 				}
 				val = this.headingElementsArr[key];
