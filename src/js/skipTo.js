@@ -299,7 +299,7 @@
 
 			for (key in this.idElementsArr) {
 				if (landmarkSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
 					landmarkSep = false;
 				}
 				val = this.idElementsArr[key];
