@@ -288,7 +288,7 @@
 
 			for (key in this.landmarkElementsArr) {
 				if (landmarkSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#" aria-label="' + this.config.landmarksLabel + '">' + this.config.landmarksLabel + '</a></li>';
+					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
 					landmarkSep = false;
 				}
 				val = this.landmarkElementsArr[key];
@@ -299,7 +299,7 @@
 
 			for (key in this.idElementsArr) {
 				if (landmarkSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#" aria-label="' + this.config.landmarksLabel + '">' + this.config.landmarksLabel + '</a></li>';
+					htmlStr += '<li role="presentation" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
 					landmarkSep = false;
 				}
 				val = this.idElementsArr[key];
@@ -310,7 +310,7 @@
 
 			for (key in this.headingElementsArr) {
 				if (headingSep) {
-					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="separator" href="#" aria-label="' + this.config.headingsLabel + '">' + this.config.headingsLabel + '</a></li>';
+					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.headingsLabel + '</li>';
 					headingSep = false;
 				}
 				val = this.headingElementsArr[key];
