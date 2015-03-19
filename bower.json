@@ -1,9 +1,9 @@
 {
   "name": "skipto",
-  "version": "1.0.1",
-  "homepage": "https://github.com/paypal/skipto",
+  "version": "1.1.0",
+  "homepage": "https://github.com/jongund/SkipTo",
   "authors": [
-    "PayPal Accessibility Team"
+    "PayPal Accessibility Team and University of Illinois"
   ],
   "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to skip to the most important places on the webpage.",
   "main": "compiled/js/SkipTo.js",

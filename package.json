@@ -1,17 +1,17 @@
 {
   "name": "skipto",
   "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to quickly skip to the most important places on the webpage.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "keywords": [
     "accessibility",
     "Navigation",
     "Skip to"
   ],
-  "homepage": "https://github.com/paypal/skipto",
-  "author": "PayPal Accessibility Team",
+  "homepage": "https://github.com/jongund/SkipTo",
+  "author": "PayPal Accessibility Team and University of Illinois",
   "repository": {
     "type": "git",
-    "url": "https://github.com/paypal/skipto"
+    "url": "https://github.com/jongund/SkipTo"
   },
   "licenses": [
     {

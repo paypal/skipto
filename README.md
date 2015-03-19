@@ -1,13 +1,13 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# SkipTo, version 1.0
-## by PayPal Accessibility Team 
+# SkipTo, version 1.1
+## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
-![Example Screen Shot](http://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
+![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
 1.  The SkipTo menu becomes visible the first time the user tabs into the page.
@@ -34,8 +34,9 @@ Note that by default the path is set to load the script from the Github external
 ## Configuring SkipTo options
 By default, SkipTo menu will include the following places on the page:
 
-*  Heading (level 1, 2, 3 and 4).
-*  ARIA landmarks (banner, navigation, main and search).
+*  Heading (e.g h1, h2, h3 and h4 elements).
+*  ARIA landmarks (e.g. banner, navigation, main and search).
+*  HTML5 Section Elements (e.g. main, section[aria-label], section[aria-labelledby]
 *  Any element with the id specified via the configuration file.
 *  Any element with the custom class specified via the configuration file.
 
@@ -54,13 +55,15 @@ var skipToConfig =
 {
 	"settings": {
 		"skipTo": {
-			"headings": "h1, h2, h3, h4",
-			"landmarks": "[role=banner], [role=navigation], [role=main], [role=search]",
-			"ids": "#SkipToA1, #SkipToA2",
-			"customClass": "MyClass",
-			"accesskey": "0",
-			"wrap": "true",
-			"visibility": "onfocus",
+			"headings"     : "h1, h2, h3, h4",
+			"main"         : "main, [role=main]",
+			"landmarks"    : "[role=navigation], [role=search]",
+			"sections"     : "nav",
+			"ids"          : "#SkipToA1, #SkipToA2",
+			"customClass"  : "MyClass",
+			"accesskey"    : "0",
+			"wrap"         : "true",
+			"visibility"   : "onfocus",
 			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
 		}
 	}
@@ -125,6 +128,13 @@ PayPal Accessibility Gang
 
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
+
+**Jon Gunderson**
+[https://github.com/jongund](https://github.com/jongund) 
+
+**Nicholas Hoyt**
+[https://github.com/nhoyt](https://github.com/nhoyt) 
+
 
 **The rest of the PayPal Accessibility Team.
 
