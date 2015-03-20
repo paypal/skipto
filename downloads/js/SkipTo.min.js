@@ -1,4 +1,4 @@
-/*! skipto - v1.1.0 - 2015-03-20
+/*! skipto - v2.0.0 - 2015-03-20
 * https://github.com/jongund/SkipTo
 * Copyright (c) 2015 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
