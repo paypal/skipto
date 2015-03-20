@@ -3,8 +3,8 @@ layout: index
 ---
 
 
-# SkipTo, version 1.0
-## by PayPal Accessibility Team 
+# SkipTo, version 2.0 
+## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
@@ -39,8 +39,9 @@ Note that by default the path is set to load the script from the Github external
 ## Configuring SkipTo options
 By default, SkipTo menu will include the following places on the page:
 
-*  Heading (level 1, 2, 3 and 4).
-*  ARIA landmarks (banner, navigation, main and search).
+*  Heading (e.g h1, h2, h3 and h4 elements).
+*  ARIA landmarks (e.g. banner, navigation, main and search).
+*  HTML5 Section Elements (e.g. main, section[aria-label], section[aria-labelledby]
 *  Any element with the id specified via the configuration file.
 *  Any element with the custom class specified via the configuration file.
 
@@ -59,13 +60,15 @@ var skipToConfig =
 {
 	"settings": {
 		"skipTo": {
-			"headings": "h1, h2, h3, h4",
-			"landmarks": "[role=banner], [role=navigation], [role=main], [role=search]",
-			"ids": "#SkipToA1, #SkipToA2",
-			"customClass": "MyClass",
-			"accesskey": "0",
-			"wrap": "true",
-			"visibility": "onfocus",
+			"headings"     : "h1, h2, h3, h4",
+			"main"         : "main, [role=main]",
+			"landmarks"    : "[role=navigation], [role=search]",
+			"sections"     : "nav",
+			"ids"          : "#SkipToA1, #SkipToA2",
+			"customClass"  : "MyClass",
+			"accesskey"    : "0",
+			"wrap"         : "true",
+			"visibility"   : "onfocus",
 			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
 		}
 	}
@@ -132,7 +135,11 @@ PayPal Accessibility Gang
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
-**The rest of the PayPal Accessibility Team.**
+**Jon Gunderson**
+[https://github.com/jongund](https://github.com/jongund) 
+
+**Nicholas Hoyt**
+[https://github.com/nhoyt](https://github.com/nhoyt)
 
 ## <a name="access-keys">Access keys</a>
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
