@@ -1,6 +1,6 @@
-/*! skipto - v1.0.1 - 2014-05-09
-* https://github.com/paypal/skipto
-* Copyright (c) 2014 PayPal Accessibility Team; Licensed BSD */
+/*! skipto - v1.1.0 - 2015-03-20
+* https://github.com/jongund/SkipTo
+* Copyright (c) 2015 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
 /*@if (@_jscript_version >= 5.8) @*/
 /* ========================================================================
@@ -306,12 +306,20 @@ if (!Array.prototype.indexOf) {
 	var SkipTo = {};
 
 	SkipTo.prototype = {
-		elementsArr:  [],
+		headingElementsArr:  [],
+		landmarkElementsArr:  [],
+		idElementsArr:  [],
 		dropdownHTML: null,
 		config: {
-			headings: 'h1, h2, h3, h4',
-			landmarks: '[role="banner"], [role="navigation"], [role="main"], [role="search"]',
-			ids: '#SkipToA1, #SkipToA2',
+			buttonLabel:    'Skip To...',
+			menuLabel:      'Skip To and Page Outline',
+			landmarksLabel: 'Skip To',
+			headingsLabel:  'Page Outline',
+			main:      'main, [role="main"]',
+			landmarks: '[role="navigation"], [role="search"]',
+			sections:  'nav',
+			headings:  'h1, h2, h3',
+			ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus",
@@ -322,7 +330,9 @@ if (!Array.prototype.indexOf) {
 		setUpConfig: function (appConfig) {
 			var localConfig = this.config,
 				name,
+
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
+				
 			for (name in appConfigSettings) {
 				//overwrite values of our local config, based on the external config
 				if (localConfig.hasOwnProperty(name)) {
@@ -336,17 +346,25 @@ if (!Array.prototype.indexOf) {
 			this.setUpConfig(appConfig);
 
 			var div = document.createElement('div'),
-				attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
-				htmlStr = '';
-			this.addStyles(".skipTo{padding:.5em;position:absolute;background:transparent;color:#000;-webkit-transition:top .5s ease-out,background .5s linear;-moz-transition:top .5s ease-out,background .5s linear;-o-transition:top .5s ease-out,background .5s linear;transition:top .5s ease-out,background .5s linear}.skipTo:focus{position:absolute;top:0;left:0;background:#ccc;z-index:1000;text-decoration:underline;-webkit-transition:top .1s ease-in,background .3s linear;-moz-transition:top .1s ease-in,background .3s linear;-o-transition:top .1s ease-in,background .3s linear;transition:top .1s ease-in,background .3s linear}.onFocus{top:-5em;left:0}.onLoad{top:0;left:0;background:#ccc}.dropup,.dropMenu{position:relative}.dropMenu-toggle{*margin-bottom:-3px}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0}.caret{display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #000;border-right:4px solid transparent;border-left:4px solid transparent;content:''}.dropMenu .caret{margin-top:8px;margin-left:2px}.dropMenu-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.dropMenu-menu.pull-right{right:0;left:auto}.dropMenu-menu .divider{*width:100%;height:1px;margin:9px 1px;*margin:-5px 0 5px;overflow:hidden;background-color:#e5e5e5;border-bottom:1px solid #fff}.dropMenu-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:normal;line-height:20px;color:#333;white-space:nowrap;text-decoration:none}.dropMenu-menu>li>a:hover,.dropMenu-menu>li>a:focus,.dropMenu-submenu:hover>a,.dropMenu-submenu:focus>a{text-decoration:none;color:#fff;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.active>a,.dropMenu-menu>.active>a:hover,.dropMenu-menu>.active>a:focus{color:#fff;text-decoration:none;outline:0;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.disabled>a,.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{color:#999}.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{text-decoration:none;background-color:transparent;background-image:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);cursor:default}.open{*z-index:1000}.open>.dropMenu-menu{display:block}.pull-right>.dropMenu-menu{right:0;left:auto}.dropup .caret,.navbar-fixed-bottom .dropMenu .caret{border-top:0;border-bottom:4px solid #000;content:''}.dropup .dropMenu-menu,.navbar-fixed-bottom .dropMenu .dropMenu-menu{top:auto;bottom:100%;margin-bottom:1px}.dropMenu-submenu{position:relative}.dropMenu-submenu>.dropMenu-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px}.dropMenu-submenu:hover>.dropMenu-menu{display:block}.dropup .dropMenu-submenu>.dropMenu-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0}.dropMenu-submenu>a:after{display:block;content:' ';float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#ccc;margin-top:5px;margin-right:-10px}.dropMenu-submenu:hover>a:after{border-left-color:#fff}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left>.dropMenu-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}");
+			attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
+			htmlStr = '';
+			div.setAttribute('id', 'skipToMenu');
+			div.setAttribute('role', 'complementary');
+			div.setAttribute('title', 'Skip To Keyboard Navigation');
+
+			this.addStyles(".skipTo{padding:.5em;position:absolute;background:transparent;color:#000;-webkit-transition:top .5s ease-out,background .5s linear;-moz-transition:top .5s ease-out,background .5s linear;-o-transition:top .5s ease-out,background .5s linear;transition:top .5s ease-out,background .5s linear}.skipTo:focus{position:absolute;top:0;left:0;background:#ccc;z-index:1000;text-decoration:underline;-webkit-transition:top .1s ease-in,background .3s linear;-moz-transition:top .1s ease-in,background .3s linear;-o-transition:top .1s ease-in,background .3s linear;transition:top .1s ease-in,background .3s linear}.onFocus{top:-5em;left:0}.onLoad{top:0;left:0;background:#ccc}.dropup,.dropMenu{position:relative}.dropMenu-toggle{*margin-bottom:-3px}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0}#skipToMenu .caret{display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #000;border-right:4px solid transparent;border-left:4px solid transparent;content:''}#skipToMenu .dropMenu .caret{margin-top:8px;margin-left:2px}.dropMenu-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.dropMenu-menu.pull-right{right:0;left:auto}.dropMenu-menu .divider{*width:100%;height:1px;margin:9px 1px;*margin:-5px 0 5px;overflow:hidden;background-color:#e5e5e5;border-bottom:1px solid #fff}.dropMenu-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:normal;line-height:20px;color:#333;white-space:nowrap;text-decoration:none}.dropMenu-menu>li>a.po-h1{font-size:110%}.dropMenu-menu>li>a.po-h2{padding-left:28px}.dropMenu-menu>li>a.po-h3{padding-left:36px}.dropMenu-menu>li>a.po-h4{padding-left:44px}.dropMenu-menu>li>a.po-h5{padding-left:52px}.dropMenu-menu>li>a.po-6{padding-left:60px}.dropMenu-menu>li[role=separator]{padding-left:20px;margin-top:9px;font-weight:bold;border-bottom:thin solid black}.dropMenu-menu>li>a:hover,.dropMenu-menu>li>a:focus,.dropMenu-submenu:hover>a,.dropMenu-submenu:focus>a{text-decoration:none;color:#fff;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.active>a,.dropMenu-menu>.active>a:hover,.dropMenu-menu>.active>a:focus{color:#fff;text-decoration:none;outline:0;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.disabled>a,.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{color:#999}.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{text-decoration:none;background-color:transparent;background-image:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);cursor:default}.open{*z-index:1000}.open>.dropMenu-menu{display:block}.pull-right>.dropMenu-menu{right:0;left:auto}#skipToMenu .dropup .caret,#skipToMenu .navbar-fixed-bottom .dropMenu .caret{border-top:0;border-bottom:4px solid #000;content:''}#skipToMenu .dropup .dropMenu-menu,#skipToMenu .navbar-fixed-bottom .dropMenu .dropMenu-menu{top:auto;bottom:100%;margin-bottom:1px}.dropMenu-submenu{position:relative}.dropMenu-submenu>.dropMenu-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px}.dropMenu-submenu:hover>.dropMenu-menu{display:block}.dropup .dropMenu-submenu>.dropMenu-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0}.dropMenu-submenu>a:after{display:block;content:' ';float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#ccc;margin-top:5px;margin-right:-10px}.dropMenu-submenu:hover>a:after{border-left-color:#fff}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left>.dropMenu-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
-			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">Skip to<b class="caret"></b></a>';
-			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-labelledby="drop4" style="top:3%; text-align:left">';
+			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<b class="caret"></b></a>';
+			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-label="' + this.config.menuLabel + '" style="top:3%; text-align:left">';
 
-			this.getLandMarks();
-			this.getHeadings();
+			this.getLandMarks(this.config.main);
+			this.getLandMarks(this.config.landmarks);
+			this.getSections(this.config.sections);
+
 			this.getIdElements();
+
+			this.getHeadings();
 
 			htmlStr = this.getdropdownHTML();
 			this.dropdownHTML += htmlStr + '</ul>';
@@ -359,30 +377,137 @@ if (!Array.prototype.indexOf) {
 			}
 		},
 
+		normalizeName: function (name) {
+			return name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		},
+
+		getTextContent: function (elem) {
+			
+			function getText(e, strings) {
+				// If text node get the text and return
+				if( e.nodeType === Node.TEXT_NODE ) {
+					strings.push(e.data);
+				} else {
+					// if an element for through all the children elements looking for text
+					if( e.nodeType === Node.ELEMENT_NODE ) {
+					// check to see if IMG or AREA element and to use ALT content if defined
+						var tagName = e.tagName.toLowerCase();
+						if((tagName === 'img') || (tagName === 'area')) {
+							if (e.alt) {
+								strings.push(e.alt);
+							}
+						} else {
+							var c = e.firstChild;
+							while (c) {
+								getText(c, strings);
+								c = c.nextSibling;
+							} // end loop
+						}
+					}
+				}
+			} // end function getStrings
+
+			// Create return object
+			var str = "Test",
+			strings = [];
+			getText(elem, strings);
+			if (strings.length) str = strings.join(" ");
+			if (str.length > 30) str = str.substring(0,27) + "...";
+			return str;
+		},
+
+		getAccessibleName: function (elem) {
+			var labelledbyIds = elem.getAttribute('aria-labelledby'),
+			label = elem.getAttribute('aria-label'),
+			title = elem.getAttribute('title'),
+			name = "";
+			
+			if (labelledbyIds && labelledbyIds.length) {
+				var str,
+				strings = [],
+				ids = labelledbyIds.split(' ');
+				if (!ids.length) ids = [labelledbyIds];
+				for (var i = 0, l = ids.length; i < l; i += 1) {
+					var e = document.getElementById(ids[i]);
+					if (e) str = this.getTextContent(e);
+					if (str.length) strings.push(str);
+				}
+				name = strings.join(" ");
+			}
+			else {
+				if (label && label.length) {
+					name = label;
+				}
+				else {
+					if (title && title.length) {
+						name = title;
+					}
+				}
+			}
+			return name;
+		},
+
 		getHeadings: function () {
-			var headings = document.querySelectorAll(this.config.headings),
+			var targets = this.config.headings;
+			if (typeof targets !== 'string' || targets.length === 0) return;
+			var headings = document.querySelectorAll(targets),
 				i,
 				j,
 				heading,
-				id,
-				val;
+				id;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
 				heading = headings[i];
 				id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
 				heading.tabIndex = "-1";
 				heading.setAttribute('id', id);
-				val = heading.innerHTML.replace(/<\/?[^>]+>/gi, '');
-				this.elementsArr[id] = val;
+				this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
 			}
 		},
 
-		getLandMarks: function () {
-			var landmarks = document.querySelectorAll(this.config.landmarks),
+		getSections: function (targets) {
+			if (typeof targets !== 'string' || targets.length === 0) return;
+			var sections = document.querySelectorAll(targets),
+				k,
+				l,
+				section,
+				id1,
+				role,
+				val,
+				name;
+
+			for (k = 0, l = sections.length; k < l; k = k + 1) {
+				section = sections[k];
+				id1 = section.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
+				section.tabIndex = "-1";
+				section.setAttribute('id', id1);
+				role = section.tagName.toLowerCase();
+				val = this.normalizeName(role);
+
+				name = this.getAccessibleName(section);
+
+				if (name && name.length) {
+					val += ": " + name;
+				}
+				else {
+					if (role === 'main') {
+						val += ' Content';
+					}
+				}
+
+				this.landmarkElementsArr[id1] = val;
+			}
+		},
+
+
+		getLandMarks: function (targets) {
+			if (typeof targets !== 'string' || targets.length === 0) return;
+			var landmarks = document.querySelectorAll(targets),
 				k,
 				l,
 				landmark,
 				id1,
 				role,
+				name,
 				val;
 
 			for (k = 0, l = landmarks.length; k < l; k = k + 1) {
@@ -391,16 +516,31 @@ if (!Array.prototype.indexOf) {
 				landmark.tabIndex = "-1";
 				landmark.setAttribute('id', id1);
 				role = landmark.getAttribute('role');
+				name = this.getAccessibleName(landmark);
+
+				if (role === 'banner') {
+					role = 'header';
+				} // banner landmark is the same as header element in HTML5
+
 				if (role === 'contentinfo') {
 					role = 'footer';
-				} //contentinfo is ambiguous
-				val = role.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-				if (role === 'main') {
-					val += ' Content';
-				}else{
-					val += ' Landmark';
+				} //contentinfo landmark is the same as footer element in HTML5
+
+				if (role === 'navigation') {
+					role = 'nav';
+				} // navigation landmark is the same as nav element in HTML5
+
+				val = this.normalizeName(role);
+
+				if (name && name.length) {
+					val += ": " + name;
 				}
-				this.elementsArr[id1] = val;
+				else {
+					if (role === 'main') {
+						val += ' Content';
+					}
+				}
+				this.landmarkElementsArr[id1] = val;
 			}
 		},
 
@@ -418,23 +558,56 @@ if (!Array.prototype.indexOf) {
 				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();
 
 				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
-				this.elementsArr[id] = val;
+				this.idElementsArr[id] = "id: " + val;
 			}
 		},
 
 		getdropdownHTML: function(){
 			var key,
 				val,
-				htmlStr = '' ;
+				htmlStr = '',
+				landmarkSep = true,
+				headingSep = true,
+				headingClass = '';
 
 			// window.console.log(this.elementsArr);
 
-			for (key in this.elementsArr) {
-				val = this.elementsArr[key];
+			for (key in this.landmarkElementsArr) {
+				if (landmarkSep) {
+					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+					landmarkSep = false;
+				}
+				val = this.landmarkElementsArr[key];
 				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
 				htmlStr += key + '">' + val;
 				htmlStr += '</a></li>';
 			}
+
+			for (key in this.idElementsArr) {
+				if (landmarkSep) {
+					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+					landmarkSep = false;
+				}
+				val = this.idElementsArr[key];
+				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+				htmlStr += key + '">' + val;
+				htmlStr += '</a></li>';
+			}
+
+			for (key in this.headingElementsArr) {
+				if (headingSep) {
+					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.headingsLabel + '</li>';
+					headingSep = false;
+				}
+				val = this.headingElementsArr[key];
+				
+				headingClass = val.substring(0,2);
+				
+				htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
+				htmlStr += key + '">' + val;
+				htmlStr += '</a></li>';
+			}
+
 			return htmlStr;
 		},
 
@@ -446,7 +619,8 @@ if (!Array.prototype.indexOf) {
 			ss1.setAttribute("type", "text/css");
 			hh1.appendChild(ss1);
 
-			if (ss1.styleSheet) {							// IE
+			if (ss1.styleSheet) {
+				// IE
 				ss1.styleSheet.cssText = cssString;
 			} else {
 				tt1 = document.createTextNode(cssString);
