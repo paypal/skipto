@@ -51,7 +51,7 @@ If you are using either WordPress plugin or Drupal module, you can change the Sk
 
 ```html
 <script>
-var skipToConfig =
+var SkipToConfig =
 {
 	"settings": {
 		"skipTo": {
