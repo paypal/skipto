@@ -5,7 +5,7 @@
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
@@ -32,7 +32,7 @@ To use the SkipTo script, just include it at the bottom of your HTML page or tem
 Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
 
 ## Configuring SkipTo options
-By default, SkipTo menu will include the following places on the page:
+By default, SkipTo menu includes the following places on the page:
 
 *  Heading (e.g h1, h2, h3 and h4 elements).
 *  ARIA landmarks (e.g. banner, navigation, main and search).
@@ -113,7 +113,7 @@ Please do not hesitate to [raise issues and comment on Github](https://github.co
 
 Happy skipping!
 
-PayPal Accessibility Gang
+PayPal Accessibility Team
 [Twitter: @PayPalInclusive](http://www.twitter.com/PayPalInclusive)
 
 ## <a name="authors">Authors</a>
