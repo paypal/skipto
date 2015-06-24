@@ -149,12 +149,12 @@ Access keys work  just like regular shortcut keys except that they need a browse
 ## Version History
 ### Version 2.1
 * Ignore hidden landmarks and headings, based on:
-** CSS: display: none
-** CSS: visibility: hidden
-** HTML5 hidden attribute
-** ARIA 1.0 aria-hidden=true attribute
-** ARIA 1.0 role=presentation attribute
-** any element that is less than 4 pixels high or wide
+  * CSS: display: none
+  * CSS: visibility: hidden
+  * HTML5 hidden attribute
+  * ARIA 1.0 aria-hidden=true attribute
+  * ARIA 1.0 role=presentation attribute
+  * any element that is less than 4 pixels high or wide
 
 ## Copyright and license
 
