@@ -92,7 +92,8 @@
 		},
 
 		normalizeName: function (name) {
-			return name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			if (typeof name === 'string') return name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			return "";
 		},
 
 		getTextContent: function (elem) {
@@ -168,14 +169,46 @@
 				i,
 				j,
 				heading,
+				role,
 				id;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
 				heading = headings[i];
-				id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
-				heading.tabIndex = "-1";
-				heading.setAttribute('id', id);
-				this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
+				role = heading.getAttribute('role');
+				if ((typeof role === 'string') && (role === 'presentation')) continue;
+				if (this.isVisible(heading)) {
+					id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
+					heading.tabIndex = "-1";
+					heading.setAttribute('id', id);
+					this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
+				}
 			}
+		},
+		
+		isVisible: function(element) {
+		
+			function isVisibleRec (el) {
+				if (el.nodeType === Node.DOCUMENT_NODE) return true;
+
+				var computedStyle = window.getComputedStyle(el, null);
+				var display = computedStyle.getPropertyValue('display');
+				var visibility = computedStyle.getPropertyValue('visibility');
+				var hidden = el.getAttribute('hidden');
+				var ariaHidden = el.getAttribute('aria-hidden');
+				var clientRect = el.getBoundingClientRect();
+
+				if ((display === 'none') ||
+						(visibility === 'hidden') ||
+						(hidden !== null) ||
+						(ariaHidden === 'true') ||
+						(clientRect.height < 4) ||
+						(clientRect.width < 4)) {
+					return false;
+				}
+				
+				return isVisibleRec(el.parentNode);
+			}
+			
+			return isVisibleRec(element);
 		},
 
 		getSections: function (targets) {
@@ -191,24 +224,27 @@
 
 			for (k = 0, l = sections.length; k < l; k = k + 1) {
 				section = sections[k];
-				id1 = section.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
-				section.tabIndex = "-1";
-				section.setAttribute('id', id1);
-				role = section.tagName.toLowerCase();
-				val = this.normalizeName(role);
+				role = section.getAttribute(role);
+				if ((typeof role === 'string') && (role === 'presentation')) continue;
+				if (this.isVisible(section)) {
+					id1 = section.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
+					section.tabIndex = "-1";
+					section.setAttribute('id', id1);
+					role = section.tagName.toLowerCase();
+					val = this.normalizeName(role);
 
-				name = this.getAccessibleName(section);
+					name = this.getAccessibleName(section);
 
-				if (name && name.length) {
-					val += ": " + name;
-				}
-				else {
-					if (role === 'main') {
-						val += ' Content';
+					if (name && name.length) {
+						val += ": " + name;
 					}
+					else {
+						if (role === 'main') {
+							val += ' Content';
+						}
+					}
+					this.landmarkElementsArr[id1] = val;
 				}
-
-				this.landmarkElementsArr[id1] = val;
 			}
 		},
 
@@ -226,35 +262,39 @@
 
 			for (k = 0, l = landmarks.length; k < l; k = k + 1) {
 				landmark = landmarks[k];
-				id1 = landmark.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
-				landmark.tabIndex = "-1";
-				landmark.setAttribute('id', id1);
 				role = landmark.getAttribute('role');
-				name = this.getAccessibleName(landmark);
+				if ((typeof role === 'string') && (role === 'presentation')) continue;
+				if (this.isVisible(landmark)) {
+					id1 = landmark.getAttribute('id') || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
+					landmark.tabIndex = "-1";
+					landmark.setAttribute('id', id1);
+					if (!role) role = landmark.tagName.toLowerCase();
+					name = this.getAccessibleName(landmark);
 
-				if (role === 'banner') {
-					role = 'header';
-				} // banner landmark is the same as header element in HTML5
+					if (role === 'banner') {
+						role = 'header';
+					} // banner landmark is the same as header element in HTML5
 
-				if (role === 'contentinfo') {
-					role = 'footer';
-				} //contentinfo landmark is the same as footer element in HTML5
+					if (role === 'contentinfo') {
+						role = 'footer';
+					} //contentinfo landmark is the same as footer element in HTML5
 
-				if (role === 'navigation') {
-					role = 'nav';
-				} // navigation landmark is the same as nav element in HTML5
+					if (role === 'navigation') {
+						role = 'nav';
+					} // navigation landmark is the same as nav element in HTML5
 
-				val = this.normalizeName(role);
+					val = this.normalizeName(role);
 
-				if (name && name.length) {
-					val += ": " + name;
-				}
-				else {
-					if (role === 'main') {
-						val += ' Content';
+					if (name && name.length) {
+						val += ": " + name;
 					}
+					else {
+						if (role === 'main') {
+							val += ' Content';
+						}
+					}
+					this.landmarkElementsArr[id1] = val;
 				}
-				this.landmarkElementsArr[id1] = val;
 			}
 		},
 
