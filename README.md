@@ -156,6 +156,22 @@ Access keys work  just like regular shortcut keys except that they need a browse
   * ARIA 1.0 role=presentation attribute
   * any element that is less than 4 pixels high or wide
 
+### Version 2.0
+* Support for HTML5 section elements
+* Calculate accessible names for landmarks and headings
+* Updated menu to separate headings from landmarks
+* Created default for main content
+  * main element
+  * [role=Main]
+* Created default for HTML5 sections
+  * nav element
+* Updated defaults for landmarks
+  * [role=navigation]
+  * [role=search]
+* Updated defaults for headings
+  * h1 element
+  * h2 element 
+
 ## Copyright and license
 
 Copyright 2015, eBay Software Foundation under the [BSD license](LICENSE.md).
