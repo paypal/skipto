@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# SkipTo, version 1.1
+# SkipTo, version 2.1
 ## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 
@@ -146,6 +146,15 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
 *  Safari -- CONTROL+0.
 
+## Version History
+### Version 2.1
+* Ignore hidden landmarks and headings, based on:
+** CSS: display: none
+** CSS: visibility: hidden
+** HTML5 hidden attribute
+** ARIA 1.0 aria-hidden=true attribute
+** ARIA 1.0 role=presentation attribute
+** any element that is less than 4 pixels high or wide
 
 ## Copyright and license
 
