@@ -100,11 +100,11 @@
 			
 			function getText(e, strings) {
 				// If text node get the text and return
-				if( e.nodeType === Node.TEXT_NODE ) {
+				if( e.nodeType === 3 ) { /*IE8 - Node.TEXT_NODE*/
 					strings.push(e.data);
 				} else {
 					// if an element for through all the children elements looking for text
-					if( e.nodeType === Node.ELEMENT_NODE ) {
+					if( e.nodeType === 1 ) { /*IE8 - Node.ELEMENT_NODE*/
 					// check to see if IMG or AREA element and to use ALT content if defined
 						var tagName = e.tagName.toLowerCase();
 						if((tagName === 'img') || (tagName === 'area')) {
@@ -177,9 +177,13 @@
 				if ((typeof role === 'string') && (role === 'presentation')) continue;
 				if (this.isVisible(heading)) {
 					id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
+
 					heading.tabIndex = "-1";
 					heading.setAttribute('id', id);
-					this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
+					
+					//this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
+					//IE8 fix: Use JSON object to supply names to array values. This allows enumerating over the array without picking up prototype properties.
+					this.headingElementsArr[id] = {id: id, name: heading.tagName.toLowerCase() + ": " + this.getTextContent(heading)};
 				}
 			}
 		},
@@ -187,11 +191,14 @@
 		isVisible: function(element) {
 		
 			function isVisibleRec (el) {
-				if (el.nodeType === Node.DOCUMENT_NODE) return true;
+				if (el.nodeType === 9) return true; /*IE8 does not support Node.DOCUMENT_NODE*/
 
-				var computedStyle = window.getComputedStyle(el, null);
-				var display = computedStyle.getPropertyValue('display');
-				var visibility = computedStyle.getPropertyValue('visibility');
+				//For IE8: Use standard means if available, otherwise use the IE methods
+				var display = document.defaultView?document.defaultView.getComputedStyle(el,null).getPropertyValue('display'):el.currentStyle.display;
+				var visibility = document.defaultView?document.defaultView.getComputedStyle(el,null).getPropertyValue('visibility'):el.currentStyle.visibility;
+				//var computedStyle = window.getComputedStyle(el, null);
+				//var display = computedStyle.getPropertyValue('display');
+				//var visibility = computedStyle.getPropertyValue('visibility');
 				var hidden = el.getAttribute('hidden');
 				var ariaHidden = el.getAttribute('aria-hidden');
 				var clientRect = el.getBoundingClientRect();
@@ -309,7 +316,8 @@
 			for (i = 0, j = els.length; i < j; i = i + 1) {
 				el = els[i];
 				id = el.getAttribute('id');
-				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();
+				/*val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();*/
+				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
 
 				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
 				this.idElementsArr[id] = "id: " + val;
@@ -325,41 +333,52 @@
 				headingClass = '';
 
 			// window.console.log(this.elementsArr);
-
+			
+			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
+			//Make sure that the key is not from the prototype.
 			for (key in this.landmarkElementsArr) {
-				if (landmarkSep) {
-					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
-					landmarkSep = false;
+				if (this.landmarkElementsArr.hasOwnProperty(key)){
+					if (landmarkSep) {
+						htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+						landmarkSep = false;
+					}
+					val = this.landmarkElementsArr[key];
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+					htmlStr += key + '">' + val;
+					htmlStr += '</a></li>';
 				}
-				val = this.landmarkElementsArr[key];
-				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-				htmlStr += key + '">' + val;
-				htmlStr += '</a></li>';
 			}
 
+			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
+			//Make sure that the key is not from the prototype.
 			for (key in this.idElementsArr) {
-				if (landmarkSep) {
-					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
-					landmarkSep = false;
+				if (this.idElementsArr.hasOwnProperty(key)){
+					if (landmarkSep) {
+						htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+						landmarkSep = false;
+					}
+					val = this.idElementsArr[key];
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+					htmlStr += key + '">' + val;
+					htmlStr += '</a></li>';
 				}
-				val = this.idElementsArr[key];
-				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-				htmlStr += key + '">' + val;
-				htmlStr += '</a></li>';
 			}
-
+			//for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
+			//James' workaround to get for JSON name/value pair appears to address the issue.
 			for (key in this.headingElementsArr) {
-				if (headingSep) {
-					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.headingsLabel + '</li>';
-					headingSep = false;
+				if (this.headingElementsArr[key].name){
+					if (headingSep) {
+						htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.headingsLabel + '</li>';
+						headingSep = false;
+					}
+					val = this.headingElementsArr[key].name;
+				
+					headingClass = val.substring(0,2);
+				
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
+					htmlStr += key + '">' + val;
+					htmlStr += '</a></li>';
 				}
-				val = this.headingElementsArr[key];
-				
-				headingClass = val.substring(0,2);
-				
-				htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
-				htmlStr += key + '">' + val;
-				htmlStr += '</a></li>';
 			}
 
 			return htmlStr;
@@ -390,6 +409,7 @@
 						element.tabIndex = -1;
 					}
 					element.focus();
+					element.scrollIntoView(true); //IE8 - Make sure to scroll to top
 				}
 			}, false);
 		}
