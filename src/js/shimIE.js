@@ -218,8 +218,9 @@ if (!Window.prototype.addEventListener){
 			return time;
 		  }
 		});
-		// Call the function handler callback originally provided...
-		fCallback.call(nodeWithListener, e); // Re-bases 'this' to be correct for the callback.
+		// Call the function handler callback originally provided...if callback function available
+		if (typeof fCallback === 'function')
+			fCallback.call(nodeWithListener, e); // Re-bases 'this' to be correct for the callback.
 	  });
 	}
 

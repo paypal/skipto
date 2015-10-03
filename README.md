@@ -101,6 +101,8 @@ You may feel slightly adventurous and decide to change some colors or even enhan
 4.  You should now have a directory called <code>**compiled**</code> with the necessary files in it.
 5.  See instructions above on which files you need to get the SkipTo script running on your web site.
 
+Note: On Windows, build-win.bat runs npm install and grunt modules (Step 3). To successfully run, you must launch a Windows command prompt as an Admin (Ctrl+Shift+Enter) and then run build-win.bat from this command prompt.
+
 ## Cleaning up
 If you would like to revert your local code repository to its initial state, simply run 
 ```sh
