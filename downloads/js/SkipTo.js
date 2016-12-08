@@ -1,10 +1,10 @@
-/*! skipto - v2.0.0 - 2015-09-02
+/*! skipto - v2.0.0 - 2016-12-08
 * https://github.com/paypal/skipto
-* Copyright (c) 2015 PayPal Accessibility Team and University of Illinois; Licensed BSD */
+* Copyright (c) 2016 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
 /*@if (@_jscript_version >= 5.8) @*/
 /* ========================================================================
-* Copyright (c) <2013> eBay Software Foundation
+* Copyright (c) <2013> PayPal
 
 * All rights reserved.
 
@@ -14,7 +14,7 @@
 
 * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
-* Neither the name of eBay or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+* Neither the name of PayPal or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * ======================================================================== */
@@ -223,8 +223,9 @@ if (!Window.prototype.addEventListener){
 			return time;
 		  }
 		});
-		// Call the function handler callback originally provided...
-		fCallback.call(nodeWithListener, e); // Re-bases 'this' to be correct for the callback.
+		// Call the function handler callback originally provided...if callback function available
+		if (typeof fCallback === 'function')
+			fCallback.call(nodeWithListener, e); // Re-bases 'this' to be correct for the callback.
 	  });
 	}
 
@@ -285,7 +286,7 @@ if (!Array.prototype.indexOf) {
 }
 
 }());;/* ========================================================================
-* Copyright (c) <2013> eBay Software Foundation
+* Copyright (c) <2013> PayPal
 
 * All rights reserved.
 
@@ -295,7 +296,7 @@ if (!Array.prototype.indexOf) {
 
 * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
-* Neither the name of eBay or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+* Neither the name of PayPal or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * ======================================================================== */
@@ -355,7 +356,7 @@ if (!Array.prototype.indexOf) {
 			this.addStyles(".skipTo{padding:.5em;position:absolute;background:transparent;color:#000;-webkit-transition:top .5s ease-out,background .5s linear;-moz-transition:top .5s ease-out,background .5s linear;-o-transition:top .5s ease-out,background .5s linear;transition:top .5s ease-out,background .5s linear}.skipTo:focus{position:absolute;top:0;left:0;background:#ccc;z-index:1000;text-decoration:underline;-webkit-transition:top .1s ease-in,background .3s linear;-moz-transition:top .1s ease-in,background .3s linear;-o-transition:top .1s ease-in,background .3s linear;transition:top .1s ease-in,background .3s linear}.onFocus{top:-5em;left:0}.onLoad{top:0;left:0;background:#ccc}.dropup,.dropMenu{position:relative}.dropMenu-toggle{*margin-bottom:-3px}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0}#skipToMenu .caret{display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #000;border-right:4px solid transparent;border-left:4px solid transparent;content:''}#skipToMenu .dropMenu .caret{margin-top:8px;margin-left:2px}.dropMenu-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.dropMenu-menu.pull-right{right:0;left:auto}.dropMenu-menu .divider{*width:100%;height:1px;margin:9px 1px;*margin:-5px 0 5px;overflow:hidden;background-color:#e5e5e5;border-bottom:1px solid #fff}.dropMenu-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:normal;line-height:20px;color:#333;white-space:nowrap;text-decoration:none}.dropMenu-menu>li>a.po-h1{font-size:110%}.dropMenu-menu>li>a.po-h2{padding-left:28px}.dropMenu-menu>li>a.po-h3{padding-left:36px}.dropMenu-menu>li>a.po-h4{padding-left:44px}.dropMenu-menu>li>a.po-h5{padding-left:52px}.dropMenu-menu>li>a.po-6{padding-left:60px}.dropMenu-menu>li[role=separator]{padding-left:20px;margin-top:9px;font-weight:bold;border-bottom:thin solid black}.dropMenu-menu>li>a:hover,.dropMenu-menu>li>a:focus,.dropMenu-submenu:hover>a,.dropMenu-submenu:focus>a{text-decoration:none;color:#fff;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.active>a,.dropMenu-menu>.active>a:hover,.dropMenu-menu>.active>a:focus{color:#fff;text-decoration:none;outline:0;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.disabled>a,.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{color:#999}.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{text-decoration:none;background-color:transparent;background-image:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);cursor:default}.open{*z-index:1000}.open>.dropMenu-menu{display:block}.pull-right>.dropMenu-menu{right:0;left:auto}#skipToMenu .dropup .caret,#skipToMenu .navbar-fixed-bottom .dropMenu .caret{border-top:0;border-bottom:4px solid #000;content:''}#skipToMenu .dropup .dropMenu-menu,#skipToMenu .navbar-fixed-bottom .dropMenu .dropMenu-menu{top:auto;bottom:100%;margin-bottom:1px}.dropMenu-submenu{position:relative}.dropMenu-submenu>.dropMenu-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px}.dropMenu-submenu:hover>.dropMenu-menu{display:block}.dropup .dropMenu-submenu>.dropMenu-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0}.dropMenu-submenu>a:after{display:block;content:' ';float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#ccc;margin-top:5px;margin-right:-10px}.dropMenu-submenu:hover>a:after{border-left-color:#fff}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left>.dropMenu-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
-			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<b class="caret"></b></a>';
+			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<span class="caret"></span></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-label="' + this.config.menuLabel + '" style="top:3%; text-align:left">';
 
 			this.getLandMarks(this.config.main);
@@ -386,11 +387,11 @@ if (!Array.prototype.indexOf) {
 			
 			function getText(e, strings) {
 				// If text node get the text and return
-				if( e.nodeType === Node.TEXT_NODE ) {
+				if( e.nodeType === 3 ) { /*IE8 - Node.TEXT_NODE*/
 					strings.push(e.data);
 				} else {
 					// if an element for through all the children elements looking for text
-					if( e.nodeType === Node.ELEMENT_NODE ) {
+					if( e.nodeType === 1 ) { /*IE8 - Node.ELEMENT_NODE*/
 					// check to see if IMG or AREA element and to use ALT content if defined
 						var tagName = e.tagName.toLowerCase();
 						if((tagName === 'img') || (tagName === 'area')) {
@@ -463,9 +464,13 @@ if (!Array.prototype.indexOf) {
 				if ((typeof role === 'string') && (role === 'presentation')) continue;
 				if (this.isVisible(heading)) {
 					id = heading.getAttribute('id') || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
+
 					heading.tabIndex = "-1";
 					heading.setAttribute('id', id);
-					this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
+					
+					//this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
+					//IE8 fix: Use JSON object to supply names to array values. This allows enumerating over the array without picking up prototype properties.
+					this.headingElementsArr[id] = {id: id, name: heading.tagName.toLowerCase() + ": " + this.getTextContent(heading)};
 				}
 			}
 		},
@@ -473,11 +478,14 @@ if (!Array.prototype.indexOf) {
 		isVisible: function(element) {
 		
 			function isVisibleRec (el) {
-				if (el.nodeType === Node.DOCUMENT_NODE) return true;
+				if (el.nodeType === 9) return true; /*IE8 does not support Node.DOCUMENT_NODE*/
 
-				var computedStyle = window.getComputedStyle(el, null);
-				var display = computedStyle.getPropertyValue('display');
-				var visibility = computedStyle.getPropertyValue('visibility');
+				//For IE8: Use standard means if available, otherwise use the IE methods
+				var display = document.defaultView?document.defaultView.getComputedStyle(el,null).getPropertyValue('display'):el.currentStyle.display;
+				var visibility = document.defaultView?document.defaultView.getComputedStyle(el,null).getPropertyValue('visibility'):el.currentStyle.visibility;
+				//var computedStyle = window.getComputedStyle(el, null);
+				//var display = computedStyle.getPropertyValue('display');
+				//var visibility = computedStyle.getPropertyValue('visibility');
 				var hidden = el.getAttribute('hidden');
 				var ariaHidden = el.getAttribute('aria-hidden');
 				var clientRect = el.getBoundingClientRect();
@@ -595,7 +603,8 @@ if (!Array.prototype.indexOf) {
 			for (i = 0, j = els.length; i < j; i = i + 1) {
 				el = els[i];
 				id = el.getAttribute('id');
-				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();
+				/*val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();*/
+				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
 
 				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
 				this.idElementsArr[id] = "id: " + val;
@@ -611,41 +620,52 @@ if (!Array.prototype.indexOf) {
 				headingClass = '';
 
 			// window.console.log(this.elementsArr);
-
+			
+			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
+			//Make sure that the key is not from the prototype.
 			for (key in this.landmarkElementsArr) {
-				if (landmarkSep) {
-					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
-					landmarkSep = false;
+				if (this.landmarkElementsArr.hasOwnProperty(key)){
+					if (landmarkSep) {
+						htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+						landmarkSep = false;
+					}
+					val = this.landmarkElementsArr[key];
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+					htmlStr += key + '">' + val;
+					htmlStr += '</a></li>';
 				}
-				val = this.landmarkElementsArr[key];
-				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-				htmlStr += key + '">' + val;
-				htmlStr += '</a></li>';
 			}
 
+			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
+			//Make sure that the key is not from the prototype.
 			for (key in this.idElementsArr) {
-				if (landmarkSep) {
-					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
-					landmarkSep = false;
+				if (this.idElementsArr.hasOwnProperty(key)){
+					if (landmarkSep) {
+						htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.landmarksLabel + '</li>';
+						landmarkSep = false;
+					}
+					val = this.idElementsArr[key];
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
+					htmlStr += key + '">' + val;
+					htmlStr += '</a></li>';
 				}
-				val = this.idElementsArr[key];
-				htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-				htmlStr += key + '">' + val;
-				htmlStr += '</a></li>';
 			}
-
+			//for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
+			//James' workaround to get for JSON name/value pair appears to address the issue.
 			for (key in this.headingElementsArr) {
-				if (headingSep) {
-					htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.headingsLabel + '</li>';
-					headingSep = false;
+				if (this.headingElementsArr[key].name){
+					if (headingSep) {
+						htmlStr += '<li role="separator" style="list-style:none outside none">' + this.config.headingsLabel + '</li>';
+						headingSep = false;
+					}
+					val = this.headingElementsArr[key].name;
+				
+					headingClass = val.substring(0,2);
+				
+					htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
+					htmlStr += key + '">' + val;
+					htmlStr += '</a></li>';
 				}
-				val = this.headingElementsArr[key];
-				
-				headingClass = val.substring(0,2);
-				
-				htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
-				htmlStr += key + '">' + val;
-				htmlStr += '</a></li>';
 			}
 
 			return htmlStr;
@@ -676,6 +696,7 @@ if (!Array.prototype.indexOf) {
 						element.tabIndex = -1;
 					}
 					element.focus();
+					element.scrollIntoView(true); //IE8 - Make sure to scroll to top
 				}
 			}, false);
 		}
@@ -685,7 +706,7 @@ if (!Array.prototype.indexOf) {
 
 }(window.Drupal || window.Wordpress || window.SkipToConfig || {}));
 ;/* ========================================================================
-* Copyright (c) <2013> eBay Software Foundation
+* Copyright (c) <2013> PayPal
 
 * All rights reserved.
 
@@ -695,7 +716,7 @@ if (!Array.prototype.indexOf) {
 
 * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
-* Neither the name of eBay or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+* Neither the name of PayPal or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * ======================================================================== */
