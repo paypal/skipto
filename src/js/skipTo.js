@@ -26,6 +26,9 @@
 		dropdownHTML: null,
 		config: {
 			buttonLabel:    'Skip To...',
+			buttonDivTitle: 'Skip To Keyboard Navigation',
+			buttonDivRole: 'complementary',
+			buttonDivLabel: '',
 			menuLabel:      'Skip To and Page Outline',
 			landmarksLabel: 'Skip To',
 			headingsLabel:  'Page Outline',
@@ -62,9 +65,11 @@
 			var div = document.createElement('div'),
 			attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
 			htmlStr = '';
+
 			div.setAttribute('id', 'skipToMenu');
-			div.setAttribute('role', 'complementary');
-			div.setAttribute('title', 'Skip To Keyboard Navigation');
+			if(this.config.buttonDivRole!==''){div.setAttribute('role', this.config.buttonDivRole);}
+			if(this.config.buttonDivTitle!==''){div.setAttribute('title', this.config.buttonDivTitle);}
+			if(this.config.buttonDivLabel!==''){div.setAttribute('aria-label', this.config.buttonDivLabel);}
 
 			this.addStyles("@@cssContent");
 
