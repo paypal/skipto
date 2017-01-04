@@ -59,6 +59,13 @@
 
 			this.setUpConfig(appConfig);
 
+
+			// if the menu exists, recreate it
+			if(document.getElementById('skipToMenu')!==null){
+				var existingMenu=document.getElementById('skipToMenu');
+				existingMenu.parentNode.removeChild(existingMenu);
+			}
+
 			var div = document.createElement('div'),
 			attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
 			htmlStr = '';
@@ -89,6 +96,7 @@
 				div.innerHTML = this.dropdownHTML;
 				this.addListeners();
 			}
+			window.skipToDropDownInit();
 		},
 
 		normalizeName: function (name) {
@@ -416,5 +424,12 @@
 	};
 
 	SkipTo.prototype.init(appConfig);
+
+	// Make this public so it can be called again in the future;
+	window.skipToMenuInit=function(){
+		SkipTo.prototype.init(window.Drupal || window.Wordpress || window.SkipToConfig || {});
+	};
+
+
 
 }(window.Drupal || window.Wordpress || window.SkipToConfig || {}));
