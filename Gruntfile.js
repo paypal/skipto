@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'./compiled/js/<%= pkg.name %>.min.js': ['src/js/shimIE.js', 'src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js']
+					'./compiled/js/<%= pkg.name %>.min.js': ['src/js/shimIE.js', 'src/js/dropMenu.js', 'src/js/<%= pkg.name %>.js']
 				}
 			}
 		},
