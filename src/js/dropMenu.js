@@ -154,5 +154,8 @@
 	}; //End Dropdown class
 
 	Dropdown.prototype.init();
+	window.skipToDropDownInit=function(){
+		Dropdown.prototype.init();
+	};
 
 }());
