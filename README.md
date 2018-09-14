@@ -89,11 +89,9 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 ## Compiling CSS and JavaScript
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
-1.  [Get NodeJS from http://nodejs.org](http://nodejs.org) and install it on the operating system of your choice.
-2.  Get the [latest code from Github from https://github.com/paypal/skipto](https://github.com/paypal/skipto).
-3.  After unzipping or downloading the source code into the directory of your choice, switch to that directory and type these commands:
-
   ```sh
+   git clone https://github.com/paypal/skipto.git 
+   cd skipto
    sudo npm install grunt-cli -g
    npm install  
    grunt
