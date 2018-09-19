@@ -32,6 +32,7 @@
 			menuLabel:      'Skip To and Page Outline',
 			landmarksLabel: 'Skip To',
 			headingsLabel:  'Page Outline',
+			contentLabel: ' Content',
 			main:      'main, [role="main"]',
 			landmarks: '[role="navigation"], [role="search"]',
 			sections:  'nav',
@@ -260,7 +261,7 @@
 					}
 					else {
 						if (role === 'main') {
-							val += ' Content';
+							val += this.config.contentLabel;
 						}
 					}
 					this.landmarkElementsArr[id1] = val;
@@ -310,7 +311,7 @@
 					}
 					else {
 						if (role === 'main') {
-							val += ' Content';
+							val += this.config.contentLabel;
 						}
 					}
 					this.landmarkElementsArr[id1] = val;
