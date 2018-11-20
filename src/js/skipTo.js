@@ -37,8 +37,8 @@
 			landmarks: '[role="navigation"], [role="search"]',
 			sections:  'nav',
 			headings:  'h1, h2, h3',
-			// ids:       [{id: '#SkipToA1'}, {id: '#SkipToA2'}],
-			ids:       '#SkipToA1, #SkipToA2',
+			ids:       [{id: 'SkipToA1'}, {id: 'SkipToA2'}],
+			// ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus",
@@ -101,7 +101,7 @@
 				div.innerHTML = this.dropdownHTML;
 				this.addListeners();
 			}
-			window.skipToDropDownInit();
+			window.skipToDropDownInit(this.config);
 		},
 
 		normalizeName: function (name) {
@@ -319,35 +319,18 @@
 		},
 
 		getIdElements: function () {
-			// var i, el, id, val;
-			// // TODO (TC): Check type for this.config.ids. If string, transform into array of objects
-			// for (i = 0; i < this.config.ids.length; i = i + 1) {
-			// 	id = this.config.ids[i].id;
-			// 	el = document.getElementById(id);
-			// 	if (el === null) continue;
+			var i, el, id, val;
+			// TODO (TC): Check type for this.config.ids. If string, transform into array of objects
+			for (i = 0; i < this.config.ids.length; i = i + 1) {
+				id = this.config.ids[i].id.replace('#', '');
+				el = document.getElementById(id);
+				if (el === null) continue;
 
-			// 	val = this.config.ids[i].val || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
-			// 	if (val.length > 30) {
-			// 		val = val.replace(val, val.substr(0, 30)	+	'...');
-			// 	}
+				val = this.config.ids[i].val || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
+				if (val.length > 30) {
+					val = val.replace(val, val.substr(0, 30) + '...');
+				}
 
-			// 	this.idElementsArr[id] = "id: " + val;
-			// }
-
-			var els = document.querySelectorAll(this.config.ids),
-			i,
-				j,
-				el,
-				id,
-				val;
-
-			for (i = 0, j = els.length; i < j; i = i + 1) {
-				el = els[i];
-				id = el.getAttribute('id');
-				/*val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();*/
-				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
-
-				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
 				this.idElementsArr[id] = "id: " + val;
 			}
 		},
@@ -359,8 +342,6 @@
 				landmarkSep = true,
 				headingSep = true,
 				headingClass = '';
-
-			// window.console.log(this.elementsArr);
 			
 			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
 			//Make sure that the key is not from the prototype.

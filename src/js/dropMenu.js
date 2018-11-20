@@ -24,6 +24,22 @@
 		prt: null,
 		menu: null,
 		wrap: "false",
+		config: {
+			callbacks: [],
+		},
+
+		setUpConfig: function (config) {
+			var i,
+				idConfig;
+
+			// TODO (TC): This only applies to ids for now. Think through how to extend to other elements
+			for (i = 0;  i < config.ids.length; i = i + 1) {
+				var idConfig = config.ids[i];
+				if (idConfig.callback) {
+					this.config.callbacks[idConfig.id] = idConfig.callback;
+				}
+			}
+		},
 
 		clearMenus: function () {
 			var self = this;
@@ -110,7 +126,15 @@
 			items.item(index).focus();
 		},
 
-		init: function () {
+		executeCallback: function (e) {
+			var id = e.target.getAttribute('href').replace('#', '');
+			if (this.config.callbacks.hasOwnProperty(id)) {
+				e.preventDefault();
+				this.config.callbacks[id]();
+			}
+		},
+
+		init: function (config) {
 			var toggle = document.getElementsByClassName('dropMenu-toggle'),
 				toggleBtn,
 				k,
@@ -121,7 +145,9 @@
 				j,
 				self=this,
 				item;
-				
+
+			this.setUpConfig(config);
+
 			for (k = 0, l = toggle.length; k < l; k = k + 1) {
 				toggleBtn = toggle[k];
 				menu = document.getElementById(toggleBtn.getAttribute('data-target'));
@@ -147,6 +173,10 @@
 					item.addEventListener('blur', function(e) {
 						self.clearMenus(e);
 					});
+
+					item.addEventListener('click', function(e) {
+						self.executeCallback(e);
+					})
 				}
 			}
 		} //end init
@@ -154,8 +184,8 @@
 	}; //End Dropdown class
 
 	// Dropdown.prototype.init();
-	window.skipToDropDownInit=function(){
-		Dropdown.prototype.init();
+	window.skipToDropDownInit=function(config){
+		Dropdown.prototype.init(config);
 	};
 
 }());
