@@ -33,9 +33,11 @@
 				idConfig;
 
 			// TODO (TC): This only applies to ids for now. Think through how to extend to other elements
+			if (typeof config.ids !== 'object') return;
+
 			for (i = 0;  i < config.ids.length; i = i + 1) {
-				var idConfig = config.ids[i];
-				if (idConfig.callback) {
+				idConfig = config.ids[i];
+				if (typeof idConfig === 'object' && idConfig.callback) {
 					this.config.callbacks[idConfig.id] = idConfig.callback;
 				}
 			}
@@ -184,8 +186,8 @@
 	}; //End Dropdown class
 
 	// Dropdown.prototype.init();
-	window.skipToDropDownInit=function(config){
-		Dropdown.prototype.init(config);
+	window.skipToDropDownInit = function(customConfig) {
+		Dropdown.prototype.init(customConfig || window.Drupal || window.Wordpress || window.SkipToConfig || {});
 	};
 
-}());
+}(window.Drupal || window.Wordpress || window.SkipToConfig || {}));

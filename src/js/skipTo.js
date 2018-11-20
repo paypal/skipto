@@ -37,8 +37,7 @@
 			landmarks: '[role="navigation"], [role="search"]',
 			sections:  'nav',
 			headings:  'h1, h2, h3',
-			ids:       [{id: 'SkipToA1'}, {id: 'SkipToA2'}],
-			// ids:       '#SkipToA1, #SkipToA2',
+			ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
 			visibility: "onFocus",
@@ -319,14 +318,16 @@
 		},
 
 		getIdElements: function () {
-			var i, el, id, val;
-			// TODO (TC): Check type for this.config.ids. If string, transform into array of objects
-			for (i = 0; i < this.config.ids.length; i = i + 1) {
-				id = this.config.ids[i].id.replace('#', '');
+			var i, els, el, id, val;
+
+			els = (typeof this.config.ids === 'object') ? this.config.ids : []; // TODO (TC): Still need to transform string into array
+
+			for (i = 0; i < els.length; i = i + 1) {
+				id = els[i].id.replace('#', '');
 				el = document.getElementById(id);
 				if (el === null) continue;
 
-				val = this.config.ids[i].val || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
+				val = els[i].description || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
 				if (val.length > 30) {
 					val = val.replace(val, val.substr(0, 30) + '...');
 				}
