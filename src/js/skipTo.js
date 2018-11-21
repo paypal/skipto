@@ -40,6 +40,8 @@
 			ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
+			focusOnClick: "false",
+			hashtagOnMenu: "true",
 			visibility: "onFocus",
 			customClass: "",
 			attachElement: document.body
@@ -80,7 +82,11 @@
 			this.addStyles("@@cssContent");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
-			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<span class="caret"></span></a>';
+			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" data-target="menu1"';
+			if (this.config.hashOnMenu) {
+				this.dropdownHTML += ' href="#"';
+			}
+			this.dropdownHTML += '>' + this.config.buttonLabel + '<span class="caret"></span></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-label="' + this.config.menuLabel + '" style="top:3%; text-align:left">';
 
 			this.getLandMarks(this.config.main);
@@ -320,7 +326,16 @@
 		getIdElements: function () {
 			var i, els, el, id, val;
 
-			els = (typeof this.config.ids === 'object') ? this.config.ids : []; // TODO (TC): Still need to transform string into array
+			if (typeof this.config.ids === 'object') {
+				els = this.config.ids;
+			} else if (typeof this.config.ids === 'string') {
+				els = this.config.ids.split(',');
+				els = els.map(function (el) {
+					return {id: el.trim()};
+				});
+			} else {
+				els = [];
+			}
 
 			for (i = 0; i < els.length; i = i + 1) {
 				id = els[i].id.replace('#', '');
@@ -412,16 +427,18 @@
 		},
 
 		addListeners: function () {
-			window.addEventListener("hashchange", function () {
-				var element = document.getElementById(location.hash.substring(1));
-				if (element) {
-					if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) {
-						element.tabIndex = -1;
+			if (!this.config.focusOnClick) {
+				window.addEventListener("hashchange", function () {
+					var element = document.getElementById(location.hash.substring(1));
+					if (element) {
+						if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) {
+							element.tabIndex = -1;
+						}
+						element.focus();
+						element.scrollIntoView(true); //IE8 - Make sure to scroll to top
 					}
-					element.focus();
-					element.scrollIntoView(true); //IE8 - Make sure to scroll to top
-				}
-			}, false);
+				}, false);
+			}
 		}
 	};
 
