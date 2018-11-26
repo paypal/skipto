@@ -41,7 +41,8 @@
 			accessKey: '0',
 			wrap: "false",
 			focusOnClick: "false",
-			hashtagOnMenu: "true",
+			hashOnMenu: "true",
+			enumerateElements: "false",
 			visibility: "onFocus",
 			customClass: "",
 			attachElement: document.body
@@ -83,7 +84,7 @@
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
 			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" data-target="menu1"';
-			if (this.config.hashOnMenu) {
+			if (this.config.hashOnMenu === 'true') {
 				this.dropdownHTML += ' href="#"';
 			}
 			this.dropdownHTML += '>' + this.config.buttonLabel + '<span class="caret"></span></a>';
@@ -188,7 +189,8 @@
 				j,
 				heading,
 				role,
-				id;
+				id,
+				name;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
 				heading = headings[i];
 				role = heading.getAttribute('role');
@@ -198,10 +200,15 @@
 
 					heading.tabIndex = "-1";
 					heading.setAttribute('id', id);
+
+					name = this.getTextContent(heading);
+					if (this.config.enumerateElements === 'false') {
+						name = heading.tagName.toLowerCase() + ": " + name;
+					}
 					
 					//this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
 					//IE8 fix: Use JSON object to supply names to array values. This allows enumerating over the array without picking up prototype properties.
-					this.headingElementsArr[id] = {id: id, name: heading.tagName.toLowerCase() + ": " + this.getTextContent(heading)};
+					this.headingElementsArr[id] = {id: id, name: name};
 				}
 			}
 		},
@@ -256,12 +263,12 @@
 					section.tabIndex = "-1";
 					section.setAttribute('id', id1);
 					role = section.tagName.toLowerCase();
-					val = this.normalizeName(role);
 
+					val = (this.config.enumerateElements === 'false') ? this.normalizeName(role) + ": " : '';
 					name = this.getAccessibleName(section);
 
 					if (name && name.length) {
-						val += ": " + name;
+						val += name;
 					}
 					else {
 						if (role === 'main') {
@@ -308,10 +315,10 @@
 						role = 'nav';
 					} // navigation landmark is the same as nav element in HTML5
 
-					val = this.normalizeName(role);
+					val = (this.config.enumerateElements === 'false') ? this.normalizeName(role) + ": " : '';
 
 					if (name && name.length) {
-						val += ": " + name;
+						val += name;
 					}
 					else {
 						if (role === 'main') {
@@ -347,7 +354,10 @@
 					val = val.replace(val, val.substr(0, 30) + '...');
 				}
 
-				this.idElementsArr[id] = "id: " + val;
+				if (this.config.enumerateElements === 'false') {
+					val = "id: " + val;
+				}
+				this.idElementsArr[id] = val;
 			}
 		},
 
@@ -357,7 +367,8 @@
 				htmlStr = '',
 				landmarkSep = true,
 				headingSep = true,
-				headingClass = '';
+				headingClass = '',
+				elementCnt = 1;
 			
 			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
 			//Make sure that the key is not from the prototype.
@@ -369,8 +380,12 @@
 					}
 					val = this.landmarkElementsArr[key];
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 
@@ -384,8 +399,12 @@
 					}
 					val = this.idElementsArr[key];
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 			//for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
@@ -401,8 +420,12 @@
 					headingClass = val.substring(0,2);
 				
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 
@@ -427,7 +450,7 @@
 		},
 
 		addListeners: function () {
-			if (!this.config.focusOnClick) {
+			if (this.config.focusOnClick === 'false') {
 				window.addEventListener("hashchange", function () {
 					var element = document.getElementById(location.hash.substring(1));
 					if (element) {

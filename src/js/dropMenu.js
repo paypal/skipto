@@ -141,7 +141,7 @@
 				e.preventDefault();
 				this.config.callbacks[id]();
 				this.toggleOptList();
-			} else if (this.config.focusOnClick) {
+			} else if (this.config.focusOnClick !== 'false') {
 				e.preventDefault();
 				target = document.getElementById(id);
 				target.tabIndex = 0;
