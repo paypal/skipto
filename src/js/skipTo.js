@@ -15,7 +15,7 @@
 * ======================================================================== */
 
 
-(function (appConfig) {
+(function () {
 	"use strict";
 	var SkipTo = {};
 
@@ -40,6 +40,9 @@
 			ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
+			focusOnClick: "false",
+			hashOnMenu: "true",
+			enumerateElements: "false",
 			visibility: "onFocus",
 			customClass: "",
 			attachElement: document.body
@@ -48,7 +51,6 @@
 		setUpConfig: function (appConfig) {
 			var localConfig = this.config,
 				name,
-
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
 				
 			for (name in appConfigSettings) {
@@ -62,7 +64,6 @@
 		init: function (appConfig) {
 
 			this.setUpConfig(appConfig);
-
 
 			// if the menu exists, recreate it
 			if(document.getElementById('skipToMenu')!==null){
@@ -82,7 +83,11 @@
 			this.addStyles("@@cssContent");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
-			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<span class="caret"></span></a>';
+			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" data-target="menu1"';
+			if (this.config.hashOnMenu === 'true') {
+				this.dropdownHTML += ' href="#"';
+			}
+			this.dropdownHTML += '>' + this.config.buttonLabel + '<span class="caret"></span></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-label="' + this.config.menuLabel + '" style="top:3%; text-align:left">';
 
 			this.getLandMarks(this.config.main);
@@ -102,7 +107,7 @@
 				div.innerHTML = this.dropdownHTML;
 				this.addListeners();
 			}
-			window.skipToDropDownInit();
+			window.skipToDropDownInit(this.config);
 		},
 
 		normalizeName: function (name) {
@@ -184,7 +189,8 @@
 				j,
 				heading,
 				role,
-				id;
+				id,
+				name;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
 				heading = headings[i];
 				role = heading.getAttribute('role');
@@ -194,10 +200,15 @@
 
 					heading.tabIndex = "-1";
 					heading.setAttribute('id', id);
+
+					name = this.getTextContent(heading);
+					if (this.config.enumerateElements === 'false') {
+						name = heading.tagName.toLowerCase() + ": " + name;
+					}
 					
 					//this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
 					//IE8 fix: Use JSON object to supply names to array values. This allows enumerating over the array without picking up prototype properties.
-					this.headingElementsArr[id] = {id: id, name: heading.tagName.toLowerCase() + ": " + this.getTextContent(heading)};
+					this.headingElementsArr[id] = {id: id, name: name};
 				}
 			}
 		},
@@ -252,12 +263,12 @@
 					section.tabIndex = "-1";
 					section.setAttribute('id', id1);
 					role = section.tagName.toLowerCase();
-					val = this.normalizeName(role);
 
+					val = (this.config.enumerateElements === 'false') ? this.normalizeName(role) + ": " : '';
 					name = this.getAccessibleName(section);
 
 					if (name && name.length) {
-						val += ": " + name;
+						val += name;
 					}
 					else {
 						if (role === 'main') {
@@ -304,10 +315,10 @@
 						role = 'nav';
 					} // navigation landmark is the same as nav element in HTML5
 
-					val = this.normalizeName(role);
+					val = (this.config.enumerateElements === 'false') ? this.normalizeName(role) + ": " : '';
 
 					if (name && name.length) {
-						val += ": " + name;
+						val += name;
 					}
 					else {
 						if (role === 'main') {
@@ -320,21 +331,33 @@
 		},
 
 		getIdElements: function () {
-			var els = document.querySelectorAll(this.config.ids),
-				i,
-				j,
-				el,
-				id,
-				val;
+			var i, els, el, id, val;
 
-			for (i = 0, j = els.length; i < j; i = i + 1) {
-				el = els[i];
-				id = el.getAttribute('id');
-				/*val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();*/
-				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
+			if (typeof this.config.ids === 'object') {
+				els = this.config.ids;
+			} else if (typeof this.config.ids === 'string') {
+				els = this.config.ids.split(',');
+				els = els.map(function (el) {
+					return {id: el.trim()};
+				});
+			} else {
+				els = [];
+			}
 
-				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
-				this.idElementsArr[id] = "id: " + val;
+			for (i = 0; i < els.length; i = i + 1) {
+				id = els[i].id.replace('#', '');
+				el = document.getElementById(id);
+				if (el === null) continue;
+
+				val = els[i].description || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
+				if (val.length > 30) {
+					val = val.replace(val, val.substr(0, 30) + '...');
+				}
+
+				if (this.config.enumerateElements === 'false') {
+					val = "id: " + val;
+				}
+				this.idElementsArr[id] = val;
 			}
 		},
 
@@ -344,9 +367,8 @@
 				htmlStr = '',
 				landmarkSep = true,
 				headingSep = true,
-				headingClass = '';
-
-			// window.console.log(this.elementsArr);
+				headingClass = '',
+				elementCnt = 1;
 			
 			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
 			//Make sure that the key is not from the prototype.
@@ -358,8 +380,12 @@
 					}
 					val = this.landmarkElementsArr[key];
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 
@@ -373,8 +399,12 @@
 					}
 					val = this.idElementsArr[key];
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 			//for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
@@ -390,8 +420,12 @@
 					headingClass = val.substring(0,2);
 				
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 
@@ -416,26 +450,31 @@
 		},
 
 		addListeners: function () {
-			window.addEventListener("hashchange", function () {
-				var element = document.getElementById(location.hash.substring(1));
-				if (element) {
-					if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) {
-						element.tabIndex = -1;
+			if (this.config.focusOnClick === 'false') {
+				window.addEventListener("hashchange", function () {
+					var element = document.getElementById(location.hash.substring(1));
+					if (element) {
+						if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) {
+							element.tabIndex = -1;
+						}
+						element.focus();
+						element.scrollIntoView(true); //IE8 - Make sure to scroll to top
 					}
-					element.focus();
-					element.scrollIntoView(true); //IE8 - Make sure to scroll to top
-				}
-			}, false);
+				}, false);
+			}
 		}
 	};
 
-	SkipTo.prototype.init(appConfig);
+	// SkipTo.prototype.init(appConfig);
 
 	// Make this public so it can be called again in the future;
-	window.skipToMenuInit=function(){
-		SkipTo.prototype.init(window.Drupal || window.Wordpress || window.SkipToConfig || {});
+	window.skipToMenuInit = function(customConfig) {
+		var config = {
+			settings: {
+				skipTo: customConfig
+			}
+		};
+		SkipTo.prototype.init(config || window.Drupal || window.Wordpress || window.SkipToConfig || {});
 	};
-
-
 
 }(window.Drupal || window.Wordpress || window.SkipToConfig || {}));

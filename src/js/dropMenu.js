@@ -24,6 +24,27 @@
 		prt: null,
 		menu: null,
 		wrap: "false",
+		config: {
+			callbacks: [],
+			focusOnClick: "false",
+		},
+
+		setUpConfig: function (config) {
+			var i,
+				idConfig;
+
+			// TODO: This only applies to ids for now. Think through how to extend to other elements
+			if (typeof config.ids !== 'object') return;
+
+			for (i = 0;  i < config.ids.length; i = i + 1) {
+				idConfig = config.ids[i];
+				if (typeof idConfig === 'object' && idConfig.callback) {
+					this.config.callbacks[idConfig.id] = idConfig.callback;
+				}
+			}
+
+			this.config.focusOnClick = config.focusOnClick;
+		},
 
 		clearMenus: function () {
 			var self = this;
@@ -37,11 +58,14 @@
 			}, 150);
 		},
 
-		toggleOptList: function (e) {
+		initOptList: function (e) {
 			this.btn = e.target;
 			this.prt = this.btn.parentNode;
 			this.menu = document.getElementById(this.btn.getAttribute('data-target'));
+			this.toggleOptList();
+		},
 
+		toggleOptList: function () {
 			if(typeof this.btn.getAttribute('data-wrap') !== 'undefined') {
 				this.wrap = this.btn.getAttribute('data-wrap');
 			}
@@ -55,7 +79,7 @@
 			try {
 				this.menu.getElementsByTagName('a')[0].focus();
 			}
-			catch(err){
+			catch(err) {
 			}
 		},
 
@@ -71,7 +95,6 @@
 				items = this.menu.getElementsByTagName("a"),
 				index = Array.prototype.indexOf.call(items, e.target);
 	
-
 			if (!/(32|38|40|27)/.test(keyCode)) {
 				return;
 			}
@@ -110,7 +133,25 @@
 			items.item(index).focus();
 		},
 
-		init: function () {
+		executeCallback: function (e) {
+			var id = e.target.getAttribute('href').replace('#', ''),
+				target;
+
+			if (this.config.callbacks.hasOwnProperty(id)) {
+				e.preventDefault();
+				this.config.callbacks[id]();
+				this.toggleOptList();
+			} else if (this.config.focusOnClick !== 'false') {
+				e.preventDefault();
+				target = document.getElementById(id);
+				target.tabIndex = 0;
+				target.focus();
+				target.scrollIntoView(true); //IE8 - Make sure to scroll to top
+				this.toggleOptList();
+			}
+		},
+
+		init: function (config) {
 			var toggle = document.getElementsByClassName('dropMenu-toggle'),
 				toggleBtn,
 				k,
@@ -121,14 +162,16 @@
 				j,
 				self=this,
 				item;
-				
+
+			this.setUpConfig(config);
+
 			for (k = 0, l = toggle.length; k < l; k = k + 1) {
 				toggleBtn = toggle[k];
 				menu = document.getElementById(toggleBtn.getAttribute('data-target'));
 				items = menu.getElementsByTagName("a");
 
 				toggleBtn.addEventListener('click', function(e) {
-					self.toggleOptList(e);
+					self.initOptList(e);
 				});
 				toggleBtn.addEventListener('keydown', function(e){
 					var keyCode = e.keyCode || e.which;
@@ -147,15 +190,20 @@
 					item.addEventListener('blur', function(e) {
 						self.clearMenus(e);
 					});
+
+					item.addEventListener('click', function(e) {
+						self.executeCallback(e);
+					});
 				}
 			}
 		} //end init
 
 	}; //End Dropdown class
 
-	Dropdown.prototype.init();
-	window.skipToDropDownInit=function(){
-		Dropdown.prototype.init();
+	// Dropdown.prototype.init();
+
+	window.skipToDropDownInit = function(customConfig) {
+		Dropdown.prototype.init(customConfig || window.Drupal || window.Wordpress || window.SkipToConfig || {});
 	};
 
-}());
+}(window.Drupal || window.Wordpress || window.SkipToConfig || {}));
