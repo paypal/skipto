@@ -19,19 +19,22 @@
       "url": "https://github.com/paypal/skipto/blob/master/BSDLicense.txt"
     }
   ],
+  "engines": {
+    "node": ">=6"
+  },
   "devDependencies": {
-    "jshint": "~1.1.0",
+    "jshint": "~2.10.2",
     "uglify-js": "~2.8.0",
-    "less": "~1.3.3",
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.5",
-    "grunt-contrib-less": "~0.5.2",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-replace": "~0.4.4",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-compress": "~0.5.2",
-    "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-concat": "~0.3.0"
+    "less": "^3.0.4",
+    "grunt": "^1.0.4",
+    "grunt-contrib-jshint": "~2.1.0",
+    "grunt-contrib-less": "~2.0.0",
+    "grunt-contrib-uglify": "~4.0.1",
+    "grunt-replace": "~1.0.1",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-compress": "~1.4.3",
+    "grunt-contrib-clean": "~2.0.0",
+    "grunt-contrib-concat": "~1.0.1"
   },
   "readmeFilename": "README.md",
   "gitHead": "641457dfeea57fbedfba5ba2a65ce0c33ac411b7",
@@ -39,20 +42,6 @@
   "directories": {
     "example": "example",
     "test": "test"
-  },
-  "dependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-compress": "~0.5.2",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.5",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-less": "~0.5.2",
-    "grunt-replace": "~0.4.4",
-    "jshint": "~1.1.0",
-    "less": "~1.3.3",
-    "uglify-js": "~2.8.0"
   },
   "scripts": {
     "test": "grunt test"
