@@ -1,3 +1,19 @@
+// -----------------------------------------------------
+// Title: Skip to Options User script
+// version: 2.0.4
+// Date: 2019-07-30
+// Author: PayPal Accessibility Team and University of Illinois
+// Homepage: https://github.com/paypal/skipto
+// Copyright (c) 2019 PayPal Accessibility Team and University of Illinois
+// -----------------------------------------------------
+//
+// ==UserScript==
+// @name skipto
+// @namespace skipto
+// @description This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to quickly skip to the most important places on the webpage.
+// @include *
+// ==/UserScript==
+
 /*! skipto - v2.0.4 - 2019-07-30
 * https://github.com/paypal/skipto
 * Copyright (c) 2019 PayPal Accessibility Team and University of Illinois; Licensed BSD */

@@ -101,19 +101,19 @@
 			e.preventDefault();
 
 			switch (keyCode) {
-			case arrow.down:
-				index = index + 1;
-				break;
-			case arrow.up:
-				index = index - 1;
-				break;
-			case arrow.esc:
-				if (isActive) {
-					this.btn.click();
-					this.btn.focus();
-					return;
-				}
-				break;
+				case arrow.down:
+					index = index + 1;
+					break;
+				case arrow.up:
+					index = index - 1;
+					break;
+				case arrow.esc:
+					if (isActive) {
+						this.btn.click();
+						this.btn.focus();
+						return;
+					}
+					break;
 			}
 			if (index < 0) {
 				if(this.wrap === 'true'){
@@ -174,8 +174,16 @@
 					self.initOptList(e);
 				});
 				toggleBtn.addEventListener('keydown', function(e){
-					var keyCode = e.keyCode || e.which;
-					if(keyCode === 32){						//SpaceBar should open the menu
+					var keyCode = e.keyCode || e.which,
+						arrow = {
+							spacebar: 32,
+							down: 40
+						};
+					/* 
+						SpaceBar and down arrow should open the menu 
+						https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html
+					*/
+					if(keyCode === arrow.spacebar || keyCode === arrow.down) {
 						this.click(e);
 						e.preventDefault();
 					}

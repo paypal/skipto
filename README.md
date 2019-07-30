@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# SkipTo, version 2.1
+# SkipTo, version 2.0.4
 ## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 

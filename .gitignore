@@ -1,8 +1,3 @@
-# Compiled source    #
-######################
-# Grunt should be run locally, dont check in the built files
-compiled
-
 # Node Modules       #
 ######################
 # npm install should be run locally, don't check in those files
