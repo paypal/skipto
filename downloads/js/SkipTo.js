@@ -1,10 +1,10 @@
-/*! skipto - v2.0.0 - 2016-12-08
+/*! skipto - v2.0.4 - 2019-07-30
 * https://github.com/paypal/skipto
-* Copyright (c) 2016 PayPal Accessibility Team and University of Illinois; Licensed BSD */
+* Copyright (c) 2019 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
 /*@if (@_jscript_version >= 5.8) @*/
 /* ========================================================================
-* Copyright (c) <2013> PayPal
+* Copyright (c) <2019> PayPal
 
 * All rights reserved.
 
@@ -286,7 +286,223 @@ if (!Array.prototype.indexOf) {
 }
 
 }());;/* ========================================================================
-* Copyright (c) <2013> PayPal
+* Copyright (c) <2019> PayPal
+
+* All rights reserved.
+
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+* Neither the name of PayPal or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+* ======================================================================== */
+
+(function () {
+	"use strict";
+
+	var Dropdown = {};
+
+	Dropdown.prototype = {
+		btn: null,
+		prt: null,
+		menu: null,
+		wrap: "false",
+		config: {
+			callbacks: [],
+			focusOnClick: "false",
+		},
+
+		setUpConfig: function (config) {
+			var i,
+				idConfig;
+
+			// TODO: This only applies to ids for now. Think through how to extend to other elements
+			if (typeof config.ids !== 'object') return;
+
+			for (i = 0;  i < config.ids.length; i = i + 1) {
+				idConfig = config.ids[i];
+				if (typeof idConfig === 'object' && idConfig.callback) {
+					this.config.callbacks[idConfig.id] = idConfig.callback;
+				}
+			}
+
+			this.config.focusOnClick = config.focusOnClick;
+		},
+
+		clearMenus: function () {
+			var self = this;
+			setTimeout(function () {
+				var isActive = self.prt.classList.contains('open');
+				if ((!isActive) || (self.prt.contains(document.activeElement))) {
+					return;
+				}
+				self.prt.classList.remove('open');
+				self.btn.setAttribute('aria-expanded', 'false');
+			}, 150);
+		},
+
+		initOptList: function (e) {
+			this.btn = e.target;
+			this.prt = this.btn.parentNode;
+			this.menu = document.getElementById(this.btn.getAttribute('data-target'));
+			this.toggleOptList();
+		},
+
+		toggleOptList: function () {
+			if(typeof this.btn.getAttribute('data-wrap') !== 'undefined') {
+				this.wrap = this.btn.getAttribute('data-wrap');
+			}
+			this.prt.classList.toggle('open');
+			//Set Aria-expanded to true only if the class open exists in dropMenu div
+			if (this.prt.classList.contains('open')) {
+				this.btn.setAttribute('aria-expanded', 'true');
+			} else {
+				this.btn.setAttribute('aria-expanded', 'false');
+			}
+			try {
+				this.menu.getElementsByTagName('a')[0].focus();
+			}
+			catch(err) {
+			}
+		},
+
+		navigateMenus: function (e) {
+			var keyCode = e.keyCode || e.which,
+				arrow = {
+					spacebar: 32,
+					up: 38,
+					esc: 27,
+					down: 40
+				},
+				isActive = this.prt.classList.contains('open'),
+				items = this.menu.getElementsByTagName("a"),
+				index = Array.prototype.indexOf.call(items, e.target);
+	
+			if (!/(32|38|40|27)/.test(keyCode)) {
+				return;
+			}
+			e.preventDefault();
+
+			switch (keyCode) {
+				case arrow.down:
+					index = index + 1;
+					break;
+				case arrow.up:
+					index = index - 1;
+					break;
+				case arrow.esc:
+					if (isActive) {
+						this.btn.click();
+						this.btn.focus();
+						return;
+					}
+					break;
+			}
+			if (index < 0) {
+				if(this.wrap === 'true'){
+					index = items.length - 1;
+				}else{
+					index=0;
+				}
+			}
+			if (index === items.length) {
+				if(this.wrap === 'true'){
+					index = 0;
+				}else{
+					index = items.length -1;
+				}
+			}
+
+			items.item(index).focus();
+		},
+
+		executeCallback: function (e) {
+			var id = e.target.getAttribute('href').replace('#', ''),
+				target;
+
+			if (this.config.callbacks.hasOwnProperty(id)) {
+				e.preventDefault();
+				this.config.callbacks[id]();
+				this.toggleOptList();
+			} else if (this.config.focusOnClick !== 'false') {
+				e.preventDefault();
+				target = document.getElementById(id);
+				target.tabIndex = 0;
+				target.focus();
+				target.scrollIntoView(true); //IE8 - Make sure to scroll to top
+				this.toggleOptList();
+			}
+		},
+
+		init: function (config) {
+			var toggle = document.getElementsByClassName('dropMenu-toggle'),
+				toggleBtn,
+				k,
+				l,
+				menu,
+				items,
+				i,
+				j,
+				self=this,
+				item;
+
+			this.setUpConfig(config);
+
+			for (k = 0, l = toggle.length; k < l; k = k + 1) {
+				toggleBtn = toggle[k];
+				menu = document.getElementById(toggleBtn.getAttribute('data-target'));
+				items = menu.getElementsByTagName("a");
+
+				toggleBtn.addEventListener('click', function(e) {
+					self.initOptList(e);
+				});
+				toggleBtn.addEventListener('keydown', function(e){
+					var keyCode = e.keyCode || e.which,
+						arrow = {
+							spacebar: 32,
+							down: 40
+						};
+					/* 
+						SpaceBar and down arrow should open the menu 
+						https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html
+					*/
+					if(keyCode === arrow.spacebar || keyCode === arrow.down) {
+						this.click(e);
+						e.preventDefault();
+					}
+				});
+
+				for (i = 0, j = items.length; i < j; i = i + 1) {
+					item = items[i];
+					item.addEventListener('keydown', function(e) {
+						self.navigateMenus(e);
+					});
+
+					item.addEventListener('blur', function(e) {
+						self.clearMenus(e);
+					});
+
+					item.addEventListener('click', function(e) {
+						self.executeCallback(e);
+					});
+				}
+			}
+		} //end init
+
+	}; //End Dropdown class
+
+	// Dropdown.prototype.init();
+
+	window.skipToDropDownInit = function(customConfig) {
+		Dropdown.prototype.init(customConfig || window.Drupal || window.Wordpress || window.SkipToConfig || {});
+	};
+
+}(window.Drupal || window.Wordpress || window.SkipToConfig || {}));;/* ========================================================================
+* Copyright (c) <2019> PayPal
 
 * All rights reserved.
 
@@ -302,7 +518,7 @@ if (!Array.prototype.indexOf) {
 * ======================================================================== */
 
 
-(function (appConfig) {
+(function () {
 	"use strict";
 	var SkipTo = {};
 
@@ -313,9 +529,13 @@ if (!Array.prototype.indexOf) {
 		dropdownHTML: null,
 		config: {
 			buttonLabel:    'Skip To...',
+			buttonDivTitle: 'Skip To Keyboard Navigation',
+			buttonDivRole: 'complementary',
+			buttonDivLabel: '',
 			menuLabel:      'Skip To and Page Outline',
 			landmarksLabel: 'Skip To',
 			headingsLabel:  'Page Outline',
+			contentLabel: ' Content',
 			main:      'main, [role="main"]',
 			landmarks: '[role="navigation"], [role="search"]',
 			sections:  'nav',
@@ -323,6 +543,9 @@ if (!Array.prototype.indexOf) {
 			ids:       '#SkipToA1, #SkipToA2',
 			accessKey: '0',
 			wrap: "false",
+			focusOnClick: "false",
+			hashOnMenu: "true",
+			enumerateElements: "false",
 			visibility: "onFocus",
 			customClass: "",
 			attachElement: document.body
@@ -331,7 +554,6 @@ if (!Array.prototype.indexOf) {
 		setUpConfig: function (appConfig) {
 			var localConfig = this.config,
 				name,
-
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
 				
 			for (name in appConfigSettings) {
@@ -345,18 +567,29 @@ if (!Array.prototype.indexOf) {
 		init: function (appConfig) {
 
 			this.setUpConfig(appConfig);
+			// if the menu exists, recreate it
+			if(document.getElementById('skipToMenu')!==null){
+				var existingMenu=document.getElementById('skipToMenu');
+				existingMenu.parentNode.removeChild(existingMenu);
+			}
 
 			var div = document.createElement('div'),
 			attachElement = (!this.config.attachElement.nodeType) ? document.querySelector(this.config.attachElement) : this.config.attachElement,
 			htmlStr = '';
-			div.setAttribute('id', 'skipToMenu');
-			div.setAttribute('role', 'complementary');
-			div.setAttribute('title', 'Skip To Keyboard Navigation');
 
-			this.addStyles(".skipTo{padding:.5em;position:absolute;background:transparent;color:#000;-webkit-transition:top .5s ease-out,background .5s linear;-moz-transition:top .5s ease-out,background .5s linear;-o-transition:top .5s ease-out,background .5s linear;transition:top .5s ease-out,background .5s linear}.skipTo:focus{position:absolute;top:0;left:0;background:#ccc;z-index:1000;text-decoration:underline;-webkit-transition:top .1s ease-in,background .3s linear;-moz-transition:top .1s ease-in,background .3s linear;-o-transition:top .1s ease-in,background .3s linear;transition:top .1s ease-in,background .3s linear}.onFocus{top:-5em;left:0}.onLoad{top:0;left:0;background:#ccc}.dropup,.dropMenu{position:relative}.dropMenu-toggle{*margin-bottom:-3px}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0}#skipToMenu .caret{display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #000;border-right:4px solid transparent;border-left:4px solid transparent;content:'';pointer-events:none}#skipToMenu .dropMenu .caret{margin-top:8px;margin-left:2px}.dropMenu-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.dropMenu-menu.pull-right{right:0;left:auto}.dropMenu-menu .divider{*width:100%;height:1px;margin:9px 1px;*margin:-5px 0 5px;overflow:hidden;background-color:#e5e5e5;border-bottom:1px solid #fff}.dropMenu-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:normal;line-height:20px;color:#333;white-space:nowrap;text-decoration:none}.dropMenu-menu>li>a.po-h1{font-size:110%}.dropMenu-menu>li>a.po-h2{padding-left:28px}.dropMenu-menu>li>a.po-h3{padding-left:36px}.dropMenu-menu>li>a.po-h4{padding-left:44px}.dropMenu-menu>li>a.po-h5{padding-left:52px}.dropMenu-menu>li>a.po-6{padding-left:60px}.dropMenu-menu>li[role=separator]{padding-left:20px;margin-top:9px;font-weight:bold;border-bottom:thin solid black}.dropMenu-menu>li>a:hover,.dropMenu-menu>li>a:focus,.dropMenu-submenu:hover>a,.dropMenu-submenu:focus>a{text-decoration:none;color:#fff;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.active>a,.dropMenu-menu>.active>a:hover,.dropMenu-menu>.active>a:focus{color:#fff;text-decoration:none;outline:0;background-color:#0081c2;background-image:-moz-linear-gradient(top,#08c,#0077b3);background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0077b3));background-image:-webkit-linear-gradient(top,#08c,#0077b3);background-image:-o-linear-gradient(top,#08c,#0077b3);background-image:linear-gradient(to bottom,#08c,#0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0077b3',GradientType=0)}.dropMenu-menu>.disabled>a,.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{color:#999}.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{text-decoration:none;background-color:transparent;background-image:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);cursor:default}.open{*z-index:1000}.open>.dropMenu-menu{display:block}.pull-right>.dropMenu-menu{right:0;left:auto}#skipToMenu .dropup .caret,#skipToMenu .navbar-fixed-bottom .dropMenu .caret{border-top:0;border-bottom:4px solid #000;content:''}#skipToMenu .dropup .dropMenu-menu,#skipToMenu .navbar-fixed-bottom .dropMenu .dropMenu-menu{top:auto;bottom:100%;margin-bottom:1px}.dropMenu-submenu{position:relative}.dropMenu-submenu>.dropMenu-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px}.dropMenu-submenu:hover>.dropMenu-menu{display:block}.dropup .dropMenu-submenu>.dropMenu-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0}.dropMenu-submenu>a:after{display:block;content:' ';float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#ccc;margin-top:5px;margin-right:-10px}.dropMenu-submenu:hover>a:after{border-left-color:#fff}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left>.dropMenu-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}");
+			div.setAttribute('id', 'skipToMenu');
+			if(this.config.buttonDivRole!==''){div.setAttribute('role', this.config.buttonDivRole);}
+			if(this.config.buttonDivTitle!==''){div.setAttribute('title', this.config.buttonDivTitle);}
+			if(this.config.buttonDivLabel!==''){div.setAttribute('aria-label', this.config.buttonDivLabel);}
+
+			this.addStyles(".skipTo{padding:.5em;position:absolute;background:transparent;color:#000;-webkit-transition:top .5s ease-out, background .5s linear;-moz-transition:top .5s ease-out, background .5s linear;-o-transition:top .5s ease-out, background .5s linear;transition:top .5s ease-out, background .5s linear}.skipTo:focus{position:absolute;top:0;left:0;background:#ccc;z-index:3000;text-decoration:underline;-webkit-transition:top .1s ease-in, background .3s linear;-moz-transition:top .1s ease-in, background .3s linear;-o-transition:top .1s ease-in, background .3s linear;transition:top .1s ease-in, background .3s linear}.onFocus{top:-5em;left:0}.onLoad{top:0 ;left:0;background:#ccc}.dropup,.dropMenu{position:relative}.dropMenu-toggle{*margin-bottom:-3px}.dropMenu-toggle:active,.open .dropMenu-toggle{outline:0}#skipToMenu .caret{display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #000;border-right:4px solid transparent;border-left:4px solid transparent;content:'';pointer-events:none}#skipToMenu .dropMenu .caret{margin-top:8px;margin-left:2px}.dropMenu-menu{position:absolute;top:100%;left:0;z-index:3000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.dropMenu-menu.pull-right{right:0;left:auto}.dropMenu-menu .divider{*width:100%;height:1px;margin:9px 1px;*margin:-5px 0 5px;overflow:hidden;background-color:#e5e5e5;border-bottom:1px solid #fff}.dropMenu-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:normal;line-height:20px;color:#333;white-space:nowrap;text-decoration:none}.dropMenu-menu>li>a.po-h1{font-size:110%}.dropMenu-menu>li>a.po-h2{padding-left:28px}.dropMenu-menu>li>a.po-h3{padding-left:36px}.dropMenu-menu>li>a.po-h4{padding-left:44px}.dropMenu-menu>li>a.po-h5{padding-left:52px}.dropMenu-menu>li>a.po-6{padding-left:60px}.dropMenu-menu>li[role=separator]{padding-left:20px;margin-top:9px;font-weight:bold;border-bottom:thin solid black}.dropMenu-menu>li>a:hover,.dropMenu-menu>li>a:focus,.dropMenu-submenu:hover>a,.dropMenu-submenu:focus>a{text-decoration:none;color:#fff;background-color:#0081c2;background-image:-moz-linear-gradient(top, #08c, #0077b3);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0077b3));background-image:-webkit-linear-gradient(top, #08c, #0077b3);background-image:-o-linear-gradient(top, #08c, #0077b3);background-image:linear-gradient(to bottom, #08c, #0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)}.dropMenu-menu>.active>a,.dropMenu-menu>.active>a:hover,.dropMenu-menu>.active>a:focus{color:#fff;text-decoration:none;outline:0;background-color:#0081c2;background-image:-moz-linear-gradient(top, #08c, #0077b3);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0077b3));background-image:-webkit-linear-gradient(top, #08c, #0077b3);background-image:-o-linear-gradient(top, #08c, #0077b3);background-image:linear-gradient(to bottom, #08c, #0077b3);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)}.dropMenu-menu>.disabled>a,.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{color:#999}.dropMenu-menu>.disabled>a:hover,.dropMenu-menu>.disabled>a:focus{text-decoration:none;background-color:transparent;background-image:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);cursor:default}.open{*z-index:3000}.open>.dropMenu-menu{display:block}.pull-right>.dropMenu-menu{right:0;left:auto}#skipToMenu .dropup .caret,#skipToMenu .navbar-fixed-bottom .dropMenu .caret{border-top:0;border-bottom:4px solid #000;content:''}#skipToMenu .dropup .dropMenu-menu,#skipToMenu .navbar-fixed-bottom .dropMenu .dropMenu-menu{top:auto;bottom:100%;margin-bottom:1px}.dropMenu-submenu{position:relative}.dropMenu-submenu>.dropMenu-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px}.dropMenu-submenu:hover>.dropMenu-menu{display:block}.dropup .dropMenu-submenu>.dropMenu-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0}.dropMenu-submenu>a:after{display:block;content:' ';float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#ccc;margin-top:5px;margin-right:-10px}.dropMenu-submenu:hover>a:after{border-left-color:#fff}.dropMenu-submenu.pull-left{float:none}.dropMenu-submenu.pull-left>.dropMenu-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px}.dropMenu .dropMenu-menu .nav-header{padding-left:20px;padding-right:20px}");
 
 			this.dropdownHTML = '<a accesskey="'+ this.config.accessKey +'" tabindex="0" data-wrap="'+ this.config.wrap +'"class="dropMenu-toggle skipTo '+ this.config.visibility + ' '+ this.config.customClass +'" id="drop4" role="button" aria-haspopup="true" ';
-			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" href="#" data-target="menu1">' + this.config.buttonLabel + '<span class="caret"></span></a>';
+			this.dropdownHTML += 'aria-expanded="false" data-toggle="dropMenu" data-target="menu1"';
+			if (this.config.hashOnMenu === 'true') {
+				this.dropdownHTML += ' href="#"';
+			}
+			this.dropdownHTML += '>' + this.config.buttonLabel + '<span class="caret"></span></a>';
 			this.dropdownHTML += '<ul id="menu1" class="dropMenu-menu" role="menu" aria-label="' + this.config.menuLabel + '" style="top:3%; text-align:left">';
 
 			this.getLandMarks(this.config.main);
@@ -376,6 +609,7 @@ if (!Array.prototype.indexOf) {
 				div.innerHTML = this.dropdownHTML;
 				this.addListeners();
 			}
+			window.skipToDropDownInit(this.config);
 		},
 
 		normalizeName: function (name) {
@@ -457,7 +691,8 @@ if (!Array.prototype.indexOf) {
 				j,
 				heading,
 				role,
-				id;
+				id,
+				name;
 			for (i = 0, j = headings.length; i < j; i = i + 1) {
 				heading = headings[i];
 				role = heading.getAttribute('role');
@@ -467,10 +702,15 @@ if (!Array.prototype.indexOf) {
 
 					heading.tabIndex = "-1";
 					heading.setAttribute('id', id);
+
+					name = this.getTextContent(heading);
+					if (this.config.enumerateElements === 'false') {
+						name = heading.tagName.toLowerCase() + ": " + name;
+					}
 					
 					//this.headingElementsArr[id] = heading.tagName.toLowerCase() + ": " + this.getTextContent(heading);
 					//IE8 fix: Use JSON object to supply names to array values. This allows enumerating over the array without picking up prototype properties.
-					this.headingElementsArr[id] = {id: id, name: heading.tagName.toLowerCase() + ": " + this.getTextContent(heading)};
+					this.headingElementsArr[id] = {id: id, name: name};
 				}
 			}
 		},
@@ -525,16 +765,16 @@ if (!Array.prototype.indexOf) {
 					section.tabIndex = "-1";
 					section.setAttribute('id', id1);
 					role = section.tagName.toLowerCase();
-					val = this.normalizeName(role);
 
+					val = (this.config.enumerateElements === 'false') ? this.normalizeName(role) + ": " : '';
 					name = this.getAccessibleName(section);
 
 					if (name && name.length) {
-						val += ": " + name;
+						val += name;
 					}
 					else {
 						if (role === 'main') {
-							val += ' Content';
+							val += this.config.contentLabel;
 						}
 					}
 					this.landmarkElementsArr[id1] = val;
@@ -577,14 +817,14 @@ if (!Array.prototype.indexOf) {
 						role = 'nav';
 					} // navigation landmark is the same as nav element in HTML5
 
-					val = this.normalizeName(role);
+					val = (this.config.enumerateElements === 'false') ? this.normalizeName(role) + ": " : '';
 
 					if (name && name.length) {
-						val += ": " + name;
+						val += name;
 					}
 					else {
 						if (role === 'main') {
-							val += ' Content';
+							val += this.config.contentLabel;
 						}
 					}
 					this.landmarkElementsArr[id1] = val;
@@ -593,21 +833,33 @@ if (!Array.prototype.indexOf) {
 		},
 
 		getIdElements: function () {
-			var els = document.querySelectorAll(this.config.ids),
-				i,
-				j,
-				el,
-				id,
-				val;
+			var i, els, el, id, val;
 
-			for (i = 0, j = els.length; i < j; i = i + 1) {
-				el = els[i];
-				id = el.getAttribute('id');
-				/*val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').trim();*/
-				val = el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
+			if (typeof this.config.ids === 'object') {
+				els = this.config.ids;
+			} else if (typeof this.config.ids === 'string') {
+				els = this.config.ids.split(',');
+				els = els.map(function (el) {
+					return {id: el.trim()};
+				});
+			} else {
+				els = [];
+			}
 
-				if (val.length > 30)	val = val.replace(val, val.substr(0, 30)	+	'...');
-				this.idElementsArr[id] = "id: " + val;
+			for (i = 0; i < els.length; i = i + 1) {
+				id = els[i].id.replace('#', '');
+				el = document.getElementById(id);
+				if (el === null) continue;
+
+				val = els[i].description || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
+				if (val.length > 30) {
+					val = val.replace(val, val.substr(0, 30) + '...');
+				}
+
+				if (this.config.enumerateElements === 'false') {
+					val = "id: " + val;
+				}
+				this.idElementsArr[id] = val;
 			}
 		},
 
@@ -617,9 +869,8 @@ if (!Array.prototype.indexOf) {
 				htmlStr = '',
 				landmarkSep = true,
 				headingSep = true,
-				headingClass = '';
-
-			// window.console.log(this.elementsArr);
+				headingClass = '',
+				elementCnt = 1;
 			
 			//IE8 fix: for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
 			//Make sure that the key is not from the prototype.
@@ -631,8 +882,12 @@ if (!Array.prototype.indexOf) {
 					}
 					val = this.landmarkElementsArr[key];
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 
@@ -646,8 +901,12 @@ if (!Array.prototype.indexOf) {
 					}
 					val = this.idElementsArr[key];
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 			//for...in loop enumerates over all properties in an object including its prototype. This was returning some undesirable items such as indexof
@@ -663,8 +922,12 @@ if (!Array.prototype.indexOf) {
 					headingClass = val.substring(0,2);
 				
 					htmlStr += '<li role="presentation" style="list-style:none outside none"><a class="po-' + headingClass + '" tabindex="-1" role="menuitem" href="#';
-					htmlStr += key + '">' + val;
-					htmlStr += '</a></li>';
+					htmlStr += key + '">';
+					if (this.config.enumerateElements !== 'false') {
+						htmlStr += elementCnt + ": ";
+						elementCnt = elementCnt + 1;
+					}
+					htmlStr += val + '</a></li>';
 				}
 			}
 
@@ -689,177 +952,32 @@ if (!Array.prototype.indexOf) {
 		},
 
 		addListeners: function () {
-			window.addEventListener("hashchange", function () {
-				var element = document.getElementById(location.hash.substring(1));
-				if (element) {
-					if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) {
-						element.tabIndex = -1;
+			if (this.config.focusOnClick === 'false') {
+				window.addEventListener("hashchange", function () {
+					var element = document.getElementById(location.hash.substring(1));
+					if (element) {
+						if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) {
+							element.tabIndex = -1;
+						}
+						element.focus();
+						element.scrollIntoView(true); //IE8 - Make sure to scroll to top
 					}
-					element.focus();
-					element.scrollIntoView(true); //IE8 - Make sure to scroll to top
-				}
-			}, false);
+				}, false);
+			}
 		}
 	};
 
-	SkipTo.prototype.init(appConfig);
+	// SkipTo.prototype.init(appConfig);
+
+	// Make this public so it can be called again in the future;
+	window.skipToMenuInit = function(customConfig) {
+		// var config = {
+		// 	settings: {
+		// 		skipTo: customConfig
+		// 	}
+		// };
+		SkipTo.prototype.init(customConfig || window.Drupal || window.Wordpress || window.SkipToConfig || {});
+	};
 
 }(window.Drupal || window.Wordpress || window.SkipToConfig || {}));
-;/* ========================================================================
-* Copyright (c) <2013> PayPal
-
-* All rights reserved.
-
-* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-* Neither the name of PayPal or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-* ======================================================================== */
-
-(function () {
-	"use strict";
-
-	var Dropdown = {};
-
-	Dropdown.prototype = {
-		btn: null,
-		prt: null,
-		menu: null,
-		wrap: "false",
-
-		clearMenus: function () {
-			var self = this;
-			setTimeout(function () {
-				var isActive = self.prt.classList.contains('open');
-				if ((!isActive) || (self.prt.contains(document.activeElement))) {
-					return;
-				}
-				self.prt.classList.remove('open');
-				self.btn.setAttribute('aria-expanded', 'false');
-			}, 150);
-		},
-
-		toggleOptList: function (e) {
-			this.btn = e.target;
-			this.prt = this.btn.parentNode;
-			this.menu = document.getElementById(this.btn.getAttribute('data-target'));
-
-			if(typeof this.btn.getAttribute('data-wrap') !== 'undefined') {
-				this.wrap = this.btn.getAttribute('data-wrap');
-			}
-			this.prt.classList.toggle('open');
-			//Set Aria-expanded to true only if the class open exists in dropMenu div
-			if (this.prt.classList.contains('open')) {
-				this.btn.setAttribute('aria-expanded', 'true');
-			} else {
-				this.btn.setAttribute('aria-expanded', 'false');
-			}
-			try {
-				this.menu.getElementsByTagName('a')[0].focus();
-			}
-			catch(err){
-			}
-		},
-
-		navigateMenus: function (e) {
-			var keyCode = e.keyCode || e.which,
-				arrow = {
-					spacebar: 32,
-					up: 38,
-					esc: 27,
-					down: 40
-				},
-				isActive = this.prt.classList.contains('open'),
-				items = this.menu.getElementsByTagName("a"),
-				index = Array.prototype.indexOf.call(items, e.target);
-	
-
-			if (!/(32|38|40|27)/.test(keyCode)) {
-				return;
-			}
-			e.preventDefault();
-
-			switch (keyCode) {
-			case arrow.down:
-				index = index + 1;
-				break;
-			case arrow.up:
-				index = index - 1;
-				break;
-			case arrow.esc:
-				if (isActive) {
-					this.btn.click();
-					this.btn.focus();
-					return;
-				}
-				break;
-			}
-			if (index < 0) {
-				if(this.wrap === 'true'){
-					index = items.length - 1;
-				}else{
-					index=0;
-				}
-			}
-			if (index === items.length) {
-				if(this.wrap === 'true'){
-					index = 0;
-				}else{
-					index = items.length -1;
-				}
-			}
-
-			items.item(index).focus();
-		},
-
-		init: function () {
-			var toggle = document.getElementsByClassName('dropMenu-toggle'),
-				toggleBtn,
-				k,
-				l,
-				menu,
-				items,
-				i,
-				j,
-				self=this,
-				item;
-				
-			for (k = 0, l = toggle.length; k < l; k = k + 1) {
-				toggleBtn = toggle[k];
-				menu = document.getElementById(toggleBtn.getAttribute('data-target'));
-				items = menu.getElementsByTagName("a");
-
-				toggleBtn.addEventListener('click', function(e) {
-					self.toggleOptList(e);
-				});
-				toggleBtn.addEventListener('keydown', function(e){
-					var keyCode = e.keyCode || e.which;
-					if(keyCode === 32){						//SpaceBar should open the menu
-						this.click(e);
-						e.preventDefault();
-					}
-				});
-
-				for (i = 0, j = items.length; i < j; i = i + 1) {
-					item = items[i];
-					item.addEventListener('keydown', function(e) {
-						self.navigateMenus(e);
-					});
-
-					item.addEventListener('blur', function(e) {
-						self.clearMenus(e);
-					});
-				}
-			}
-		} //end init
-
-	}; //End Dropdown class
-
-	Dropdown.prototype.init();
-
-}());/*@end @*/
+/*@end @*/
