@@ -1,7 +1,7 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# SkipTo, version 2.0.4
-## by PayPal Accessibility Team and University of Illinois
+# skipto@2.1.1
+## by PayPal Accessibility Team & University of Illinois
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
@@ -72,6 +72,14 @@ var SkipToConfig =
 ```
 
 The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.
+
+```html
+<script>
+	skipToMenuInit(SkipToConfig)
+</script>
+```
+### Update
+* Now skipToMenuInit needs to be called explicitly for deferred loading. This would be useful for dynamically loaded pages
 
 ### Notes
 *  Most parameters are optional.
