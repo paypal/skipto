@@ -118,9 +118,10 @@
 
     <footer role="contentinfo">
       <div>
-        Copyright &copy; 2013
+        Copyright &copy; 2019
       </div>
     </footer>
+    
 <script>
   var SkipToConfig =  {
         "settings": {
@@ -141,7 +142,15 @@
 </script>
 
         <script type="text/javascript" src="../compiled/js/skipto.js"></script>
+         <script> 
+            function newHeadings(){
+                var el = document.querySelector('.SkipToAttach');
+                el.innerHTML = '<h1>Super Heading: '+ Math.floor(Math.random() * 10) + 1 + '</h1>' + el.innerHTML;
+                skipToMenuInit(SkipToConfig)
+            }    
 
+        </script>
+<!-- 
         <script
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -152,7 +161,7 @@
             skipToMenuInit();
         }
 
-        </script>
+        </script> -->
 
 </body>
 </html>

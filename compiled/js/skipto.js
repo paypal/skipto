@@ -972,12 +972,12 @@ if (!Array.prototype.indexOf) {
 
 	// Make this public so it can be called again in the future;
 	window.skipToMenuInit = function(customConfig) {
-		var config = {
-			settings: {
-				skipTo: customConfig
-			}
-		};
-		SkipTo.prototype.init(config || window.Drupal || window.Wordpress || window.SkipToConfig || {});
+		// var config = {
+		// 	settings: {
+		// 		skipTo: customConfig
+		// 	}
+		// };
+		SkipTo.prototype.init(customConfig || window.Drupal || window.Wordpress || window.SkipToConfig || {});
 	};
 
 }(window.Drupal || window.Wordpress || window.SkipToConfig || {}));
