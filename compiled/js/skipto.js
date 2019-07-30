@@ -4,7 +4,7 @@
  /*@cc_on @*/
 /*@if (@_jscript_version >= 5.8) @*/
 /* ========================================================================
-* Copyright (c) <2013> PayPal
+* Copyright (c) <2019> PayPal
 
 * All rights reserved.
 
@@ -286,7 +286,7 @@ if (!Array.prototype.indexOf) {
 }
 
 }());;/* ========================================================================
-* Copyright (c) <2013> PayPal
+* Copyright (c) <2019> PayPal
 
 * All rights reserved.
 
@@ -502,7 +502,7 @@ if (!Array.prototype.indexOf) {
 	};
 
 }(window.Drupal || window.Wordpress || window.SkipToConfig || {}));;/* ========================================================================
-* Copyright (c) <2013> PayPal
+* Copyright (c) <2019> PayPal
 
 * All rights reserved.
 
@@ -567,7 +567,6 @@ if (!Array.prototype.indexOf) {
 		init: function (appConfig) {
 
 			this.setUpConfig(appConfig);
-
 			// if the menu exists, recreate it
 			if(document.getElementById('skipToMenu')!==null){
 				var existingMenu=document.getElementById('skipToMenu');
