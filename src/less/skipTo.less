@@ -1,389 +1,125 @@
 //Variables
 
-@black:                 #000;
-@white:                 #fff;
-@grayDark:              #333;
-@linkColor:             #08c;
-@zindexdropMenu:        3000;
-@zindexskipTo:          3000;
-@linkColorHover:        darken(@linkColor, 15%);
-@grayLight:             #999;
-@dropMenuBackground:            @white;
-@dropMenuBorder:                rgba(0,0,0,.2);
-@dropMenuDividerTop:            #e5e5e5;
-@dropMenuDividerBottom:         @white;
+@black:           #000;
+@white:           #fff;
+@grayDark:        #333;
+@grayLight:       #eee;
 
-@dropMenuLinkColor:             @grayDark;
-@dropMenuLinkColorHover:        @white;
-@dropMenuLinkColorActive:       @white;
+@menuBackground:  @grayLight;
+@menuColor:    	  @black;
 
-@dropMenuLinkBackgroundActive:  @linkColor;
-@dropMenuLinkBackgroundHover:   @dropMenuLinkBackgroundActive;
-@baseLineHeight:        20px;
-@baseBorderRadius:      4px;
-
-@skipTobackgroundcolor:   transparent;
-@skipTofontcolor:   @black;
-@skipToFocusbackgroundcolor:   #ccc;
-@skipToFocusfontcolor:   @black;
-
-
-//Mixins
-.nav-divider(@top: #e5e5e5, @bottom: @white) {
-	// IE7 needs a set width since we gave a height. Restricting just
-	// to IE7 to keep the 1px left/right space in other browsers.
-	// It is unclear where IE is getting the extra space that we need
-	// to negative-margin away, but so it goes.
-	*width: 100%;
-	height: 1px;
-	margin: ((@baseLineHeight / 2) - 1) 1px; // 8px 1px
-	*margin: -5px 0 5px;
-	overflow: hidden;
-	background-color: @top;
-	border-bottom: 1px solid @bottom;
-}
-
-.border-radius(@radius) {
-	-webkit-border-radius: @radius;
-		 -moz-border-radius: @radius;
-					border-radius: @radius;
-}
-
-.box-shadow(@shadow) {
-	-webkit-box-shadow: @shadow;
-		 -moz-box-shadow: @shadow;
-					box-shadow: @shadow;
-}
-
-#gradient {
-	.horizontal(@startColor: #555, @endColor: #333) {
-		background-color: @endColor;
-		background-image: -moz-linear-gradient(left, @startColor, @endColor); // FF 3.6+
-		background-image: -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-		background-image: -webkit-linear-gradient(left, @startColor, @endColor); // Safari 5.1+, Chrome 10+
-		background-image: -o-linear-gradient(left, @startColor, @endColor); // Opera 11.10
-		background-image: linear-gradient(to right, @startColor, @endColor); // Standard, IE10
-		background-repeat: repeat-x;
-		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@startColor),argb(@endColor))); // IE9 and down
-	}
-
-.vertical(@startColor: #555, @endColor: #333) {
-		background-color: mix(@startColor, @endColor, 60%);
-		background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
-		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-		background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
-		background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
-		background-image: linear-gradient(to bottom, @startColor, @endColor); // Standard, IE10
-		background-repeat: repeat-x;
-		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor))); // IE9 and down
-	}
-}
-.reset-filter() {
-	filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
-}
-
-.transition(@transition) {
-	-webkit-transition: @transition;
-		 -moz-transition: @transition;
-			 -o-transition: @transition;
-					transition: @transition;
-}
+@menuBackgroundFocus: #034575;
+@menuColorFocus:	@white;
 
 //
 // Skip Navigation Styles
 // --------------------------------------------------
 
-.skipTo{
-	padding: .5em;  
+.skipTo {
 	position: absolute;
-	background: @skipTobackgroundcolor;  
-	color: @skipTofontcolor;
- .transition(~"top .5s ease-out, background .5s linear");
-
-}
-.skipTo:focus { 
-	position: absolute; 
-	top:0;
-	left: 0;
-	background: @skipToFocusbackgroundcolor;
-	z-index: @zindexskipTo;
-	text-decoration:underline;
-	.transition(~"top .1s ease-in, background .3s linear");
 }
 
-.onFocus{
-	top: -5em;  
-	left: 0;      
-}
-.onLoad{
-	top:0 ;    
-	left: 0;
-	background: @skipToFocusbackgroundcolor;
+.skipTo.offscreen {
+	top: -30em;
+	left: -3000em;
 }
 
-
-//
-// dropMenu
-// --------------------------------------------------
-
-
-// Use the .menu class on any <li> element within the topbar or ul.tabs and you'll get some superfancy dropMenus
-.dropup,
-.dropMenu {
-	position: relative;
-}
-.dropMenu-toggle {
-	// The caret makes the toggle a bit too tall in IE7
-	*margin-bottom: -3px;
-}
-.dropMenu-toggle:active,
-.open .dropMenu-toggle {
-	outline: 0;
+.skipTo button {
+  margin: 0;
+  padding: 6px;
+  position: relative;
+  border-radius: 5px;
+  background-color: @menuBackground;
+  border-width: 0;
+  border-style: none;
+  color: @menuColor;
 }
 
-// dropMenu arrow/caret
-// --------------------
-#skipToMenu .caret {
-	display: inline-block;
-	width: 0;
-	height: 0;
-	vertical-align: top;
-	border-top:   4px solid @black;
-	border-right: 4px solid transparent;
-	border-left:  4px solid transparent;
-	content: '';
-	pointer-events: none;
+.skipTo [role="menu"] {
+  display: none;
+  margin: 0;
+  padding: 0;
 }
 
-// Place the caret
-#skipToMenu .dropMenu .caret {
-	margin-top: 8px;
-	margin-left: 2px;
+.skipTo [role="separator"]:first-child {
+	border-radius: 5px 5px 0 0;
 }
 
-// The dropMenu menu (ul)
-// ----------------------
-.dropMenu-menu {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	z-index: @zindexdropMenu;
-	display: none; // none by default, but block on "open" of the menu
-	float: left;
-	min-width: 160px;
-	padding: 5px 0;
-	margin: 2px 0 0; // override default ul
-	list-style: none;
-	background-color: @dropMenuBackground;
-	border: 1px solid #ccc; // Fallback for IE7-8
-	border: 1px solid @dropMenuBorder;
-	*border-right-width: 2px;
-	*border-bottom-width: 2px;
-	.border-radius(6px);
-	.box-shadow(0 5px 10px rgba(0,0,0,.2));
-	-webkit-background-clip: padding-box;
-		 -moz-background-clip: padding;
-					background-clip: padding-box;
-
-	// Aligns the dropMenu menu to right
-	&.pull-right {
-		right: 0;
-		left: auto;
-	}
-
-	// Dividers (basically an hr) within the dropMenu
-	.divider {
-		.nav-divider(@dropMenuDividerTop, @dropMenuDividerBottom);
-	}
-
-	// Links within the dropMenu menu
-	> li > a {
-		display: block;
-		padding: 3px 20px;
-		clear: both;
-		font-weight: normal;
-		line-height: @baseLineHeight;
-		color: @dropMenuLinkColor;
-		white-space: nowrap;
-		text-decoration: none;
-	}
-
-	> li > a.po-h1 {
-	  font-size: 110%;
-	}
-
-	> li > a.po-h2 {
-	  padding-left: 28px;
-	}
-
-	> li > a.po-h3 {
-	  padding-left: 36px;
-	}
-
-	> li > a.po-h4 {
-	  padding-left: 44px;
-	}
-
-	> li > a.po-h5 {
-	  padding-left: 52px;
-	}
-	
-	> li > a.po-6 {
-	  padding-left: 60px;
-	}
-	
-	
-  // Separator Links within the dropMenu menu
-	> li[role=separator] {
-	  padding-left: 20px;
-	  margin-top: 9px;
-	  font-weight: bold;
-	  border-bottom: thin solid black;
-	}
-	
+.skipTo [role="menuitem"] {
+  margin: 0;
+  padding: 4px;
+  display: block;
+  width: auto;
+  background-color: @menuBackground;
+  border-width: 0px;
+  border-style: solid;
+  color: @menuColor;
 }
 
-// Hover/Focus state
-// -----------
-.dropMenu-menu > li > a:hover,
-.dropMenu-menu > li > a:focus,
-.dropMenu-submenu:hover > a,
-.dropMenu-submenu:focus > a {
-	text-decoration: none;
-	color: @dropMenuLinkColorHover;
-	#gradient > .vertical(@dropMenuLinkBackgroundHover, darken(@dropMenuLinkBackgroundHover, 5%));
+.skipTo [role="separator"] {
+  margin: 0;
+  padding: 4px;
+  display: block;
+  width: auto;
+	font-weight: bold;
+	text-align: center;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: @menuColor;
+  background-color: @menuBackground;
+  color: @menuColor;
 }
 
-// Active state
-// ------------
-.dropMenu-menu > .active > a,
-.dropMenu-menu > .active > a:hover,
-.dropMenu-menu > .active > a:focus {
-	color: @dropMenuLinkColorActive;
-	text-decoration: none;
-	outline: 0;
-	#gradient > .vertical(@dropMenuLinkBackgroundActive, darken(@dropMenuLinkBackgroundActive, 5%));
+.skipTo [role="separator"]:first-child {
+  border-radius: 5px 5px 0 0;
 }
 
-// Disabled state
-// --------------
-// Gray out text and ensure the hover/focus state remains gray
-.dropMenu-menu > .disabled > a,
-.dropMenu-menu > .disabled > a:hover,
-.dropMenu-menu > .disabled > a:focus {
-	color: @grayLight;
-}
-// Nuke hover/focus effects
-.dropMenu-menu > .disabled > a:hover,
-.dropMenu-menu > .disabled > a:focus {
-	text-decoration: none;
-	background-color: transparent;
-	background-image: none; // Remove CSS gradient
-	.reset-filter();
-	cursor: default;
+.skipTo [role="separator"].last {
+	border-radius: 0 0 5px 5px;
+  border: none;
 }
 
-// Open state for the dropMenu
-// ---------------------------
-.open {
-	// IE7's z-index only goes to the nearest positioned ancestor, which would
-	// make the menu appear below buttons that appeared later on the page
-	*z-index: @zindexdropMenu;
-
-	& > .dropMenu-menu {
-		display: block;
-	}
+.skipTo [role="menuitem"].h2 .name {
+	padding-left: 0.5em;
 }
 
-// Right aligned dropMenus
-// ---------------------------
-.pull-right > .dropMenu-menu {
-	right: 0;
-	left: auto;
+.skipTo [role="menuitem"].h3 .name {
+	padding-left: 1em;
 }
 
-// Allow for dropMenus to go bottom up (aka, dropup-menu)
-// ------------------------------------------------------
-// Just add .dropup after the standard .dropMenu class and you're set, bro.
-// TODO: abstract this so that the navbar fixed styles are not placed here?
-#skipToMenu .dropup,
-#skipToMenu .navbar-fixed-bottom .dropMenu {
-	// Reverse the caret
-	.caret {
-		border-top: 0;
-		border-bottom: 4px solid @black;
-		content: '';
-	}
-	// Different positioning for bottom up menu
-	.dropMenu-menu {
-		top: auto;
-		bottom: 100%;
-		margin-bottom: 1px;
-	}
+.skipTo [role="menuitem"].h4 .name {
+	padding-left: 1.5em;
 }
 
-// Sub menus
-// ---------------------------
-.dropMenu-submenu {
-	position: relative;
+.skipTo [role="menuitem"].h5 name {
+	padding-left: 2em;
 }
-// Default dropMenus
-.dropMenu-submenu > .dropMenu-menu {
-	top: 0;
-	left: 100%;
-	margin-top: -6px;
-	margin-left: -1px;
-	.border-radius(0 6px 6px 6px);
+
+.skipTo [role="menuitem"].h6 name {
+	padding-left: 2.5em;
 }
-.dropMenu-submenu:hover > .dropMenu-menu {
+
+/* focus styling */
+
+.skipTo.focus {
 	display: block;
 }
 
-// Dropups
-.dropup .dropMenu-submenu > .dropMenu-menu {
-	top: auto;
-	bottom: 0;
-	margin-top: 0;
-	margin-bottom: -2px;
-	.border-radius(5px 5px 5px 0);
+.skipTo.focus button:focus,
+.skipTo.focus button:hover {
+  padding: 2px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: @menuBackgroundFocus;
 }
 
-// Caret to indicate there is a submenu
-.dropMenu-submenu > a:after {
-	display: block;
-	content: ' ';
-	float: right;
-	width: 0;
-	height: 0;
-	border-color: transparent;
-	border-style: solid;
-	border-width: 5px 0 5px 5px;
-	border-left-color: darken(@dropMenuBackground, 20%);
-	margin-top: 5px;
-	margin-right: -10px;
-}
-.dropMenu-submenu:hover > a:after {
-	border-left-color: @dropMenuLinkColorHover;
-}
-
-// Left aligned submenus
-.dropMenu-submenu.pull-left {
-	// Undo the float
-	// Yes, this is awkward since .pull-left adds a float, but it sticks to our conventions elsewhere.
-	float: none;
-
-	// Positioning the submenu
-	> .dropMenu-menu {
-		left: -100%;
-		margin-left: 10px;
-		.border-radius(6px 0 6px 6px);
-	}
-}
-
-// Tweak nav headers
-// -----------------
-// Increase padding from 15px to 20px on sides
-.dropMenu .dropMenu-menu .nav-header {
-	padding-left: 20px;
-	padding-right: 20px;
+.skipTo button[aria-expanded="true"],
+.skipTo [role="menuitem"]:focus {
+  padding: 2px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: @menuBackgroundFocus;
+  background-color: @menuBackgroundFocus;
+  color: @menuColorFocus;
+  margin: 0;
 }

@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>SkipTo Menu Example Page</title> 
+    <title>SkipTo Menu Example Page</title>
     <style>
     .dropMenu .custom {
-        background:#aabbdd; 
+        background:#aabbdd;
         left: 10px;
         top: 10px;
     }
@@ -104,11 +104,11 @@
             </section>
         </article>
     </main>
-    
+
     <main>
-            
+
       <h1>Some IFRAME content</h1>
-      
+
       <iframe src="skipTo1.html" title="More content from an iframe"></iframe>
 
       <iframe src="skipTo2.html" title="More content in a second iframe"></iframe>
@@ -124,14 +124,11 @@
     var SkipToConfig =  {
         "settings": {
             "skipTo": {
+                "landmarks": "main,[role='main'], nav",
                 "headings": "h1 ,h2, h3",
-                "landmarks": "[role=navigation],[role=search]",
-                "sections": "nav",
-                "ids" : "#SkipToA1, #SkipToA2, #main",
                 "accesskey": "0",
                 "wrap": "true",
                 "visibility": "onLoad",
-                "customClass": "custom",
                 "attachElement": ".SkipToAttach"
             }
         }
