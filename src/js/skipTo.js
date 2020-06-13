@@ -47,10 +47,10 @@
 			customClass: '',
 			alwaysVisible: false,
 			// Custom colors
-			backgroundColor: 'purple',
-			color: 'blue',
-			backgroundFocusColor: 'red',
-			focusColor: 'green'
+			backgroundColor: '',
+			color: '',
+			backgroundFocusColor: '',
+			focusColor: ''
 		},
 
 		defaultCSS: '@@cssContent',
@@ -89,17 +89,12 @@
 								this.defaultCSS = this.defaultCSS.substring(0, index) + value + this.defaultCSS.substring(index1);
 								return;
 							}
-							else {
-								console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find end of property');
-							}
 						}
-					}
-					else {
-						console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find property');
 					}
 				}
 				index =  this.defaultCSS.indexOf(sel, index+1);
 			}
+			console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find selector and property');
 		},
 
 		updateCSSWithCustomColors: function() {
@@ -136,13 +131,12 @@
 
 			var attachElement = document.body;
 
-			this.updateCSSWithCustomColors();
-
-			this.addStyles(this.defaultCSS);
-
 			if (config) {
 				this.setUpConfig(config);
 			}
+
+			this.updateCSSWithCustomColors();
+			this.addStyles(this.defaultCSS);
 
 		  this.domNode = document.createElement('div');
 		  this.domNode.setAttribute('role', this.config.containerDivLabel);
@@ -196,8 +190,10 @@
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
 
 			for (name in appConfigSettings) {
+				console.log(name);
 				//overwrite values of our local config, based on the external config
 				if (localConfig.hasOwnProperty(name)) {
+					console.log('updated...');
 					localConfig[name] = appConfigSettings[name];
 				}
 			}

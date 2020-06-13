@@ -52,13 +52,13 @@
 			customClass: '',
 			alwaysVisible: false,
 			// Custom colors
-			backgroundColor: 'purple',
-			color: 'blue',
-			backgroundFocusColor: 'red',
-			focusColor: 'green'
+			backgroundColor: '',
+			color: '',
+			backgroundFocusColor: '',
+			focusColor: ''
 		},
 
-		defaultCSS: '.skipTo{position:absolute}.skipTo.offscreen{top:-30em;left:-3000em}.skipTo button{margin:0;padding:6px;position:relative;border-radius:5px;background-color:#eee;border-width:0;border-style:none;color:#000}.skipTo [role="menu"]{display:none;margin:0;padding:0}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"]{margin:0;padding:4px;display:block;width:auto;background-color:#eee;border-width:0px;border-style:solid;color:#000}.skipTo [role="separator"]{margin:0;padding:4px;display:block;width:auto;font-weight:bold;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#000;background-color:#eee;color:#000}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="separator"].last{border-radius:0 0 5px 5px;border:none}.skipTo [role="menuitem"].h2 .name{padding-left:.5em}.skipTo [role="menuitem"].h3 .name{padding-left:1em}.skipTo [role="menuitem"].h4 .name{padding-left:1.5em}.skipTo [role="menuitem"].h5 name{padding-left:2em}.skipTo [role="menuitem"].h6 name{padding-left:2.5em}.skipTo.focus{display:block}.skipTo.focus button:focus,.skipTo.focus button:hover{padding:2px;border-width:2px;border-style:solid;border-color:#034575}.skipTo button[aria-expanded="true"],.skipTo [role="menuitem"]:focus{padding:2px;border-width:2px;border-style:solid;border-color:#034575;background-color:#034575;color:#fff;margin:0}',
+		defaultCSS: '.skipTo{position:absolute}.skipTo.offscreen{top:-30em;left:-3000em}.skipTo button{margin:0;padding:4px;position:relative;border-radius:5px;background-color:#eee;border-width:0;border-style:none;color:#000}.skipTo [role="menu"]{display:none;margin:0;padding:0}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"]{margin:0;padding:4px;display:block;width:auto;background-color:#eee;border-width:0px;border-style:solid;color:#000}.skipTo [role="separator"]{margin:0;padding:4px;display:block;width:auto;font-weight:bold;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#000;background-color:#eee;color:#000}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="separator"].last{border-radius:0 0 5px 5px;border:none}.skipTo [role="menuitem"].h2 .name{padding-left:.5em}.skipTo [role="menuitem"].h3 .name{padding-left:1em}.skipTo [role="menuitem"].h4 .name{padding-left:1.5em}.skipTo [role="menuitem"].h5 name{padding-left:2em}.skipTo [role="menuitem"].h6 name{padding-left:2.5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:2px;border-width:2px;border-style:solid;border-color:#034575}.skipTo button[aria-expanded="true"],.skipTo [role="menuitem"]:focus{padding:2px;border-width:2px;border-style:solid;border-color:#034575;background-color:#034575;color:#fff;margin:0}',
 
 		hasProperty: function (index, prop) {
 			var index1 = this.defaultCSS.indexOf('}', index);
@@ -94,17 +94,12 @@
 								this.defaultCSS = this.defaultCSS.substring(0, index) + value + this.defaultCSS.substring(index1);
 								return;
 							}
-							else {
-								console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find end of property');
-							}
 						}
-					}
-					else {
-						console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find property');
 					}
 				}
 				index =  this.defaultCSS.indexOf(sel, index+1);
 			}
+			console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find selector and property');
 		},
 
 		updateCSSWithCustomColors: function() {
@@ -141,13 +136,12 @@
 
 			var attachElement = document.body;
 
-			this.updateCSSWithCustomColors();
-
-			this.addStyles(this.defaultCSS);
-
 			if (config) {
 				this.setUpConfig(config);
 			}
+
+			this.updateCSSWithCustomColors();
+			this.addStyles(this.defaultCSS);
 
 		  this.domNode = document.createElement('div');
 		  this.domNode.setAttribute('role', this.config.containerDivLabel);
@@ -201,8 +195,10 @@
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
 
 			for (name in appConfigSettings) {
+				console.log(name);
 				//overwrite values of our local config, based on the external config
 				if (localConfig.hasOwnProperty(name)) {
+					console.log('updated...');
 					localConfig[name] = appConfigSettings[name];
 				}
 			}
