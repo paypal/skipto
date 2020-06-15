@@ -27,7 +27,6 @@
 
 		headingElementsArr: [],
 		landmarkElementsArr: [],
-		idElementsArr: [],
 		domNode: null,
 		buttonNode: null,
 		menuNode: null,
@@ -39,6 +38,7 @@
 
 		// Default configuration values
 		config: {
+			// labels and messages
 			containerDivLabel: 'Skip To Keyboard Navigation',
 			containerDivRole: 'complementary',
 			buttonLabel:    'Skip To ...',
@@ -47,21 +47,24 @@
 			headingsLabel:  'Page Outline',
 			msgNoLandmarksFound: 'No landmarks to skip to',
 			msgNoHeadingsFound: 'No headings to skip to',
+			// Selectors for landmark and headings sections
 			landmarks: 'main, [role="main"], nav, [role="navigation"], [role="search"], aside',
 			headings:  'h1, h2, h3',
+			// Customization of button and menu
 			accessKey: '0',
-			enumerateElements: "true",
 			attachElement: null,
 			customClass: '',
-			alwaysVisible: false,
-			// Custom colors
+			displayOption: 'static', // options: static (default), fixed, popup
+			// Custom CSS position and colors
+			buttonTop: '',
+			buttonLeft: '',
 			backgroundColor: '',
 			color: '',
 			backgroundFocusColor: '',
 			focusColor: ''
 		},
 
-		defaultCSS: '.skipTo{position:relative}.skipTo.popup{position:absolute;top:-30em;left:-3000em}.skipTo button{margin:0;padding:4px;position:relative;border-radius:5px;background-color:#eee;border-width:0;border-style:none;color:#000}.skipTo [role="menu"]{position:absolute;display:none;margin:0;padding:0;border:1px solid #034575;border-radius:5px}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"]{margin:0;padding:4px;display:block;width:auto;background-color:#eee;border-width:0px;border-style:solid;color:#000}.skipTo [role="separator"]{margin:0;padding:4px;display:block;width:auto;font-weight:bold;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#000;background-color:#eee;color:#000}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="separator"].last{border-radius:0 0 5px 5px;border:none}.skipTo [role="menuitem"].h2 .name{padding-left:.5em}.skipTo [role="menuitem"].h3 .name{padding-left:1em}.skipTo [role="menuitem"].h4 .name{padding-left:1.5em}.skipTo [role="menuitem"].h5 name{padding-left:2em}.skipTo [role="menuitem"].h6 name{padding-left:2.5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:2px;border-width:2px;border-style:solid;border-color:#034575}.skipTo button[aria-expanded="true"],.skipTo [role="menuitem"]:focus{padding:2px;border-width:2px;border-style:solid;border-color:#034575;background-color:#034575;color:#fff;margin:0}',
+		defaultCSS: '.skipTo{position:relative}.skipTo.popup{position:absolute;top:-30em;left:-3000em}.skipTo.fixed,.skipTo.popup.focus{position:absolute;top:.5em;left:.5em}.skipTo button{margin:0;padding:4px;position:relative;border-radius:5px;background-color:#eee;border-width:0;border-style:none;color:#000}.skipTo [role="menu"]{position:absolute;min-width:16em;display:none;margin:0;padding:0;border-with:2px;border-style:solid;border-color:#034575;border-radius:5px}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"]{margin:0;padding:4px;display:block;width:auto;background-color:#eee;border-width:0px;border-style:solid;color:#000}.skipTo [role="menuitem"]:first-letter{text-decoration:underline;text-transform:uppercase}.skipTo [role="separator"]{margin:0;padding:4px;display:block;width:auto;font-weight:bold;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#034575;background-color:#eee;color:#000}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"].last{border-radius:0 0 5px 5px}.skipTo [role="menuitem"].h2 .name{padding-left:.5em}.skipTo [role="menuitem"].h3 .name{padding-left:1em}.skipTo [role="menuitem"].h4 .name{padding-left:1.5em}.skipTo [role="menuitem"].h5 name{padding-left:2em}.skipTo [role="menuitem"].h6 name{padding-left:2.5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:2px;border-width:2px;border-style:solid;border-color:#034575}.skipTo button[aria-expanded="true"],.skipTo [role="menuitem"]:focus{padding:2px;border-width:2px;border-style:solid;border-color:#034575;background-color:#034575;color:#fff;margin:0}',
 
 		hasProperty: function (index, prop) {
 			var index1 = this.defaultCSS.indexOf('}', index);
@@ -102,12 +105,23 @@
 				}
 				index =  this.defaultCSS.indexOf(sel, index+1);
 			}
-			console.log('[updateStyle][ERROR]: ' + sel + ' ' + prop + ' ' + value + ' failed to find selector and property');
 		},
 
 		updateCSSWithCustomColors: function() {
 			function isColor (color) {
 				return typeof color === 'string' && color.length;
+			}
+
+			function isDimension (dimension) {
+				return typeof dimension === 'string' && dimension.length;
+			}
+
+			if (isDimension(this.config.buttonTop)) {
+				this.updateStyle('.skipTo.fixed', 'top', this.config.buttonTop);
+			}
+
+			if (isDimension(this.config.buttonLeft)) {
+				this.updateStyle('.skipTo.fixed', 'left', this.config.buttonLeft);
 			}
 
 			if (isColor(this.config.backgroundColor)) {
@@ -120,13 +134,14 @@
 				this.updateStyle('.skipTo button', 'color', this.config.color);
 				this.updateStyle('.skipTo [role="menuitem"]', 'color', this.config.color);
 				this.updateStyle('.skipTo [role="separator"]', 'color', this.config.color);
-				this.updateStyle('.skipTo [role="separator"]', 'border-bottom-color', this.config.color);
 			}
 
 			if (isColor(this.config.backgroundFocusColor)) {
-  			this.updateStyle('.skipTo.focus button:focus', 'border-color', this.config.backgroundFocusColor);
+  			this.updateStyle('.skipTo button:focus', 'border-color', this.config.backgroundFocusColor);
+				this.updateStyle('.skipTo [role="menu"]', 'border-color', this.config.backgroundFocusColor);
 				this.updateStyle('.skipTo [role="menuitem"]:focus', 'border-color', this.config.backgroundFocusColor);
 				this.updateStyle('.skipTo [role="menuitem"]:focus', 'background-color', this.config.backgroundFocusColor);
+				this.updateStyle('.skipTo [role="separator"]', 'border-bottom-color', this.config.backgroundFocusColor);
 			}
 
 			if (isColor(this.config.focusColor)) {
@@ -148,18 +163,30 @@
 		  this.domNode = document.createElement('div');
 		  this.domNode.setAttribute('role', this.config.containerDivLabel);
 		  this.domNode.setAttribute('aria-label', this.config.containerDivLabel);
-		  if (this.config.customClass.length) {
+		  this.domNode.classList.add('skipTo');
+		  if (typeof this.config.customClass === 'string' && this.config.customClass.length) {
 			  this.domNode.classList.add(this.config.customClass);
 		  }
-		  else {
-			  this.domNode.classList.add('skipTo');
+
+		  switch (this.config.displayOption) {
+		  	case 'fixed':
+				  this.domNode.classList.add('fixed');
+		  		break;
+
+		  	case 'popup':
+				  this.domNode.classList.add('popup');
+		  		break;
+
+		  	default:
+		  		break;
+
 		  }
 
 		  // Place skip to at the beginning of the document
 
 		  if (typeof this.config.attachElement === 'string') {
 		  	var node = document.querySelector(this.config.attachElement);
-		  	if (!node && node.nodeType === Node.ELEMENT_NODE) {
+		  	if (node && node.nodeType === Node.ELEMENT_NODE) {
 		  		attachElement = node;
 		  	}
 		  }
@@ -222,13 +249,6 @@
 				c = text[0].toLowerCase();
 			}
 			return c;
-		},
-
-		addEndOfMenuDiv: function() {
-	    var lastDiv = document.createElement('div');
-	    lastDiv.setAttribute('role', 'separator');
-	    lastDiv.className = 'last';
-	    this.menuNode.appendChild(lastDiv);
 		},
 
 		addMenuitemGroup: function(title, menuitems, msgNoItemsFound, includeTagName) {
@@ -298,7 +318,12 @@
 		    menuNode.appendChild(menuitemNode);
 		    this.menuitemNodes.push(menuitemNode);
 
-		    this.firstChars.push(this.getFirstChar(mi.name));
+		    if (mi.class === 'landmark') {
+			    this.firstChars.push(this.getFirstChar(mi.tagName));
+		    }
+		    else {
+			    this.firstChars.push(this.getFirstChar(mi.name));
+		    }
 
 		    menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
 		    menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
@@ -326,8 +351,8 @@
 			this.addMenuitemGroup(this.config.landmarksLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
 			this.getHeadings();
 			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr, this.config.msgNoLandmarksFound);
-
-			this.addEndOfMenuDiv();
+			this.lastMenuitem.classList.add('last');
+//			this.addEndOfMenuDiv();
 		},
 
 		setFocusToMenuitem: function (newMenuitem) {
@@ -418,6 +443,7 @@
 		// Popup menu methods
 
 		openPopup: function () {
+			this.updateMenuitems();
 		  this.menuNode.style.display = 'block';
 		  this.buttonNode.setAttribute('aria-expanded', 'true');
 		},
@@ -738,6 +764,12 @@
 			var targets = this.config.landmarks;
 			var landmarks = document.querySelectorAll(targets);
 
+			var mainElems = [];
+			var navElems = [];
+			var asideElems = [];
+			var footerElems = [];
+			var otherElems = [];
+
 			for (var i = 0, j = 0, len = landmarks.length; i < len; i = i + 1) {
 				var landmark = landmarks[i];
 				var role = landmark.getAttribute('role');
@@ -753,71 +785,82 @@
 						name = '';
 					}
 
-					if (role === 'banner') {
-						tagName = 'header';
-					} // banner landmark is the same as header element in HTML5
+					switch (role) {
+						case 'banner':
+							tagName = 'header';
+							break;
 
-					if (role === 'contentinfo') {
-						tagName = 'footer';
-					} // contentinfo landmark is the same as footer element in HTML5
+						case 'complementary':
+							tagName = 'aside';
+							break;
 
-					if (role === 'main') {
+						case 'contentinfo':
+							tagName = 'footer';
+							break;
+
+						case 'form':
+							tagName = 'form';
+							break;
+
+						case 'main':
+							tagName = 'main';
+							break;
+
+						case 'navigation':
+							tagName = 'nav';
+							break;
+
+						case 'search':
+							tagName = 'search';
+							break;
+
+						default:
+							break;
+
+					}
+
+					// if using ID for search give tagName as main
+					if (['aside','footer','form','header','main','nav','search'].indexOf(tagName) < 0) {
 						tagName = 'main';
-					} // main landmark is the same as main element in HTML5
-
-					if (role === 'navigation') {
-						tagName = 'nav';
-					} // navigation landmark is the same as nav element in HTML5
-
-					if (role === 'complementary') {
-						tagName = 'aside';
-					} // complementary landmark is the same as aside element in HTML5
+					}
 
 					landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
 
-					this.landmarkElementsArr[j] = {};
-					this.landmarkElementsArr[j].dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
-					this.landmarkElementsArr[j].class = 'landmark';
-					this.landmarkElementsArr[j].name = name;
-					this.landmarkElementsArr[j].role = role;
-					this.landmarkElementsArr[j].tagName = tagName;
+					var landmarkItem = {};
+
+					landmarkItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
+					landmarkItem.class = 'landmark';
+					landmarkItem.name = name;
+					landmarkItem.tagName = tagName;
 					j += 1;
 					this.skipToIdIndex += 1;
+
+					switch (tagName) {
+						case 'main':
+							mainElems.push(landmarkItem);
+							break;
+
+						case 'nav':
+							navElems.push(landmarkItem);
+							break;
+
+						case 'aside':
+							asideElems.push(landmarkItem);
+							break;
+
+						case 'footer':
+							footerElems.push(landmarkItem);
+							break;
+
+						default:
+							otherElems.push(landmarkItem);
+							break;
+					}
 				}
 			}
-		},
 
-		getIdElements: function () {
-			var i, els, el, id, val;
-
-			if (typeof this.config.ids === 'object') {
-				els = this.config.ids;
-			} else if (typeof this.config.ids === 'string') {
-				els = this.config.ids.split(',');
-				els = els.map(function (el) {
-					return {id: el.trim()};
-				});
-			} else {
-				els = [];
-			}
-
-			for (i = 0; i < els.length; i = i + 1) {
-				id = els[i].id.replace('#', '');
-				el = document.getElementById(id);
-				if (el === null) continue;
-
-				val = els[i].description || el.innerHTML.replace(/<\/?[^>]+>/gi, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, "");/*for IE8*/
-				if (val.length > 30) {
-					val = val.replace(val, val.substr(0, 30) + '...');
-				}
-
-				if (this.config.enumerateElements === 'false') {
-					val = "id: " + val;
-				}
-				this.idElementsArr[id] = val;
-			}
-		},
-
+			this.landmarkElementsArr = [].concat(mainElems, navElems, asideElems, footerElems, otherElems);
+		}
 
 	};
 

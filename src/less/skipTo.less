@@ -21,8 +21,15 @@
 
 .skipTo.popup {
   position: absolute;
-	top: -30em;
-	left: -3000em;
+  top: -30em;
+  left: -3000em;
+}
+
+.skipTo.fixed,
+.skipTo.popup.focus {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
 }
 
 .skipTo button {
@@ -38,10 +45,13 @@
 
 .skipTo [role="menu"] {
   position: absolute;
+  min-width: 16em;
   display: none;
   margin: 0;
   padding: 0;
-  border: 1px solid @menuBackgroundFocus;
+  border-with: 2px;
+  border-style: solid;
+  border-color: @menuBackgroundFocus;
   border-radius: 5px;
 }
 
@@ -60,6 +70,11 @@
   color: @menuColor;
 }
 
+.skipTo [role="menuitem"]:first-letter {
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
 .skipTo [role="separator"] {
   margin: 0;
   padding: 4px;
@@ -69,7 +84,7 @@
 	text-align: center;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
-	border-bottom-color: @menuColor;
+	border-bottom-color: @menuBackgroundFocus;
   background-color: @menuBackground;
   color: @menuColor;
 }
@@ -78,9 +93,8 @@
   border-radius: 5px 5px 0 0;
 }
 
-.skipTo [role="separator"].last {
+.skipTo [role="menuitem"].last {
 	border-radius: 0 0 5px 5px;
-  border: none;
 }
 
 .skipTo [role="menuitem"].h2 .name {
