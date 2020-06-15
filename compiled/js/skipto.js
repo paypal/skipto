@@ -1,4 +1,4 @@
-/*! skipto - v2.1.1 - 2020-06-13
+/*! skipto - v2.1.1 - 2020-06-14
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -35,6 +35,7 @@
 	  firstMenuitem: false,
 	  lastMenuitem: false,
 	  firstChars: [],
+	  skipToIdIndex: 1,
 
 		// Default configuration values
 		config: {
@@ -294,7 +295,7 @@
 		    if (mi.tagName.length) {
 			    menuitemNode.classList.add(mi.tagName);
 		    }
-		    menuitemNode.setAttribute('data-id', mi.id);
+		    menuitemNode.setAttribute('data-id', mi.dataId);
 		    menuitemNode.tabIndex = -1;
 
 		    menuNode.appendChild(menuitemNode);
@@ -498,6 +499,16 @@
 		  event.preventDefault();
 		},
 
+		skipToElement: function (tgt) {
+    	var node = document.querySelector(tgt.getAttribute('data-id'));
+     	console.log('[skipToElement]: ' + node.tagName);
+     	if (node) {
+	     	console.log('[skipToElement]: ' + node.tabIndex + ' ' + typeof node.tabIndex);
+     		node.tabIndex = -1;
+     		node.focus();
+     	}
+		},
+
 		handleMenuitemKeydown: function (event) {
 		  var tgt = event.currentTarget,
 		    key = event.key,
@@ -529,10 +540,7 @@
 		      case 'Enter':
 		      case ' ':
 		       this.closePopup();
-		       var node = document.getElementById(tgt.getAttribute('data-id'));
-		       if (node) {
-		       	node.focus();
-		       }
+		       this.skipToElement(tgt);
 		       flag = true;
 		       break;
 
@@ -590,10 +598,7 @@
 		handleMenuitemClick: function (event) {
 			var tgt = event.currentTarget;
      	this.closePopup();
-     	var node = document.getElementById(tgt.getAttribute('data-id'));
-     	if (node) {
-     		node.focus();
-     	}
+     	this.skipToElement(tgt);
 
 		  event.stopPropagation();
 		  event.preventDefault();
@@ -720,17 +725,17 @@
 				var role = heading.getAttribute('role');
 				if ((typeof role === 'string') && (role === 'presentation')) continue;
 				if (this.isVisible(heading)) {
-					var id = heading.id || heading.innerHTML.replace(/\s+/g, '_').toLowerCase().replace(/[&\/\\#,+()$~%.'"!:*?<>{}¹]/g, '') + '_' + i;
-					heading.tabIndex = "-1";
-					heading.id = id;
+
+					heading.setAttribute('data-skip-to-id', this.skipToIdIndex);
 
 					this.headingElementsArr[j] = {};
-					this.headingElementsArr[j].id = id;
+					this.headingElementsArr[j].dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
 					this.headingElementsArr[j].class = 'heading';
 					this.headingElementsArr[j].name = this.getTextContent(heading);
 					this.headingElementsArr[j].tagName = heading.tagName.toLowerCase();
 					this.headingElementsArr[j].role = 'heading';
 					j += 1;
+					this.skipToIdIndex +=1;
 				}
 			}
 		},
@@ -747,10 +752,6 @@
 				if ((typeof role === 'string') && (role === 'presentation')) continue;
 
 				if (this.isVisible(landmark)) {
-
-					var id = landmark.id || 'ui-skip-' + Math.floor((Math.random() * 100) + 1);
-					landmark.tabIndex = "-1";
-					landmark.id = id;
 
 					if (!role) role = landmark.tagName.toLowerCase();
 					var name = this.getAccessibleName(landmark);
@@ -778,13 +779,16 @@
 						tagName = 'aside';
 					} // complementary landmark is the same as aside element in HTML5
 
+					landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
+
 					this.landmarkElementsArr[j] = {};
-					this.landmarkElementsArr[j].id = id;
+					this.landmarkElementsArr[j].dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
 					this.landmarkElementsArr[j].class = 'landmark';
 					this.landmarkElementsArr[j].name = name;
 					this.landmarkElementsArr[j].role = role;
 					this.landmarkElementsArr[j].tagName = tagName;
 					j += 1;
+					this.skipToIdIndex += 1;
 				}
 			}
 		},
