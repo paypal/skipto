@@ -48,7 +48,7 @@
 			msgNoLandmarksFound: 'No landmarks to skip to',
 			msgNoHeadingsFound: 'No headings to skip to',
 			// Selectors for landmark and headings sections
-			landmarks: 'main, [role="main"], nav, [role="navigation"], [role="search"], aside',
+			landmarks: 'main, [role="main"], nav, [role="navigation"], [role="search"], aside, [role="complementary"]',
 			headings:  'h1, h2, h3',
 			// Customization of button and menu
 			accessKey: '0',
@@ -342,17 +342,29 @@
     		this.menuNode.removeChild(this.menuNode.lastElementChild);
   		}
 
+  		console.log('[skipTo]updateMenuItems][landmarks][selectors]', this.config.landmarks);
+  		console.log('[skipTo]updateMenuItems][ headings][selectors]', this.config.headings);
+
 			this.menuitemNodes = [];
 			this.firstChars = [];
 		  this.firstMenuitem = false;
 		  this.lastMenuitem = false;
+		  this.skipToIdIndex = 1;
 
 			this.getLandmarks();
+  		console.log('[skipTo]updateMenuItems][landmarks][number]', this.landmarkElementsArr.length);
+  		console.log('[skipTo]updateMenuItems][landmarks][number]', document.querySelectorAll(this.config.landmarks).length);
 			this.addMenuitemGroup(this.config.landmarksLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
+
 			this.getHeadings();
-			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr, this.config.msgNoLandmarksFound);
+  		console.log('[skipTo]updateMenuItems][ headings][number]', this.headingElementsArr.length);
+  		console.log('[skipTo]updateMenuItems][ headings][number]', document.querySelectorAll(this.config.headings).length);
+			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
 			this.lastMenuitem.classList.add('last');
-//			this.addEndOfMenuDiv();
+
+  		console.log('[skipTo]updateMenuItems][landmarks][number]', this.landmarkElementsArr.length);
+  		console.log('[skipTo]updateMenuItems][ headings][number]', this.headingElementsArr.length);
+
 		},
 
 		setFocusToMenuitem: function (newMenuitem) {
@@ -715,18 +727,15 @@
 			function isVisibleRec (el) {
 				if (el.nodeType === 9) return true; /*IE8 does not support Node.DOCUMENT_NODE*/
 
-				var display = document.defaultView.getComputedStyle(el,null).getPropertyValue('display');
-				var visibility = document.defaultView.getComputedStyle(el,null).getPropertyValue('visibility');
+				var computedStyle = window.getComputedStyle(el);
+
+				var display = computedStyle.getPropertyValue('display');
+				var visibility = computedStyle.getPropertyValue('visibility');
 				var hidden = el.getAttribute('hidden');
-				var ariaHidden = el.getAttribute('aria-hidden');
-				var clientRect = el.getBoundingClientRect();
 
 				if ((display === 'none') ||
 						(visibility === 'hidden') ||
-						(hidden !== null) ||
-						(ariaHidden === 'true') ||
-						(clientRect.height < 4) ||
-						(clientRect.width < 4)) {
+						(hidden !== null)) {
 					return false;
 				}
 
@@ -737,9 +746,11 @@
 		},
 
 		getHeadings: function () {
+			this.headingElementsArr = [];
 			var targets = this.config.headings;
 			if (typeof targets !== 'string' || targets.length === 0) return;
 			var headings = document.querySelectorAll(targets);
+
 			for (var i = 0, j = 0, len = headings.length; i < len; i += 1) {
 				var heading = headings[i];
 				var role = heading.getAttribute('role');
@@ -748,12 +759,15 @@
 
 					heading.setAttribute('data-skip-to-id', this.skipToIdIndex);
 
-					this.headingElementsArr[j] = {};
-					this.headingElementsArr[j].dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
-					this.headingElementsArr[j].class = 'heading';
-					this.headingElementsArr[j].name = this.getTextContent(heading);
-					this.headingElementsArr[j].tagName = heading.tagName.toLowerCase();
-					this.headingElementsArr[j].role = 'heading';
+					var headingItem = {};
+					headingItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
+					headingItem.class = 'heading';
+					headingItem.name = this.getTextContent(heading);
+					headingItem.tagName = heading.tagName.toLowerCase();
+					headingItem.role = 'heading';
+
+					this.headingElementsArr.push(headingItem);
+
 					j += 1;
 					this.skipToIdIndex +=1;
 				}
@@ -761,7 +775,9 @@
 		},
 
 		getLandmarks: function () {
+			this.landmarkElementsArr = [];
 			var targets = this.config.landmarks;
+			if (typeof targets !== 'string' || targets.length === 0) return;
 			var landmarks = document.querySelectorAll(targets);
 
 			var mainElems = [];
