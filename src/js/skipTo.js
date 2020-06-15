@@ -101,7 +101,6 @@
 		},
 
 		updateCSSWithCustomColors: function() {
-			console.log('[updateCSSWithCustomColors]');
 			function isColor (color) {
 				return typeof color === 'string' && color.length;
 			}
@@ -193,12 +192,10 @@
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
 
 			for (name in appConfigSettings) {
-				console.log(name);
 				//overwrite values of our local config, based on the external config
 				if (localConfig.hasOwnProperty(name) &&
 					   typeof appConfigSettings[name] === 'string' &&
 					   appConfigSettings[name].length > 0) {
-					console.log('updated...');
 					localConfig[name] = appConfigSettings[name];
 				}
 			}
@@ -329,7 +326,6 @@
 		},
 
 		setFocusToMenuitem: function (newMenuitem) {
-			console.log('[setFocusToMenuitem]: ' + newMenuitem.textContent);
 			if (newMenuitem) {
 				newMenuitem.focus();
 			}
@@ -494,11 +490,9 @@
 		  event.preventDefault();
 		},
 
-		skipToElement: function (tgt) {
-    	var node = document.querySelector(tgt.getAttribute('data-id'));
-     	console.log('[skipToElement]: ' + node.tagName);
+		skipToElement: function (elem) {
+    	var node = document.querySelector(elem.getAttribute('data-id'));
      	if (node) {
-	     	console.log('[skipToElement]: ' + node.tabIndex + ' ' + typeof node.tabIndex);
      		node.tabIndex = -1;
      		node.focus();
      	}

@@ -1,4 +1,4 @@
-/*! skipto - v2.1.1 - 2020-06-14
+/*! skipto - v2.1.1 - 2020-06-15
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -61,7 +61,7 @@
 			focusColor: ''
 		},
 
-		defaultCSS: '.skipTo{position:absolute}.skipTo.offscreen{top:-30em;left:-3000em}.skipTo button{margin:0;padding:4px;position:relative;border-radius:5px;background-color:#eee;border-width:0;border-style:none;color:#000}.skipTo [role="menu"]{display:none;margin:0;padding:0}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"]{margin:0;padding:4px;display:block;width:auto;background-color:#eee;border-width:0px;border-style:solid;color:#000}.skipTo [role="separator"]{margin:0;padding:4px;display:block;width:auto;font-weight:bold;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#000;background-color:#eee;color:#000}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="separator"].last{border-radius:0 0 5px 5px;border:none}.skipTo [role="menuitem"].h2 .name{padding-left:.5em}.skipTo [role="menuitem"].h3 .name{padding-left:1em}.skipTo [role="menuitem"].h4 .name{padding-left:1.5em}.skipTo [role="menuitem"].h5 name{padding-left:2em}.skipTo [role="menuitem"].h6 name{padding-left:2.5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:2px;border-width:2px;border-style:solid;border-color:#034575}.skipTo button[aria-expanded="true"],.skipTo [role="menuitem"]:focus{padding:2px;border-width:2px;border-style:solid;border-color:#034575;background-color:#034575;color:#fff;margin:0}',
+		defaultCSS: '.skipTo{position:relative}.skipTo.popup{position:absolute;top:-30em;left:-3000em}.skipTo button{margin:0;padding:4px;position:relative;border-radius:5px;background-color:#eee;border-width:0;border-style:none;color:#000}.skipTo [role="menu"]{position:absolute;display:none;margin:0;padding:0;border:1px solid #034575;border-radius:5px}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="menuitem"]{margin:0;padding:4px;display:block;width:auto;background-color:#eee;border-width:0px;border-style:solid;color:#000}.skipTo [role="separator"]{margin:0;padding:4px;display:block;width:auto;font-weight:bold;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#000;background-color:#eee;color:#000}.skipTo [role="separator"]:first-child{border-radius:5px 5px 0 0}.skipTo [role="separator"].last{border-radius:0 0 5px 5px;border:none}.skipTo [role="menuitem"].h2 .name{padding-left:.5em}.skipTo [role="menuitem"].h3 .name{padding-left:1em}.skipTo [role="menuitem"].h4 .name{padding-left:1.5em}.skipTo [role="menuitem"].h5 name{padding-left:2em}.skipTo [role="menuitem"].h6 name{padding-left:2.5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:2px;border-width:2px;border-style:solid;border-color:#034575}.skipTo button[aria-expanded="true"],.skipTo [role="menuitem"]:focus{padding:2px;border-width:2px;border-style:solid;border-color:#034575;background-color:#034575;color:#fff;margin:0}',
 
 		hasProperty: function (index, prop) {
 			var index1 = this.defaultCSS.indexOf('}', index);
@@ -106,7 +106,6 @@
 		},
 
 		updateCSSWithCustomColors: function() {
-			console.log('[updateCSSWithCustomColors]');
 			function isColor (color) {
 				return typeof color === 'string' && color.length;
 			}
@@ -198,12 +197,10 @@
 				appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
 
 			for (name in appConfigSettings) {
-				console.log(name);
 				//overwrite values of our local config, based on the external config
 				if (localConfig.hasOwnProperty(name) &&
 					   typeof appConfigSettings[name] === 'string' &&
 					   appConfigSettings[name].length > 0) {
-					console.log('updated...');
 					localConfig[name] = appConfigSettings[name];
 				}
 			}
@@ -334,7 +331,6 @@
 		},
 
 		setFocusToMenuitem: function (newMenuitem) {
-			console.log('[setFocusToMenuitem]: ' + newMenuitem.textContent);
 			if (newMenuitem) {
 				newMenuitem.focus();
 			}
@@ -499,11 +495,9 @@
 		  event.preventDefault();
 		},
 
-		skipToElement: function (tgt) {
-    	var node = document.querySelector(tgt.getAttribute('data-id'));
-     	console.log('[skipToElement]: ' + node.tagName);
+		skipToElement: function (elem) {
+    	var node = document.querySelector(elem.getAttribute('data-id'));
      	if (node) {
-	     	console.log('[skipToElement]: ' + node.tabIndex + ' ' + typeof node.tabIndex);
      		node.tabIndex = -1;
      		node.focus();
      	}

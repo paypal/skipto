@@ -16,10 +16,11 @@
 // --------------------------------------------------
 
 .skipTo {
-	position: absolute;
+  position: relative;
 }
 
-.skipTo.offscreen {
+.skipTo.popup {
+  position: absolute;
 	top: -30em;
 	left: -3000em;
 }
@@ -36,9 +37,12 @@
 }
 
 .skipTo [role="menu"] {
+  position: absolute;
   display: none;
   margin: 0;
   padding: 0;
+  border: 1px solid @menuBackgroundFocus;
+  border-radius: 5px;
 }
 
 .skipTo [role="separator"]:first-child {
