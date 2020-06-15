@@ -877,7 +877,7 @@
 
 	// Initialize skipto menu button with onload event
 	window.addEventListener('load', function () {
-		SkipTo.init(window.Drupal || window.Wordpress || window.SkipToConfig || {});
+		SkipTo.init(window.SkipToConfig || window.Drupal || window.Wordpress || {});
 		SkipTo.updateMenuitems();
 		console.log('Skipto loaded');
 	});
