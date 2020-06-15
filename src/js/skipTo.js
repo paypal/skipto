@@ -30,6 +30,7 @@
 	  firstMenuitem: false,
 	  lastMenuitem: false,
 	  firstChars: [],
+	  skipToIndex: 1,
 
 		// Default configuration values
 		config: {
@@ -39,6 +40,8 @@
 			menuLabel:      'Skip To and Page Outline',
 			landmarksLabel: 'Skip To',
 			headingsLabel:  'Page Outline',
+			msgNoLandmarksFound: 'No landmarks to skip to',
+			msgNoHeadingsFound: 'No headings to skip to',
 			landmarks: 'main, [role="main"], nav, [role="navigation"], [role="search"], aside',
 			headings:  'h1, h2, h3',
 			accessKey: '0',
@@ -192,7 +195,9 @@
 			for (name in appConfigSettings) {
 				console.log(name);
 				//overwrite values of our local config, based on the external config
-				if (localConfig.hasOwnProperty(name)) {
+				if (localConfig.hasOwnProperty(name) &&
+					   typeof appConfigSettings[name] === 'string' &&
+					   appConfigSettings[name].length > 0) {
 					console.log('updated...');
 					localConfig[name] = appConfigSettings[name];
 				}
@@ -224,7 +229,7 @@
 	    this.menuNode.appendChild(lastDiv);
 		},
 
-		addMenuitemGroup: function(title, menuitems, includeTagName) {
+		addMenuitemGroup: function(title, menuitems, msgNoItemsFound, includeTagName) {
 			if (typeof includeTagName !== 'boolean') {
 				includeTagName = false;
 			}
@@ -243,7 +248,21 @@
 		    menuNode = groupNode;
 			}
 
-			for (var i = 0, len = menuitems.length; i < len; i += 1) {
+			var len  = menuitems.length;
+
+			if (menuitems.length === 0) {
+				var item = {};
+				item.name = msgNoItemsFound;
+				item.tagName = '';
+				item.role = '';
+				item.class = 'noitems';
+				item.id = '';
+				menuitems.push(item);
+				len = menuitems.length;
+			}
+
+
+			for (var i = 0; i < len; i += 1) {
 				var mi = menuitems[i];
 
 				var tagNameNode =  document.createElement('span');
@@ -261,14 +280,16 @@
 			  }
 
 				if (mi.name.length ) {
-					if (includeTagName) {
+					if (includeTagName && mi.tagName.length) {
 				    menuitemNode.appendChild(document.createTextNode(': '));
 					}
 			    menuitemNode.appendChild(nameNode);
 				}
 		    menuitemNode.setAttribute('role', 'menuitem');
 		    menuitemNode.classList.add(mi.class);
-		    menuitemNode.classList.add(mi.tagName);
+		    if (mi.tagName.length) {
+			    menuitemNode.classList.add(mi.tagName);
+		    }
 		    menuitemNode.setAttribute('data-id', mi.id);
 		    menuitemNode.tabIndex = -1;
 
@@ -300,9 +321,9 @@
 		  this.lastMenuitem = false;
 
 			this.getLandmarks();
-			this.addMenuitemGroup(this.config.landmarksLabel, this.landmarkElementsArr, true);
+			this.addMenuitemGroup(this.config.landmarksLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
 			this.getHeadings();
-			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr);
+			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr, this.config.msgNoLandmarksFound);
 
 			this.addEndOfMenuDiv();
 		},
