@@ -36,26 +36,47 @@ By default, SkipTo menu includes the following places on the page:
 
 ### Options for adding the button
 
+* `displayOption`: `static` | `fixed` | `popup`, default is 'static'
+* `accessKey`: Accesskey provides a way to open the Skip To menu from anywhere on the page, the default is 'S'
+* `attachElement`:  CSS selector for identifying what element to attach the menu button container
+* `customClass`: Custom CSS class to add to the menu button container `div` element
+
 ### CSS Selectors for identifying Landmarks and Headings
 
+* `landmarks`:
+* `headings`:
 
 ### Button and Menu labeling
 
+The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
+
+* `containerDivLabel`: If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'
+* `containerDivRole`: The landmark role of the menu button container, default role is 'navigation'
+* `buttonLabel`: Change the label for the button, the default is 'Skip to ...'
+* `menuLabel`: Change the label for the menu, the default is 'Landmarks and Headings'
+* `landmarkGroupLabel`: Change the menu group label for landmarks, the default is 'Landmarks'
+* `headingGroupLabel`: Change the menu group label for headings, the default is  'Main Headings'
+* `msgNoLandmarksFound`: Change message for when no landmarks are found, the default is 'No landmarks to skip to'
+* `msgNoHeadingsFound`: Change message for when no headings are found, the default is 'No landmarks to skip to',
 
 ### Colors used for Button and Menu styling
 
+Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
 
-*  Heading (e.g h1, h2, h3 and h4 elements).
-*  ARIA landmarks (e.g. banner, navigation, main and search).
+* `color`: Text color for button and menu
+* `backgroundColor`: Background color for button and menu
+* `focusColor`: Text color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus
+* `backgroundFocusColor`: Background color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus
 
-and options:
+NOTE: Make sure background and text colors meet the color contrast requirements of WCAG 2.x
 
-*  The "access key" is set to 0.
-*  The menu is set not to wrap.
-*  The menu is visible on keyboard focus only (can be changed to be always visible via the "onload" parameter).
+### Position of Button
+
+* `buttonTop`: Adjustment to the top position of the button
+* `buttonLeft`: Adjustment to the left position of the button
 
 You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
-If you are using either WordPress plugin or Drupal module, you can change the SkipTo options under the "settings" section of your particular content management system. If, however, you are utilizing the plain vanilla Javascript, you will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
+You will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
 
 ```html
 <script>
