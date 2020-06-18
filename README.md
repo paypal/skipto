@@ -79,25 +79,20 @@ You may have different requirements for your web site and include other heading 
 You will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
 
 ```html
-<script>
-var SkipToConfig =
-{
-	"settings": {
-		"skipTo": {
-			"headings"     : "h1, h2, h3, h4",
-			"main"         : "main, [role=main]",
-			"landmarks"    : "[role=navigation], [role=search]",
-			"sections"     : "nav",
-			"ids"          : "#SkipToA1, #SkipToA2",
-			"customClass"  : "MyClass",
-			"accesskey"    : "0",
-			"wrap"         : "true",
-			"visibility"   : "onfocus",
-			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
-		}
-	}
-};
-</script>
+    <script>
+        var SkipToConfig =  {
+            'settings': {
+                'skipTo': {
+                    landmarks: 'main, [role="main"], [role="search"], nav',
+                    headings: 'h1, h2, h3',
+                    headingGroupLabel:  'Headings',
+                    accessKey: 'S',
+                    displayOption: 'popup',
+                }
+            }
+        };
+    </script>
+
 ```
 
 The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.
