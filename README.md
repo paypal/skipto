@@ -75,8 +75,9 @@ NOTE: Make sure background and text colors meet the color contrast requirements 
 * `buttonTop`: Adjustment to the top position of the button
 * `buttonLeft`: Adjustment to the left position of the button
 
-You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
-You will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
+### Example Settings
+
+If have different requirements for your web site and include other heading levels as well as ARIA landmarks, you will need to provide a JSON object containing the necessary configuration parameters. The following is a sample configuration:
 
 ```html
     <script>
@@ -95,21 +96,13 @@ You will need to provide a JSON object containing the necessary configuration pa
 
 ```
 
-The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.
-
-```html
-<script>
-	skipToMenuInit(SkipToConfig)
-</script>
-```
-
 ### Notes
 *  Most parameters are optional.
 *  SkipTo can be attached to any element on the page (see the "attachElement" parameter). if no "attachElement" is found, the script will be attached as the first element after body.
 *  When the custom class is specified (see the customClass parameter), the user can override the style, EG
 
 ```CSS
-.skipTo .MyCustomClass {
+.skipTo.MyCustomClass {
 	background:  red;
 	left: 50px;
 	top: 50px;
