@@ -36,44 +36,47 @@ By default, SkipTo menu includes the following places on the page:
 
 ### Options for adding the button
 
-* `displayOption`: `static` | `fixed` | `popup`, default is 'static'
-* `accessKey`: Accesskey provides a way to open the Skip To menu from anywhere on the page, the default is 'S'
-* `attachElement`:  CSS selector for identifying what element to attach the menu button container
-* `customClass`: Custom CSS class to add to the menu button container `div` element
+* `displayOption`: `static` | `fixed` | `popup`, default is 'static'.
+  * `static`: The button is styled as a block element on the page.
+  * `fixed`: The button is in a fixed position on the page.
+  * `popup`: The button is initially not visible, but becomes visible when it receives focus.
+* `accessKey`: Accesskey provides a way to open the Skip To menu from anywhere on the page, the default is 'S'.
+* `attachElement`:  CSS selector for identifying what element to attach the menu button container.
+* `customClass`: Custom CSS class to add to the menu button container `div` element.
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-* `landmarks`:
-* `headings`:
+* `landmarks`: These are CSS selectors used by `querySelectorAll` to get an array of landmark nodes.
+* `headings`: These are CSS selectors used by `querySelectorAll` to get an array of headings nodes.
 
 ### Button and Menu labeling
 
 The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
 
-* `containerDivLabel`: If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'
-* `containerDivRole`: The landmark role of the menu button container, default role is 'navigation'
-* `buttonLabel`: Change the label for the button, the default is 'Skip to ...'
-* `menuLabel`: Change the label for the menu, the default is 'Landmarks and Headings'
-* `landmarkGroupLabel`: Change the menu group label for landmarks, the default is 'Landmarks'
-* `headingGroupLabel`: Change the menu group label for headings, the default is  'Main Headings'
-* `msgNoLandmarksFound`: Change message for when no landmarks are found, the default is 'No landmarks to skip to'
-* `msgNoHeadingsFound`: Change message for when no headings are found, the default is 'No landmarks to skip to',
+* `containerDivLabel`: If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'.
+* `containerDivRole`: The landmark role of the menu button container, default role is 'navigation'.
+* `buttonLabel`: Change the label for the button, the default is 'Skip to ...'.
+* `menuLabel`: Change the label for the menu, the default is 'Landmarks and Headings'.
+* `landmarkGroupLabel`: Change the menu group label for landmarks, the default is 'Landmarks'.
+* `headingGroupLabel`: Change the menu group label for headings, the default is  'Main Headings'.
+* `msgNoLandmarksFound`: Change message for when no landmarks are found, the default is 'No landmarks to skip to'.
+* `msgNoHeadingsFound`: Change message for when no headings are found, the default is 'No landmarks to skip to'.
 
 ### Colors used for Button and Menu styling
 
 Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
 
-* `color`: Text color for button and menu
-* `backgroundColor`: Background color for button and menu
-* `focusColor`: Text color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus
-* `backgroundFocusColor`: Background color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus
+* `color`: Text color for button and menu.
+* `backgroundColor`: Background color for button and menu.
+* `focusColor`: Text color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus.
+* `backgroundFocusColor`: Background color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus.
 
 NOTE: Make sure background and text colors meet the color contrast requirements of WCAG 2.x
 
 ### Position of Button
 
-* `buttonTop`: Adjustment to the top position of the button
-* `buttonLeft`: Adjustment to the left position of the button
+* `buttonTop`: Adjustment to the top position of the button using CSS units, default is 0.5em.
+* `buttonLeft`: Adjustment to the left position of the button using CSS units, default is 0.5em.
 
 ### Example Settings
 
