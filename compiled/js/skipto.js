@@ -1,4 +1,4 @@
-/*! skipto - v2.1.1 - 2020-06-15
+/*! skipto - v3.0.0 - 2020-06-18
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -42,14 +42,14 @@
 			containerDivLabel: 'Skip To Keyboard Navigation',
 			containerDivRole: 'complementary',
 			buttonLabel:    'Skip To ...',
-			menuLabel:      'Skip To and Page Outline',
-			landmarksLabel: 'Skip To',
-			headingsLabel:  'Page Outline',
+			menuLabel:      'Landmarks and Headings',
+			landmarksLabel: 'Landmarks',
+			headingsLabel:  'Main Headings',
 			msgNoLandmarksFound: 'No landmarks to skip to',
-			msgNoHeadingsFound: 'No headings to skip to',
+			msgNoHeadingsFound: 'No main headings to skip to',
 			// Selectors for landmark and headings sections
-			landmarks: 'main, [role="main"], nav, [role="navigation"], [role="search"], aside, [role="complementary"]',
-			headings:  'h1, h2, h3',
+			landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
+			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
 			// Customization of button and menu
 			accessKey: '0',
 			attachElement: null,
@@ -342,9 +342,6 @@
     		this.menuNode.removeChild(this.menuNode.lastElementChild);
   		}
 
-  		console.log('[skipTo]updateMenuItems][landmarks][selectors]', this.config.landmarks);
-  		console.log('[skipTo]updateMenuItems][ headings][selectors]', this.config.headings);
-
 			this.menuitemNodes = [];
 			this.firstChars = [];
 		  this.firstMenuitem = false;
@@ -352,19 +349,11 @@
 		  this.skipToIdIndex = 1;
 
 			this.getLandmarks();
-  		console.log('[skipTo]updateMenuItems][landmarks][number]', this.landmarkElementsArr.length);
-  		console.log('[skipTo]updateMenuItems][landmarks][number]', document.querySelectorAll(this.config.landmarks).length);
 			this.addMenuitemGroup(this.config.landmarksLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
 
 			this.getHeadings();
-  		console.log('[skipTo]updateMenuItems][ headings][number]', this.headingElementsArr.length);
-  		console.log('[skipTo]updateMenuItems][ headings][number]', document.querySelectorAll(this.config.headings).length);
 			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
 			this.lastMenuitem.classList.add('last');
-
-  		console.log('[skipTo]updateMenuItems][landmarks][number]', this.landmarkElementsArr.length);
-  		console.log('[skipTo]updateMenuItems][ headings][number]', this.headingElementsArr.length);
-
 		},
 
 		setFocusToMenuitem: function (newMenuitem) {
@@ -781,6 +770,7 @@
 			var landmarks = document.querySelectorAll(targets);
 
 			var mainElems = [];
+			var searchElems = [];
 			var navElems = [];
 			var asideElems = [];
 			var footerElems = [];
@@ -835,7 +825,7 @@
 
 					}
 
-					// if using ID for search give tagName as main
+					// if using ID for selectQuery give tagName as main
 					if (['aside','footer','form','header','main','nav','search'].indexOf(tagName) < 0) {
 						tagName = 'main';
 					}
@@ -843,7 +833,6 @@
 					landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
 
 					var landmarkItem = {};
-
 					landmarkItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
 					landmarkItem.class = 'landmark';
 					landmarkItem.name = name;
@@ -854,6 +843,10 @@
 					switch (tagName) {
 						case 'main':
 							mainElems.push(landmarkItem);
+							break;
+
+						case 'search':
+							searchElems.push(landmarkItem);
 							break;
 
 						case 'nav':
@@ -875,14 +868,13 @@
 				}
 			}
 
-			this.landmarkElementsArr = [].concat(mainElems, navElems, asideElems, footerElems, otherElems);
+			this.landmarkElementsArr = [].concat(mainElems, searchElems, navElems, asideElems, footerElems, otherElems);
 		}
 
 	};
 
 	// Initialize skipto menu button with onload event
 	window.addEventListener('load', function () {
-		console.log('[landmarks]: ' + window.SkipToConfig.settings.skipTo.landmarks);
 		SkipTo.init(window.SkipToConfig || window.Drupal || window.Wordpress || {});
 		SkipTo.updateMenuitems();
 		console.log('Skipto loaded');

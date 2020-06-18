@@ -1,44 +1,52 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@2.1.1
+# skipto@3.0
 ## by PayPal Accessibility Team & University of Illinois
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
-1.  The SkipTo menu becomes visible the first time the user tabs into the page.
-2.  Once the keyboard focus is on the menu, pressing the ENTER or the SPACEBAR key will pull down the list of high-level headings and landmarks on the current page.
+1.  The SkipTo menu button is the first tabable element on the page, and if it is not visible becomes the first time the user tabs into the page.
+2.  Once the keyboard focus is on the menu button, pressing the ENTER or the SPACEBAR key will pull down the list of high-level headings and on the current page.
 3.  Use arrow keys to select your choice and press ENTER to skip to it.
 4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## How do I get it on my web site?
-If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems that you can [download from the SkipTo Github Page](http://paypal.github.io/skipto).
-To sweeten your day even more, the GreaseMonkey script and Safari bookmarklet are also available from the page above. Enjoy!
-
-## What about plain JavaScript?
 All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
 
-```html
-<script type="text/javascript" src="http://paypal.github.io/skipto/downloads/js/SkipTo.min.js"></script>
+```
+<script src="http://[your domain]/[path to javascript directory]/SkipTo.min.js"></script>
 ```
 
-Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
+NOTE: Make sure that "src" points to the place where you put the SkipTo Javascript file, otherwise, things will not work as intended.
+
+
+## What About Drupal or WordPress
+A module is being considered for Drupal 8 and WordPress.
 
 ## Configuring SkipTo options
 By default, SkipTo menu includes the following places on the page:
 
+### Options for adding the button
+
+### CSS Selectors for identifying Landmarks and Headings
+
+
+### Button and Menu labeling
+
+
+### Colors used for Button and Menu styling
+
+
 *  Heading (e.g h1, h2, h3 and h4 elements).
 *  ARIA landmarks (e.g. banner, navigation, main and search).
-*  HTML5 Section Elements (e.g. main, section[aria-label], section[aria-labelledby]
-*  Any element with the id specified via the configuration file.
-*  Any element with the custom class specified via the configuration file.
 
 and options:
 
@@ -78,8 +86,6 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 	skipToMenuInit(SkipToConfig)
 </script>
 ```
-### Update
-* Now skipToMenuInit needs to be called explicitly for deferred loading. This would be useful for dynamically loaded pages
 
 ### Notes
 *  Most parameters are optional.
@@ -87,7 +93,7 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 *  When the custom class is specified (see the customClass parameter), the user can override the style, EG
 
 ```CSS
-.dropMenu .MyCustomClass {
+.skipTo .MyCustomClass {
 	background:  red;
 	left: 50px;
 	top: 50px;
@@ -98,10 +104,10 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
   ```sh
-   git clone https://github.com/paypal/skipto.git 
+   git clone https://github.com/paypal/skipto.git
    cd skipto
    sudo npm install grunt-cli -g
-   npm install  
+   npm install
    grunt
   ```
 4.  You should now have a directory called <code>**compiled**</code> with the necessary files in it.
@@ -110,7 +116,7 @@ You may feel slightly adventurous and decide to change some colors or even enhan
 Note: On Windows, build-win.bat runs npm install and grunt modules (Step 3). To successfully run, you must launch a Windows command prompt as an Admin (Ctrl+Shift+Enter) and then run build-win.bat from this command prompt.
 
 ## Cleaning up
-If you would like to revert your local code repository to its initial state, simply run 
+If you would like to revert your local code repository to its initial state, simply run
 ```sh
 grunt clean
 ```
@@ -138,20 +144,31 @@ PayPal Accessibility Team
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
 **Jon Gunderson**
-[https://github.com/jongund](https://github.com/jongund) 
+[https://github.com/jongund](https://github.com/jongund)
 
 **Nicholas Hoyt**
-[https://github.com/nhoyt](https://github.com/nhoyt) 
+[https://github.com/nhoyt](https://github.com/nhoyt)
 
 ## <a name="access-keys">Access keys</a>
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
 
-*  Microsoft Internet Explorer -- ALT+0.
 *  Mozilla Firefox -- ALT+SHIFT+0.
 *  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
 *  Safari -- CONTROL+0.
 
 ## Version History
+### Version 3.0
+* Removed id selector options, if ids are needed they could be added to the landmarks selector
+* Removed need to call initialization function
+* Removed support for Internet Explorer
+* Improved code readability and ARIA support, by removing complexity needed to support Internet Explorer
+* Improved configuration of button and menu labeling
+* Add configuration of button and menu colors, without adding a stylesheet
+* Update the landmarks and headings in the menu by querying the DOM every time the menu is opened
+* Reduced markup conflicts by using a data attribute rather than an IDREF for targets
+* Reduced changes in page markup by only applying tabindex=-1 when focus is moved to a target
+* Updated the function for testing if an element is visible
+
 ### Version 2.1
 * Ignore hidden landmarks and headings, based on:
   * CSS: display: none
@@ -175,7 +192,9 @@ Access keys work  just like regular shortcut keys except that they need a browse
   * [role=search]
 * Updated defaults for headings
   * h1 element
-  * h2 element 
+  * h2 element
+
+
 
 ## Copyright and license
 
