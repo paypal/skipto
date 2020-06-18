@@ -163,18 +163,25 @@
 			  this.domNode.classList.add(this.config.customClass);
 		  }
 
-		  switch (this.config.displayOption) {
-		  	case 'fixed':
-				  this.domNode.classList.add('fixed');
-		  		break;
+		  var displayOption = this.config.displayOption;
 
-		  	case 'popup':
-				  this.domNode.classList.add('popup');
-		  		break;
+		  if (typeof displayOption === 'string') {
+		  	displayOption = displayOption.trim().toLowerCase();
+		  	if (displayOption.length) {
+				  switch (this.config.displayOption) {
+				  	case 'fixed':
+						  this.domNode.classList.add('fixed');
+				  		break;
 
-		  	default:
-		  		break;
+				  	case 'popup':
+						  this.domNode.classList.add('popup');
+				  		break;
 
+				  	default:
+				  		break;
+
+				 	}
+		  	}
 		  }
 
 		  // Place skip to at the beginning of the document

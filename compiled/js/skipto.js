@@ -40,18 +40,18 @@
 		config: {
 			// labels and messages
 			containerDivLabel: 'Skip To Keyboard Navigation',
-			containerDivRole: 'complementary',
+			containerDivRole: 'navigation',
 			buttonLabel:    'Skip To ...',
 			menuLabel:      'Landmarks and Headings',
-			landmarksLabel: 'Landmarks',
-			headingsLabel:  'Main Headings',
+			landmarkGroupLabel: 'Landmarks',
+			headingGroupLabel:  'Main Headings',
 			msgNoLandmarksFound: 'No landmarks to skip to',
 			msgNoHeadingsFound: 'No main headings to skip to',
 			// Selectors for landmark and headings sections
 			landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
 			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
 			// Customization of button and menu
-			accessKey: '0',
+			accessKey: 'S',
 			attachElement: null,
 			customClass: '',
 			displayOption: 'static', // options: static (default), fixed, popup
@@ -161,25 +161,32 @@
 			this.addStyles(this.defaultCSS);
 
 		  this.domNode = document.createElement('div');
-		  this.domNode.setAttribute('role', this.config.containerDivLabel);
+		  this.domNode.setAttribute('role', this.config.containerDivRole);
 		  this.domNode.setAttribute('aria-label', this.config.containerDivLabel);
 		  this.domNode.classList.add('skipTo');
 		  if (typeof this.config.customClass === 'string' && this.config.customClass.length) {
 			  this.domNode.classList.add(this.config.customClass);
 		  }
 
-		  switch (this.config.displayOption) {
-		  	case 'fixed':
-				  this.domNode.classList.add('fixed');
-		  		break;
+		  var displayOption = this.config.displayOption;
 
-		  	case 'popup':
-				  this.domNode.classList.add('popup');
-		  		break;
+		  if (typeof displayOption === 'string') {
+		  	displayOption = displayOption.trim().toLowerCase();
+		  	if (displayOption.length) {
+				  switch (this.config.displayOption) {
+				  	case 'fixed':
+						  this.domNode.classList.add('fixed');
+				  		break;
 
-		  	default:
-		  		break;
+				  	case 'popup':
+						  this.domNode.classList.add('popup');
+				  		break;
 
+				  	default:
+				  		break;
+
+				 	}
+		  	}
 		  }
 
 		  // Place skip to at the beginning of the document
@@ -349,10 +356,10 @@
 		  this.skipToIdIndex = 1;
 
 			this.getLandmarks();
-			this.addMenuitemGroup(this.config.landmarksLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
+			this.addMenuitemGroup(this.config.landmarkGroupLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
 
 			this.getHeadings();
-			this.addMenuitemGroup(this.config.headingsLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
+			this.addMenuitemGroup(this.config.headingGroupLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
 			this.lastMenuitem.classList.add('last');
 		},
 
@@ -778,6 +785,10 @@
 
 			for (var i = 0, j = 0, len = landmarks.length; i < len; i = i + 1) {
 				var landmark = landmarks[i];
+				// if skipto is a landmark don't include it in the list
+				if (landmark === this.domNode) {
+					continue;
+				}
 				var role = landmark.getAttribute('role');
 				var tagName = landmark.tagName.toLowerCase();
 
