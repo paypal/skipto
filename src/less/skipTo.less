@@ -8,7 +8,7 @@
 @menuBackground:  @grayLight;
 @menuColor:    	  @black;
 
-@menuBackgroundFocus: #034575;
+@menuBackgroundFocus: @black;
 @menuColorFocus:	@white;
 
 //
@@ -46,11 +46,11 @@
 
 .skipTo [role="menu"] {
   position: absolute;
-  min-width: 16em;
+  min-width: 17em;
   display: none;
   margin: 0;
   padding: 0;
-  border-with: 2px;
+  border-width: 2px;
   border-style: solid;
   border-color: @menuBackgroundFocus;
   border-radius: 5px;
@@ -101,24 +101,24 @@
 	border-radius: 0 0 5px 5px;
 }
 
-.skipTo [role="menuitem"].h2 .name {
-	padding-left: 0.5em;
-}
-
-.skipTo [role="menuitem"].h3 .name {
+.skipTo [role="menuitem"].skipto-h2 {
 	padding-left: 1em;
 }
 
-.skipTo [role="menuitem"].h4 .name {
-	padding-left: 1.5em;
-}
-
-.skipTo [role="menuitem"].h5 name {
+.skipTo [role="menuitem"].skipto-h3 {
 	padding-left: 2em;
 }
 
-.skipTo [role="menuitem"].h6 name {
-	padding-left: 2.5em;
+.skipTo [role="menuitem"].skipto-h4 {
+	padding-left: 3em;
+}
+
+.skipTo [role="menuitem"].skipto-h5 {
+	padding-left: 4em;
+}
+
+.skipTo [role="menuitem"].skipto-h6 {
+	padding-left: 5em;
 }
 
 /* focus styling */
@@ -135,7 +135,6 @@
   border-color: @menuBackgroundFocus;
 }
 
-.skipTo button[aria-expanded="true"],
 .skipTo [role="menuitem"]:focus {
   padding: 2px;
   border-width: 2px;
@@ -144,4 +143,29 @@
   background-color: @menuBackgroundFocus;
   color: @menuColorFocus;
   margin: 0;
+}
+
+.skipTo [role="menuitem"].skipto-h2,
+.skipTo [role="menuitem"].skipto-h2:focus {
+  padding-left: 1em;
+}
+
+.skipTo [role="menuitem"].skipto-h3,
+.skipTo [role="menuitem"].skipto-h3:focus {
+  padding-left: 2em;
+}
+
+.skipTo [role="menuitem"].skipto-h4,
+.skipTo [role="menuitem"].skipto-h4:focus {
+  padding-left: 3em;
+}
+
+.skipTo [role="menuitem"].skipto-h5,
+.skipTo [role="menuitem"].skipto-h5:focus {
+  padding-left: 4em;
+}
+
+.skipTo [role="menuitem"].skipto-h6,
+.skipTo [role="menuitem"].skipto-h6:focus {
+  padding-left: 5em;
 }

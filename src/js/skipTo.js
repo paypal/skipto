@@ -33,30 +33,39 @@
 
 		// Default configuration values
 		config: {
+			// Customization of button and menu
+			accessKey: 'S',
+			attachElement: null,
+			displayOption: 'static', // options: static (default), fixed, popup
+			// container element
+			containerElement: 'div',
+			containerClass: 'skipTo',
+			containerRole: 'navigation',
+			containerTitle: 'Skip To Keyboard Navigation',
 			// labels and messages
-			containerDivLabel: 'Skip To Keyboard Navigation',
-			containerDivRole: 'navigation',
 			buttonLabel:    'Skip To ...',
 			menuLabel:      'Landmarks and Headings',
 			landmarkGroupLabel: 'Landmarks',
 			headingGroupLabel:  'Main Headings',
+			mainLabel: 'main',
+			searchLabel: 'search',
+			navLabel: 'menu',
+			asideLabel: 'aside',
+			footerLabel: 'footer',
+			headerLabel: 'header',
+			formLabel: 'form',
 			msgNoLandmarksFound: 'No landmarks to skip to',
 			msgNoHeadingsFound: 'No main headings to skip to',
 			// Selectors for landmark and headings sections
 			landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
 			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
-			// Customization of button and menu
-			accessKey: 'S',
-			attachElement: null,
-			customClass: '',
-			displayOption: 'static', // options: static (default), fixed, popup
 			// Custom CSS position and colors
 			buttonTop: '',
 			buttonLeft: '',
-			backgroundColor: '',
 			color: '',
-			backgroundFocusColor: '',
-			focusColor: ''
+			backgroundColor: '',
+			focusColor: '',
+			focusBackgroundColor: ''
 		},
 
 		defaultCSS: '@@cssContent',
@@ -121,27 +130,61 @@
 
 			if (isColor(this.config.backgroundColor)) {
 				this.updateStyle('.skipTo button', 'background-color', this.config.backgroundColor);
-				this.updateStyle('.skipTo [role="menuitem"]', 'background-color', this.config.backgroundColor);
-				this.updateStyle('.skipTo [role="separator"]', 'background-color', this.config.backgroundColor);
+				this.updateStyle('.skipTo [role="menuitem"]', 'color', this.config.backgroundColor);
+				this.updateStyle('.skipTo [role="separator"]', 'color', this.config.backgroundColor);
 			}
 
 			if (isColor(this.config.color)) {
 				this.updateStyle('.skipTo button', 'color', this.config.color);
-				this.updateStyle('.skipTo [role="menuitem"]', 'color', this.config.color);
-				this.updateStyle('.skipTo [role="separator"]', 'color', this.config.color);
+				this.updateStyle('.skipTo [role="menuitem"]', 'background-color', this.config.color);
+				this.updateStyle('.skipTo [role="separator"]', 'background-color', this.config.color);
 			}
 
-			if (isColor(this.config.backgroundFocusColor)) {
-  			this.updateStyle('.skipTo button:focus', 'border-color', this.config.backgroundFocusColor);
-				this.updateStyle('.skipTo [role="menu"]', 'border-color', this.config.backgroundFocusColor);
-				this.updateStyle('.skipTo [role="menuitem"]:focus', 'border-color', this.config.backgroundFocusColor);
-				this.updateStyle('.skipTo [role="menuitem"]:focus', 'background-color', this.config.backgroundFocusColor);
-				this.updateStyle('.skipTo [role="separator"]', 'border-bottom-color', this.config.backgroundFocusColor);
+			if (isColor(this.config.focusBackgroundColor)) {
+  			this.updateStyle('.skipTo button:focus', 'border-color', this.config.focusBackgroundColor);
+				this.updateStyle('.skipTo [role="menuitem"]:focus', 'color', this.config.focusBackgroundColor);
 			}
 
 			if (isColor(this.config.focusColor)) {
-				this.updateStyle('.skipTo [role="menuitem"]:focus', 'color', this.config.focusColor);
+				this.updateStyle('.skipTo [role="menu"]', 'border-color', this.config.focusColor);
+				this.updateStyle('.skipTo [role="menuitem"]:focus', 'border-color', this.config.focusColor);
+				this.updateStyle('.skipTo [role="menuitem"]:focus', 'background-color', this.config.focusColor);
+				this.updateStyle('.skipTo [role="separator"]', 'border-bottom-color', this.config.focusColor);
 			}
+		},
+
+		isNotEmptyString: function (str) {
+			return (typeof str === 'string') && str.length;
+		},
+
+		hasSufficientContrast: function (color1, color2) {
+
+			function luminance(r, g, b) {
+		    var a = [r, g, b].map(function (v) {
+    	    v /= 255;
+      	  return v <= 0.03928 ? v / 12.92 : Math.pow( (v + 0.055) / 1.055, 2.4 );
+    		});
+    		return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+			}
+
+			function splitRGB(rgb) {
+				var a = rgb.split("(")[1].split(")")[0].split(",");
+				var b = {};
+				b.r = parseInt(a[0]);
+				b.b = parseInt(a[1]);
+				b.g = parseInt(a[2]);
+				return b;
+			}
+
+			var c1 = splitRGB(color1);
+			var c2 = splitRGB(color2);
+
+			var l1 = luminance(c1.r, c1.g, c1.b);
+			var l2 = luminance(c2.r, c2.g, c2.b);
+
+			var ccr = l1 < l2 ? ((l2 + 0.05) / (l1 + 0.05)) : ((l1 + 0.05) / (l2 + 0.05));
+
+			return ccr > 4.5; // From WCAG Standard
 		},
 
 		init: function (config) {
@@ -152,16 +195,43 @@
 				this.setUpConfig(config);
 			}
 
+		  if (typeof this.config.attachElement === 'string') {
+		  	var node = document.querySelector(this.config.attachElement);
+		  	if (node && node.nodeType === Node.ELEMENT_NODE) {
+		  		attachElement = node;
+		  	}
+		  }
+
+			if (!this.config.color.length &&
+				  !this.config.backgroundColor.length) {
+				var attachElementStyle = window.getComputedStyle(attachElement);
+				var color = attachElementStyle.getPropertyValue('color');
+				var backgroundColor = attachElementStyle.getPropertyValue('background-color');
+
+				if (this.hasSufficientContrast(color, backgroundColor)) {
+					this.config.color = color;
+					this.config.backgroundColor = backgroundColor;
+					this.config.focusColor = backgroundColor;
+					this.config.focusBackgroundColor = color;
+				}
+			}
+
 			this.updateCSSWithCustomColors();
 			this.addStyles(this.defaultCSS);
 
-		  this.domNode = document.createElement('div');
-		  this.domNode.setAttribute('role', this.config.containerDivRole);
-		  this.domNode.setAttribute('aria-label', this.config.containerDivLabel);
-		  this.domNode.classList.add('skipTo');
-		  if (typeof this.config.customClass === 'string' && this.config.customClass.length) {
-			  this.domNode.classList.add(this.config.customClass);
+		  this.domNode = document.createElement(this.config.containerElement);
+		  if (this.isNotEmptyString(this.config.containerClass)) {
+			  this.domNode.classList.add(this.config.containerClass);
+			}
+			else {
+			  this.domNode.classList.add('skipTo');
+			}
+		  if (this.isNotEmptyString(this.config.containerRole)) {
+			  this.domNode.setAttribute('role', this.config.containerRole);
 		  }
+		  if (this.isNotEmptyString(this.config.containerTitle)) {
+		  	this.domNode.setAttribute('title', this.config.containerTitle);
+			}
 
 		  var displayOption = this.config.displayOption;
 
@@ -185,13 +255,6 @@
 		  }
 
 		  // Place skip to at the beginning of the document
-
-		  if (typeof this.config.attachElement === 'string') {
-		  	var node = document.querySelector(this.config.attachElement);
-		  	if (node && node.nodeType === Node.ELEMENT_NODE) {
-		  		attachElement = node;
-		  	}
-		  }
 
 		  if (attachElement.firstElementChild) {
 		  	attachElement.insertBefore(this.domNode, attachElement.firstElementChild);
@@ -253,11 +316,7 @@
 			return c;
 		},
 
-		addMenuitemGroup: function(title, menuitems, msgNoItemsFound, includeTagName) {
-			if (typeof includeTagName !== 'boolean') {
-				includeTagName = false;
-			}
-
+	addMenuitemGroup: function(title, menuitems, msgNoItemsFound) {
 			var menuNode =  this.menuNode;
 			if (title) {
 		    var labelNode = document.createElement('div');
@@ -289,30 +348,12 @@
 			for (var i = 0; i < len; i += 1) {
 				var mi = menuitems[i];
 
-				var tagNameNode =  document.createElement('span');
-				tagNameNode.className = 'tagName';
-				tagNameNode.textContent = mi.tagName;
-
-				var nameNode =  document.createElement('span');
-				nameNode.className = 'name';
-				nameNode.textContent = mi.name;
-
 		    var menuitemNode = document.createElement('div');
-
-				if (includeTagName) {
-			    menuitemNode.appendChild(tagNameNode);
-			  }
-
-				if (mi.name.length ) {
-					if (includeTagName && mi.tagName.length) {
-				    menuitemNode.appendChild(document.createTextNode(': '));
-					}
-			    menuitemNode.appendChild(nameNode);
-				}
+				menuitemNode.appendChild(document.createTextNode(mi.name));
 		    menuitemNode.setAttribute('role', 'menuitem');
 		    menuitemNode.classList.add(mi.class);
 		    if (mi.tagName.length) {
-			    menuitemNode.classList.add(mi.tagName);
+			    menuitemNode.classList.add('skipto-' + mi.tagName);
 		    }
 		    menuitemNode.setAttribute('data-id', mi.dataId);
 		    menuitemNode.tabIndex = -1;
@@ -320,12 +361,7 @@
 		    menuNode.appendChild(menuitemNode);
 		    this.menuitemNodes.push(menuitemNode);
 
-		    if (mi.class === 'landmark') {
-			    this.firstChars.push(this.getFirstChar(mi.tagName));
-		    }
-		    else {
-			    this.firstChars.push(this.getFirstChar(mi.name));
-		    }
+		    this.firstChars.push(this.getFirstChar(mi.name));
 
 		    menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
 		    menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
@@ -337,7 +373,6 @@
 		    this.lastMenuitem = menuitemNode;
 		  }
 		},
-
 	 	updateMenuitems: function () {
 			// remove current menu items from menu
 			while (this.menuNode.lastElementChild) {
@@ -351,7 +386,7 @@
 		  this.skipToIdIndex = 1;
 
 			this.getLandmarks();
-			this.addMenuitemGroup(this.config.landmarkGroupLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound, true);
+			this.addMenuitemGroup(this.config.landmarkGroupLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound);
 
 			this.getHeadings();
 			this.addMenuitemGroup(this.config.headingGroupLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
@@ -765,6 +800,51 @@
 			}
 		},
 
+		getLocalizedLandmarkName: function (tagName, name) {
+			var n;
+
+			switch (tagName) {
+				case 'aside':
+					n = this.config.asideLabel;
+					break;
+
+				case 'footer':
+					n = this.config.footerLabel;
+					break;
+
+				case 'form':
+					n = this.config.formLabel;
+					break;
+
+				case 'header':
+					n = this.config.headerLabel;
+					break;
+
+				case 'main':
+					n = this.config.mainLabel;
+					break;
+
+				case 'nav':
+					n = this.config.navLabel;
+					break;
+
+				case 'search':
+					n = this.config.searchLabel;
+					break;
+
+				// When an ID is used as a selector, assume for main content
+				default:
+					n = this.config.mainLabel;
+					break;
+			}
+
+			if (this.isNotEmptyString(name)) {
+				n += ': ' + name;
+			}
+
+			return n;
+		},
+
 		getLandmarks: function () {
 			this.landmarkElementsArr = [];
 			var targets = this.config.landmarks;
@@ -797,6 +877,7 @@
 						name = '';
 					}
 
+					// normalize tagNames
 					switch (role) {
 						case 'banner':
 							tagName = 'header';
@@ -841,11 +922,12 @@
 					var landmarkItem = {};
 					landmarkItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
 					landmarkItem.class = 'landmark';
-					landmarkItem.name = name;
+					landmarkItem.name = this.getLocalizedLandmarkName(tagName, name);
 					landmarkItem.tagName = tagName;
 					j += 1;
 					this.skipToIdIndex += 1;
 
+					// For sorting landmarks into groups
 					switch (tagName) {
 						case 'main':
 							mainElems.push(landmarkItem);

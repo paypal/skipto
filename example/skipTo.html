@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>SkipTo Menu Example Page</title>
+    <style>
+        body {
+            color: #FFF;
+            background: #224;
+        }
+    </style>
 </head>
 <body>
     <header role="banner">
@@ -167,10 +173,15 @@
         var SkipToConfig =  {
             'settings': {
                 'skipTo': {
+                    containerElem: 'p',
                     landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"]',
                     headings: 'h1, h2, h3',
                     accessKey: 'S',
                     displayOption: 'fixed',
+                    color: '#fff',
+                    backgroundColor: '#13294B',
+                    focusColor: '#13294B',
+                    focusBackgroundColor: 'white'
                 }
             }
         };

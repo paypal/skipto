@@ -29,7 +29,7 @@ NOTE: Make sure that "src" points to the place where you put the SkipTo Javascri
 
 
 ## What About Drupal or WordPress
-A module is being considered for Drupal 8 and WordPress.
+A module for version 3 is being considered for Drupal 8 and WordPress.
 
 ## Configuring SkipTo options
 By default, SkipTo menu includes the following places on the page:
@@ -42,7 +42,9 @@ By default, SkipTo menu includes the following places on the page:
   * `popup`: The button is initially not visible, but becomes visible when it receives focus.
 * `accessKey`: Accesskey provides a way to open the Skip To menu from anywhere on the page, the default is 'S'.
 * `attachElement`:  CSS selector for identifying what element to attach the menu button container.
-* `customClass`: Custom CSS class to add to the menu button container `div` element.
+* `customClass`: Optional custom CSS class to add to the menu button container, by default a `div` element.
+* `containerRole`: Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark.
+* `containerElement`: Optional element to use as a container for the button and the menu, default element is a `div` element.
 
 ### CSS Selectors for identifying Landmarks and Headings
 
