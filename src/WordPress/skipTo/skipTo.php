@@ -1,11 +1,11 @@
 <?php
  /*
 	Plugin Name: SkipTo
-	Plugin URI: https://github.com/paypal/SkipTo
+	Plugin URI: TBA
 	Description: A simple way to expand the usefullness of your site's "Skip To Content" functionality.
-	Version: 0.1.2
-	Author: Nawaz Khan, Victor Tsaran, Ron Feathers, and Marc Kocher
-	Author URI: https://github.com/paypal
+	Version: 0.9
+	Author: Jon Gunderson
+	Author URI: TBA
 	License: Apache-2.0
 */
 
@@ -56,11 +56,11 @@
 
 		if(!empty($_POST)){
 			foreach(array_keys($_POST) as $k) {
-				if (array_key_exists($k, $headings_list)){ 
-					$post_headings .= ',' . $k; 
+				if (array_key_exists($k, $headings_list)){
+					$post_headings .= ',' . $k;
 				}
-				if (array_key_exists($k, $landmarks_list)){ 
-					$post_roles .= ',[' . str_replace("-","=",$k) . ']'; 
+				if (array_key_exists($k, $landmarks_list)){
+					$post_roles .= ',[' . str_replace("-","=",$k) . ']';
 				}
 			}
 
@@ -92,12 +92,12 @@
 				$fputcontents = 'var Wordpress =' . json_encode($arrw) . ';';
 				file_put_contents($conf_file,  $fputcontents);
 				echo '<div class="updated"><p><strong>Skip To Settings saved.</strong></p></div>';
-			} 
-		}	
+			}
+		}
 
 		$contents = file_get_contents($conf_file);
-		$contents = preg_replace("/(var|;|Wordpress)/", " ", $contents); 
-		$contents = substr_replace($contents, $str_replacement, strpos($contents, '='), strlen('=')); 
+		$contents = preg_replace("/(var|;|Wordpress)/", " ", $contents);
+		$contents = substr_replace($contents, $str_replacement, strpos($contents, '='), strlen('='));
 		$arr = json_decode( $contents, true);
 
 		$headings = $arr['settings']['skipTo']['headings'];
@@ -122,7 +122,7 @@
 								$hFld .= '<label style="display:block;"><input type="checkbox" name="' . $key . '"';
 								if(in_array($key, $headings_arr)) {
 									$hFld .= ' checked ';
-								}	
+								}
 								$hFld .= ' style="margin-right:10px">' . $value . '</label>';
 							}
 							echo $hFld;
@@ -133,8 +133,8 @@
 					<div style="float:left; padding-left:150px; padding-top:50px;" aria-labelledby="landmarks">
 						<?php
 							$landmarks_arr=array_map('trim',explode(",",$landmarks));
-							$landmarks_arr = preg_replace("/(\[|\])/" , "", $landmarks_arr); 
-							$landmarks_arr = preg_replace("/(=)/" , "-", $landmarks_arr); 
+							$landmarks_arr = preg_replace("/(\[|\])/" , "", $landmarks_arr);
+							$landmarks_arr = preg_replace("/(=)/" , "-", $landmarks_arr);
 								foreach ($landmarks_list as $key => $value){
 									$lFld.= '<label style="display:block;"><input type="checkbox" name="'.$key.'"';
 									if(in_array($key, $landmarks_arr)) $lFld.=' checked ';
@@ -142,7 +142,7 @@
 								}
 							echo $lFld;
 						?>
-					</div>					
+					</div>
 					<br clear="all">
 					<div style="float:left; padding-top:50px; font-weight:bold">
 						<label for="akey">Access Keys</label>

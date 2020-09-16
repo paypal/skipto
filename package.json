@@ -23,18 +23,18 @@
     "node": ">=6"
   },
   "devDependencies": {
-    "jshint": "~2.10.2",
-    "uglify-js": "~2.8.0",
-    "less": "^3.0.4",
     "grunt": "^1.0.4",
+    "grunt-contrib-clean": "~2.0.0",
+    "grunt-contrib-compress": "~1.4.3",
+    "grunt-contrib-concat": "~1.0.1",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-jshint": "~2.1.0",
     "grunt-contrib-less": "~2.0.0",
     "grunt-contrib-uglify": "~4.0.1",
     "grunt-replace": "~1.0.1",
-    "grunt-contrib-copy": "~1.0.0",
-    "grunt-contrib-compress": "~1.4.3",
-    "grunt-contrib-clean": "~2.0.0",
-    "grunt-contrib-concat": "~1.0.1"
+    "jshint": "~2.10.2",
+    "uglify-js": "~2.8.0"
   },
   "readmeFilename": "README.md",
   "gitHead": "641457dfeea57fbedfba5ba2a65ce0c33ac411b7",

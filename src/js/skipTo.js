@@ -60,131 +60,78 @@
 			landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
 			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
 			// Custom CSS position and colors
-			buttonTop: '',
-			buttonLeft: '',
-			color: '',
-			backgroundColor: '',
-			focusColor: '',
-			focusBackgroundColor: ''
+			colorTheme: 'default',
+			buttonColor: '',
+			buttonBackgroundColor: '',
+			buttonColorFocus: '',
+			buttonFocusBackgroundColor: '',
+			buttonFocusBorderColor: '',
+			menuBackgroundColor: '',
+			menuitemColor: '',
+			menuitemBackgroundColor: '',
+			menuitemFocusColor: '',
+			menuitemFocusBackgroundColor: '',
+			menuitemFocusBorderColor: ''
+		},
+
+		colorThemes: {
+			'default' : {
+				buttonColor: '#1a1a1a',
+				buttonBackgroundColor: '#d3d3d3',
+				buttonColorFocus: '#000000',
+				buttonFocusBackgroundColor: '#d3d3d3',
+				buttonFocusBorderColor: '#000000',
+				menuBackgroundColor: '#d3d3d3',
+				menuitemColor: '#1a1a1a',
+				menuitemBackgroundColor: '#d3d3d3',
+				menuitemFocusColor: '#ffffff',
+				menuitemFocusBackgroundColor: '#1a1a1a',
+				menuitemFocusBorderColor: '#1a1a1a'
+			}
 		},
 
 		defaultCSS: '@@cssContent',
 
-		hasProperty: function (index, prop) {
-			var index1 = this.defaultCSS.indexOf('}', index);
-			return this.defaultCSS.substring(index, index1).indexOf(prop) >= 0;
-		},
 
-		updateStyle: function (sel, prop, value) {
+		updateStyle: function (stylePlaceholder, value, defaultValue) {
 
-			prop = prop + ':';
-			if (prop.indexOf('-') < 0) {
-				prop = ';' + prop;
+			if (typeof value !== 'string' || value.length === 0) {
+				value = defaultValue;
 			}
 
-			var index =  this.defaultCSS.indexOf(sel);
-			while (index >= 0) {
-				if(this.hasProperty(index, prop)) {
-					index = this.defaultCSS.indexOf(prop, index);
-					if ( index >= 0) {
-						index = this.defaultCSS.indexOf(':', index);
-						if (index >= 0) {
-							index += 1;
-							var index1 = this.defaultCSS.indexOf(';', index);
-							var index2 = this.defaultCSS.indexOf('}', index);
-							if (index1 >= 0 || index2 >= 0) {
-								if (index1 >= 0 && index2 >= 0) {
-									index1 = Math.min(index1, index2);
-								}
-								else {
-									if (index2 >= 0) {
-										index1 = index2;
-									}
-								}
-								this.defaultCSS = this.defaultCSS.substring(0, index) + value + this.defaultCSS.substring(index1);
-								return;
-							}
-						}
-					}
-				}
-				index =  this.defaultCSS.indexOf(sel, index+1);
+			console.log('[updateStyle]: ' + stylePlaceholder);
+			var index1 =  this.defaultCSS.indexOf(stylePlaceholder);
+			var index2 =  index1 + stylePlaceholder.length;
+			while (index1 >= 0 && index2 < this.defaultCSS.length) {
+				this.defaultCSS = this.defaultCSS.substring(0, index1) + value + this.defaultCSS.substring(index2);
+				console.log('[updateStyle][found]');
+				index1 =  this.defaultCSS.indexOf(stylePlaceholder, index2);
+				index2 =  index1 + stylePlaceholder.length;
 			}
 		},
 
-		updateCSSWithCustomColors: function() {
-			function isColor (color) {
-				return typeof color === 'string' && color.length;
+		addCSSColors: function() {
+			var theme = this.colorThemes['default'];
+
+			if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
+				theme = this.colorThemes[this.config.colorTheme];
 			}
 
-			function isDimension (dimension) {
-				return typeof dimension === 'string' && dimension.length;
-			}
-
-			if (isDimension(this.config.buttonTop)) {
-				this.updateStyle('.skipTo.fixed', 'top', this.config.buttonTop);
-			}
-
-			if (isDimension(this.config.buttonLeft)) {
-				this.updateStyle('.skipTo.fixed', 'left', this.config.buttonLeft);
-			}
-
-			if (isColor(this.config.backgroundColor)) {
-				this.updateStyle('.skipTo button', 'background-color', this.config.backgroundColor);
-				this.updateStyle('.skipTo [role="menuitem"]', 'color', this.config.backgroundColor);
-				this.updateStyle('.skipTo [role="separator"]', 'color', this.config.backgroundColor);
-			}
-
-			if (isColor(this.config.color)) {
-				this.updateStyle('.skipTo button', 'color', this.config.color);
-				this.updateStyle('.skipTo [role="menuitem"]', 'background-color', this.config.color);
-				this.updateStyle('.skipTo [role="separator"]', 'background-color', this.config.color);
-			}
-
-			if (isColor(this.config.focusBackgroundColor)) {
-  			this.updateStyle('.skipTo button:focus', 'border-color', this.config.focusBackgroundColor);
-				this.updateStyle('.skipTo [role="menuitem"]:focus', 'color', this.config.focusBackgroundColor);
-			}
-
-			if (isColor(this.config.focusColor)) {
-				this.updateStyle('.skipTo [role="menu"]', 'border-color', this.config.focusColor);
-				this.updateStyle('.skipTo [role="menuitem"]:focus', 'border-color', this.config.focusColor);
-				this.updateStyle('.skipTo [role="menuitem"]:focus', 'background-color', this.config.focusColor);
-				this.updateStyle('.skipTo [role="separator"]', 'border-bottom-color', this.config.focusColor);
-			}
+			this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
+			this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
+			this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
+			this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
+			this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);
+			this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
+			this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
+			this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
+			this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
+			this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
+			this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
 		},
 
 		isNotEmptyString: function (str) {
 			return (typeof str === 'string') && str.length;
-		},
-
-		hasSufficientContrast: function (color1, color2) {
-
-			function luminance(r, g, b) {
-		    var a = [r, g, b].map(function (v) {
-    	    v /= 255;
-      	  return v <= 0.03928 ? v / 12.92 : Math.pow( (v + 0.055) / 1.055, 2.4 );
-    		});
-    		return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-			}
-
-			function splitRGB(rgb) {
-				var a = rgb.split("(")[1].split(")")[0].split(",");
-				var b = {};
-				b.r = parseInt(a[0]);
-				b.b = parseInt(a[1]);
-				b.g = parseInt(a[2]);
-				return b;
-			}
-
-			var c1 = splitRGB(color1);
-			var c2 = splitRGB(color2);
-
-			var l1 = luminance(c1.r, c1.g, c1.b);
-			var l2 = luminance(c2.r, c2.g, c2.b);
-
-			var ccr = l1 < l2 ? ((l2 + 0.05) / (l1 + 0.05)) : ((l1 + 0.05) / (l2 + 0.05));
-
-			return ccr > 4.5; // From WCAG Standard
 		},
 
 		init: function (config) {
@@ -202,21 +149,7 @@
 		  	}
 		  }
 
-			if (!this.config.color.length &&
-				  !this.config.backgroundColor.length) {
-				var attachElementStyle = window.getComputedStyle(attachElement);
-				var color = attachElementStyle.getPropertyValue('color');
-				var backgroundColor = attachElementStyle.getPropertyValue('background-color');
-
-				if (this.hasSufficientContrast(color, backgroundColor)) {
-					this.config.color = color;
-					this.config.backgroundColor = backgroundColor;
-					this.config.focusColor = backgroundColor;
-					this.config.focusBackgroundColor = color;
-				}
-			}
-
-			this.updateCSSWithCustomColors();
+			this.addCSSColors();
 			this.addStyles(this.defaultCSS);
 
 		  this.domNode = document.createElement(this.config.containerElement);
