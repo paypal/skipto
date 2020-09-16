@@ -38,7 +38,7 @@ A module is being considered for WordPress.
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
 | `displayOption` | `static` | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
-| `accessKey` | `s` | Accesskey provides a way to open the Skip To menu from anywhere on the page. |
+| `accessKey` | `s` | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page. |
 | `attachElement` | `header` | A CSS selector for identifying which element to attach the menu button container. |
 | `containerElement` | `div` | Element to use as a container for the button and the menu.
 | `customClass` | `skipTo` | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
