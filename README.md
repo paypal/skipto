@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@4.0
+# skipto@3.0
 ## by PayPal Accessibility Team & University of Illinois
 See the [Authors](#authors) section for more information.
 
@@ -122,9 +122,9 @@ If have different requirements for your web site and include other heading level
 ```
 
 ### Notes
-*  Most parameters are optional.
+*  Parameters are optional.
 *  SkipTo can be attached to any element on the page (see the "attachElement" parameter). if no "attachElement" is found, the script will be attached as the first element after body.
-*  When the custom class is specified (see the customClass parameter), the user can override the style, EG
+*  When the custom class is specified (see the customClass parameter), the user can override the style:
 
 ```CSS
 .skipTo.MyCustomClass {

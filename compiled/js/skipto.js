@@ -1,4 +1,4 @@
-/*! skipto - v4.0.0 - 2020-09-16
+/*! skipto - v3.0.0 - 2020-09-16
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -63,7 +63,7 @@
 			msgNoHeadingsFound: 'No main headings to skip to',
 			// Selectors for landmark and headings sections
 			landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
-			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
+			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2',
 			// Custom CSS position and colors
 			colorTheme: '',
 			positionLeft: '',
