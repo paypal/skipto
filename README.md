@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@3.0
+# skipto@4.0
 ## by PayPal Accessibility Team & University of Illinois
 See the [Authors](#authors) section for more information.
 
@@ -28,8 +28,8 @@ To use the SkipTo script, just include it at the bottom of your HTML page or tem
 NOTE: Make sure that "src" points to the place where you put the SkipTo Javascript file, otherwise, things will not work as intended.
 
 
-## What About Drupal or WordPress
-A module for version 3 is being considered for Drupal 8 and WordPress.
+## What About WordPress
+A module is being considered for WordPress.
 
 ## Configuring SkipTo
 
