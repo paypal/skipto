@@ -31,8 +31,7 @@ NOTE: Make sure that "src" points to the place where you put the SkipTo Javascri
 ## What About Drupal or WordPress
 A module for version 3 is being considered for Drupal 8 and WordPress.
 
-## Configuring SkipTo options
-By default, SkipTo menu includes the following places on the page:
+## Configuring SkipTo
 
 ### Options for adding the button
 
@@ -47,10 +46,10 @@ By default, SkipTo menu includes the following places on the page:
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-| Property       | Description |
-| :------------- | :---------- |
-| `landmarks` | These are CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
-| `headings` | These are CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
+| Property       | default | Description |
+| :------------- | :------ | :---------- |
+| `landmarks` | `main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]` | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
+| `headings` | `main h1, [role="main"] h1, main h2, [role="main"] h2` | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
 
 ### Button and Menu labeling
 
