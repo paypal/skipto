@@ -77,7 +77,8 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
-| `buttonColor` | Color | `#1a1a1a`  | Color of "Skip To COntent" button. |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
+| `buttonColor` | Color | `#1a1a1a`  | Color of "Skip To Content" button. |
 | `buttonBackgroundColor` | Color | `#eeeeee` | d. |
 | `buttonColorFocus` | Color | `#000000` | d. |
 | `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | d. |
@@ -108,10 +109,11 @@ If have different requirements for your web site and include other heading level
             'settings': {
                 'skipTo': {
                     landmarks: 'main, [role="main"], [role="search"], nav',
-                    headings: 'h1, h2, h3',
+                    headings: 'main h1, main h2, main h3',
                     headingGroupLabel:  'Headings',
                     accessKey: 'S',
                     displayOption: 'popup',
+                    colorTheme: 'illinois',
                 }
             }
         };
