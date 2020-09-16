@@ -46,7 +46,7 @@ A module for version 3 is being considered for Drupal 8 and WordPress.
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-| Property       | default | Description |
+| Property       | Default | Description |
 | :------------- | :------ | :---------- |
 | `landmarks` | `main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]` | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
 | `headings` | `main h1, [role="main"] h1, main h2, [role="main"] h2` | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
@@ -55,16 +55,21 @@ A module for version 3 is being considered for Drupal 8 and WordPress.
 
 The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
 
-| Property       | Description |
-| :------------- | :---------- |
-| `containerDivLabel` | If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'. |
-| `containerDivRole` | The landmark role of the menu button container, default role is 'navigation'. |
-| `buttonLabel` | Change the label for the button, the default is 'Skip To Content'. |
-| `menuLabel` | Change the label for the menu, the default is 'Landmarks and Headings'. |
-| `landmarkGroupLabel` | Change the menu group label for landmarks, the default is 'Landmarks'. |
-| `headingGroupLabel` | Change the menu group label for headings, the default is  'Main Headings'.
-| `msgNoLandmarksFound` | Change message for when no landmarks are found, the default is 'No landmarks to skip to'. |
-| `msgNoHeadingsFound` | Change message for when no headings are found, the default is 'No landmarks to skip to'. |
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `buttonLabel` | 'Skip to Content' | Change the label for the button. |
+| `menuLabel` | Landmarks and Headings' | Change the label for the menu. |
+| `landmarkGroupLabel` | 'Landmarks' | Change the menu group label for landmarks. |
+| `headingGroupLabel` | 'Main Headings' | Change the menu group label for headings. |
+| `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
+| `searchLabel` | 'search' | The label in the menu for `search` landmarks |
+| `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
+| `asideLabel` | 'aside' | The label in the menu for `complementary` landmarks |
+| `footerLabel` | 'footer' | The label in the menu for `contentinfo` landmarks |
+| `headerLabel` | 'header' | The label in the menu for `banner` landmarks |
+| `formLabel` | 'form' | The label in the menu for `form` landmdrks |
+| `msgNoLandmarksFound` | 'No landmarks to skip to'| Message for when no landmarks are found. |
+| `msgNoHeadingsFound` | 'No main headings to skip to'| Message for when no headings are found. |
 
 ### Colors used for Button and Menu styling
 
