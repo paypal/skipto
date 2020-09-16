@@ -39,8 +39,8 @@
 			displayOption: 'static', // options: static (default), popup
 			// container element, use containerClass for custom styling
 			containerElement: 'div',
-			containerClass: '',
 			containerRole: '',
+			customClass: '',
 			containerTitle: 'Skip To Keyboard Navigation',
 			// labels and messages
 			buttonLabel:    'Skip To Content',
@@ -174,11 +174,9 @@
 			this.addStyleElement(this.defaultCSS);
 
 		  this.domNode = document.createElement(this.config.containerElement);
-		  if (this.isNotEmptyString(this.config.containerClass)) {
-			  this.domNode.classList.add(this.config.containerClass);
-			}
-			else {
-			  this.domNode.classList.add('skipTo');
+		  this.domNode.classList.add('skipTo');
+		  if (this.isNotEmptyString(this.config.customClass)) {
+			  this.domNode.classList.add(this.config.customClass);
 			}
 		  if (this.isNotEmptyString(this.config.containerRole)) {
 			  this.domNode.setAttribute('role', this.config.containerRole);
