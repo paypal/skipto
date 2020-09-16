@@ -36,7 +36,8 @@ By default, SkipTo menu includes the following places on the page:
 
 ### Options for adding the button
 
-| Property       | default | Description |
+| Property       | default     | Description |
+| :------------- | :---------- | :---------- |
 | `displayOption` | `static` | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
 | `accessKey` | `s` | Accesskey provides a way to open the Skip To menu from anywhere on the page. |
 | `attachElement` | `header` | A CSS selector for identifying which element to attach the menu button container. |
