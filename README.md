@@ -36,47 +36,62 @@ By default, SkipTo menu includes the following places on the page:
 
 ### Options for adding the button
 
-* `displayOption`: `static` | `fixed` | `popup`, default is 'static'.
-  * `static`: The button is styled as a block element on the page (default).
-  * `popup`: The button is initially not visible, but becomes visible when it receives focus.
-* `accessKey`: Accesskey provides a way to open the Skip To menu from anywhere on the page, the default is 'S'.
-* `attachElement`:  CSS selector for identifying what element to attach the menu button container.
-* `customClass`: Optional custom CSS class to add to the menu button container, by default a `div` element.
-* `containerRole`: Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark.
-* `containerElement`: Optional element to use as a container for the button and the menu, default element is a `div` element.
+| Property       | default | Description |
+| `displayOption` | `static` | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
+| `accessKey` | `s` | Accesskey provides a way to open the Skip To menu from anywhere on the page. |
+| `attachElement` | `header` | A CSS selector for identifying which element to attach the menu button container. |
+| `containerElement` | `div` | Element to use as a container for the button and the menu.
+| `customClass` | `skipTo` | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
+| `containerRole` | none | Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark (e.g. `header` element. |
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-* `landmarks`: These are CSS selectors used by `querySelectorAll` to get an array of landmark nodes.
-* `headings`: These are CSS selectors used by `querySelectorAll` to get an array of headings nodes.
+| Property       | Description |
+| :------------- | :---------- |
+| `landmarks` | These are CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
+| `headings` | These are CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
 
 ### Button and Menu labeling
 
 The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
 
-* `containerDivLabel`: If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'.
-* `containerDivRole`: The landmark role of the menu button container, default role is 'navigation'.
-* `buttonLabel`: Change the label for the button, the default is 'Skip To Content'.
-* `menuLabel`: Change the label for the menu, the default is 'Landmarks and Headings'.
-* `landmarkGroupLabel`: Change the menu group label for landmarks, the default is 'Landmarks'.
-* `headingGroupLabel`: Change the menu group label for headings, the default is  'Main Headings'.
-* `msgNoLandmarksFound`: Change message for when no landmarks are found, the default is 'No landmarks to skip to'.
-* `msgNoHeadingsFound`: Change message for when no headings are found, the default is 'No landmarks to skip to'.
+| Property       | Description |
+| :------------- | :---------- |
+| `containerDivLabel` | If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'. |
+| `containerDivRole` | The landmark role of the menu button container, default role is 'navigation'. |
+| `buttonLabel` | Change the label for the button, the default is 'Skip To Content'. |
+| `menuLabel` | Change the label for the menu, the default is 'Landmarks and Headings'. |
+| `landmarkGroupLabel` | Change the menu group label for landmarks, the default is 'Landmarks'. |
+| `headingGroupLabel` | Change the menu group label for headings, the default is  'Main Headings'.
+| `msgNoLandmarksFound` | Change message for when no landmarks are found, the default is 'No landmarks to skip to'. |
+| `msgNoHeadingsFound` | Change message for when no headings are found, the default is 'No landmarks to skip to'. |
 
 ### Colors used for Button and Menu styling
 
 Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
 
-* `color`: Text color for button and menu.
-* `backgroundColor`: Background color for button and menu.
-* `focusColor`: Text color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus.
-* `backgroundFocusColor`: Background color when button or menu item has focus or menu is in the expanded state, and when a menu item has focus.
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `buttonColor` | Color | `#1a1a1a`  | Color of "Skip To COntent" button. |
+| `buttonBackgroundColor` | Color | `#eeeeee` | d. |
+| `buttonColorFocus` | Color | `#000000` | d. |
+| `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | d. |
+| `buttonFocusBorderColor` | Color | `#1a1a1a`  | d. |
+| `menuBackgroundColor` | Color | `#eeeeee` | d. |
+| `menuBorderColor` | Color | `1a1a1a` | d. |
+| `menuitemColor` | Color | `#1a1a1a`  | d. |
+| `menuitemBackgroundColor` | Color | `#eeeeee`  | d. |
+| `menuitemFocusColor` | Color | `#eeeeee`  | d. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | d. |
+| `menuitemFocusBorderColor` | Color | `#1a1a1a`  | d. |
 
-NOTE: Make sure background and text colors meet the color contrast requirements of WCAG 2.x
+NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
 ### Position of Button
 
-* `postionLeft`: Adjustment the left position of the button using CSS units, default is 46%.
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
 
 ### Example Settings
 

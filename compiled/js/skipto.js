@@ -65,7 +65,7 @@
 			landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
 			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
 			// Custom CSS position and colors
-			colorTheme: 'default',
+			colorTheme: '',
 			positionLeft: '',
 			buttonColor: '',
 			buttonBackgroundColor: '',
@@ -95,6 +95,21 @@
 				menuitemFocusColor: '#eeeeee',
 				menuitemFocusBackgroundColor: '#1a1a1a',
 				menuitemFocusBorderColor: '#1a1a1a'
+			},
+			'illinois' : {
+				positionLeft: '46%',
+				buttonColor: '#00132c',
+				buttonBackgroundColor: '#cad9ef',
+				buttonColorFocus: '#00132c',
+				buttonFocusBackgroundColor: '#cad9ef',
+				buttonFocusBorderColor: '#ff552e',
+				menuBackgroundColor: '#cad9ef',
+				menuBorderColor: '#ff552e',
+				menuitemColor: '#00132c',
+				menuitemBackgroundColor: '#cad9ef',
+				menuitemFocusColor: '#cad9ef',
+				menuitemFocusBackgroundColor: '#00132c',
+				menuitemFocusBorderColor: '#ff552e'
 			}
 		},
 
@@ -102,6 +117,7 @@
 
 
 		updateStyle: function (stylePlaceholder, value, defaultValue) {
+			console.log('[updateStyle]: ' + stylePlaceholder + ' "' + value + '" ' + defaultValue +'"');
 			if (typeof value !== 'string' || value.length === 0) {
 				value = defaultValue;
 			}
@@ -118,7 +134,10 @@
 		addCSSColors: function() {
 			var theme = this.colorThemes['default'];
 
+			console.log('[addCSSColors][colorTheme]: ' + this.config.colorTheme + ' ' + typeof this.colorThemes[this.config.colorTheme]);
+
 			if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
+				console.log('updated theme');
 				theme = this.colorThemes[this.config.colorTheme];
 			}
 
