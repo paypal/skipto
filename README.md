@@ -37,8 +37,7 @@ By default, SkipTo menu includes the following places on the page:
 ### Options for adding the button
 
 * `displayOption`: `static` | `fixed` | `popup`, default is 'static'.
-  * `static`: The button is styled as a block element on the page.
-  * `fixed`: The button is in a fixed position on the page.
+  * `static`: The button is styled as a block element on the page (default).
   * `popup`: The button is initially not visible, but becomes visible when it receives focus.
 * `accessKey`: Accesskey provides a way to open the Skip To menu from anywhere on the page, the default is 'S'.
 * `attachElement`:  CSS selector for identifying what element to attach the menu button container.
@@ -57,7 +56,7 @@ The labels and messages can be localized for s specific languages or updated to 
 
 * `containerDivLabel`: If the menu button container is not in a landmark, the container must be a landmark with a label, the default label is 'Skip To Keyboard Navigation'.
 * `containerDivRole`: The landmark role of the menu button container, default role is 'navigation'.
-* `buttonLabel`: Change the label for the button, the default is 'Skip to ...'.
+* `buttonLabel`: Change the label for the button, the default is 'Skip To Content'.
 * `menuLabel`: Change the label for the menu, the default is 'Landmarks and Headings'.
 * `landmarkGroupLabel`: Change the menu group label for landmarks, the default is 'Landmarks'.
 * `headingGroupLabel`: Change the menu group label for headings, the default is  'Main Headings'.
@@ -77,8 +76,7 @@ NOTE: Make sure background and text colors meet the color contrast requirements 
 
 ### Position of Button
 
-* `buttonTop`: Adjustment to the top position of the button using CSS units, default is 0.5em.
-* `buttonLeft`: Adjustment to the left position of the button using CSS units, default is 0.5em.
+* `postionLeft`: Adjustment the left position of the button using CSS units, default is 46%.
 
 ### Example Settings
 

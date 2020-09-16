@@ -1,4 +1,4 @@
-/*! skipto - v4.0.0 - 2020-09-15
+/*! skipto - v4.0.0 - 2020-09-16
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -41,14 +41,14 @@
 			// Customization of button and menu
 			accessKey: 'S',
 			attachElement: null,
-			displayOption: 'static', // options: static (default), fixed, popup
-			// container element
+			displayOption: 'static', // options: static (default), popup
+			// container element, use containerClass for custom styling
 			containerElement: 'div',
-			containerClass: 'skipTo',
-			containerRole: 'navigation',
+			containerClass: '',
+			containerRole: '',
 			containerTitle: 'Skip To Keyboard Navigation',
 			// labels and messages
-			buttonLabel:    'Skip To ...',
+			buttonLabel:    'Skip To Content',
 			menuLabel:      'Landmarks and Headings',
 			landmarkGroupLabel: 'Landmarks',
 			headingGroupLabel:  'Main Headings',
@@ -66,6 +66,7 @@
 			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
 			// Custom CSS position and colors
 			colorTheme: 'default',
+			positionLeft: '',
 			buttonColor: '',
 			buttonBackgroundColor: '',
 			buttonColorFocus: '',
@@ -81,35 +82,34 @@
 
 		colorThemes: {
 			'default' : {
+				positionLeft: '46%',
 				buttonColor: '#1a1a1a',
-				buttonBackgroundColor: '#d3d3d3',
+				buttonBackgroundColor: '#eeeeee',
 				buttonColorFocus: '#000000',
-				buttonFocusBackgroundColor: '#d3d3d3',
-				buttonFocusBorderColor: '#000000',
-				menuBackgroundColor: '#d3d3d3',
+				buttonFocusBackgroundColor: '#dcdcdc',
+				buttonFocusBorderColor: '#1a1a1a',
+				menuBackgroundColor: '#eeeeee',
+				menuBorderColor: '1a1a1a',
 				menuitemColor: '#1a1a1a',
-				menuitemBackgroundColor: '#d3d3d3',
-				menuitemFocusColor: '#ffffff',
+				menuitemBackgroundColor: '#eeeeee',
+				menuitemFocusColor: '#eeeeee',
 				menuitemFocusBackgroundColor: '#1a1a1a',
 				menuitemFocusBorderColor: '#1a1a1a'
 			}
 		},
 
-		defaultCSS: '.skipTo{position:absolute;top:4px;left:40%}.skipTo.popup{position:absolute;top:-30em;left:-3000em}.skipTo.popup.focus{position:absolute;top:0;left:50%}.skipTo button{margin:0;padding:5px;position:relative;border-radius:0 0 5px 5px;background-color:$buttonBackgroundColor;border-width:0;border-style:none;color:$buttonColor;z-index:1000}.skipTo [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBackgroundColor;border-radius:5px;z-index:1000}.skipTo [role=separator]:first-child{border-radius:5px 5px 0 0}.skipTo [role=menuitem]{margin:1px;padding:4px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000}.skipTo [role=menuitem]:first-letter{text-decoration:underline;text-transform:uppercase}.skipTo [role=separator]{margin:0;padding:4px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skipTo [role=separator]:first-child{border-radius:5px 5px 0 0}.skipTo [role=menuitem].last{border-radius:0 0 5px 5px}.skipTo [role=menuitem].skipto-h2{padding-left:1em}.skipTo [role=menuitem].skipto-h3{padding-left:2em}.skipTo [role=menuitem].skipto-h4{padding-left:3em}.skipTo [role=menuitem].skipto-h5{padding-left:4em}.skipTo [role=menuitem].skipto-h6{padding-left:5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:3px;border-width:2px;border-style:solid;border-color:$buttonFocusBorderColor;background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor}.skipTo [role=menuitem]:focus{padding:2px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;margin:0}.skipTo [role=menuitem].skipto-h2,.skipTo [role=menuitem].skipto-h2:focus{padding-left:1em}.skipTo [role=menuitem].skipto-h3,.skipTo [role=menuitem].skipto-h3:focus{padding-left:2em}.skipTo [role=menuitem].skipto-h4,.skipTo [role=menuitem].skipto-h4:focus{padding-left:3em}.skipTo [role=menuitem].skipto-h5,.skipTo [role=menuitem].skipto-h5:focus{padding-left:4em}.skipTo [role=menuitem].skipto-h6,.skipTo [role=menuitem].skipto-h6:focus{padding-left:5em}',
+		defaultCSS: '.skipTo.popup{position:absolute;top:-30em;left:-3000em}.skipTo,.skipTo.popup.focus{position:absolute;top:0;left:$positionLeft}.skipTo button{margin:0;padding:5px;position:relative;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-width:1px;border-style:solid;border-color:$buttonBackgroundColor;color:$buttonColor;z-index:1000}.skipTo [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skipTo [role=separator]:first-child{border-radius:5px 5px 0 0}.skipTo [role=menuitem]{margin:1px;padding:4px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000}.skipTo [role=menuitem]:first-letter{text-decoration:underline;text-transform:uppercase}.skipTo [role=separator]{margin:0;padding:4px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skipTo [role=separator]:first-child{border-radius:5px 5px 0 0}.skipTo [role=menuitem].last{border-radius:0 0 5px 5px}.skipTo [role=menuitem].skipto-h2{padding-left:1em}.skipTo [role=menuitem].skipto-h3{padding-left:2em}.skipTo [role=menuitem].skipto-h4{padding-left:3em}.skipTo [role=menuitem].skipto-h5{padding-left:4em}.skipTo [role=menuitem].skipto-h6{padding-left:5em}.skipTo.focus{display:block}.skipTo button:focus,.skipTo button:hover{padding:4px;border-width:2px;border-style:solid;border-color:$buttonFocusBorderColor;background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skipTo [role=menuitem]:focus{padding:2px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}.skipTo [role=menuitem].skipto-h2{padding-left:16px}.skipTo [role=menuitem].skipto-h2:focus{padding-left:14px}.skipTo [role=menuitem].skipto-h3{padding-left:28px}.skipTo [role=menuitem].skipto-h3:focus{padding-left:26px}.skipTo [role=menuitem].skipto-h4{padding-left:40px}.skipTo [role=menuitem].skipto-h4:focus{padding-left:38px}.skipTo [role=menuitem].skipto-h5{padding-left:52px}.skipTo [role=menuitem].skipto-h5:focus{padding-left:50px}.skipTo [role=menuitem].skipto-h6{padding-left:64px}.skipTo [role=menuitem].skipto-h6:focus{padding-left:62px}',
 
 
 		updateStyle: function (stylePlaceholder, value, defaultValue) {
-
 			if (typeof value !== 'string' || value.length === 0) {
 				value = defaultValue;
 			}
 
-			console.log('[updateStyle]: ' + stylePlaceholder);
 			var index1 =  this.defaultCSS.indexOf(stylePlaceholder);
 			var index2 =  index1 + stylePlaceholder.length;
 			while (index1 >= 0 && index2 < this.defaultCSS.length) {
 				this.defaultCSS = this.defaultCSS.substring(0, index1) + value + this.defaultCSS.substring(index2);
-				console.log('[updateStyle][found]');
 				index1 =  this.defaultCSS.indexOf(stylePlaceholder, index2);
 				index2 =  index1 + stylePlaceholder.length;
 			}
@@ -122,12 +122,14 @@
 				theme = this.colorThemes[this.config.colorTheme];
 			}
 
+			this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
 			this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
 			this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
 			this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
 			this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
 			this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);
 			this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
+			this.updateStyle('$menuBorderColor', this.config.menuBorderColor, theme.menuBorderColor);
 			this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
 			this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
 			this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
@@ -155,7 +157,7 @@
 		  }
 
 			this.addCSSColors();
-			this.addStyles(this.defaultCSS);
+			this.addStyleElement(this.defaultCSS);
 
 		  this.domNode = document.createElement(this.config.containerElement);
 		  if (this.isNotEmptyString(this.config.containerClass)) {
@@ -236,7 +238,7 @@
 			}
 		},
 
-		addStyles: function (cssString) {
+		addStyleElement: function (cssString) {
 			var styleNode = document.createElement('style'),
 				headNode = document.getElementsByTagName('head')[0],
 				css = document.createTextNode(cssString);

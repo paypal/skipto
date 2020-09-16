@@ -36,14 +36,14 @@
 			// Customization of button and menu
 			accessKey: 'S',
 			attachElement: null,
-			displayOption: 'static', // options: static (default), fixed, popup
-			// container element
+			displayOption: 'static', // options: static (default), popup
+			// container element, use containerClass for custom styling
 			containerElement: 'div',
-			containerClass: 'skipTo',
-			containerRole: 'navigation',
+			containerClass: '',
+			containerRole: '',
 			containerTitle: 'Skip To Keyboard Navigation',
 			// labels and messages
-			buttonLabel:    'Skip To ...',
+			buttonLabel:    'Skip To Content',
 			menuLabel:      'Landmarks and Headings',
 			landmarkGroupLabel: 'Landmarks',
 			headingGroupLabel:  'Main Headings',
@@ -61,6 +61,7 @@
 			headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2, main h3, [role="main"] h3',
 			// Custom CSS position and colors
 			colorTheme: 'default',
+			positionLeft: '',
 			buttonColor: '',
 			buttonBackgroundColor: '',
 			buttonColorFocus: '',
@@ -76,15 +77,17 @@
 
 		colorThemes: {
 			'default' : {
+				positionLeft: '46%',
 				buttonColor: '#1a1a1a',
-				buttonBackgroundColor: '#d3d3d3',
+				buttonBackgroundColor: '#eeeeee',
 				buttonColorFocus: '#000000',
-				buttonFocusBackgroundColor: '#d3d3d3',
-				buttonFocusBorderColor: '#000000',
-				menuBackgroundColor: '#d3d3d3',
+				buttonFocusBackgroundColor: '#dcdcdc',
+				buttonFocusBorderColor: '#1a1a1a',
+				menuBackgroundColor: '#eeeeee',
+				menuBorderColor: '1a1a1a',
 				menuitemColor: '#1a1a1a',
-				menuitemBackgroundColor: '#d3d3d3',
-				menuitemFocusColor: '#ffffff',
+				menuitemBackgroundColor: '#eeeeee',
+				menuitemFocusColor: '#eeeeee',
 				menuitemFocusBackgroundColor: '#1a1a1a',
 				menuitemFocusBorderColor: '#1a1a1a'
 			}
@@ -94,17 +97,14 @@
 
 
 		updateStyle: function (stylePlaceholder, value, defaultValue) {
-
 			if (typeof value !== 'string' || value.length === 0) {
 				value = defaultValue;
 			}
 
-			console.log('[updateStyle]: ' + stylePlaceholder);
 			var index1 =  this.defaultCSS.indexOf(stylePlaceholder);
 			var index2 =  index1 + stylePlaceholder.length;
 			while (index1 >= 0 && index2 < this.defaultCSS.length) {
 				this.defaultCSS = this.defaultCSS.substring(0, index1) + value + this.defaultCSS.substring(index2);
-				console.log('[updateStyle][found]');
 				index1 =  this.defaultCSS.indexOf(stylePlaceholder, index2);
 				index2 =  index1 + stylePlaceholder.length;
 			}
@@ -117,12 +117,14 @@
 				theme = this.colorThemes[this.config.colorTheme];
 			}
 
+			this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
 			this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
 			this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
 			this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
 			this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
 			this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);
 			this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
+			this.updateStyle('$menuBorderColor', this.config.menuBorderColor, theme.menuBorderColor);
 			this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
 			this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
 			this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
@@ -150,7 +152,7 @@
 		  }
 
 			this.addCSSColors();
-			this.addStyles(this.defaultCSS);
+			this.addStyleElement(this.defaultCSS);
 
 		  this.domNode = document.createElement(this.config.containerElement);
 		  if (this.isNotEmptyString(this.config.containerClass)) {
@@ -231,7 +233,7 @@
 			}
 		},
 
-		addStyles: function (cssString) {
+		addStyleElement: function (cssString) {
 			var styleNode = document.createElement('style'),
 				headNode = document.getElementsByTagName('head')[0],
 				css = document.createTextNode(cssString);
