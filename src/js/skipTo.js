@@ -174,7 +174,7 @@
 			this.addStyleElement(this.defaultCSS);
 
 		  this.domNode = document.createElement(this.config.containerElement);
-		  this.domNode.classList.add('skipTo');
+		  this.domNode.classList.add('skip-to');
 		  if (this.isNotEmptyString(this.config.customClass)) {
 			  this.domNode.classList.add(this.config.customClass);
 			}
