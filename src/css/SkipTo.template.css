@@ -1,17 +1,17 @@
-.skipTo.popup {
+.skip-to.popup {
   position: absolute;
   top: -30em;
   left: -3000em;
 }
 
-.skipTo,
-.skipTo.popup.focus {
+.skip-to,
+.skip-to.popup.focus {
   position: absolute;
   top: 0;
   left: $positionLeft;
 }
 
-.skipTo button {
+.skip-to button {
   margin: 0;
   padding: 5px;
   position: relative;
@@ -24,7 +24,7 @@
   z-index: 1000;
 }
 
-.skipTo [role="menu"] {
+.skip-to [role="menu"] {
   position: absolute;
   min-width: 17em;
   display: none;
@@ -38,11 +38,11 @@
   z-index: 1000;
 }
 
-.skipTo [role="separator"]:first-child {
+.skip-to [role="separator"]:first-child {
 	border-radius: 5px 5px 0 0;
 }
 
-.skipTo [role="menuitem"] {
+.skip-to [role="menuitem"] {
   margin: 1px;
   padding: 4px;
   display: block;
@@ -54,12 +54,12 @@
   z-index: 1000;
 }
 
-.skipTo [role="menuitem"]:first-letter {
+.skip-to [role="menuitem"]:first-letter {
   text-decoration: underline;
   text-transform: uppercase;
 }
 
-.skipTo [role="separator"] {
+.skip-to [role="separator"] {
   margin: 0;
   padding: 4px;
   display: block;
@@ -74,42 +74,42 @@
   z-index: 1000;
 }
 
-.skipTo [role="separator"]:first-child {
+.skip-to [role="separator"]:first-child {
   border-radius: 5px 5px 0 0;
 }
 
-.skipTo [role="menuitem"].last {
+.skip-to [role="menuitem"].last {
 	border-radius: 0 0 5px 5px;
 }
 
-.skipTo [role="menuitem"].skipto-h2 {
+.skip-to [role="menuitem"].skipto-h2 {
 	padding-left: 1em;
 }
 
-.skipTo [role="menuitem"].skipto-h3 {
+.skip-to [role="menuitem"].skipto-h3 {
 	padding-left: 2em;
 }
 
-.skipTo [role="menuitem"].skipto-h4 {
+.skip-to [role="menuitem"].skipto-h4 {
 	padding-left: 3em;
 }
 
-.skipTo [role="menuitem"].skipto-h5 {
+.skip-to [role="menuitem"].skipto-h5 {
 	padding-left: 4em;
 }
 
-.skipTo [role="menuitem"].skipto-h6 {
+.skip-to [role="menuitem"].skipto-h6 {
 	padding-left: 5em;
 }
 
 /* focus styling */
 
-.skipTo.focus {
+.skip-to.focus {
 	display: block;
 }
 
-.skipTo button:focus,
-.skipTo button:hover {
+.skip-to button:focus,
+.skip-to button:hover {
   padding: 4px;
   border-width: 2px;
   border-style: solid;
@@ -119,7 +119,7 @@
   outline: none;
 }
 
-.skipTo [role="menuitem"]:focus {
+.skip-to [role="menuitem"]:focus {
   padding: 2px;
   border-width: 2px;
   border-style: solid;
@@ -129,42 +129,42 @@
   outline: none;
 }
 
-.skipTo [role="menuitem"].skipto-h2 {
+.skip-to [role="menuitem"].skipto-h2 {
   padding-left: 16px;
 }
 
-.skipTo [role="menuitem"].skipto-h2:focus {
+.skip-to [role="menuitem"].skipto-h2:focus {
   padding-left: 14px;
 }
 
-.skipTo [role="menuitem"].skipto-h3 {
+.skip-to [role="menuitem"].skipto-h3 {
   padding-left: 28px;
 }
 
-.skipTo [role="menuitem"].skipto-h3:focus {
+.skip-to [role="menuitem"].skipto-h3:focus {
   padding-left: 26px;
 }
 
-.skipTo [role="menuitem"].skipto-h4 {
+.skip-to [role="menuitem"].skipto-h4 {
   padding-left: 40px;
 }
 
-.skipTo [role="menuitem"].skipto-h4:focus {
+.skip-to [role="menuitem"].skipto-h4:focus {
   padding-left: 38px;
 }
 
-.skipTo [role="menuitem"].skipto-h5 {
+.skip-to [role="menuitem"].skipto-h5 {
   padding-left: 52px;
 }
 
-.skipTo [role="menuitem"].skipto-h5:focus {
+.skip-to [role="menuitem"].skipto-h5:focus {
   padding-left: 50px;
 }
 
-.skipTo [role="menuitem"].skipto-h6 {
+.skip-to [role="menuitem"].skipto-h6 {
   padding-left: 64px;
 }
 
-.skipTo [role="menuitem"].skipto-h6:focus {
+.skip-to [role="menuitem"].skipto-h6:focus {
   padding-left: 62px;
 }

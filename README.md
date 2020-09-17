@@ -7,6 +7,12 @@ See the [Authors](#authors) section for more information.
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
+### Benefits of skipto
+* Keyboard only users can more efficiently navigate to content on a page.
+* All users can get an outline of the content on the page.
+* Speech recognition users can use the menu to more efficiently navigate to content on a page.
+* Screen reader users can get a high level navigation menu without having to use built-in landmark and header navigation.
+
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
