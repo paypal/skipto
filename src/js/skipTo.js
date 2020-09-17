@@ -35,7 +35,7 @@
 		config: {
 			// Customization of button and menu
 			accessKey: 'S',
-			attachElement: null,
+			attachElement: 'header',
 			displayOption: 'static', // options: static (default), popup
 			// container element, use containerClass for custom styling
 			containerElement: 'div',
