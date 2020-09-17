@@ -39,6 +39,8 @@ A module is being considered for WordPress.
 
 ## Configuring SkipTo
 
+Setting properties is optional, when a property is not defined it's default value is used.
+
 ### Options for adding the button
 
 | Property       | default     | Description |
@@ -79,7 +81,7 @@ The labels and messages can be localized for s specific languages or updated to 
 
 ### Colors used for Button and Menu styling
 
-Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.  All values are optional, when no values are defined the default option is used.
+Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
