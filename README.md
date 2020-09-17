@@ -84,18 +84,18 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
 | `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
-| `buttonColor` | Color | `#1a1a1a`  | Color of "Skip To Content" button. |
-| `buttonBackgroundColor` | Color | `#eeeeee` | d. |
-| `buttonColorFocus` | Color | `#000000` | d. |
-| `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | d. |
-| `buttonFocusBorderColor` | Color | `#1a1a1a`  | d. |
-| `menuBackgroundColor` | Color | `#eeeeee` | d. |
-| `menuBorderColor` | Color | `1a1a1a` | d. |
-| `menuitemColor` | Color | `#1a1a1a`  | d. |
-| `menuitemBackgroundColor` | Color | `#eeeeee`  | d. |
-| `menuitemFocusColor` | Color | `#eeeeee`  | d. |
-| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | d. |
-| `menuitemFocusBorderColor` | Color | `#1a1a1a`  | d. |
+| `buttonColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
+| `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
+| `buttonColorFocus` | Color | `#000000` | Color of text for "Skip To Content" button when it has focus. |
+| `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | Background color of text for "Skip To Content" button when it has focus. |
+| `buttonFocusBorderColor` | Color | `#1a1a1a`  | Border color of "Skip To Content" button when it has focus. |
+| `menuBackgroundColor` | Color | `#eeeeee` | Menu background color. |
+| `menuBorderColor` | Color | `1a1a1a` | Menu border color |
+| `menuitemColor` | Color | `#1a1a1a`  | Menuitem text color. |
+| `menuitemBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color. |
+| `menuitemFocusColor` | Color | `#eeeeee`  | Menuitem text color then it has focus. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text backgroundcolor then it has focus. |
+| `menuitemFocusBorderColor` | Color | `#1a1a1a`  | Menuitem border color then it has focus. |
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
