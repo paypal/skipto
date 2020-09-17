@@ -79,7 +79,7 @@ The labels and messages can be localized for s specific languages or updated to 
 
 ### Colors used for Button and Menu styling
 
-Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
+Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.  All valuses are optional, when no values are defined the default option is used.
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
