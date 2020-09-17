@@ -8,10 +8,10 @@ SkipTo is a replacement for your old classic "Skipnav" link, (so please use it a
 The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
 ### Benefits of skipto
-* Keyboard only users can more efficiently navigate to content on a page.
 * All users can get an outline of the content on the page.
+* Screen reader users can get a higher level navigation menu without having to use the screen reader landmark and header navigation commands which typically include longer lists of lower level headings and less used landmarks.
+* Keyboard only users can more efficiently navigate to content on a page.
 * Speech recognition users can use the menu to more efficiently navigate to content on a page.
-* Screen reader users can get a high level navigation menu without having to use built-in landmark and header navigation.
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
@@ -44,7 +44,7 @@ A module is being considered for WordPress.
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
 | `displayOption` | `static` | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
-| `accessKey` | `s` | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page. |
+| `accessKey` | `0` | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
 | `attachElement` | `header` | A CSS selector for identifying which element to attach the menu button container. |
 | `containerElement` | `div` | Element to use as a container for the button and the menu.
 | `customClass` | `skipTo` | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
