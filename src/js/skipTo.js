@@ -260,7 +260,7 @@
         menuitemNode.setAttribute('role', 'menuitem');
         menuitemNode.classList.add(mi.class);
         if (mi.tagName.length) {
-          menuitemNode.classList.add('skipto-' + mi.tagName);
+          menuitemNode.classList.add('skip-to-' + mi.tagName);
         }
         menuitemNode.setAttribute('data-id', mi.dataId);
         menuitemNode.tabIndex = -1;
@@ -422,10 +422,20 @@
       event.preventDefault();
     },
     skipToElement: function(elem) {
+      var inputNode = false;
+      var isSearch = elem.classList.contains('skip-to-search');
       var node = document.querySelector(elem.getAttribute('data-id'));
       if (node) {
-        node.tabIndex = -1;
-        node.focus();
+        if (isSearch) {
+          inputNode = node.querySelector('input');
+        }
+        if (inputNode && this.isVisible(inputNode)) {
+          inputNode.focus();
+        }
+        else {
+          node.tabIndex = -1;
+          node.focus();
+        }
       }
     },
     handleMenuitemKeydown: function(event) {
