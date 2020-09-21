@@ -65,6 +65,7 @@
       positionLeft: '',
       buttonColor: '',
       buttonBackgroundColor: '',
+      buttonBorderColor: '',
       buttonColorFocus: '',
       buttonFocusBackgroundColor: '',
       buttonFocusBorderColor: '',
@@ -81,6 +82,7 @@
         positionLeft: '46%',
         buttonColor: '#1a1a1a',
         buttonBackgroundColor: '#eeeeee',
+        buttonBorderColor: '#eeeeee',
         buttonColorFocus: '#000000',
         buttonFocusBackgroundColor: '#dcdcdc',
         buttonFocusBorderColor: '#1a1a1a',
@@ -95,7 +97,8 @@
       'illinois' : {
         positionLeft: '46%',
         buttonColor: '#00132c',
-        buttonBackgroundColor: '#cad9ef',
+        buttonBackgroundColor: '#dddede',
+        buttonBorderColor: '#dddede',
         buttonColorFocus: '#00132c',
         buttonFocusBackgroundColor: '#cad9ef',
         buttonFocusBorderColor: '#ff552e',
@@ -136,6 +139,7 @@
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
       this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
+      this.updateStyle('$buttonBorderColor', this.config.buttonBorderColor, theme.buttonBorderColor);
       this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
       this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
       this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);

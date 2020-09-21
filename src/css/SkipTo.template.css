@@ -19,7 +19,7 @@
   background-color: $buttonBackgroundColor;
   border-width: 1px;
   border-style: solid;
-  border-color: $buttonBackgroundColor;
+  border-color: $buttonBorderColor;
   color: $buttonColor;
   z-index: 1000;
 }

@@ -1,4 +1,4 @@
-/*! skipto - v3.0.0 - 2020-09-17
+/*! skipto - v3.0.0 - 2020-09-21
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -70,6 +70,7 @@
       positionLeft: '',
       buttonColor: '',
       buttonBackgroundColor: '',
+      buttonBorderColor: '',
       buttonColorFocus: '',
       buttonFocusBackgroundColor: '',
       buttonFocusBorderColor: '',
@@ -86,6 +87,7 @@
         positionLeft: '46%',
         buttonColor: '#1a1a1a',
         buttonBackgroundColor: '#eeeeee',
+        buttonBorderColor: '#eeeeee',
         buttonColorFocus: '#000000',
         buttonFocusBackgroundColor: '#dcdcdc',
         buttonFocusBorderColor: '#1a1a1a',
@@ -100,7 +102,8 @@
       'illinois' : {
         positionLeft: '46%',
         buttonColor: '#00132c',
-        buttonBackgroundColor: '#cad9ef',
+        buttonBackgroundColor: '#dddede',
+        buttonBorderColor: '#dddede',
         buttonColorFocus: '#00132c',
         buttonFocusBackgroundColor: '#cad9ef',
         buttonFocusBorderColor: '#ff552e',
@@ -114,7 +117,7 @@
       }
     },
 
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to button{margin:0;padding:5px;position:relative;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-width:1px;border-style:solid;border-color:$buttonBackgroundColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{margin:1px;padding:4px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000}.skip-to [role=menuitem]:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=separator]{margin:0;padding:4px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to [role=menuitem].skipto-h2{padding-left:1em}.skip-to [role=menuitem].skipto-h3{padding-left:2em}.skip-to [role=menuitem].skipto-h4{padding-left:3em}.skip-to [role=menuitem].skipto-h5{padding-left:4em}.skip-to [role=menuitem].skipto-h6{padding-left:5em}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{padding:4px;border-width:2px;border-style:solid;border-color:$buttonFocusBorderColor;background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to [role=menuitem]:focus{padding:2px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}.skip-to [role=menuitem].skipto-h2{padding-left:16px}.skip-to [role=menuitem].skipto-h2:focus{padding-left:14px}.skip-to [role=menuitem].skipto-h3{padding-left:28px}.skip-to [role=menuitem].skipto-h3:focus{padding-left:26px}.skip-to [role=menuitem].skipto-h4{padding-left:40px}.skip-to [role=menuitem].skipto-h4:focus{padding-left:38px}.skip-to [role=menuitem].skipto-h5{padding-left:52px}.skip-to [role=menuitem].skipto-h5:focus{padding-left:50px}.skip-to [role=menuitem].skipto-h6{padding-left:64px}.skip-to [role=menuitem].skipto-h6:focus{padding-left:62px}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to button{margin:0;padding:5px;position:relative;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-width:1px;border-style:solid;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{margin:1px;padding:4px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000}.skip-to [role=menuitem]:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=separator]{margin:0;padding:4px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to [role=menuitem].skipto-h2{padding-left:1em}.skip-to [role=menuitem].skipto-h3{padding-left:2em}.skip-to [role=menuitem].skipto-h4{padding-left:3em}.skip-to [role=menuitem].skipto-h5{padding-left:4em}.skip-to [role=menuitem].skipto-h6{padding-left:5em}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{padding:4px;border-width:2px;border-style:solid;border-color:$buttonFocusBorderColor;background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to [role=menuitem]:focus{padding:2px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}.skip-to [role=menuitem].skipto-h2{padding-left:16px}.skip-to [role=menuitem].skipto-h2:focus{padding-left:14px}.skip-to [role=menuitem].skipto-h3{padding-left:28px}.skip-to [role=menuitem].skipto-h3:focus{padding-left:26px}.skip-to [role=menuitem].skipto-h4{padding-left:40px}.skip-to [role=menuitem].skipto-h4:focus{padding-left:38px}.skip-to [role=menuitem].skipto-h5{padding-left:52px}.skip-to [role=menuitem].skipto-h5:focus{padding-left:50px}.skip-to [role=menuitem].skipto-h6{padding-left:64px}.skip-to [role=menuitem].skipto-h6:focus{padding-left:62px}',
 
 
     updateStyle: function (stylePlaceholder, value, defaultValue) {
@@ -141,6 +144,7 @@
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
       this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
+      this.updateStyle('$buttonBorderColor', this.config.buttonBorderColor, theme.buttonBorderColor);
       this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
       this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
       this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);
@@ -183,11 +187,9 @@
       if (this.isNotEmptyString(this.config.containerRole)) {
         this.domNode.setAttribute('role', this.config.containerRole);
       }
-      console.log('[accesskey]: ' + this.config.containerTitleWithAccesskey + ' ' + this.config.accesskey);
       if (this.isNotEmptyString(this.config.containerTitleWithAccesskey) &&
          (this.config.accesskey.length === 1)) {
         var title = this.config.containerTitleWithAccesskey.replace('$key', this.config.accesskey);
-        console.log('[accesskey][title]: ' + title);
         this.domNode.setAttribute('title', title);
       }
       else {
