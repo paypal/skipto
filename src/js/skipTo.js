@@ -1,25 +1,17 @@
 /*jslint devel: true */
 /* ========================================================================
 * Copyright (c) <2020> PayPal
-
 * All rights reserved.
-
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
 * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
 * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
 * Neither the name of PayPal or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * ======================================================================== */
 
-(function () {
+(function() {
   'use strict';
-
   var SkipTo = {
-
     headingElementsArr: [],
     landmarkElementsArr: [],
     domNode: null,
@@ -30,11 +22,10 @@
     lastMenuitem: false,
     firstChars: [],
     skipToIdIndex: 1,
-
     // Default configuration values
     config: {
       // Customization of button and menu
-      accesskey: '0',  // default is the number zero
+      accesskey: '0', // default is the number zero
       attachElement: 'header',
       displayOption: 'static', // options: static (default), popup
       // container element, use containerClass for custom styling
@@ -44,10 +35,10 @@
       containerTitle: 'Skip To Keyboard Navigation',
       containerTitleWithAccesskey: 'Skip To Keyboard Navigation, accesskey is "$key"',
       // labels and messages
-      buttonLabel:    'Skip To Content',
-      menuLabel:      'Landmarks and Headings',
+      buttonLabel: 'Skip To Content',
+      menuLabel: 'Landmarks and Headings',
       landmarkGroupLabel: 'Landmarks',
-      headingGroupLabel:  'Main Headings',
+      headingGroupLabel: 'Main Headings',
       mainLabel: 'main',
       searchLabel: 'search',
       navLabel: 'menu',
@@ -59,7 +50,7 @@
       msgNoHeadingsFound: 'No main headings to skip to',
       // Selectors for landmark and headings sections
       landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
-      headings:  'main h1, [role="main"] h1, main h2, [role="main"] h2',
+      headings: 'main h1, [role="main"] h1, main h2, [role="main"] h2',
       // Custom CSS position and colors
       colorTheme: '',
       positionLeft: '',
@@ -76,9 +67,8 @@
       menuitemFocusBackgroundColor: '',
       menuitemFocusBorderColor: ''
     },
-
     colorThemes: {
-      'default' : {
+      'default': {
         positionLeft: '46%',
         buttonColor: '#1a1a1a',
         buttonBackgroundColor: '#eeeeee',
@@ -94,7 +84,7 @@
         menuitemFocusBackgroundColor: '#1a1a1a',
         menuitemFocusBorderColor: '#1a1a1a'
       },
-      'illinois' : {
+      'illinois': {
         positionLeft: '46%',
         buttonColor: '#00132c',
         buttonBackgroundColor: '#dddede',
@@ -111,31 +101,24 @@
         menuitemFocusBorderColor: '#ff552e'
       }
     },
-
     defaultCSS: '@@cssContent',
-
-
-    updateStyle: function (stylePlaceholder, value, defaultValue) {
+    updateStyle: function(stylePlaceholder, value, defaultValue) {
       if (typeof value !== 'string' || value.length === 0) {
         value = defaultValue;
       }
-
-      var index1 =  this.defaultCSS.indexOf(stylePlaceholder);
-      var index2 =  index1 + stylePlaceholder.length;
+      var index1 = this.defaultCSS.indexOf(stylePlaceholder);
+      var index2 = index1 + stylePlaceholder.length;
       while (index1 >= 0 && index2 < this.defaultCSS.length) {
         this.defaultCSS = this.defaultCSS.substring(0, index1) + value + this.defaultCSS.substring(index2);
-        index1 =  this.defaultCSS.indexOf(stylePlaceholder, index2);
-        index2 =  index1 + stylePlaceholder.length;
+        index1 = this.defaultCSS.indexOf(stylePlaceholder, index2);
+        index2 = index1 + stylePlaceholder.length;
       }
     },
-
     addCSSColors: function() {
       var theme = this.colorThemes['default'];
-
       if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
         theme = this.colorThemes[this.config.colorTheme];
       }
-
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
       this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
@@ -151,29 +134,22 @@
       this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
       this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
     },
-
-    isNotEmptyString: function (str) {
+    isNotEmptyString: function(str) {
       return (typeof str === 'string') && str.length;
     },
-
-    init: function (config) {
-
+    init: function(config) {
       var attachElement = document.body;
-
       if (config) {
         this.setUpConfig(config);
       }
-
       if (typeof this.config.attachElement === 'string') {
         var node = document.querySelector(this.config.attachElement);
         if (node && node.nodeType === Node.ELEMENT_NODE) {
           attachElement = node;
         }
       }
-
       this.addCSSColors();
       this.addStyleElement(this.defaultCSS);
-
       this.domNode = document.createElement(this.config.containerElement);
       this.domNode.classList.add('skip-to');
       if (this.isNotEmptyString(this.config.customClass)) {
@@ -183,18 +159,15 @@
         this.domNode.setAttribute('role', this.config.containerRole);
       }
       if (this.isNotEmptyString(this.config.containerTitleWithAccesskey) &&
-         (this.config.accesskey.length === 1)) {
+        (this.config.accesskey.length === 1)) {
         var title = this.config.containerTitleWithAccesskey.replace('$key', this.config.accesskey);
         this.domNode.setAttribute('title', title);
-      }
-      else {
+      } else {
         if (this.isNotEmptyString(this.config.containerTitle)) {
           this.domNode.setAttribute('title', this.config.containerTitle);
         }
       }
-
       var displayOption = this.config.displayOption;
-
       if (typeof displayOption === 'string') {
         displayOption = displayOption.trim().toLowerCase();
         if (displayOption.length) {
@@ -202,93 +175,74 @@
             case 'popup':
               this.domNode.classList.add('popup');
               break;
-
             default:
               break;
-
-           }
+          }
         }
       }
-
       // Place skip to at the beginning of the document
-
       if (attachElement.firstElementChild) {
         attachElement.insertBefore(this.domNode, attachElement.firstElementChild);
-      }
-      else {
+      } else {
         attachElement.appendChild(this.domNode);
       }
-
-      this.buttonNode    = document.createElement('button');
+      this.buttonNode = document.createElement('button');
       this.buttonNode.textContent = this.config.buttonLabel;
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
       this.domNode.appendChild(this.buttonNode);
-
-      this.menuNode  = document.createElement('div');
+      this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
       this.domNode.appendChild(this.menuNode);
-
       this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
       this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
-
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
-
       window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
     },
-
-    setUpConfig: function (appConfig) {
+    setUpConfig: function(appConfig) {
       var localConfig = this.config,
         name,
         appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
-
       for (name in appConfigSettings) {
         //overwrite values of our local config, based on the external config
         if (localConfig.hasOwnProperty(name) &&
-             typeof appConfigSettings[name] === 'string' &&
-             appConfigSettings[name].length > 0) {
+          typeof appConfigSettings[name] === 'string' &&
+          appConfigSettings[name].length > 0) {
           localConfig[name] = appConfigSettings[name];
         }
       }
     },
-
-    addStyleElement: function (cssString) {
+    addStyleElement: function(cssString) {
       var styleNode = document.createElement('style'),
         headNode = document.getElementsByTagName('head')[0],
         css = document.createTextNode(cssString);
-
       styleNode.setAttribute("type", "text/css");
       styleNode.appendChild(css);
       headNode.appendChild(styleNode);
     },
-
-    getFirstChar: function (text) {
+    getFirstChar: function(text) {
       var c = '';
       if (typeof text === 'string' && text.length > 0) {
         c = text[0].toLowerCase();
       }
       return c;
     },
-
-  addMenuitemGroup: function(title, menuitems, msgNoItemsFound) {
-      var menuNode =  this.menuNode;
+    addMenuitemGroup: function(title, menuitems, msgNoItemsFound) {
+      var menuNode = this.menuNode;
       if (title) {
         var labelNode = document.createElement('div');
         labelNode.setAttribute('role', 'separator');
         labelNode.textContent = title;
         menuNode.appendChild(labelNode);
-
         var groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-label', title);
         menuNode.appendChild(groupNode);
         menuNode = groupNode;
       }
-
-      var len  = menuitems.length;
-
+      var len = menuitems.length;
       if (menuitems.length === 0) {
         var item = {};
         item.name = msgNoItemsFound;
@@ -299,11 +253,8 @@
         menuitems.push(item);
         len = menuitems.length;
       }
-
-
       for (var i = 0; i < len; i += 1) {
         var mi = menuitems[i];
-
         var menuitemNode = document.createElement('div');
         menuitemNode.appendChild(document.createTextNode(mi.name));
         menuitemNode.setAttribute('role', 'menuitem');
@@ -313,119 +264,91 @@
         }
         menuitemNode.setAttribute('data-id', mi.dataId);
         menuitemNode.tabIndex = -1;
-
         menuNode.appendChild(menuitemNode);
         this.menuitemNodes.push(menuitemNode);
-
         this.firstChars.push(this.getFirstChar(mi.name));
-
         menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
         menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
         menuitemNode.addEventListener('mouseover', this.handleMenuitemMouseover.bind(this));
-
-        if(!this.firstMenuitem) {
+        if (!this.firstMenuitem) {
           this.firstMenuitem = menuitemNode;
         }
         this.lastMenuitem = menuitemNode;
       }
     },
-     updateMenuitems: function () {
+    updateMenuitems: function() {
       // remove current menu items from menu
       while (this.menuNode.lastElementChild) {
         this.menuNode.removeChild(this.menuNode.lastElementChild);
       }
-
       this.menuitemNodes = [];
       this.firstChars = [];
       this.firstMenuitem = false;
       this.lastMenuitem = false;
       this.skipToIdIndex = 1;
-
       this.getLandmarks();
       this.addMenuitemGroup(this.config.landmarkGroupLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound);
-
       this.getHeadings();
       this.addMenuitemGroup(this.config.headingGroupLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
       this.lastMenuitem.classList.add('last');
     },
-
-    setFocusToMenuitem: function (newMenuitem) {
+    setFocusToMenuitem: function(newMenuitem) {
       if (newMenuitem) {
         newMenuitem.focus();
       }
     },
-
-    setFocusToFirstMenuitem: function () {
+    setFocusToFirstMenuitem: function() {
       this.setFocusToMenuitem(this.firstMenuitem);
     },
-
-    setFocusToLastMenuitem: function () {
+    setFocusToLastMenuitem: function() {
       this.setFocusToMenuitem(this.lastMenuitem);
     },
-
-    setFocusToPreviousMenuitem: function (currentMenuitem) {
+    setFocusToPreviousMenuitem: function(currentMenuitem) {
       var newMenuitem, index;
-
       if (currentMenuitem === this.firstMenuitem) {
         newMenuitem = this.lastMenuitem;
-      }
-      else {
+      } else {
         index = this.menuitemNodes.indexOf(currentMenuitem);
-        newMenuitem = this.menuitemNodes[ index - 1 ];
+        newMenuitem = this.menuitemNodes[index - 1];
       }
-
       this.setFocusToMenuitem(newMenuitem);
-
       return newMenuitem;
     },
-
-    setFocusToNextMenuitem: function (currentMenuitem) {
+    setFocusToNextMenuitem: function(currentMenuitem) {
       var newMenuitem, index;
-
       if (currentMenuitem === this.lastMenuitem) {
         newMenuitem = this.firstMenuitem;
-      }
-      else {
+      } else {
         index = this.menuitemNodes.indexOf(currentMenuitem);
-        newMenuitem = this.menuitemNodes[ index + 1 ];
+        newMenuitem = this.menuitemNodes[index + 1];
       }
       this.setFocusToMenuitem(newMenuitem);
-
       return newMenuitem;
     },
-
-    setFocusByFirstCharacter: function (currentMenuitem, char) {
+    setFocusByFirstCharacter: function(currentMenuitem, char) {
       var start, index;
-
       if (char.length > 1) {
         return;
       }
-
       char = char.toLowerCase();
-
       // Get start index for search based on position of currentItem
       start = this.menuitemNodes.indexOf(currentMenuitem) + 1;
-      if (start >=  this.menuitemNodes.length) {
+      if (start >= this.menuitemNodes.length) {
         start = 0;
       }
-
       // Check remaining slots in the menu
       index = this.firstChars.indexOf(char, start);
-
       // If not found in remaining slots, check from beginning
       if (index === -1) {
         index = this.firstChars.indexOf(char, 0);
       }
-
       // If match was found...
       if (index > -1) {
         this.setFocusToMenuitem(this.menuitemNodes[index]);
       }
     },
-
     // Utilities
-
-    getIndexFirstChars: function (startIndex, char) {
+    getIndexFirstChars: function(startIndex, char) {
       for (var i = startIndex; i < this.firstChars.length; i += 1) {
         if (char === this.firstChars[i]) {
           return i;
@@ -433,40 +356,31 @@
       }
       return -1;
     },
-
     // Popup menu methods
-
-    openPopup: function () {
+    openPopup: function() {
       this.updateMenuitems();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
     },
-
-    closePopup: function () {
+    closePopup: function() {
       if (this.isOpen()) {
         this.buttonNode.setAttribute('aria-expanded', 'false');
         this.menuNode.style.display = 'none';
       }
     },
-
-    isOpen: function () {
+    isOpen: function() {
       return this.buttonNode.getAttribute('aria-expanded') === 'true';
     },
-
     // Menu event handlers
-
-    handleFocusin: function () {
+    handleFocusin: function() {
       this.domNode.classList.add('focus');
     },
-
-    handleFocusout: function () {
+    handleFocusout: function() {
       this.domNode.classList.remove('focus');
     },
-
-    handleButtonKeydown: function (event) {
+    handleButtonKeydown: function(event) {
       var key = event.key,
         flag = false;
-
       switch (key) {
         case ' ':
         case 'Enter':
@@ -475,124 +389,103 @@
           this.openPopup();
           this.setFocusToFirstMenuitem();
           flag = true;
-         break;
-
+          break;
         case 'Esc':
         case 'Escape':
-            this.closePopup();
-            this.buttonNode.focus();
-            flag = true;
+          this.closePopup();
+          this.buttonNode.focus();
+          flag = true;
           break;
-
         case 'Up':
         case 'ArrowUp':
           this.openPopup();
           this.setFocusToLastMenuitem();
           flag = true;
           break;
-
         default:
           break;
       }
-
       if (flag) {
         event.stopPropagation();
         event.preventDefault();
       }
     },
-
-    handleButtonClick: function (event) {
+    handleButtonClick: function(event) {
       if (this.isOpen()) {
         this.closePopup();
         this.buttonNode.focus();
-      }
-      else {
+      } else {
         this.openPopup();
         this.setFocusToFirstMenuitem();
       }
-
       event.stopPropagation();
       event.preventDefault();
     },
-
-    skipToElement: function (elem) {
+    skipToElement: function(elem) {
       var node = document.querySelector(elem.getAttribute('data-id'));
-       if (node) {
-         node.tabIndex = -1;
-         node.focus();
-       }
+      if (node) {
+        node.tabIndex = -1;
+        node.focus();
+      }
     },
-
-    handleMenuitemKeydown: function (event) {
+    handleMenuitemKeydown: function(event) {
       var tgt = event.currentTarget,
         key = event.key,
         flag = false;
 
-      function isPrintableCharacter (str) {
+      function isPrintableCharacter(str) {
         return str.length === 1 && str.match(/\S/);
       }
-
-      if (event.ctrlKey || event.altKey  || event.metaKey) {
+      if (event.ctrlKey || event.altKey || event.metaKey) {
         return;
       }
-
       if (event.shiftKey) {
         if (isPrintableCharacter(key)) {
           this.setFocusByFirstCharacter(tgt, key);
           flag = true;
         }
-
         if (event.key === 'Tab') {
           this.buttonNode.focus();
           this.closePopup();
           flag = true;
         }
-      }
-      else {
-
+      } else {
         switch (key) {
           case 'Enter':
           case ' ':
-           this.closePopup();
-           this.skipToElement(tgt);
-           flag = true;
-           break;
-
+            this.closePopup();
+            this.skipToElement(tgt);
+            flag = true;
+            break;
           case 'Esc':
           case 'Escape':
             this.closePopup();
             this.buttonNode.focus();
             flag = true;
             break;
-
           case 'Up':
           case 'ArrowUp':
             this.setFocusToPreviousMenuitem(tgt);
             flag = true;
             break;
-
           case 'ArrowDown':
           case 'Down':
             this.setFocusToNextMenuitem(tgt);
             flag = true;
             break;
-
           case 'Home':
           case 'PageUp':
             this.setFocusToFirstMenuitem();
             flag = true;
             break;
-
           case 'End':
           case 'PageDown':
             this.setFocusToLastMenuitem();
             flag = true;
             break;
-
           case 'Tab':
             this.closePopup();
             break;
-
           default:
             if (isPrintableCharacter(key)) {
               this.setFocusByFirstCharacter(tgt, key);
@@ -600,29 +493,24 @@
             }
             break;
         }
-
       }
-
       if (flag) {
         event.stopPropagation();
         event.preventDefault();
       }
     },
-
-    handleMenuitemClick: function (event) {
+    handleMenuitemClick: function(event) {
       var tgt = event.currentTarget;
-       this.closePopup();
-       this.skipToElement(tgt);
-
+      this.closePopup();
+      this.skipToElement(tgt);
       event.stopPropagation();
       event.preventDefault();
     },
-    handleMenuitemMouseover: function (event) {
+    handleMenuitemMouseover: function(event) {
       var tgt = event.currentTarget;
       tgt.focus();
     },
-
-    handleBackgroundMousedown: function (event) {
+    handleBackgroundMousedown: function(event) {
       if (!this.domNode.contains(event.target)) {
         if (this.isOpen()) {
           this.closePopup();
@@ -630,26 +518,24 @@
         }
       }
     },
-
     // methods to extract lanndmarks, headings and ids
-
-    normalizeName: function (name) {
-      if (typeof name === 'string') return name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    normalizeName: function(name) {
+      if (typeof name === 'string') return name.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
       return "";
     },
-
-    getTextContent: function (elem) {
-
+    getTextContent: function(elem) {
       function getText(e, strings) {
         // If text node get the text and return
-        if( e.nodeType ===  Node.TEXT_NODE ) {
+        if (e.nodeType === Node.TEXT_NODE) {
           strings.push(e.data);
         } else {
           // if an element for through all the children elements looking for text
-          if( e.nodeType === Node.ELEMENT_NODE ) {
+          if (e.nodeType === Node.ELEMENT_NODE) {
             // check to see if IMG or AREA element and to use ALT content if defined
             var tagName = e.tagName.toLowerCase();
-            if((tagName === 'img') || (tagName === 'area')) {
+            if ((tagName === 'img') || (tagName === 'area')) {
               if (e.alt) {
                 strings.push(e.alt);
               }
@@ -663,26 +549,23 @@
           }
         }
       } // end function getStrings
-
       // Create return object
       var str = "Test",
-      strings = [];
+        strings = [];
       getText(elem, strings);
       if (strings.length) str = strings.join(" ");
-      if (str.length > 30) str = str.substring(0,27) + "...";
+      if (str.length > 30) str = str.substring(0, 27) + "...";
       return str;
     },
-
-    getAccessibleName: function (elem) {
+    getAccessibleName: function(elem) {
       var labelledbyIds = elem.getAttribute('aria-labelledby'),
-      label = elem.getAttribute('aria-label'),
-      title = elem.getAttribute('title'),
-      name = "";
-
+        label = elem.getAttribute('aria-label'),
+        title = elem.getAttribute('title'),
+        name = "";
       if (labelledbyIds && labelledbyIds.length) {
         var str,
-        strings = [],
-        ids = labelledbyIds.split(' ');
+          strings = [],
+          ids = labelledbyIds.split(' ');
         if (!ids.length) ids = [labelledbyIds];
         for (var i = 0, l = ids.length; i < l; i += 1) {
           var e = document.getElementById(ids[i]);
@@ -690,12 +573,10 @@
           if (str.length) strings.push(str);
         }
         name = strings.join(" ");
-      }
-      else {
+      } else {
         if (label && label.length) {
           name = label;
-        }
-        else {
+        } else {
           if (title && title.length) {
             name = title;
           }
@@ -703,117 +584,90 @@
       }
       return name;
     },
-
     isVisible: function(element) {
-
-      function isVisibleRec (el) {
+      function isVisibleRec(el) {
         if (el.nodeType === 9) return true; /*IE8 does not support Node.DOCUMENT_NODE*/
-
         var computedStyle = window.getComputedStyle(el);
-
         var display = computedStyle.getPropertyValue('display');
         var visibility = computedStyle.getPropertyValue('visibility');
         var hidden = el.getAttribute('hidden');
-
         if ((display === 'none') ||
-            (visibility === 'hidden') ||
-            (hidden !== null)) {
+          (visibility === 'hidden') ||
+          (hidden !== null)) {
           return false;
         }
-
         return isVisibleRec(el.parentNode);
       }
-
       return isVisibleRec(element);
     },
-
-    getHeadings: function () {
+    getHeadings: function() {
       this.headingElementsArr = [];
       var targets = this.config.headings;
       if (typeof targets !== 'string' || targets.length === 0) return;
       var headings = document.querySelectorAll(targets);
-
       for (var i = 0, j = 0, len = headings.length; i < len; i += 1) {
         var heading = headings[i];
         var role = heading.getAttribute('role');
         if ((typeof role === 'string') && (role === 'presentation')) continue;
         if (this.isVisible(heading)) {
-
           heading.setAttribute('data-skip-to-id', this.skipToIdIndex);
-
           var headingItem = {};
           headingItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
           headingItem.class = 'heading';
           headingItem.name = this.getTextContent(heading);
           headingItem.tagName = heading.tagName.toLowerCase();
           headingItem.role = 'heading';
-
           this.headingElementsArr.push(headingItem);
-
           j += 1;
-          this.skipToIdIndex +=1;
+          this.skipToIdIndex += 1;
         }
       }
     },
-
-    getLocalizedLandmarkName: function (tagName, name) {
+    getLocalizedLandmarkName: function(tagName, name) {
       var n;
-
       switch (tagName) {
         case 'aside':
           n = this.config.asideLabel;
           break;
-
         case 'footer':
           n = this.config.footerLabel;
           break;
-
         case 'form':
           n = this.config.formLabel;
           break;
-
         case 'header':
           n = this.config.headerLabel;
           break;
-
         case 'main':
           n = this.config.mainLabel;
           break;
-
         case 'nav':
           n = this.config.navLabel;
           break;
-
         case 'search':
           n = this.config.searchLabel;
           break;
-
-        // When an ID is used as a selector, assume for main content
+          // When an ID is used as a selector, assume for main content
         default:
           n = this.config.mainLabel;
           break;
       }
-
       if (this.isNotEmptyString(name)) {
         n += ': ' + name;
       }
-
       return n;
     },
-
-    getLandmarks: function () {
+    getLandmarks: function() {
       this.landmarkElementsArr = [];
       var targets = this.config.landmarks;
       if (typeof targets !== 'string' || targets.length === 0) return;
       var landmarks = document.querySelectorAll(targets);
-
       var mainElems = [];
       var searchElems = [];
       var navElems = [];
       var asideElems = [];
       var footerElems = [];
       var otherElems = [];
-
       for (var i = 0, j = 0, len = landmarks.length; i < len; i = i + 1) {
         var landmark = landmarks[i];
         // if skipto is a landmark don't include it in the list
@@ -822,59 +676,44 @@
         }
         var role = landmark.getAttribute('role');
         var tagName = landmark.tagName.toLowerCase();
-
         if ((typeof role === 'string') && (role === 'presentation')) continue;
-
         if (this.isVisible(landmark)) {
-
           if (!role) role = landmark.tagName.toLowerCase();
           var name = this.getAccessibleName(landmark);
           if (typeof name !== 'string') {
             name = '';
           }
-
           // normalize tagNames
           switch (role) {
             case 'banner':
               tagName = 'header';
               break;
-
             case 'complementary':
               tagName = 'aside';
               break;
-
             case 'contentinfo':
               tagName = 'footer';
               break;
-
             case 'form':
               tagName = 'form';
               break;
-
             case 'main':
               tagName = 'main';
               break;
-
             case 'navigation':
               tagName = 'nav';
               break;
-
             case 'search':
               tagName = 'search';
               break;
-
             default:
               break;
-
           }
-
           // if using ID for selectQuery give tagName as main
-          if (['aside','footer','form','header','main','nav','search'].indexOf(tagName) < 0) {
+          if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'search'].indexOf(tagName) < 0) {
             tagName = 'main';
           }
-
           landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
-
           var landmarkItem = {};
           landmarkItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
           landmarkItem.class = 'landmark';
@@ -882,46 +721,36 @@
           landmarkItem.tagName = tagName;
           j += 1;
           this.skipToIdIndex += 1;
-
           // For sorting landmarks into groups
           switch (tagName) {
             case 'main':
               mainElems.push(landmarkItem);
               break;
-
             case 'search':
               searchElems.push(landmarkItem);
               break;
-
             case 'nav':
               navElems.push(landmarkItem);
               break;
-
             case 'aside':
               asideElems.push(landmarkItem);
               break;
-
             case 'footer':
               footerElems.push(landmarkItem);
               break;
-
             default:
               otherElems.push(landmarkItem);
               break;
           }
         }
       }
-
       this.landmarkElementsArr = [].concat(mainElems, searchElems, navElems, asideElems, footerElems, otherElems);
     }
-
   };
-
   // Initialize skipto menu button with onload event
-  window.addEventListener('load', function () {
+  window.addEventListener('load', function() {
     SkipTo.init(window.SkipToConfig || window.Drupal || window.Wordpress || {});
     SkipTo.updateMenuitems();
-    console.log('Skipto loaded...');
+    console.log('SkipTo loaded...');
   });
-
 })();
