@@ -12,13 +12,13 @@
 }
 
 .skip-to button {
-  margin: 0;
-  padding: 5px;
   position: relative;
+  margin: 0;
+  padding: 5px 5px 5px 5px;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
   border-radius: 0px 0px 6px 6px;
   background-color: $buttonBackgroundColor;
-  border-width: 1px;
-  border-style: solid;
   border-color: $buttonBorderColor;
   color: $buttonColor;
   z-index: 1000;
@@ -110,13 +110,15 @@
 
 .skip-to button:focus,
 .skip-to button:hover {
-  padding: 4px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: $buttonFocusBorderColor;
   background-color: $buttonFocusBackgroundColor;
   color: $buttonFocusColor;
   outline: none;
+}
+
+.skip-to button:focus {
+  padding: 5px 3px 3px 3px;
+  border-width: 0px 3px 3px 3px;
+  border-color: $buttonFocusBorderColor;
 }
 
 .skip-to [role="menuitem"]:focus {
