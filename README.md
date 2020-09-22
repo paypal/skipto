@@ -88,6 +88,7 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 | `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
 | `buttonColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
 | `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
+| `buttonBorderColor` | Color | `#eeeeee` | Border color of text for "Skip To Content" button. |
 | `buttonColorFocus` | Color | `#000000` | Color of text for "Skip To Content" button when it has focus. |
 | `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | Background color of text for "Skip To Content" button when it has focus. |
 | `buttonFocusBorderColor` | Color | `#1a1a1a`  | Border color of "Skip To Content" button when it has focus. |
