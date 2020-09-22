@@ -32,8 +32,8 @@
       containerElement: 'div',
       containerRole: '',
       customClass: '',
-      containerTitle: 'Skip To Keyboard Navigation',
-      containerTitleWithAccesskey: 'Skip To Keyboard Navigation, accesskey is "$key"',
+      containerTitle: 'Keyboard Navigation',
+      containerTitleWithAccesskey: 'Keyboard Navigation, accesskey is "$key"',
       // labels and messages
       buttonLabel: 'Skip To Content',
       menuLabel: 'Landmarks and Headings',
