@@ -1,4 +1,4 @@
-/*! skipto - v3.0.0 - 2020-09-21
+/*! skipto - v3.0.0 - 2020-09-22
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -37,8 +37,8 @@
       containerElement: 'div',
       containerRole: '',
       customClass: '',
-      containerTitle: 'Skip To Keyboard Navigation',
-      containerTitleWithAccesskey: 'Skip To Keyboard Navigation, accesskey is "$key"',
+      containerTitle: 'Keyboard Navigation',
+      containerTitleWithAccesskey: 'Keyboard Navigation, accesskey is "$key"',
       // labels and messages
       buttonLabel: 'Skip To Content',
       menuLabel: 'Landmarks and Headings',
