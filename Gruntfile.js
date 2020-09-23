@@ -7,13 +7,13 @@ module.exports = function(grunt) {
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
 			' Licensed <%= _.map(pkg.licenses, "type").join(", ") %> */\n' ,
 
-		bannerCond:	
+		bannerCond:
 			'/*@cc_on @*/\n' +
 			'/*@if (@_jscript_version >= 5.8) @*/\n',
 
 		footer: '/*@end @*/\n',
 
-		greaseBanner: 
+		greaseBanner:
 			'// -----------------------------------------------------' + '\n' +
 			'// Title: Skip to Options User script' + '\n' +
 			'// version: <%= pkg.version %>' + '\n' +
@@ -30,24 +30,12 @@ module.exports = function(grunt) {
 			'// @include *' + '\n' +
 			'// ==/UserScript==' + '\n' + '\n',
 		jshint: {
-			files: ['src/js/<%= pkg.name %>.js', 'src/js/dropMenu.js'],
+			files: ['src/js/<%= pkg.name %>.js'],
 			options: {
 				jshintrc: "./src/js/.jshintrc"
 			}
 		},
 
-		less: {
-			compress: {
-				options: {
-					paths: ['src/less'],
-					compress: true,
-					yuicompress: true
-				},
-				files: {
-					'src/css/<%= pkg.name %>.css': ['src/less/<%= pkg.name %>.less']
-				}
-			}
-		},
 		concat: {
 			core: {
 				options: {
@@ -55,7 +43,7 @@ module.exports = function(grunt) {
 					banner: '<%= banner %> <%= bannerCond %>',
 					footer: '<%= footer %>'
 				},
-				src:   ['src/js/shimIE.js','src/js/dropMenu.js','src/js/<%= pkg.name %>.js'],
+				src:   ['src/js/<%= pkg.name %>.js'],
 				dest:  './compiled/js/<%= pkg.name %>.js'
 			},
 			gm: {
@@ -64,7 +52,7 @@ module.exports = function(grunt) {
 				},
 				src:   './compiled/js/<%= pkg.name %>.min.js',
 				dest:  './compiled/js/<%= pkg.name %>.user.js'
-			}			
+			}
 		},
 		uglify: {
 			options: {
@@ -77,9 +65,17 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'./compiled/js/<%= pkg.name %>.min.js': ['src/js/shimIE.js', 'src/js/dropMenu.js', 'src/js/<%= pkg.name %>.js']
+					'./compiled/js/<%= pkg.name %>.min.js': ['src/js/<%= pkg.name %>.js']
 				}
 			}
+		},
+
+		cssmin: {
+		  target:{
+		  	files: {
+		  		'src/css/SkipTo.css': ['src/css/SkipTo.template.css']
+		  	}
+		  }
 		},
 
 		replace: {
@@ -154,7 +150,6 @@ module.exports = function(grunt) {
 
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -162,12 +157,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 	grunt.registerTask('test', ['jshint']);
 	grunt.registerTask('wordpress', ['compress:WordPress']);
-	grunt.registerTask('drupal', ['compress:Drupal']);	
+	grunt.registerTask('drupal', ['compress:Drupal']);
 	grunt.registerTask('gm', 'concat:gm');
-	grunt.registerTask('default', ['jshint', 'less', 'concat:core', 'uglify', 'replace', 'copy','concat:gm']);
-	grunt.registerTask('all', ['jshint', 'less', 'concat:core', 'uglify', 'replace', 'copy', 'compress', 'concat:gm']);
-
+	grunt.registerTask('default', ['jshint', 'concat:core', 'uglify', 'cssmin', 'replace', 'copy','concat:gm']);
+	grunt.registerTask('all', ['jshint', 'concat:core', 'uglify', 'replace', 'copy', 'compress', 'concat:gm']);
 };
