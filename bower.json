@@ -1,0 +1,25 @@
+{
+  "name": "skipto",
+  "version": "3.0.0",
+  "homepage": "https://github.com/paypal/skipto",
+  "authors": [
+    "PayPal Accessibility Team and University of Illinois"
+  ],
+  "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to skip to the most important places on the webpage.",
+  "main": "compiled/js/SkipTo.js",
+  "keywords": [
+    "accessibility",
+    "Navigation",
+    "Skip to",
+    "Skip to Main"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ]
+}

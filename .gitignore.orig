@@ -1,13 +1,20 @@
+<<<<<<< HEAD
 # Compiled source    #
 ######################
 # Grunt should be run locally, dont check in the built files
 compiled
 
+=======
+>>>>>>> main
 # Node Modules       #
 ######################
 # npm install should be run locally, don't check in those files
 node_modules
+<<<<<<< HEAD
+npm-debug.log
+=======
 package-lock.json
+>>>>>>> main
 
 # OS generated files #
 ######################
@@ -22,4 +29,8 @@ Thumbs.db
 
 # Jekyll Generated pages
 ######################
+<<<<<<< HEAD
 _site
+=======
+_site
+>>>>>>> main

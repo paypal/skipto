@@ -1,0 +1,50 @@
+{
+  "name": "skipto",
+  "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to quickly skip to the most important places on the webpage.",
+  "version": "3.0.0",
+  "keywords": [
+    "accessibility",
+    "Navigation",
+    "Skip to"
+  ],
+  "homepage": "https://github.com/paypal/skipto",
+  "author": "PayPal Accessibility Team and University of Illinois",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paypal/skipto"
+  },
+  "licenses": [
+    {
+      "type": "BSD",
+      "url": "https://github.com/paypal/skipto/blob/master/BSDLicense.txt"
+    }
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-clean": "~2.0.0",
+    "grunt-contrib-compress": "~1.4.3",
+    "grunt-contrib-concat": "~1.0.1",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "~2.1.0",
+    "grunt-contrib-less": "~2.0.0",
+    "grunt-contrib-uglify": "~4.0.1",
+    "grunt-replace": "~1.0.1",
+    "jshint": "~2.10.2",
+    "uglify-js": "~2.8.0"
+  },
+  "readmeFilename": "README.md",
+  "gitHead": "641457dfeea57fbedfba5ba2a65ce0c33ac411b7",
+  "main": "Gruntfile.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "license": "BSD"
+}
