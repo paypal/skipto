@@ -61,7 +61,7 @@
 
   display: grid;
   overflow-y: auto;
-  grid-template-columns: repeat(5, 0.75rem) 1fr;
+  grid-template-columns: repeat(5, 0.85rem) 1fr;
   grid-column-gap: 2px;
 }
 
