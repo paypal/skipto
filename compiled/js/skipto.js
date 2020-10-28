@@ -1,4 +1,4 @@
-/*! skipto - v3.0.0 - 2020-09-22
+/*! skipto - v3.0.0 - 2020-10-28
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -106,7 +106,7 @@
         menuitemFocusBorderColor: '#ff552e'
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{margin:1px;padding:4px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000}.skip-to [role=menuitem]:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=separator]{margin:0;padding:4px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to [role=menuitem].skipto-h2{padding-left:1em}.skip-to [role=menuitem].skipto-h3{padding-left:2em}.skip-to [role=menuitem].skipto-h4{padding-left:3em}.skip-to [role=menuitem].skipto-h5{padding-left:4em}.skip-to [role=menuitem].skipto-h6{padding-left:5em}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:2px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}.skip-to [role=menuitem].skipto-h2{padding-left:16px}.skip-to [role=menuitem].skipto-h2:focus{padding-left:14px}.skip-to [role=menuitem].skipto-h3{padding-left:28px}.skip-to [role=menuitem].skipto-h3:focus{padding-left:26px}.skip-to [role=menuitem].skipto-h4{padding-left:40px}.skip-to [role=menuitem].skipto-h4:focus{padding-left:38px}.skip-to [role=menuitem].skipto-h5{padding-left:52px}.skip-to [role=menuitem].skipto-h5:focus{padding-left:50px}.skip-to [role=menuitem].skipto-h6{padding-left:64px}.skip-to [role=menuitem].skipto-h6:focus{padding-left:62px}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:20em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{margin:1px;padding:2px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(5,1.33rem) 1fr;grid-column-gap:2px}.skip-to [role=menuitem]:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .label{grid-column:1/7}.skip-to [role=menuitem] .label.skip-to-h2{grid-column:2/7}.skip-to [role=menuitem] .label.skip-to-h3{grid-column:3/7}.skip-to [role=menuitem] .label.skip-to-h4{grid-column:4/7}.skip-to [role=menuitem] .label.skip-to-h5{grid-column:5/7}.skip-to [role=menuitem] .label.skip-to-h6{grid-column:6/7}.skip-to [role=separator]{margin:0;padding:4px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:0;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}',
     updateStyle: function(stylePlaceholder, value, defaultValue) {
       if (typeof value !== 'string' || value.length === 0) {
         value = defaultValue;
@@ -235,13 +235,14 @@
       return c;
     },
     addMenuitemGroup: function(title, menuitems, msgNoItemsFound) {
+      var labelNode, groupNode, menuitemNode;
       var menuNode = this.menuNode;
       if (title) {
-        var labelNode = document.createElement('div');
+        labelNode = document.createElement('div');
         labelNode.setAttribute('role', 'separator');
         labelNode.textContent = title;
         menuNode.appendChild(labelNode);
-        var groupNode = document.createElement('div');
+        groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-label', title);
         menuNode.appendChild(groupNode);
@@ -260,13 +261,25 @@
       }
       for (var i = 0; i < len; i += 1) {
         var mi = menuitems[i];
-        var menuitemNode = document.createElement('div');
-        menuitemNode.appendChild(document.createTextNode(mi.name));
+        menuitemNode = document.createElement('div');
+
+/*
+        tagNode = document.createElement('div');
+        tagNode.appendChild(document.createTextNode(mi.tagName));
+        tagNode.classList.add('tag-name');
+        menuitemNode.append(tagNode);
+*/
+
+        labelNode = document.createElement('div');
+        labelNode.appendChild(document.createTextNode(mi.name));
+        labelNode.classList.add('label');
+        if (mi.tagName.length) {
+          labelNode.classList.add('skip-to-' + mi.tagName);
+        }
+        menuitemNode.append(labelNode);
+
         menuitemNode.setAttribute('role', 'menuitem');
         menuitemNode.classList.add(mi.class);
-        if (mi.tagName.length) {
-          menuitemNode.classList.add('skip-to-' + mi.tagName);
-        }
         menuitemNode.setAttribute('data-id', mi.dataId);
         menuitemNode.tabIndex = -1;
         menuNode.appendChild(menuitemNode);

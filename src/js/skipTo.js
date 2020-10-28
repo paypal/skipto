@@ -230,13 +230,14 @@
       return c;
     },
     addMenuitemGroup: function(title, menuitems, msgNoItemsFound) {
+      var labelNode, groupNode, menuitemNode;
       var menuNode = this.menuNode;
       if (title) {
-        var labelNode = document.createElement('div');
+        labelNode = document.createElement('div');
         labelNode.setAttribute('role', 'separator');
         labelNode.textContent = title;
         menuNode.appendChild(labelNode);
-        var groupNode = document.createElement('div');
+        groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-label', title);
         menuNode.appendChild(groupNode);
@@ -255,13 +256,25 @@
       }
       for (var i = 0; i < len; i += 1) {
         var mi = menuitems[i];
-        var menuitemNode = document.createElement('div');
-        menuitemNode.appendChild(document.createTextNode(mi.name));
+        menuitemNode = document.createElement('div');
+
+/*
+        tagNode = document.createElement('div');
+        tagNode.appendChild(document.createTextNode(mi.tagName));
+        tagNode.classList.add('tag-name');
+        menuitemNode.append(tagNode);
+*/
+
+        labelNode = document.createElement('div');
+        labelNode.appendChild(document.createTextNode(mi.name));
+        labelNode.classList.add('label');
+        if (mi.tagName.length) {
+          labelNode.classList.add('skip-to-' + mi.tagName);
+        }
+        menuitemNode.append(labelNode);
+
         menuitemNode.setAttribute('role', 'menuitem');
         menuitemNode.classList.add(mi.class);
-        if (mi.tagName.length) {
-          menuitemNode.classList.add('skip-to-' + mi.tagName);
-        }
         menuitemNode.setAttribute('data-id', mi.dataId);
         menuitemNode.tabIndex = -1;
         menuNode.appendChild(menuitemNode);
