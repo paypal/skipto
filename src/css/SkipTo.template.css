@@ -26,7 +26,7 @@
 
 .skip-to [role="menu"] {
   position: absolute;
-  min-width: 20em;
+  min-width: 17em;
   display: none;
   margin: 0;
   padding: 0px;
@@ -61,7 +61,7 @@
 
   display: grid;
   overflow-y: auto;
-  grid-template-columns: repeat(5, 1.33rem) 1fr;
+  grid-template-columns: repeat(5, 1rem) 1fr;
   grid-column-gap: 2px;
 }
 
