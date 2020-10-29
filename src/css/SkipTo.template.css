@@ -65,7 +65,7 @@
   grid-column-gap: 2px;
 }
 
-.skip-to [role="menuitem"]:first-letter {
+.skip-to [role="menuitem"] .label:first-letter {
   text-decoration: underline;
   text-transform: uppercase;
 }
