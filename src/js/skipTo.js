@@ -12,8 +12,6 @@
 (function() {
   'use strict';
   var SkipTo = {
-    headingElementsArr: [],
-    landmarkElementsArr: [],
     domNode: null,
     buttonNode: null,
     menuNode: null,
@@ -21,6 +19,7 @@
     firstMenuitem: false,
     lastMenuitem: false,
     firstChars: [],
+    headingLevels: [],
     skipToIdIndex: 1,
     // Default configuration values
     config: {
@@ -39,6 +38,8 @@
       menuLabel: 'Landmarks and Headings',
       landmarkGroupLabel: 'Landmarks',
       headingGroupLabel: 'Main Headings',
+      actionGroupLabel: 'Actions',
+      actionMoreHeadingsLabel: 'Show more headings',
       mainLabel: 'main',
       searchLabel: 'search',
       navLabel: 'menu',
@@ -46,6 +47,7 @@
       footerLabel: 'footer',
       headerLabel: 'header',
       formLabel: 'form',
+      moreHeadingsLabel: 'Show more headings',
       msgNoLandmarksFound: 'No landmarks to skip to',
       msgNoHeadingsFound: 'No main headings to skip to',
       // Selectors for landmark and headings sections
@@ -62,8 +64,10 @@
       buttonFocusBorderColor: '',
       menuBackgroundColor: '',
       menuitemColor: '',
+      menuitemLevelColor: '',
       menuitemBackgroundColor: '',
       menuitemFocusColor: '',
+      menuitemFocusLevelColor: '',
       menuitemFocusBackgroundColor: '',
       menuitemFocusBorderColor: ''
     },
@@ -79,8 +83,10 @@
         menuBackgroundColor: '#eeeeee',
         menuBorderColor: '1a1a1a',
         menuitemColor: '#1a1a1a',
+        menuitemLevelColor: '#222222',
         menuitemBackgroundColor: '#eeeeee',
         menuitemFocusColor: '#eeeeee',
+        menuitemFocusLevelColor: '#dddddd',
         menuitemFocusBackgroundColor: '#1a1a1a',
         menuitemFocusBorderColor: '#1a1a1a'
       },
@@ -95,8 +101,10 @@
         menuBackgroundColor: '#cad9ef',
         menuBorderColor: '#ff552e',
         menuitemColor: '#00132c',
+        menuitemLevelColor: '#00132c',
         menuitemBackgroundColor: '#cad9ef',
-        menuitemFocusColor: '#cad9ef',
+        menuitemFocusColor: '#eeeeee',
+        menuitemFocusLevelColor: '#dddddd',
         menuitemFocusBackgroundColor: '#00132c',
         menuitemFocusBorderColor: '#ff552e'
       }
@@ -129,8 +137,10 @@
       this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
       this.updateStyle('$menuBorderColor', this.config.menuBorderColor, theme.menuBorderColor);
       this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
+      this.updateStyle('$menuitemLevelColor', this.config.menuitemLevelColor, theme.menuitemLevelColor);
       this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
       this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
+      this.updateStyle('$menuitemFocusLevelColor', this.config.menuitemFocusLevelColor, theme.menuitemFocusLevelColor);
       this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
       this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
     },
@@ -215,22 +225,122 @@
       }
     },
     addStyleElement: function(cssString) {
-      var styleNode = document.createElement('style'),
-        headNode = document.getElementsByTagName('head')[0],
-        css = document.createTextNode(cssString);
+      var styleNode = document.createElement('style');
+      var headNode = document.getElementsByTagName('head')[0];
+      var css = document.createTextNode(cssString);
+
       styleNode.setAttribute("type", "text/css");
       styleNode.appendChild(css);
       headNode.appendChild(styleNode);
     },
-    getFirstChar: function(text) {
+
+    // Functions related to creating and populating the
+    // the popup menu
+
+    getFirstChar: function(menuitem) {
       var c = '';
-      if (typeof text === 'string' && text.length > 0) {
-        c = text[0].toLowerCase();
+      var label = menuitem.querySelector('.label');
+      if (label && label.textContent.length) {
+        c = label.textContent.trim()[0].toLowerCase();
       }
       return c;
     },
-    addMenuitemGroup: function(title, menuitems, msgNoItemsFound) {
-      var labelNode, groupNode, menuitemNode;
+
+    getHeadingLevel: function(menuitem) {
+      var level = '';
+      if (menuitem.hasAttribute('data-level')) {
+        level = menuitem.getAttribute('data-level');
+      }
+      return level;
+    },
+
+    updateKeyboardShortCuts: function () {
+      var mi;
+      this.firstChars = [];
+      this.headingLevels = [];
+
+      for(var i = 0; i < this.menuitemNodes.length; i += 1) {
+        mi = this.menuitemNodes[i];
+        console.log('[UpdateKeyboardShortcuts][menuitem]: ' + this.getFirstChar(mi) + ' ' + this.getHeadingLevel(mi) + ' ' + mi.textContent);
+        this.firstChars.push(this.getFirstChar(mi));
+        this.headingLevels.push(this.getHeadingLevel(mi));
+      }
+    },
+
+    updateMenuitems: function () {
+      var menuitemNodes = this.menuNode.querySelectorAll('[role=menuitem');
+
+      this.menuitemNodes = [];
+      console.log('[updateMenuitems]: ' + menuitemNodes.length);
+      for(var i = 0; i < menuitemNodes.length; i += 1) {
+        this.menuitemNodes.push(menuitemNodes[i]);
+      }
+
+      this.firstMenuitem = this.menuitemNodes[0];
+      this.lastMenuitem = this.menuitemNodes[this.menuitemNodes.length-1];
+      this.lastMenuitem.classList.add('last');
+      this.updateKeyboardShortCuts();
+    },
+
+    addMenuitemToGroup: function (groupNode, mi) {
+      var tagNode, tagNodeChild, labelNode;
+
+      var menuitemNode = document.createElement('div');
+
+      if (mi.class.includes('heading')) {
+        tagNode = document.createElement('span');
+        tagNodeChild = document.createElement('span');
+        tagNodeChild.appendChild(document.createTextNode(mi.tagName.substring(1)));
+        tagNode.append(tagNodeChild);
+        tagNode.appendChild(document.createTextNode(':'));
+        tagNode.classList.add('level');
+        menuitemNode.append(tagNode);
+        menuitemNode.setAttribute('data-level', mi.tagName.substring(1));
+      }
+
+      labelNode = document.createElement('span');
+      labelNode.appendChild(document.createTextNode(mi.name));
+      labelNode.classList.add('label');
+      if (mi.tagName && mi.tagName.length) {
+        labelNode.classList.add('skip-to-' + mi.tagName);
+      }
+      menuitemNode.append(labelNode);
+
+      menuitemNode.setAttribute('role', 'menuitem');
+      menuitemNode.classList.add(mi.class);
+      menuitemNode.setAttribute('data-id', mi.dataId);
+      menuitemNode.tabIndex = -1;
+
+      // add event handlers
+      menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
+      menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
+      menuitemNode.addEventListener('mouseover', this.handleMenuitemMouseover.bind(this));
+
+      groupNode.appendChild(menuitemNode);
+    },
+
+    addMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
+      var len = menuitems.length;
+      groupNode.innerHTML = '';
+
+      if (menuitems.length === 0) {
+        var item = {};
+        item.name = msgNoItemsFound;
+        item.tagName = 'notag';
+        item.role = '';
+        item.class = 'noitems';
+        item.dataId = '';
+        this.addMenuitem(groupNode, item);
+      }
+      else {
+        for (var i = 0; i < len; i += 1) {
+          this.addMenuitemToGroup(groupNode, menuitems[i]);
+        }
+      }
+    },
+
+    addMenuitemGroup: function(groupId, title) {
+      var labelNode, groupNode;
       var menuNode = this.menuNode;
       if (title) {
         labelNode = document.createElement('div');
@@ -240,126 +350,170 @@
         groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-label', title);
+        groupNode.id = groupId;
         menuNode.appendChild(groupNode);
         menuNode = groupNode;
       }
-      var len = menuitems.length;
-      if (menuitems.length === 0) {
-        var item = {};
-        item.name = msgNoItemsFound;
-        item.tagName = '';
-        item.role = '';
-        item.class = 'noitems';
-        item.id = '';
-        menuitems.push(item);
-        len = menuitems.length;
+      return groupNode;
+    },
+
+    addActionMoreHeadings: function(groupNode, label) {
+      var item = {};
+      item.name = label;
+      item.tagName = 'action';
+      item.role = 'menuitem';
+      item.class = 'action';
+      item.dataId = 'skip-to-more-headings';
+      this.addMenuitemToGroup(groupNode, item);
+    },
+
+
+    updateHeadingGroupMenuitems: function(level) {
+      if (typeof level !== 'number') {
+        level = 6;
       }
-      for (var i = 0; i < len; i += 1) {
-        var mi = menuitems[i];
-        menuitemNode = document.createElement('div');
 
-/*
-        tagNode = document.createElement('div');
-        tagNode.appendChild(document.createTextNode(mi.tagName));
-        tagNode.classList.add('tag-name');
-        menuitemNode.append(tagNode);
-*/
+      var selector = 'h1';
+      switch (level) {
+        case 2:
+          selector = 'h1, h2';
+          break;
 
-        labelNode = document.createElement('div');
-        labelNode.appendChild(document.createTextNode(mi.name));
-        labelNode.classList.add('label');
-        if (mi.tagName.length) {
-          labelNode.classList.add('skip-to-' + mi.tagName);
-        }
-        menuitemNode.append(labelNode);
+        case 3:
+          selector = 'h1, h2, h3';
+          break;
 
-        menuitemNode.setAttribute('role', 'menuitem');
-        menuitemNode.classList.add(mi.class);
-        menuitemNode.setAttribute('data-id', mi.dataId);
-        menuitemNode.tabIndex = -1;
-        menuNode.appendChild(menuitemNode);
-        this.menuitemNodes.push(menuitemNode);
-        this.firstChars.push(this.getFirstChar(mi.name));
-        menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
-        menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
-        menuitemNode.addEventListener('mouseover', this.handleMenuitemMouseover.bind(this));
-        if (!this.firstMenuitem) {
-          this.firstMenuitem = menuitemNode;
-        }
-        this.lastMenuitem = menuitemNode;
+        case 4:
+          selector = 'h1, h2, h3, h4';
+          break;
+
+        case 5:
+          selector = 'h1, h2, h3, h4, h5';
+          break;
+
+        case 6:
+        default:
+          selector = 'h1, h2, h3, h4, h5, h6';
+          break;
+      }
+
+      var headings = this.getHeadings(selector);
+      var groupNode = document.getElementById('id-skip-to-group-headings');
+      this.addMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
+      this.updateMenuitems();
+
+      // Move focus to first heading menuitem
+      if (groupNode.firstElementChild) {
+        groupNode.firstElementChild.focus();
       }
     },
-    updateMenuitems: function() {
+
+    createMenu: function() {
+      var groupNode, landmarkElems, headingElems;
       // remove current menu items from menu
       while (this.menuNode.lastElementChild) {
         this.menuNode.removeChild(this.menuNode.lastElementChild);
       }
-      this.menuitemNodes = [];
-      this.firstChars = [];
-      this.firstMenuitem = false;
-      this.lastMenuitem = false;
+
+      // initialize menu variables
       this.skipToIdIndex = 1;
-      this.getLandmarks();
-      this.addMenuitemGroup(this.config.landmarkGroupLabel, this.landmarkElementsArr, this.config.msgNoLandmarksFound);
-      this.getHeadings();
-      this.addMenuitemGroup(this.config.headingGroupLabel, this.headingElementsArr, this.config.msgNoHeadingsFound);
-      this.lastMenuitem.classList.add('last');
+
+      // Update landmarks
+      landmarkElems = this.getLandmarks();
+      groupNode = this.addMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkGroupLabel);
+      this.addMenuitemsToGroup(groupNode, landmarkElems, this.config.msgNoLandmarksFound);
+
+      // Update headings
+      headingElems = this.getHeadings();
+      console.log('[updateMenuitems][headingElems]: ' + headingElems.length);
+      groupNode = this.addMenuitemGroup('id-skip-to-group-headings', this.config.headingGroupLabel);
+      this.addMenuitemsToGroup(groupNode, headingElems, this.config.msgNoHeadingsFound);
+
+      // Update actions
+      groupNode = this.addMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
+      this.addActionMoreHeadings(groupNode, this.config.actionMoreHeadingsLabel);
+
+      // Update list of menuitems
+      this.updateMenuitems();
     },
-    setFocusToMenuitem: function(newMenuitem) {
-      if (newMenuitem) {
-        newMenuitem.focus();
+
+    // Menu scripting event utilities
+
+    setFocusToMenuitem: function(menuitem) {
+      if (menuitem) {
+        menuitem.focus();
       }
     },
+
     setFocusToFirstMenuitem: function() {
       this.setFocusToMenuitem(this.firstMenuitem);
     },
+
     setFocusToLastMenuitem: function() {
       this.setFocusToMenuitem(this.lastMenuitem);
     },
-    setFocusToPreviousMenuitem: function(currentMenuitem) {
+
+    setFocusToPreviousMenuitem: function(menuitem) {
       var newMenuitem, index;
-      if (currentMenuitem === this.firstMenuitem) {
+      if (menuitem === this.firstMenuitem) {
         newMenuitem = this.lastMenuitem;
       } else {
-        index = this.menuitemNodes.indexOf(currentMenuitem);
+        index = this.menuitemNodes.indexOf(menuitem);
         newMenuitem = this.menuitemNodes[index - 1];
       }
       this.setFocusToMenuitem(newMenuitem);
       return newMenuitem;
     },
-    setFocusToNextMenuitem: function(currentMenuitem) {
+
+    setFocusToNextMenuitem: function(menuitem) {
       var newMenuitem, index;
-      if (currentMenuitem === this.lastMenuitem) {
+      if (menuitem === this.lastMenuitem) {
         newMenuitem = this.firstMenuitem;
       } else {
-        index = this.menuitemNodes.indexOf(currentMenuitem);
+        index = this.menuitemNodes.indexOf(menuitem);
         newMenuitem = this.menuitemNodes[index + 1];
       }
       this.setFocusToMenuitem(newMenuitem);
       return newMenuitem;
     },
-    setFocusByFirstCharacter: function(currentMenuitem, char) {
+
+    setFocusByFirstCharacter: function(menuitem, char) {
       var start, index;
       if (char.length > 1) {
         return;
       }
       char = char.toLowerCase();
+
       // Get start index for search based on position of currentItem
-      start = this.menuitemNodes.indexOf(currentMenuitem) + 1;
+      start = this.menuitemNodes.indexOf(menuitem) + 1;
       if (start >= this.menuitemNodes.length) {
         start = 0;
       }
-      // Check remaining slots in the menu
+
+      // Check remaining items in the menu
       index = this.firstChars.indexOf(char, start);
-      // If not found in remaining slots, check from beginning
+
+      // If not found in remaining items, check headings
+      if (index === -1) {
+        index = this.headingLevels.indexOf(char, start);
+      }
+
+      // If not found in remaining items, check from beginning
       if (index === -1) {
         index = this.firstChars.indexOf(char, 0);
       }
+
+      // If not found in remaining items, check headings from beginning
+      if (index === -1) {
+        index = this.headingLevels.indexOf(char, 0);
+      }
+
       // If match was found...
       if (index > -1) {
         this.setFocusToMenuitem(this.menuitemNodes[index]);
       }
     },
+
     // Utilities
     getIndexFirstChars: function(startIndex, char) {
       for (var i = startIndex; i < this.firstChars.length; i += 1) {
@@ -371,10 +525,11 @@
     },
     // Popup menu methods
     openPopup: function() {
-      this.updateMenuitems();
+      this.createMenu();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
     },
+
     closePopup: function() {
       if (this.isOpen()) {
         this.buttonNode.setAttribute('aria-expanded', 'false');
@@ -434,10 +589,10 @@
       event.stopPropagation();
       event.preventDefault();
     },
-    skipToElement: function(elem) {
+    skipToElement: function(menuitem) {
       var inputNode = false;
-      var isSearch = elem.classList.contains('skip-to-search');
-      var node = document.querySelector(elem.getAttribute('data-id'));
+      var isSearch = menuitem.classList.contains('skip-to-search');
+      var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
       if (node) {
         if (isSearch) {
           inputNode = node.querySelector('input');
@@ -476,8 +631,16 @@
         switch (key) {
           case 'Enter':
           case ' ':
-            this.closePopup();
-            this.skipToElement(tgt);
+            switch (tgt.getAttribute('data-id')) {
+              case 'skip-to-more-headings':
+                this.updateHeadingGroupMenuitems(4);
+                break;
+
+              default:
+                this.closePopup();
+                this.skipToElement(tgt);
+                break;
+            }
             flag = true;
             break;
           case 'Esc':
@@ -524,8 +687,17 @@
     },
     handleMenuitemClick: function(event) {
       var tgt = event.currentTarget;
-      this.closePopup();
-      this.skipToElement(tgt);
+      switch (tgt.getAttribute('data-id')) {
+        case 'skip-to-more-headings':
+          this.updateHeadingGroupMenuitems(5);
+          break;
+
+        default:
+          this.closePopup();
+          this.skipToElement(tgt);
+          break;
+
+      }
       event.stopPropagation();
       event.preventDefault();
     },
@@ -623,28 +795,39 @@
       }
       return isVisibleRec(element);
     },
-    getHeadings: function() {
-      this.headingElementsArr = [];
-      var targets = this.config.headings;
+    getHeadings: function(targets) {
+      var dataId;
+      if (typeof targets !== 'string') {
+        targets = this.config.headings;
+      }
+      var headingElementsArr = [];
       if (typeof targets !== 'string' || targets.length === 0) return;
+      console.log('[getHeadings][targets]: ' + targets);
       var headings = document.querySelectorAll(targets);
+      console.log('[getHeadings][headings]: ' + headings.length);
       for (var i = 0, j = 0, len = headings.length; i < len; i += 1) {
         var heading = headings[i];
         var role = heading.getAttribute('role');
         if ((typeof role === 'string') && (role === 'presentation')) continue;
         if (this.isVisible(heading)) {
-          heading.setAttribute('data-skip-to-id', this.skipToIdIndex);
+          if (heading.hasAttribute('data-skip-to-id')) {
+            dataId = heading.getAttribute('data-skip-to-id');
+          } else {
+            heading.setAttribute('data-skip-to-id', this.skipToIdIndex);
+            dataId = this.skipToIdIndex;
+          }
           var headingItem = {};
-          headingItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
+          headingItem.dataId = dataId.toString();
           headingItem.class = 'heading';
           headingItem.name = this.getTextContent(heading);
           headingItem.tagName = heading.tagName.toLowerCase();
           headingItem.role = 'heading';
-          this.headingElementsArr.push(headingItem);
+          headingElementsArr.push(headingItem);
           j += 1;
           this.skipToIdIndex += 1;
         }
       }
+      return headingElementsArr;
     },
     getLocalizedLandmarkName: function(tagName, name) {
       var n;
@@ -681,7 +864,6 @@
       return n;
     },
     getLandmarks: function() {
-      this.landmarkElementsArr = [];
       var targets = this.config.landmarks;
       if (typeof targets !== 'string' || targets.length === 0) return;
       var landmarks = document.querySelectorAll(targets);
@@ -691,6 +873,7 @@
       var asideElems = [];
       var footerElems = [];
       var otherElems = [];
+      var dataId = '';
       for (var i = 0, j = 0, len = landmarks.length; i < len; i = i + 1) {
         var landmark = landmarks[i];
         // if skipto is a landmark don't include it in the list
@@ -736,9 +919,14 @@
           if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'search'].indexOf(tagName) < 0) {
             tagName = 'main';
           }
-          landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
+          if (landmark.hasAttribute('data-skip-to-id')) {
+            dataId = landmark.getAttribute('data-skip-to-id');
+          } else {
+            landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
+            dataId =  this.skipToIdIndex;
+          }
           var landmarkItem = {};
-          landmarkItem.dataId = '[data-skip-to-id="' + this.skipToIdIndex + '"]';
+          landmarkItem.dataId = dataId.toString();
           landmarkItem.class = 'landmark';
           landmarkItem.name = this.getLocalizedLandmarkName(tagName, name);
           landmarkItem.tagName = tagName;
@@ -767,13 +955,12 @@
           }
         }
       }
-      this.landmarkElementsArr = [].concat(mainElems, searchElems, navElems, asideElems, footerElems, otherElems);
+      return [].concat(mainElems, searchElems, navElems, asideElems, footerElems, otherElems);
     }
   };
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
     SkipTo.init(window.SkipToConfig || window.Drupal || window.Wordpress || {});
-    SkipTo.updateMenuitems();
     console.log('SkipTo loaded...');
   });
 })();
