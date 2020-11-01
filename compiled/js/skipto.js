@@ -1,4 +1,4 @@
-/*! skipto - v3.0.0 - 2020-10-30
+/*! skipto - v3.0.0 - 2020-11-01
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -69,10 +69,8 @@
       buttonFocusBorderColor: '',
       menuBackgroundColor: '',
       menuitemColor: '',
-      menuitemLevelColor: '',
       menuitemBackgroundColor: '',
       menuitemFocusColor: '',
-      menuitemFocusLevelColor: '',
       menuitemFocusBackgroundColor: '',
       menuitemFocusBorderColor: ''
     },
@@ -88,10 +86,8 @@
         menuBackgroundColor: '#eeeeee',
         menuBorderColor: '1a1a1a',
         menuitemColor: '#1a1a1a',
-        menuitemLevelColor: '#222222',
         menuitemBackgroundColor: '#eeeeee',
         menuitemFocusColor: '#eeeeee',
-        menuitemFocusLevelColor: '#dddddd',
         menuitemFocusBackgroundColor: '#1a1a1a',
         menuitemFocusBorderColor: '#1a1a1a'
       },
@@ -106,10 +102,8 @@
         menuBackgroundColor: '#cad9ef',
         menuBorderColor: '#ff552e',
         menuitemColor: '#00132c',
-        menuitemLevelColor: '#00132c',
         menuitemBackgroundColor: '#cad9ef',
         menuitemFocusColor: '#eeeeee',
-        menuitemFocusLevelColor: '#dddddd',
         menuitemFocusBackgroundColor: '#00132c',
         menuitemFocusBorderColor: '#ff552e'
       }
@@ -142,10 +136,8 @@
       this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
       this.updateStyle('$menuBorderColor', this.config.menuBorderColor, theme.menuBorderColor);
       this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
-      this.updateStyle('$menuitemLevelColor', this.config.menuitemLevelColor, theme.menuitemLevelColor);
       this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
       this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
-      this.updateStyle('$menuitemFocusLevelColor', this.config.menuitemFocusLevelColor, theme.menuitemFocusLevelColor);
       this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
       this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
     },
