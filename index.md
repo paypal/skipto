@@ -48,7 +48,6 @@ By default, SkipTo menu will include the following places on the page:
 and options:
 
 *  The "access key" is set to 0.
-*  The menu is set not to wrap.
 *  The menu is visible on keyboard focus only (can be changed to be always visible via the "onload" parameter).
 
 You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
@@ -60,14 +59,9 @@ var skipToConfig =
 {
 	"settings": {
 		"skipTo": {
-			"headings"     : "h1, h2, h3, h4",
-			"main"         : "main, [role=main]",
-			"landmarks"    : "[role=navigation], [role=search]",
-			"sections"     : "nav",
-			"ids"          : "#SkipToA1, #SkipToA2",
+			"headings"     : "main h1, main h2",
+			"landmarks"    : "main search nav aside",
 			"customClass"  : "MyClass",
-			"accesskey"    : "0",
-			"wrap"         : "true",
 			"visibility"   : "onfocus",
 			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
 		}
