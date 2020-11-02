@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@3.0
+# skipto@3.1
 ## by PayPal Accessibility Team & University of Illinois
 See the [Authors](#authors) section for more information.
 
@@ -200,6 +200,10 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Safari -- CONTROL+0.
 
 ## Version History
+### Version 3.1
+* Added actions to dynamically update the list of landmarks and headers
+* Fixed bugs in 3.0
+
 ### Version 3.0
 * Removed id selector options, if ids are needed they could be added to the landmarks selector
 * Removed need to call initialization function
