@@ -2,21 +2,37 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>SkipTo Menu Example Page</title>
-    <style>
-        body {
-            color: #000;
-            background: #fff;
-        }
-    </style>
+    <title>Illinois Styling | SkipTo Menu Example Page</title>
+    <link href="skipTo.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../compiled/js/skipto.js"></script>
+    <script>
+        var SkipToConfig =  {
+            'settings': {
+                'skipTo': {
+                    colorTheme: 'illinois',
+                }
+            }
+        };
+    </script>
 </head>
 <body>
     <header role="banner">
         <hgroup>
-            <h1>SkipTo Menu Example</h1>
+            <h1>SkipTo Menu Example: Illinois Styling</h1>
         </hgroup>
     </header>
+    <nav aria-labelledby="id-test-pages-label">
+        <h2 id="id-test-pages-label">SkipTo Test Pages</h2>
+        <ul>
+            <li><a href="skipTo.html">Default</a></li>
+            <li><a href="skipTo-illinois.html" aria-current="page">Default: Illinois styling</a></li>
+            <li><a href="skipTo-basic.html">Basic: No Actions and no heading level shortcuts</a></li>
+            <li><a href="skipTo-custom.html">Custom elements, classes and selectors</a></li>
+            <li><a href="skipTo-no-landmarks.html">No landmarks or headings</a></li>
+        </ul>
+    </nav>
     <div role="search">
+        <h2>Search Region</h2>
         <label>Search<input type="text"/></label>
     </div>
     <nav aria-label="Quick Links">
@@ -167,20 +183,6 @@
       </div>
     </footer>
 
-    <script type="text/javascript" src="../compiled/js/skipto.js"></script>
-
-    <script>
-        var SkipToConfig =  {
-            'settings': {
-                'skipTo': {
-                    containerElem: 'p',
-                    landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"]',
-                    headings: 'h1, h2, h3',
-                    customClass: 'test'
-                }
-            }
-        };
-    </script>
 
 
 </body>

@@ -61,7 +61,7 @@
 
   display: grid;
   overflow-y: auto;
-  grid-template-columns: repeat(6, 0.85rem) 1fr;
+  grid-template-columns: 1.1rem repeat(5, 0.85rem) 1fr;
   grid-column-gap: 2px;
 }
 
@@ -81,9 +81,6 @@
   text-transform: uppercase;
 }
 
-.skip-to [role="menuitem"].action .label { grid-column: 1 / 8; }
-.skip-to [role="menuitem"].landmark .label { grid-column: 1 / 8; }
-
 .skip-to [role="menuitem"].heading .level { grid-column: 1; }
 
 .skip-to [role="menuitem"].heading .label { grid-column: 2 / 8; }
@@ -93,6 +90,19 @@
 .skip-to [role="menuitem"].heading .label.skip-to-h5 { grid-column: 6 / 8; }
 .skip-to [role="menuitem"].heading .label.skip-to-h6 { grid-column: 7 / 8;}
 
+.skip-to [role="menuitem"].heading.no-level .label { grid-column: 1 / 8; }
+.skip-to [role="menuitem"].heading.no-level .label.skip-to-h2 { grid-column: 2 / 8; }
+.skip-to [role="menuitem"].heading.no-level .label.skip-to-h3 { grid-column: 3 / 8; }
+.skip-to [role="menuitem"].heading.no-level .label.skip-to-h4 { grid-column: 4 / 8; }
+.skip-to [role="menuitem"].heading.no-level .label.skip-to-h5 { grid-column: 5 / 8; }
+.skip-to [role="menuitem"].heading.no-level .label.skip-to-h6 { grid-column: 6 / 8; }
+
+
+.skip-to [role="menuitem"].noitems .label,
+.skip-to [role="menuitem"].action .label,
+.skip-to [role="menuitem"].landmark .label {
+  grid-column: 1 / 8;
+}
 
 .skip-to [role="separator"] {
   margin: 0;
