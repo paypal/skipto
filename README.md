@@ -252,7 +252,8 @@ Access keys work  just like regular shortcut keys except that they need a browse
 ## Version History
 ### Version 3.1
 * Added actions to toggle between "Important" and "All" landmarks and headings.
-* Added more information about accesskey.
+* Added additional keyboard shortcuts in the menu based on heading level.
+* Added more information about accesskey in help.
 * Fixed bugs in 3.0
 
 ### Version 3.0
