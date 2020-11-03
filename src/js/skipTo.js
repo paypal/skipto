@@ -159,32 +159,19 @@
       return (typeof str === 'string') && str.length;
     },
     getBrowserSpecificAccesskey: function (accesskey) {
-      console.log('[getBrowserSpecificAccesskey][appName]: ' + navigator.appName);
-      console.log('[getBrowserSpecificAccesskey][userAgent]: ' + navigator.userAgent);
-      console.log('[getBrowserSpecificAccesskey][platform]: ' + navigator.platform);
-
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
 
       var hasWin = platform.indexOf('win') >= 0;
       var hasMac     = platform.indexOf('mac') >= 0;
-      var hasLinux   = platform.indexOf('linux') >= 0;
-
-      console.log('[getBrowserSpecificAccesskey][hasWindows]: ' + hasWin);
-      console.log('[getBrowserSpecificAccesskey][hasMac]: ' + hasMac);
-      console.log('[getBrowserSpecificAccesskey][hasLinux]: ' + hasLinux);
+      var hasLinux   = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
 
       var hasFirefox = userAgent.indexOf('firefox') >= 0;
       var hasChrome = userAgent.indexOf('chrome') >= 0;
       var hasSafari = userAgent.indexOf('safari') >= 0;
       var hasOpera = userAgent.indexOf('opr') >= 0;
 
-      console.log('[getBrowserSpecificAccesskey][hasFirefox]: ' + hasFirefox);
-      console.log('[getBrowserSpecificAccesskey][hasChrome]: ' + hasChrome);
-      console.log('[getBrowserSpecificAccesskey][hasSafari]: ' + hasSafari);
-      console.log('[getBrowserSpecificAccesskey][hasOpera]: ' + hasOpera);
-
-      if (hasWin) {
+      if (hasWin || hasLinux) {
         if (hasFirefox) {
           return "Shift+Alt+" + accesskey;
         } else {
@@ -368,14 +355,14 @@
           menuitemNode.classList.add('no-level');
         }
         menuitemNode.setAttribute('data-level', mi.tagName.substring(1));
+        if (mi.tagName && mi.tagName.length) {
+          menuitemNode.classList.add('skip-to-' + mi.tagName);
+        }
       }
 
       labelNode = document.createElement('span');
       labelNode.appendChild(document.createTextNode(mi.name));
       labelNode.classList.add('label');
-      if (mi.tagName && mi.tagName.length) {
-        labelNode.classList.add('skip-to-' + mi.tagName);
-      }
       menuitemNode.append(labelNode);
 
       return menuitemNode;
@@ -906,7 +893,7 @@
         strings = [];
       getText(elem, strings);
       if (strings.length) str = strings.join(" ");
-      if (str.length > 30) str = str.substring(0, 27) + "...";
+//      if (str.length > 30) str = str.substring(0, 27) + "...";
       return str;
     },
     getAccessibleName: function(elem) {
