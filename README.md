@@ -43,21 +43,23 @@ Setting properties is optional, when a property is not defined it's default valu
 
 ### Options for adding the button
 
+All options are of type `string`.
+
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
-| `displayOption` | `static` | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
-| `accessKey` | `0` | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
-| `attachElement` | `header` | A CSS selector for identifying which element to attach the menu button container. |
-| `containerElement` | `div` | Element to use as a container for the button and the menu.
-| `customClass` | `skipTo` | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
+| `displayOption` | 'static' | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
+| `accessKey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
+| `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container. |
+| `containerElement` | 'div' | Element to use as a container for the button and the menu.
+| `customClass` | none | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
 | `containerRole` | none | Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark (e.g. `header` element. |
 
 ### CSS Selectors for identifying Landmarks and Headings
 
 | Property       | Default | Description |
 | :------------- | :------ | :---------- |
-| `landmarks` | `main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]` | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
-| `headings` | `main h1, [role="main"] h1, main h2, [role="main"] h2` | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
+| `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
+| `headings` | 'main h1, [role="main"] h1, main h2, [role="main"] h2' | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
 
 ### Button Labeling
 
