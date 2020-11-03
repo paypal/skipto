@@ -42,23 +42,19 @@
       containerElement: 'div',
       containerRole: '',
       customClass: '',
-      // labels and messages
+
+      // Button labels and messages
       accesskeyNotSupported: ' is not supported on this browser.',
-      containerTitle: 'Keyboard Navigation',
-      containerTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
+      buttonTitle: 'Keyboard Navigation',
+      buttonTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
       buttonLabel: 'Skip To Content',
+
+      // Menu labels and messages
       menuLabel: 'Landmarks and Headings',
       landmarkImportantGroupLabel: 'Important Landmarks',
       landmarkAllGroupLabel: 'All Landmarks',
       headingImportantGroupLabel: 'Important Headings',
       headingAllGroupLabel: 'All Headings',
-      actionGroupLabel: 'Actions',
-      actionShowHeadingsHelp: 'Toggles through the levels of headings shown from H1 through H6 and back to important headings.',
-      actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
-      actionShowAllHeadingsLabel: 'Show All headings ($num)',
-      actionShowLandmarksHelp: 'Toggles between all landmarks and important landmarks shown.',
-      actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
-      actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
       mainLabel: 'main',
       searchLabel: 'search',
       navLabel: 'menu',
@@ -68,9 +64,20 @@
       formLabel: 'form',
       msgNoLandmarksFound: 'No landmarks found',
       msgNoHeadingsFound: 'No headings found',
+
+      // Action labels and messages
+      actionGroupLabel: 'Actions',
+      actionShowHeadingsHelp: 'Toggles between showing "All" and "Important" headings.',
+      actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
+      actionShowAllHeadingsLabel: 'Show All headings ($num)',
+      actionShowLandmarksHelp: 'Toggles between showing "All" and "Important" landmarks.',
+      actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
+      actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
+
       // Selectors for landmark and headings sections
       landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
       headings: 'main h1, [role="main"] h1, main h2, [role="main"] h2',
+
       // Custom CSS position and colors
       colorTheme: '',
       positionLeft: '',
@@ -121,7 +128,7 @@
         menuitemFocusBorderColor: '#ff552e'
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,.85rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label{margin:0;padding:0}.skip-to [role=menuitem] .level{margin:0;padding:0;color:$menuitemLevelColor}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{opacity:.9}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].landmark .label,.skip-to [role=menuitem].noitems .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}.skip-to [role=menuitem]:focus .level{opacity:1}.skip-to [role=menuitem]:focus .level{color:$menuitemFocusLevelColor}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:0;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;background-color:$menuitemBackgroundColor;border-width:0;border-style:solid;color:$menuitemColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,.85rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .level{margin:0;padding:0;color:$menuitemLevelColor}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{opacity:.8}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].landmark .label,.skip-to [role=menuitem].noitems .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}.skip-to [role=menuitem]:focus .level{opacity:1}.skip-to [role=menuitem]:focus .level{color:$menuitemFocusLevelColor}',
 
     //
     // Functions related to configuring the features
@@ -164,36 +171,24 @@
       return (typeof str === 'string') && str.length;
     },
     getBrowserSpecificAccesskey: function (accesskey) {
-      console.log('[getBrowserSpecificAccesskey][appName]: ' + navigator.appName);
-      console.log('[getBrowserSpecificAccesskey][userAgent]: ' + navigator.userAgent);
-      console.log('[getBrowserSpecificAccesskey][platform]: ' + navigator.platform);
-
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
 
       var hasWin = platform.indexOf('win') >= 0;
       var hasMac     = platform.indexOf('mac') >= 0;
-      var hasLinux   = platform.indexOf('linux') >= 0;
-
-      console.log('[getBrowserSpecificAccesskey][hasWindows]: ' + hasWin);
-      console.log('[getBrowserSpecificAccesskey][hasMac]: ' + hasMac);
-      console.log('[getBrowserSpecificAccesskey][hasLinux]: ' + hasLinux);
+      var hasLinux   = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
 
       var hasFirefox = userAgent.indexOf('firefox') >= 0;
       var hasChrome = userAgent.indexOf('chrome') >= 0;
-      var hasSafari = userAgent.indexOf('safari') >= 0;
       var hasOpera = userAgent.indexOf('opr') >= 0;
 
-      console.log('[getBrowserSpecificAccesskey][hasFirefox]: ' + hasFirefox);
-      console.log('[getBrowserSpecificAccesskey][hasChrome]: ' + hasChrome);
-      console.log('[getBrowserSpecificAccesskey][hasSafari]: ' + hasSafari);
-      console.log('[getBrowserSpecificAccesskey][hasOpera]: ' + hasOpera);
-
-      if (hasWin) {
+      if (hasWin || hasLinux) {
         if (hasFirefox) {
           return "Shift+Alt+" + accesskey;
         } else {
-          return "Alt+" + accesskey;
+          if (hasChrome || hasOpera) {
+            return "Alt+" + accesskey;
+          }
         }
       }
 
@@ -224,15 +219,6 @@
       if (this.isNotEmptyString(this.config.containerRole)) {
         this.domNode.setAttribute('role', this.config.containerRole);
       }
-      if (this.isNotEmptyString(this.config.containerTitleWithAccesskey) &&
-        (this.config.accesskey.length === 1)) {
-        var title = this.config.containerTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.domNode.setAttribute('title', title);
-      } else {
-        if (this.isNotEmptyString(this.config.containerTitle)) {
-          this.domNode.setAttribute('title', this.config.containerTitle);
-        }
-      }
       var displayOption = this.config.displayOption;
       if (typeof displayOption === 'string') {
         displayOption = displayOption.trim().toLowerCase();
@@ -258,6 +244,17 @@
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
+
+      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
+        (this.config.accesskey.length === 1)) {
+        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        this.buttonNode.setAttribute('title', title);
+      } else {
+        if (this.isNotEmptyString(this.config.buttonTitle)) {
+          this.buttonNode.setAttribute('title', this.config.buttonTitle);
+        }
+      }
+
       this.domNode.appendChild(this.buttonNode);
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
@@ -464,6 +461,7 @@
       item.dataId = 'skip-to-more-headings';
       var menuitemNode = this.addMenuitemToGroup(groupNode, item);
       menuitemNode.setAttribute('data-show-heading-option', 'all');
+      menuitemNode.title = this.config.actionShowHeadingsHelp;
     },
 
     updateHeadingGroupMenuitems: function(option) {
@@ -536,6 +534,7 @@
       item.dataId = 'skip-to-more-landmarks';
       var menuitemNode = this.addMenuitemToGroup(groupNode, item);
       menuitemNode.setAttribute('data-show-landmark-option', 'all');
+      menuitemNode.title = this.config.actionShowLandmarksHelp;
     },
 
     updateLandmarksGroupMenuitems: function(option) {
@@ -911,7 +910,6 @@
         strings = [];
       getText(elem, strings);
       if (strings.length) str = strings.join(" ");
-//      if (str.length > 30) str = str.substring(0, 27) + "...";
       return str;
     },
     getAccessibleName: function(elem) {

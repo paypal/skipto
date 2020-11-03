@@ -37,23 +37,19 @@
       containerElement: 'div',
       containerRole: '',
       customClass: '',
-      // labels and messages
+
+      // Button labels and messages
       accesskeyNotSupported: ' is not supported on this browser.',
-      containerTitle: 'Keyboard Navigation',
-      containerTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
+      buttonTitle: 'Keyboard Navigation',
+      buttonTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
       buttonLabel: 'Skip To Content',
+
+      // Menu labels and messages
       menuLabel: 'Landmarks and Headings',
       landmarkImportantGroupLabel: 'Important Landmarks',
       landmarkAllGroupLabel: 'All Landmarks',
       headingImportantGroupLabel: 'Important Headings',
       headingAllGroupLabel: 'All Headings',
-      actionGroupLabel: 'Actions',
-      actionShowHeadingsHelp: 'Toggles through the levels of headings shown from H1 through H6 and back to important headings.',
-      actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
-      actionShowAllHeadingsLabel: 'Show All headings ($num)',
-      actionShowLandmarksHelp: 'Toggles between all landmarks and important landmarks shown.',
-      actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
-      actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
       mainLabel: 'main',
       searchLabel: 'search',
       navLabel: 'menu',
@@ -63,9 +59,20 @@
       formLabel: 'form',
       msgNoLandmarksFound: 'No landmarks found',
       msgNoHeadingsFound: 'No headings found',
+
+      // Action labels and messages
+      actionGroupLabel: 'Actions',
+      actionShowHeadingsHelp: 'Toggles between showing "All" and "Important" headings.',
+      actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
+      actionShowAllHeadingsLabel: 'Show All headings ($num)',
+      actionShowLandmarksHelp: 'Toggles between showing "All" and "Important" landmarks.',
+      actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
+      actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
+
       // Selectors for landmark and headings sections
       landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
       headings: 'main h1, [role="main"] h1, main h2, [role="main"] h2',
+
       // Custom CSS position and colors
       colorTheme: '',
       positionLeft: '',
@@ -168,14 +175,15 @@
 
       var hasFirefox = userAgent.indexOf('firefox') >= 0;
       var hasChrome = userAgent.indexOf('chrome') >= 0;
-      var hasSafari = userAgent.indexOf('safari') >= 0;
       var hasOpera = userAgent.indexOf('opr') >= 0;
 
       if (hasWin || hasLinux) {
         if (hasFirefox) {
           return "Shift+Alt+" + accesskey;
         } else {
-          return "Alt+" + accesskey;
+          if (hasChrome || hasOpera) {
+            return "Alt+" + accesskey;
+          }
         }
       }
 
@@ -206,15 +214,6 @@
       if (this.isNotEmptyString(this.config.containerRole)) {
         this.domNode.setAttribute('role', this.config.containerRole);
       }
-      if (this.isNotEmptyString(this.config.containerTitleWithAccesskey) &&
-        (this.config.accesskey.length === 1)) {
-        var title = this.config.containerTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.domNode.setAttribute('title', title);
-      } else {
-        if (this.isNotEmptyString(this.config.containerTitle)) {
-          this.domNode.setAttribute('title', this.config.containerTitle);
-        }
-      }
       var displayOption = this.config.displayOption;
       if (typeof displayOption === 'string') {
         displayOption = displayOption.trim().toLowerCase();
@@ -240,6 +239,17 @@
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
+
+      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
+        (this.config.accesskey.length === 1)) {
+        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        this.buttonNode.setAttribute('title', title);
+      } else {
+        if (this.isNotEmptyString(this.config.buttonTitle)) {
+          this.buttonNode.setAttribute('title', this.config.buttonTitle);
+        }
+      }
+
       this.domNode.appendChild(this.buttonNode);
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
@@ -446,6 +456,7 @@
       item.dataId = 'skip-to-more-headings';
       var menuitemNode = this.addMenuitemToGroup(groupNode, item);
       menuitemNode.setAttribute('data-show-heading-option', 'all');
+      menuitemNode.title = this.config.actionShowHeadingsHelp;
     },
 
     updateHeadingGroupMenuitems: function(option) {
@@ -518,6 +529,7 @@
       item.dataId = 'skip-to-more-landmarks';
       var menuitemNode = this.addMenuitemToGroup(groupNode, item);
       menuitemNode.setAttribute('data-show-landmark-option', 'all');
+      menuitemNode.title = this.config.actionShowLandmarksHelp;
     },
 
     updateLandmarksGroupMenuitems: function(option) {
@@ -893,7 +905,6 @@
         strings = [];
       getText(elem, strings);
       if (strings.length) str = strings.join(" ");
-//      if (str.length > 30) str = str.substring(0, 27) + "...";
       return str;
     },
     getAccessibleName: function(elem) {

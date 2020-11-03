@@ -3,7 +3,7 @@ layout: index
 ---
 
 
-# SkipTo, version 3.0
+# SkipTo, version 3.1
 ## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 
@@ -42,16 +42,15 @@ By default, SkipTo menu will include the following places on the page:
 *  Heading (e.g h1, h2, h3 and h4 elements).
 *  ARIA landmarks (e.g. banner, navigation, main and search).
 *  HTML5 Section Elements (e.g. main, section[aria-label], section[aria-labelledby]
-*  Any element with the id specified via the configuration file.
-*  Any element with the custom class specified via the configuration file.
 
 and options:
 
-*  The "access key" is set to 0.
-*  The menu is visible on keyboard focus only (can be changed to be always visible via the "onload" parameter).
+*  The default "access key" is set to 0.
+*  The menu button by default is visible, but can be configured to appear on keyboard focus only.
 
 You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
-If you are using either WordPress plugin or Drupal module, you can change the SkipTo options under the "settings" section of your particular content management system. If, however, you are utilizing the plain vanilla Javascript, you will need to provide a JSON object containing the necessary configuration parameters. This may look like the following:
+
+You will need to provide a JSON object containing the necessary configuration parameters for changing behaviors or styling from default values. This may look like the following:
 
 ```html
 <script>
@@ -62,7 +61,7 @@ var skipToConfig =
 			"headings"     : "main h1, main h2",
 			"landmarks"    : "main search nav aside",
 			"customClass"  : "MyClass",
-			"visibility"   : "onfocus",
+      "displayOption": "popup",
 			"attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
 		}
 	}
@@ -79,7 +78,7 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 *  When the custom class is specified (see the customClass parameter), the user can override the style, EG
 
 ```CSS
-.dropMenu .MyCustomClass {
+.skipTo.MyCustomClass {
 	background:  red;
 	left: 50px;
 	top: 50px;

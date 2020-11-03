@@ -66,11 +66,6 @@
   font-size: 1em;
 }
 
-.skip-to [role="menuitem"] .label {
-  margin: 0;
-  padding: 0;
-}
-
 .skip-to [role="menuitem"] .level {
   margin: 0;
   padding: 0;
@@ -82,7 +77,18 @@
   text-transform: uppercase;
 }
 
-.skip-to [role="menuitem"] .level { opacity: 0.9; }
+.skip-to [role="menuitem"] .level {
+  opacity: 0.8;
+}
+
+.skip-to [role="menuitem"] .label {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .skip-to [role="menuitem"].skip-to-h1 .level { grid-column: 1; }
 .skip-to [role="menuitem"].skip-to-h2 .level { grid-column: 2; }
