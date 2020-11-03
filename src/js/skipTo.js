@@ -38,9 +38,9 @@
       containerRole: '',
       customClass: '',
       // labels and messages
-      accesskeyNotSupported: 'not supported on this browser',
+      accesskeyNotSupported: ' is not supported on this browser.',
       containerTitle: 'Keyboard Navigation',
-      containerTitleWithAccesskey: 'Keyboard Navigation, accesskey is "$key"',
+      containerTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
       buttonLabel: 'Skip To Content',
       menuLabel: 'Landmarks and Headings',
       landmarkImportantGroupLabel: 'Important Landmarks',
@@ -546,7 +546,7 @@
       }
 
       var labelNode = this.menuNode.querySelector('#id-skip-to-group-landmarks-label');
-      labelNode.textContent = this.getHeadingsGroupLabel(option);
+      labelNode.textContent = this.getLandmarksGroupLabel(option);
 
       if (option === 'all') {
         option = 'important';
