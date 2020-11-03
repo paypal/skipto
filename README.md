@@ -196,12 +196,13 @@ PayPal Accessibility Team
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
 
 *  Mozilla Firefox -- ALT+SHIFT+0.
-*  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
+*  Google Chrome -- ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
 *  Safari -- CONTROL+0.
 
 ## Version History
 ### Version 3.1
 * Added actions to dynamically update the list of landmarks and headers
+* Added more information about accesskey.
 * Fixed bugs in 3.0
 
 ### Version 3.0

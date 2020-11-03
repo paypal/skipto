@@ -22,7 +22,7 @@
     headingLevels: [],
     skipToIdIndex: 1,
     showAllLandmarksSelector: "main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]",
-    showHeadingSelectors: ['', 'h1', 'h1, h2', 'h1, h2, h3', 'h1, h2, h3, h4', 'h1, h2, h3, h4, h5', 'h1, h2, h3, h4, h5, h6'],
+    showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     // Default configuration values
     config: {
       // Feature switches
@@ -38,6 +38,7 @@
       containerRole: '',
       customClass: '',
       // labels and messages
+      accesskeyNotSupported: 'not supported on this browser',
       containerTitle: 'Keyboard Navigation',
       containerTitleWithAccesskey: 'Keyboard Navigation, accesskey is "$key"',
       buttonLabel: 'Skip To Content',
@@ -45,21 +46,11 @@
       landmarkImportantGroupLabel: 'Important Landmarks',
       landmarkAllGroupLabel: 'All Landmarks',
       headingImportantGroupLabel: 'Important Headings',
-      headingH1GroupLabel: 'H1 Headings',
-      headingH2GroupLabel: 'H1-H2 Headings',
-      headingH3GroupLabel: 'H1-H3 Headings',
-      headingH4GroupLabel: 'H1-H4 Headings',
-      headingH5GroupLabel: 'H1-H5 Headings',
-      headingH6GroupLabel: 'H1-H6 Headings',
+      headingAllGroupLabel: 'All Headings',
       actionGroupLabel: 'Actions',
       actionShowHeadingsHelp: 'Toggles through the levels of headings shown from H1 through H6 and back to important headings.',
       actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
-      actionShowH1HeadingsLabel: 'Show H1 headings ($num)',
-      actionShowH2HeadingsLabel: 'Show H1-H2 headings ($num)',
-      actionShowH3HeadingsLabel: 'Show H1-H3 headings ($num)',
-      actionShowH4HeadingsLabel: 'Show H1-H4 headings ($num)',
-      actionShowH5HeadingsLabel: 'Show H1-H5 headings ($num)',
-      actionShowH6HeadingsLabel: 'Show H1-H6 headings ($num)',
+      actionShowAllHeadingsLabel: 'Show All headings ($num)',
       actionShowLandmarksHelp: 'Toggles between all landmarks and important landmarks shown.',
       actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
       actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
@@ -167,6 +158,34 @@
     isNotEmptyString: function(str) {
       return (typeof str === 'string') && str.length;
     },
+    getBrowserSpecificAccesskey: function (accesskey) {
+      console.log('[getBrowserSpecificAccesskey][appName]: ' + navigator.appName);
+      console.log('[getBrowserSpecificAccesskey][userAgent]: ' + navigator.userAgent);
+      console.log('[getBrowserSpecificAccesskey][platform]: ' + navigator.platform);
+
+      var userAgent = navigator.userAgent.toLowerCase();
+      var platform =  navigator.platform.toLowerCase();
+
+      var hasWindows = platform.indexOf('win') >= 0;
+      var hasMac     = platform.indexOf('mac') >= 0;
+      var hasLinux   = platform.indexOf('linux') >= 0;
+
+      console.log('[getBrowserSpecificAccesskey][hasWindows]: ' + hasWindows);
+      console.log('[getBrowserSpecificAccesskey][hasMac]: ' + hasMac);
+      console.log('[getBrowserSpecificAccesskey][hasLinux]: ' + hasLinux);
+
+      var hasFirefox = userAgent.indexOf('firefox') >= 0;
+      var hasChrome = userAgent.indexOf('chrome') >= 0;
+      var hasSafari = userAgent.indexOf('safari') >= 0;
+      var hasOpera = userAgent.indexOf('opr') >= 0;
+
+      console.log('[getBrowserSpecificAccesskey][hasFirefox]: ' + hasFirefox);
+      console.log('[getBrowserSpecificAccesskey][hasChrome]: ' + hasChrome);
+      console.log('[getBrowserSpecificAccesskey][hasSafari]: ' + hasSafari);
+      console.log('[getBrowserSpecificAccesskey][hasOpera]: ' + hasOpera);
+
+      return this.config.accesskeyNotSupported + ' (Accesskey: ' + accesskey + ')';
+    },
     init: function(config) {
       var attachElement = document.body;
       if (config) {
@@ -190,7 +209,7 @@
       }
       if (this.isNotEmptyString(this.config.containerTitleWithAccesskey) &&
         (this.config.accesskey.length === 1)) {
-        var title = this.config.containerTitleWithAccesskey.replace('$key', this.config.accesskey);
+        var title = this.config.containerTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
         this.domNode.setAttribute('title', title);
       } else {
         if (this.isNotEmptyString(this.config.containerTitle)) {
@@ -202,6 +221,7 @@
         displayOption = displayOption.trim().toLowerCase();
         if (displayOption.length) {
           switch (this.config.displayOption) {
+            case 'onfocus':  // Legacy option
             case 'popup':
               this.domNode.classList.add('popup');
               break;
@@ -387,45 +407,15 @@
     },
 
     getHeadingsGroupLabel: function(option) {
-      if (typeof option !== 'number') {
-        option = 0;
-      }
-
-      if (option > 6) {
-        option = 0;
-      }
-
-      switch (option) {
-        case 1:
-          return this.config.headingH1GroupLabel;
-
-        case 2:
-          return this.config.headingH2GroupLabel;
-
-        case 3:
-          return this.config.headingH3GroupLabel;
-
-        case 4:
-          return this.config.headingH4GroupLabel;
-
-        case 5:
-          return this.config.headingH5GroupLabel;
-
-        case 6:
-          return this.config.headingH6GroupLabel;
-
-        default:
-          return this.config.headingImportantGroupLabel;
-      }
+        if (option === 'all') {
+          return this.config.headingAllGroupLabel;
+        }
+        return this.config.headingImportantGroupLabel;
     },
 
     getShowMoreHeadingsSelector: function(option) {
-      if (typeof option !== 'number') {
-        option = 0;
-      }
-
-      if (option > 0 && option < 7) {
-        return this.showHeadingSelectors[option];
+      if (option === 'all') {
+        return this.showAllHeadingsSelector;
       }
       return this.config.headings;
     },
@@ -433,44 +423,11 @@
     getShowMoreHeadingsLabel: function(option) {
       var label, n;
 
-      if (typeof option !== 'number') {
-        option = 0;
+      label = this.config.actionShowImportantHeadingsLabel;
+
+      if (option === 'all') {
+        label = this.config.actionShowAllHeadingsLabel;
       }
-
-      if (option > 6) {
-        option = 0;
-      }
-
-      switch (option) {
-        case 1:
-          label = this.config.actionShowH1HeadingsLabel;
-          break;
-
-        case 2:
-          label = this.config.actionShowH2HeadingsLabel;
-          break;
-
-        case 3:
-          label = this.config.actionShowH3HeadingsLabel;
-          break;
-
-        case 4:
-          label = this.config.actionShowH4HeadingsLabel;
-          break;
-
-        case 5:
-          label = this.config.actionShowH5HeadingsLabel;
-          break;
-
-        case 6:
-          label = this.config.actionShowH6HeadingsLabel;
-          break;
-
-        default:
-          label = this.config.actionShowImportantHeadingsLabel;
-          break;
-      }
-
       n = this.getHeadings(this.getShowMoreHeadingsSelector(option));
       if (n && n.length) {
         n = n.length;
@@ -483,21 +440,17 @@
 
     addActionMoreHeadings: function(groupNode) {
       var item = {};
-      item.name = this.getShowMoreHeadingsLabel(1);
+      item.name = this.getShowMoreHeadingsLabel('all');
       item.tagName = 'action';
       item.role = 'menuitem';
       item.class = 'action';
       item.dataId = 'skip-to-more-headings';
       var menuitemNode = this.addMenuitemToGroup(groupNode, item);
-      menuitemNode.setAttribute('data-show-heading-level', 1);
+      menuitemNode.setAttribute('data-show-heading-option', 'all');
     },
 
-    updateHeadingGroupMenuitems: function(level) {
-      if (typeof level !== 'number') {
-        level = 0;
-      }
-
-      var selector = this.getShowMoreHeadingsSelector(level);
+    updateHeadingGroupMenuitems: function(option) {
+      var selector = this.getShowMoreHeadingsSelector(option);
       var headings = this.getHeadings(selector);
       var groupNode = document.getElementById('id-skip-to-group-headings');
       this.addMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
@@ -509,51 +462,39 @@
       }
 
       var labelNode = this.menuNode.querySelector('#id-skip-to-group-headings-label');
-      labelNode.textContent = this.getHeadingsGroupLabel(level);
+      labelNode.textContent = this.getHeadingsGroupLabel(option);
 
-      level = level + 1;
-      if (level > 6) {
-        level = 0;
+      if (option === 'all') {
+        option = 'important';
+      } else {
+        option = 'all';
       }
 
       var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-headings]');
-      menuitemNode.setAttribute('data-show-heading-level', level);
+      menuitemNode.setAttribute('data-show-heading-option', option);
 
       labelNode = menuitemNode.querySelector('span.label');
-      labelNode.textContent = this.getShowMoreHeadingsLabel(level);
+      labelNode.textContent = this.getShowMoreHeadingsLabel(option);
     },
 
     getLandmarksGroupLabel: function(option) {
-      if (typeof option !== 'number') {
-        option = 0;
-      }
-
-      if (option === 1) {
+      if (option === 'all') {
         return this.config.landmarkAllGroupLabel;
       }
       return this.config.landmarkImportantGroupLabel;
     },
 
     getShowMoreLandmarksSelector: function(option) {
-      var selector = this.config.landmarks;
-      if (typeof option !== 'number') {
-        option = 0;
+      if (option === 'all') {
+        return this.showAllLandmarksSelector;
       }
-
-      if (option === 1) {
-        selector = this.showAllLandmarksSelector;
-      }
-      return selector;
+      return this.config.landmarks;
     },
 
     getShowMoreLandmarksLabel: function(option) {
       var label, n;
 
-      if (typeof option !== 'number') {
-        option = 0;
-      }
-
-      if (option === 1) {
+      if (option === 'all') {
         label = this.config.actionShowAllLandmarksLabel;
       } else {
         label = this.config.actionShowImportantLandmarksLabel;
@@ -571,13 +512,13 @@
 
     addActionMoreLandmarks: function(groupNode) {
       var item = {};
-      item.name = this.getShowMoreLandmarksLabel(1);
+      item.name = this.getShowMoreLandmarksLabel('all');
       item.tagName = 'action';
       item.role = 'menuitem';
       item.class = 'action';
       item.dataId = 'skip-to-more-landmarks';
       var menuitemNode = this.addMenuitemToGroup(groupNode, item);
-      menuitemNode.setAttribute('data-show-landmark-option', 1);
+      menuitemNode.setAttribute('data-show-landmark-option', 'all');
     },
 
     updateLandmarksGroupMenuitems: function(option) {
@@ -592,12 +533,13 @@
         groupNode.firstElementChild.focus();
       }
 
-      var labelNode = this.menuNode.querySelector('#id-skip-to-group-headings-label');
+      var labelNode = this.menuNode.querySelector('#id-skip-to-group-landmarks-label');
       labelNode.textContent = this.getHeadingsGroupLabel(option);
 
-      option = option + 1;
-      if (option > 1) {
-        option = 0;
+      if (option === 'all') {
+        option = 'important';
+      } else {
+        option = 'all';
       }
 
       var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-landmarks]');
@@ -614,24 +556,15 @@
         this.menuNode.removeChild(this.menuNode.lastElementChild);
       }
 
-      // initialize menu variables
-      this.showHeadingLevel = 1;
-
-      console.log('[createMenu][A]');
-
       // Create landmarks group
       landmarkElems = this.getLandmarks();
       groupNode = this.addMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkImportantGroupLabel);
       this.addMenuitemsToGroup(groupNode, landmarkElems, this.config.msgNoLandmarksFound);
 
-      console.log('[createMenu][B]');
-
       // Create headings group
       headingElems = this.getHeadings();
       groupNode = this.addMenuitemGroup('id-skip-to-group-headings', this.config.headingImportantGroupLabel);
       this.addMenuitemsToGroup(groupNode, headingElems, this.config.msgNoHeadingsFound);
-
-      console.log('[createMenu][C]');
 
       // Create actions, if enabled
       if (this.config.enableActions) {
@@ -640,13 +573,8 @@
         this.addActionMoreLandmarks(groupNode);
       }
 
-      console.log('[createMenu][D]');
-
       // Update list of menuitems
       this.updateMenuitems();
-
-      console.log('[createMenu][E]');
-
     },
 
     //
@@ -828,22 +756,12 @@
           break;
 
         case 'skip-to-more-headings':
-          option = tgt.getAttribute('data-show-heading-level');
-          if (isNaN(option)) {
-            option = 0;
-          } else {
-            option = parseInt(option);
-          }
+          option = tgt.getAttribute('data-show-heading-option');
           this.updateHeadingGroupMenuitems(option);
           break;
 
         case 'skip-to-more-landmarks':
           option = tgt.getAttribute('data-show-landmark-option');
-          if (isNaN(option)) {
-            option = 0;
-          } else {
-            option = parseInt(option);
-          }
           this.updateLandmarksGroupMenuitems(option);
           break;
 
