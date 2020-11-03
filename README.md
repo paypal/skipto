@@ -43,7 +43,7 @@ Setting properties is optional, when a property is not defined it's default valu
 
 ### Options for adding the button
 
-All options are of type `string`.
+The following options are usefule for identify where the menu will be in the DOM structure of the page and which elements will be used as the container for the menu button.  The options are of type `string`.
 
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
@@ -56,6 +56,10 @@ All options are of type `string`.
 
 ### CSS Selectors for identifying Landmarks and Headings
 
+The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be realtively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
+
+The options are of type `string`.
+
 | Property       | Default | Description |
 | :------------- | :------ | :---------- |
 | `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
@@ -63,7 +67,7 @@ All options are of type `string`.
 
 ### Button Labeling
 
-The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
+The labels and messages can be localized for specific languages or updated to reflect custom selectors.
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
