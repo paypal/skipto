@@ -171,11 +171,11 @@
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
 
-      var hasWindows = platform.indexOf('win') >= 0;
+      var hasWin = platform.indexOf('win') >= 0;
       var hasMac     = platform.indexOf('mac') >= 0;
       var hasLinux   = platform.indexOf('linux') >= 0;
 
-      console.log('[getBrowserSpecificAccesskey][hasWindows]: ' + hasWindows);
+      console.log('[getBrowserSpecificAccesskey][hasWindows]: ' + hasWin);
       console.log('[getBrowserSpecificAccesskey][hasMac]: ' + hasMac);
       console.log('[getBrowserSpecificAccesskey][hasLinux]: ' + hasLinux);
 
@@ -189,7 +189,19 @@
       console.log('[getBrowserSpecificAccesskey][hasSafari]: ' + hasSafari);
       console.log('[getBrowserSpecificAccesskey][hasOpera]: ' + hasOpera);
 
-      return this.config.accesskeyNotSupported + ' (Accesskey: ' + accesskey + ')';
+      if (hasWin) {
+        if (hasFirefox) {
+          return "Shift+Alt+" + accesskey;
+        } else {
+          return "Alt+" + accesskey;
+        }
+      }
+
+      if (hasMac) {
+        return "Control+Option+" + accesskey;
+      }
+
+      return accesskey + this.config.accesskeyNotSupported;
     },
     init: function(config) {
       var attachElement = document.body;
