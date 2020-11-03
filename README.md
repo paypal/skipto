@@ -78,12 +78,12 @@ The labels and messages can be localized for specific languages or updated to re
 
 ### Menu Content Options
 
-The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.
+The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
-| `enableActions` | `true` | Enable (`true`) or disable (`false`) the action buttons in the menu. |
-| `enableHeadingLevelShortcuts` | `true` | Enable (`true`) or disable (`false`) the heading levels on the heading menu items. |
+| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
+| `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
 
 ### Menu, Group and Menuitem Labeling
 
