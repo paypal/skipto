@@ -231,7 +231,9 @@ The source code in this section is for developers to understand the HTML, classe
           main: Main using main element a...
         </span>
       </div>
+
       ... more menu items ...
+
     </div>  // End Landmarks Group
     <div id="id-skip-to-group-headings-label"
       role="separator">
@@ -268,7 +270,9 @@ The source code in this section is for developers to understand the HTML, classe
           Pastrami
         </span>
       </div>
+
       ... more menu items ...
+
     </div>  // End Headings Group
     //
     // Action group label and menu items
