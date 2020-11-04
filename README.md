@@ -1,13 +1,13 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@3.0
+# skipto@3.1
 ## by PayPal Accessibility Team & University of Illinois
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
-### Benefits of SkipTo
+### Benefits
 * All users can get an outline of the content on the page.
 * Screen reader users can get a higher level navigation menu without having to use the screen reader landmark and header navigation commands which typically include longer lists of lower level headings and less used landmarks.
 * Keyboard only users can more efficiently navigate to content on a page.
@@ -16,16 +16,16 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
-1.  The SkipTo menu button is the first tabable element on the page, and if it is not visible becomes the first time the user tabs into the page.
-2.  Once the keyboard focus is on the menu button, pressing the ENTER or the SPACEBAR key will pull down the list of high-level headings and on the current page.
-3.  Use arrow keys to select your choice and press ENTER to skip to it.
+1.  The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is locaed, the menu button becomes visible when it receives focus.
+2.  Once the keyboard focus is on the menu button, pressing the ENTER or the SPACEBAR key will pull down the list of important landmarks and headings on the page.
+3.  Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4.  If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## How do I get it on my web site?
 All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
-To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
+To use the SkipTo script, just include it anywhere on your HTML page or template, as follows:
 
 ```
 <script src="http://[your domain]/[path to javascript directory]/SkipTo.min.js"></script>
@@ -41,34 +41,61 @@ A module is being considered for WordPress.
 
 Setting properties is optional, when a property is not defined it's default value is used.
 
-### Options for adding the button
+### Options for adding the `button` element
+
+The following options are usefule for identify where the menu will be in the DOM structure of the page and which elements will be used as the container for the menu button.  The options are of type `string`.
 
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
-| `displayOption` | `static` | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
-| `accessKey` | `0` | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
-| `attachElement` | `header` | A CSS selector for identifying which element to attach the menu button container. |
-| `containerElement` | `div` | Element to use as a container for the button and the menu.
-| `customClass` | `skipTo` | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
+| `displayOption` | 'static' | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
+| `accessKey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
+| `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container. |
+| `containerElement` | 'div' | Element to use as a container for the button and the menu.
+| `customClass` | none | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
 | `containerRole` | none | Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark (e.g. `header` element. |
 
 ### CSS Selectors for identifying Landmarks and Headings
 
+The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be realtively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
+
+The options are of type `string`.
+
 | Property       | Default | Description |
 | :------------- | :------ | :---------- |
-| `landmarks` | `main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]` | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
-| `headings` | `main h1, [role="main"] h1, main h2, [role="main"] h2` | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
+| `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
+| `headings` | 'main h1, [role="main"] h1, main h2, [role="main"] h2' | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
 
-### Button and Menu labeling
+### Button Labeling
+
+The labels and messages can be localized for specific languages or updated to reflect custom selectors.
+
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `buttonLabel` | 'Skip to Content' | Change the label for the button. |
+| `buttonTitle` | 'Keyboard Navigation' | Help message when accesskey is not defined. |
+| `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
+| `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
+
+### Menu Content Options
+
+The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
+
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
+| `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
+
+### Menu, Group and Menuitem Labeling
 
 The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
-| `buttonLabel` | 'Skip to Content' | Change the label for the button. |
-| `menuLabel` | Landmarks and Headings' | Change the label for the menu. |
-| `landmarkGroupLabel` | 'Landmarks' | Change the menu group label for landmarks. |
-| `headingGroupLabel` | 'Main Headings' | Change the menu group label for headings. |
+| `menuLabel` | 'Landmarks and Headings' | Change the label for the menu. |
+| `landmarkImportantGroupLabel` | 'Important Landmarks' | Menu group label for landmarks when important landmarks are in the menu. |
+| `headingImportantGroupLabel` | 'Important Headings' | Menu group label for landmarks when important headings are in the menu. |
+| `landmarkAllGroupLabel` | 'All Landmarks' | Menu group label for landmarks when all landmarks are in the menu. |
+| `headingAllGroupLabel` | 'All Headings' | Menu group label for headings when all headings are in the menu. |
 | `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
 | `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
@@ -79,13 +106,28 @@ The labels and messages can be localized for s specific languages or updated to 
 | `msgNoLandmarksFound` | 'No landmarks to skip to'| Message for when no landmarks are found. |
 | `msgNoHeadingsFound` | 'No main headings to skip to'| Message for when no headings are found. |
 
+### Action labeling
+
+The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
+
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `menuLabel` | 'Landmarks and Headings' | Change the label for the menu. |
+| `landmarkImportantGroupLabel` | 'Important Landmarks' | Menu group label for
+| `actionGroupLabel` | 'Actions' | The group label for the action menu items. |
+| `actionShowHeadingsHelp` | 'Toggles between showing "All" and "Important" headings.' | The value of the title attribute for the show headings action menu item. |
+| `actionShowImportantHeadingsLabel` | 'Show Important Headings ($num)' | The label for the menu item when the button action is to show "Important" headings. |
+| `actionShowAllHeadingsLabel` | 'Show All headings ($num)'| The label for the menu item when the button action is to show "All" headings. |
+| `actionShowLandmarksHelp` | 'Toggles between showing "All" and "Important" landmarks.' | The value of the title attribute for the show landmarks action menu item. |
+| `actionShowImportantLandmarksLabel` | 'Show Important landmarks ($num)' | The label for the menu item when the button action is to show "Important" landmarks. |
+| `actionShowAllLandmarksLabel` | 'Show All landmarks ($num)'  | The label for the menu item when the button action is to show "All" landmarks. |
+
 ### Colors used for Button and Menu styling
 
 Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
-| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
 | `buttonColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
 | `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
 | `buttonBorderColor` | Color | `#eeeeee` | Border color of text for "Skip To Content" button. |
@@ -101,6 +143,14 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 | `menuitemFocusBorderColor` | Color | `#1a1a1a`  | Menuitem border color then it has focus. |
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
+
+### Color Theme Options
+
+A color theme sets all the color options defined by the theme.  There is only one theme at this time.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
 
 ### Position of Button
 
@@ -195,11 +245,17 @@ PayPal Accessibility Team
 ## <a name="access-keys">Access keys</a>
 Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
 
-*  Mozilla Firefox -- ALT+SHIFT+0.
-*  Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
-*  Safari -- CONTROL+0.
+*  Mozilla Firefox -- Alt+Shift+0.
+*  Google Chrome -- Alt+0 (Windows) and Control+Option+0 (Mac OS).
+*  Safari -- Control+Option+0.
 
 ## Version History
+### Version 3.1
+* Added actions to toggle between "Important" and "All" landmarks and headings.
+* Added additional keyboard shortcuts in the menu based on heading level.
+* Added more information about accesskey in help.
+* Fixed bugs in 3.0
+
 ### Version 3.0
 * Removed id selector options, if ids are needed they could be added to the landmarks selector
 * Removed need to call initialization function

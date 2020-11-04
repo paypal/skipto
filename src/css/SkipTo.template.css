@@ -38,13 +38,18 @@
   z-index: 1000;
 }
 
+.skip-to [role="group"] {
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-row-gap: 1px;
+}
+
 .skip-to [role="separator"]:first-child {
 	border-radius: 5px 5px 0 0;
 }
 
 .skip-to [role="menuitem"] {
-  margin: 1px;
-  padding: 4px;
+  padding: 3px;
   display: block;
   width: auto;
   background-color: $menuitemBackgroundColor;
@@ -52,16 +57,70 @@
   border-style: solid;
   color: $menuitemColor;
   z-index: 1000;
+
+  display: grid;
+  overflow-y: auto;
+  grid-template-columns: repeat(6, 0.85rem) 1fr;
+  grid-column-gap: 2px;
+
+  font-size: 1em;
 }
 
-.skip-to [role="menuitem"]:first-letter {
+.skip-to [role="menuitem"] .level {
+  margin: 0;
+  padding: 0;
+  color: $menuitemLevelColor;
+}
+.skip-to [role="menuitem"] .level:first-letter,
+.skip-to [role="menuitem"] .label:first-letter {
   text-decoration: underline;
   text-transform: uppercase;
 }
 
-.skip-to [role="separator"] {
+.skip-to [role="menuitem"] .level {
+  opacity: 0.7;
+}
+
+.skip-to [role="menuitem"] .label {
   margin: 0;
-  padding: 4px;
+  padding: 0;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skip-to [role="menuitem"].skip-to-h1 .level { grid-column: 1; }
+.skip-to [role="menuitem"].skip-to-h2 .level { grid-column: 2; }
+.skip-to [role="menuitem"].skip-to-h3 .level { grid-column: 3; }
+.skip-to [role="menuitem"].skip-to-h4 .level { grid-column: 4; }
+.skip-to [role="menuitem"].skip-to-h5 .level { grid-column: 5; }
+.skip-to [role="menuitem"].skip-to-h6 .level { grid-column: 8;}
+
+.skip-to [role="menuitem"].skip-to-h1 .label { grid-column: 2 / 8; }
+.skip-to [role="menuitem"].skip-to-h2 .label { grid-column: 3 / 8; }
+.skip-to [role="menuitem"].skip-to-h3 .label { grid-column: 4 / 8; }
+.skip-to [role="menuitem"].skip-to-h4 .label { grid-column: 5 / 8; }
+.skip-to [role="menuitem"].skip-to-h5 .label { grid-column: 6 / 8; }
+.skip-to [role="menuitem"].skip-to-h6 .label { grid-column: 7 / 8;}
+
+.skip-to [role="menuitem"].skip-to-h1.no-level .label { grid-column: 1 / 8; }
+.skip-to [role="menuitem"].skip-to-h2.no-level .label { grid-column: 2 / 8; }
+.skip-to [role="menuitem"].skip-to-h3.no-level .label { grid-column: 3 / 8; }
+.skip-to [role="menuitem"].skip-to-h4.no-level .label { grid-column: 4 / 8; }
+.skip-to [role="menuitem"].skip-to-h5.no-level .label { grid-column: 5 / 8; }
+.skip-to [role="menuitem"].skip-to-h6.no-level .label { grid-column: 6 / 8; }
+
+
+.skip-to [role="menuitem"].noitems .label,
+.skip-to [role="menuitem"].action .label,
+.skip-to [role="menuitem"].landmark .label {
+  grid-column: 1 / 8;
+}
+
+.skip-to [role="separator"] {
+  margin: 1px 0px 1px 0px;
+  padding: 3px;
   display: block;
   width: auto;
 	font-weight: bold;
@@ -82,26 +141,6 @@
 	border-radius: 0 0 5px 5px;
 }
 
-.skip-to [role="menuitem"].skipto-h2 {
-	padding-left: 1em;
-}
-
-.skip-to [role="menuitem"].skipto-h3 {
-	padding-left: 2em;
-}
-
-.skip-to [role="menuitem"].skipto-h4 {
-	padding-left: 3em;
-}
-
-.skip-to [role="menuitem"].skipto-h5 {
-	padding-left: 4em;
-}
-
-.skip-to [role="menuitem"].skipto-h6 {
-	padding-left: 5em;
-}
-
 /* focus styling */
 
 .skip-to.focus {
@@ -116,13 +155,13 @@
 }
 
 .skip-to button:focus {
-  padding: 6px 5px 4px 6px;
-  border-width: 0px 3px 3px 3px;
+  padding: 4px 7px 5px 7px;
+  border-width: 2px 2px 2px 2px;
   border-color: $buttonFocusBorderColor;
 }
 
 .skip-to [role="menuitem"]:focus {
-  padding: 2px;
+  padding: 1px;
   border-width: 2px;
   border-style: solid;
   border-color: $menuitemFocusBorderColor;
@@ -131,42 +170,11 @@
   outline: none;
 }
 
-.skip-to [role="menuitem"].skipto-h2 {
-  padding-left: 16px;
+.skip-to [role="menuitem"]:focus .level {
+  opacity: 1.0;
 }
 
-.skip-to [role="menuitem"].skipto-h2:focus {
-  padding-left: 14px;
+.skip-to [role="menuitem"]:focus .level {
+  color: $menuitemFocusLevelColor;
 }
 
-.skip-to [role="menuitem"].skipto-h3 {
-  padding-left: 28px;
-}
-
-.skip-to [role="menuitem"].skipto-h3:focus {
-  padding-left: 26px;
-}
-
-.skip-to [role="menuitem"].skipto-h4 {
-  padding-left: 40px;
-}
-
-.skip-to [role="menuitem"].skipto-h4:focus {
-  padding-left: 38px;
-}
-
-.skip-to [role="menuitem"].skipto-h5 {
-  padding-left: 52px;
-}
-
-.skip-to [role="menuitem"].skipto-h5:focus {
-  padding-left: 50px;
-}
-
-.skip-to [role="menuitem"].skipto-h6 {
-  padding-left: 64px;
-}
-
-.skip-to [role="menuitem"].skipto-h6:focus {
-  padding-left: 62px;
-}
