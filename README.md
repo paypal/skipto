@@ -237,7 +237,8 @@ The source code in this section is for developers to understand the HTML, classe
     // Heading group label and menu items
     //
     <div role="group"
-      aria-labelledby="id-skip-to-group-headings-label" id="id-skip-to-group-headings">
+      aria-labelledby="id-skip-to-group-headings-label"
+      id="id-skip-to-group-headings">
       <div role="menuitem"
         class="heading"
         data-id="9"
