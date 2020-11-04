@@ -52,33 +52,31 @@
   padding: 3px;
   display: block;
   width: auto;
-  background-color: $menuitemBackgroundColor;
   border-width: 0px;
   border-style: solid;
   color: $menuitemColor;
+  background-color: $menuitemBackgroundColor;
   z-index: 1000;
 
   display: grid;
   overflow-y: auto;
-  grid-template-columns: repeat(6, 0.85rem) 1fr;
+  grid-template-columns: repeat(6, 1.1rem) 1fr;
   grid-column-gap: 2px;
 
   font-size: 1em;
 }
 
-.skip-to [role="menuitem"] .level {
-  margin: 0;
-  padding: 0;
-  color: $menuitemLevelColor;
-}
 .skip-to [role="menuitem"] .level:first-letter,
 .skip-to [role="menuitem"] .label:first-letter {
   text-decoration: underline;
   text-transform: uppercase;
 }
 
-.skip-to [role="menuitem"] .level {
-  opacity: 0.7;
+.skip-to [role="menuitem"] .level span {
+  color: $menuitemLevelColor;
+  background-color: $menuitemLevelBackgroundColor;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .skip-to [role="menuitem"] .label {
@@ -170,11 +168,7 @@
   outline: none;
 }
 
-.skip-to [role="menuitem"]:focus .level {
-  opacity: 1.0;
-}
-
-.skip-to [role="menuitem"]:focus .level {
+.skip-to [role="menuitem"]:focus .level span {
   color: $menuitemFocusLevelColor;
+  background-color: $menuitemFocusLevelBackgroundColor;
 }
-
