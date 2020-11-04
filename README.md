@@ -206,6 +206,9 @@ The source code in this section is for developers to understand the HTML, classe
   // ARIA enabled menu
   //
   <div role="menu">
+    //
+    // Landmark group label and menu items
+    //
     <div id="id-skip-to-group-landmarks-label"
       role="separator">
       Important Landmarks
@@ -234,6 +237,9 @@ The source code in this section is for developers to understand the HTML, classe
       role="separator">
       Important Headings
     </div>
+    //
+    // Heading group label and menu items
+    //
     <div role="group"
       aria-labelledby="id-skip-to-group-headings-label" id="id-skip-to-group-headings">
       <div role="menuitem"
@@ -264,6 +270,9 @@ The source code in this section is for developers to understand the HTML, classe
       </div>
       ...
     </div>  // End Headings Group
+    //
+    // Action group label and menu items
+    //
     <div role="separator"
       id="id-skip-to-group-actions-label">
       Actions
