@@ -29,7 +29,7 @@
   min-width: 17em;
   display: none;
   margin: 0;
-  padding: 0px;
+  padding: 0.25rem;
   background-color: $menuBackgroundColor;
   border-width: 2px;
   border-style: solid;
@@ -72,11 +72,9 @@
   text-transform: uppercase;
 }
 
-.skip-to [role="menuitem"] .level span {
-  color: $menuitemLevelColor;
-  background-color: $menuitemLevelBackgroundColor;
-  padding-left: 2px;
-  padding-right: 2px;
+.skip-to [role="menuitem"] .level {
+  text-align: right;
+  padding-right: 4px;
 }
 
 .skip-to [role="menuitem"] .label {
@@ -122,7 +120,7 @@
   display: block;
   width: auto;
 	font-weight: bold;
-	text-align: center;
+	text-align: left;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: $menuitemColor;
@@ -166,9 +164,4 @@
   background-color: $menuitemFocusBackgroundColor;
   color: $menuitemFocusColor;
   outline: none;
-}
-
-.skip-to [role="menuitem"]:focus .level span {
-  color: $menuitemFocusLevelColor;
-  background-color: $menuitemFocusLevelBackgroundColor;
 }

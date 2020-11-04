@@ -217,19 +217,13 @@ The source code in this section is for developers to understand the HTML, classe
       aria-labelledby="id-skip-to-group-landmarks-label" id="id-skip-to-group-landmarks">
       <div role="menuitem"
         class="landmark"
-        data-id="4"
-        tabindex="-1">
-        <span class="label skip-to-main">
-          main
-        </span>
+        data-id="4">
+        <span class="label skip-to-main">main</span>
       </div>
       <div role="menuitem"
         class="landmark"
-        data-id="6"
-        tabindex="-1">
-        <span class="label skip-to-main">
-          main: Main using main element a...
-        </span>
+        data-id="6">
+        <span class="label skip-to-main">main: Main using main element a...</span>
       </div>
 
       ... more menu items ...
@@ -247,28 +241,16 @@ The source code in this section is for developers to understand the HTML, classe
       <div role="menuitem"
         class="heading"
         data-id="9"
-        tabindex="-1"
         data-level="1">
-        <span class="level">
-          <span>1</span>
-          :
-        </span>
-        <span class="label skip-to-h1">
-          Example Content
-        </span>
+        <span class="level"><span>1</span>)</span>
+        <span class="label skip-to-h1">Example Content</span>
       </div>
       <div role="menuitem"
         class="heading"
         data-id="10"
-        tabindex="-1"
         data-level="2">
-        <span class="level">
-          <span>2</span>
-          :
-        </span>
-        <span class="label skip-to-h2">
-          Pastrami
-        </span>
+        <span class="level"><span>2</span>)</span>
+        <span class="label skip-to-h2">Pastrami</span>
       </div>
 
       ... more menu items ...
@@ -287,20 +269,14 @@ The source code in this section is for developers to understand the HTML, classe
       <div role="menuitem"
         class="action"
         data-id="skip-to-more-headings"
-        tabindex="-1"
         data-show-heading-option="all">
-        <span class="label skip-to-action">
-          Show All headings (15)
-        </span>
+        <span class="label skip-to-action">Show All headings (15)</span>
       </div>
       <div role="menuitem"
         class="action last"
         data-id="skip-to-more-landmarks"
-        tabindex="-1"
         data-show-landmark-option="all">
-        <span class="label skip-to-action">
-          Show All landmarks (10)
-        </span>
+        <span class="label skip-to-action">Show All landmarks (10)</span>
       </div>
     </div> // End Action Group
   </div>

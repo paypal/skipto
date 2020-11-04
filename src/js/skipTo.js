@@ -88,10 +88,6 @@
       menuitemFocusColor: '',
       menuitemFocusBackgroundColor: '',
       menuitemFocusBorderColor: '',
-      menuitemLevelColor: '',
-      menuitemLevelBackgroundColor: '',
-      menuitemFocusLevelColor: '',
-      menuitemFocusLevelBackgroundColor: '',
     },
     colorThemes: {
       'default': {
@@ -109,10 +105,6 @@
         menuitemFocusColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#1a1a1a',
         menuitemFocusBorderColor: '#1a1a1a',
-        menuitemLevelColor: '#eeeeee',
-        menuitemLevelBackgroundColor: '#1a1a1a',
-        menuitemFocusLevelColor: '#1a1a1a',
-        menuitemFocusLevelBackgroundColor: '#eeeeee'
       },
       'illinois': {
         positionLeft: '46%',
@@ -130,10 +122,6 @@
         menuitemFocusColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
         menuitemFocusBorderColor: '#ff552e',
-        menuitemLevelColor: '#cad9ef',
-        menuitemLevelBackgroundColor: '#00132c',
-        menuitemFocusLevelColor: '#00132c',
-        menuitemFocusLevelBackgroundColor: '#eeeeee'
       }
     },
     defaultCSS: '@@cssContent',
@@ -174,10 +162,6 @@
       this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
       this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
       this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
-      this.updateStyle('$menuitemLevelColor', this.config.menuitemLevelColor, theme.menuitemLevelColor);
-      this.updateStyle('$menuitemLevelBackgroundColor', this.config.menuitemLevelBackgroundColor, theme.menuitemLevelBackgroundColor);
-      this.updateStyle('$menuitemFocusLevelColor', this.config.menuitemFocusLevelColor, theme.menuitemFocusLevelColor);
-      this.updateStyle('$menuitemFocusLevelBackgroundColor', this.config.menuitemFocusLevelBackgroundColor, theme.menuitemFocusLevelBackgroundColor);
     },
     isNotEmptyString: function(str) {
       return (typeof str === 'string') && str.length;
@@ -375,7 +359,7 @@
           tagNodeChild = document.createElement('span');
           tagNodeChild.appendChild(document.createTextNode(mi.tagName.substring(1)));
           tagNode.append(tagNodeChild);
-          tagNode.appendChild(document.createTextNode(':'));
+          tagNode.appendChild(document.createTextNode(')'));
           tagNode.classList.add('level');
           menuitemNode.append(tagNode);
         } else {
