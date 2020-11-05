@@ -141,6 +141,10 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 | `menuitemFocusColor` | Color | `#eeeeee`  | Menuitem text color then it has focus. |
 | `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text backgroundcolor then it has focus. |
 | `menuitemFocusBorderColor` | Color | `#1a1a1a`  | Menuitem border color then it has focus. |
+| `menuitemLevelColor` | Color | `#1a1a1a`  | Menuitem text color for the heading level number indicator used as a shortcut key. |
+| `menuitemLevelBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color for the heading level number indicator used as a shortcut key. |
+| `menuitemFocusLevelColor` | Color | `#eeeeee`  | Menuitem text color for the heading level number indicator used as a shortcut key when menu item has focus. |
+| `menuitemFocusLevelBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background color for the heading level number indicator used as a shortcut key when menu item has focus. |
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
@@ -177,6 +181,108 @@ If have different requirements for your web site and include other heading level
             }
         };
     </script>
+
+```
+
+### HTML, Classes and Ids for custom styling
+
+The source code in this section is for developers to understand the HTML, classes and ids used in the SkipTo menu button and menu for use in custom styling.
+
+```
+<div
+  class="skip-to"
+  title='Keyboard Navigation Accesskey is "Alt+0"'
+>
+  //
+  // Menu Button
+  //
+  <button
+    aria-haspopup="true"
+    aria-expanded="true"
+    accesskey="0">
+    Skip To Content
+  </button>
+  //
+  // ARIA enabled menu
+  //
+  <div role="menu">
+    //
+    // Landmark group label and menu items
+    //
+    <div id="id-skip-to-group-landmarks-label"
+      role="separator">
+      Important Landmarks
+    </div>
+    <div role="group"
+      aria-labelledby="id-skip-to-group-landmarks-label" id="id-skip-to-group-landmarks">
+      <div role="menuitem"
+        class="landmark"
+        data-id="4">
+        <span class="label skip-to-main">main</span>
+      </div>
+      <div role="menuitem"
+        class="landmark"
+        data-id="6">
+        <span class="label skip-to-main">main: Main using main element a...</span>
+      </div>
+
+      ... more menu items ...
+
+    </div>  // End Landmarks Group
+    //
+    // Heading group label and menu items
+    //
+    <div id="id-skip-to-group-headings-label"
+      role="separator">
+      Important Headings
+    </div>
+    <div role="group"
+      aria-labelledby="id-skip-to-group-headings-label"
+      id="id-skip-to-group-headings">
+      <div role="menuitem"
+        class="heading"
+        data-id="9"
+        data-level="1">
+        <span class="level"><span>1</span>)</span>
+        <span class="label skip-to-h1">Example Content</span>
+      </div>
+      <div role="menuitem"
+        class="heading"
+        data-id="10"
+        data-level="2">
+        <span class="level"><span>2</span>)</span>
+        <span class="label skip-to-h2">Pastrami</span>
+      </div>
+
+      ... more menu items ...
+
+    </div>  // End Headings Group
+    //
+    // Action group label and menu items
+    //
+    <div role="separator"
+      id="id-skip-to-group-actions-label">
+      Actions
+    </div>
+    <div role="group"
+      aria-labelledby="id-skip-to-group-actions-label"
+      id="id-skip-to-group-actions">
+      <div role="menuitem"
+        class="action"
+        data-id="skip-to-more-headings"
+        data-show-heading-option="all">
+        <span class="label skip-to-action">Show All headings (15)</span>
+      </div>
+      <div role="menuitem"
+        class="action last"
+        data-id="skip-to-more-landmarks"
+        data-show-landmark-option="all">
+        <span class="label skip-to-action">Show All landmarks (10)</span>
+      </div>
+    </div> // End Action Group
+  </div>
+</div>
+
 
 ```
 

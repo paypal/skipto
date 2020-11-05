@@ -87,7 +87,7 @@
       menuitemBackgroundColor: '',
       menuitemFocusColor: '',
       menuitemFocusBackgroundColor: '',
-      menuitemFocusBorderColor: ''
+      menuitemFocusBorderColor: '',
     },
     colorThemes: {
       'default': {
@@ -104,7 +104,7 @@
         menuitemBackgroundColor: '#eeeeee',
         menuitemFocusColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#1a1a1a',
-        menuitemFocusBorderColor: '#1a1a1a'
+        menuitemFocusBorderColor: '#1a1a1a',
       },
       'illinois': {
         positionLeft: '46%',
@@ -115,12 +115,13 @@
         buttonFocusBackgroundColor: '#cad9ef',
         buttonFocusBorderColor: '#ff552e',
         menuBackgroundColor: '#cad9ef',
+        menuitemLevelOpacity: '0.7',
         menuBorderColor: '#ff552e',
         menuitemColor: '#00132c',
         menuitemBackgroundColor: '#cad9ef',
         menuitemFocusColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
-        menuitemFocusBorderColor: '#ff552e'
+        menuitemFocusBorderColor: '#ff552e',
       }
     },
     defaultCSS: '@@cssContent',
@@ -358,7 +359,7 @@
           tagNodeChild = document.createElement('span');
           tagNodeChild.appendChild(document.createTextNode(mi.tagName.substring(1)));
           tagNode.append(tagNodeChild);
-          tagNode.appendChild(document.createTextNode(':'));
+          tagNode.appendChild(document.createTextNode(')'));
           tagNode.classList.add('level');
           menuitemNode.append(tagNode);
         } else {

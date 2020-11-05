@@ -29,7 +29,7 @@
   min-width: 17em;
   display: none;
   margin: 0;
-  padding: 0px;
+  padding: 0.25rem;
   background-color: $menuBackgroundColor;
   border-width: 2px;
   border-style: solid;
@@ -52,25 +52,20 @@
   padding: 3px;
   display: block;
   width: auto;
-  background-color: $menuitemBackgroundColor;
   border-width: 0px;
   border-style: solid;
   color: $menuitemColor;
+  background-color: $menuitemBackgroundColor;
   z-index: 1000;
 
   display: grid;
   overflow-y: auto;
-  grid-template-columns: repeat(6, 0.85rem) 1fr;
+  grid-template-columns: repeat(6, 1.1rem) 1fr;
   grid-column-gap: 2px;
 
   font-size: 1em;
 }
 
-.skip-to [role="menuitem"] .level {
-  margin: 0;
-  padding: 0;
-  color: $menuitemLevelColor;
-}
 .skip-to [role="menuitem"] .level:first-letter,
 .skip-to [role="menuitem"] .label:first-letter {
   text-decoration: underline;
@@ -78,7 +73,8 @@
 }
 
 .skip-to [role="menuitem"] .level {
-  opacity: 0.7;
+  text-align: right;
+  padding-right: 4px;
 }
 
 .skip-to [role="menuitem"] .label {
@@ -124,7 +120,7 @@
   display: block;
   width: auto;
 	font-weight: bold;
-	text-align: center;
+	text-align: left;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: $menuitemColor;
@@ -169,12 +165,3 @@
   color: $menuitemFocusColor;
   outline: none;
 }
-
-.skip-to [role="menuitem"]:focus .level {
-  opacity: 1.0;
-}
-
-.skip-to [role="menuitem"]:focus .level {
-  color: $menuitemFocusLevelColor;
-}
-
