@@ -60,7 +60,7 @@
 
   display: grid;
   overflow-y: auto;
-  grid-template-columns: repeat(6, 1.1rem) 1fr;
+  grid-template-columns: repeat(6, 1.2rem) 1fr;
   grid-column-gap: 2px;
 
   font-size: 1em;

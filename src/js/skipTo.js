@@ -95,7 +95,7 @@
         buttonColor: '#1a1a1a',
         buttonBackgroundColor: '#eeeeee',
         buttonBorderColor: '#eeeeee',
-        buttonColorFocus: '#000000',
+        buttonFocusColor: '#000000',
         buttonFocusBackgroundColor: '#dcdcdc',
         buttonFocusBorderColor: '#1a1a1a',
         menuBackgroundColor: '#eeeeee',
@@ -111,7 +111,7 @@
         buttonColor: '#00132c',
         buttonBackgroundColor: '#dddede',
         buttonBorderColor: '#dddede',
-        buttonColorFocus: '#00132c',
+        buttonFocusColor: '#00132c',
         buttonFocusBackgroundColor: '#cad9ef',
         buttonFocusBorderColor: '#ff552e',
         menuBackgroundColor: '#cad9ef',
@@ -122,6 +122,22 @@
         menuitemFocusColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
         menuitemFocusBorderColor: '#ff552e',
+      },
+      'aria': {
+        positionLeft: '380px',
+        buttonColor: '#005a9c;',
+        buttonBackgroundColor: '#def',
+        buttonBorderColor: '#def',
+        buttonFocusColor: '#fff',
+        buttonFocusBackgroundColor: '#005a9c',
+        buttonFocusBorderColor: '#005a9c;',
+        menuBackgroundColor: '#def',
+        menuBorderColor: '#005a9c',
+        menuitemColor: '#000',
+        menuitemBackgroundColor: '#def',
+        menuitemFocusColor: '#fff',
+        menuitemFocusBackgroundColor: '#005a9c',
+        menuitemFocusBorderColor: '#005a9c',
       }
     },
     defaultCSS: '@@cssContent',
@@ -267,7 +283,7 @@
         appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
       for (name in appConfigSettings) {
         //overwrite values of our local config, based on the external config
-        if (localConfig.hasOwnProperty(name) &&
+        if ((typeof localConfig[name] !== 'undefined') &&
            ((typeof appConfigSettings[name] === 'string') &&
             (appConfigSettings[name].length > 0 ) ||
            typeof appConfigSettings[name] === 'boolean')
