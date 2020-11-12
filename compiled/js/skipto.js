@@ -1,4 +1,4 @@
-/*! skipto - v3.1.0 - 2020-11-09
+/*! skipto - v3.1.0 - 2020-11-12
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -778,6 +778,7 @@
         else {
           node.tabIndex = -1;
           node.focus();
+          node.scrollIntoView({block: 'center'});
         }
       }
     },

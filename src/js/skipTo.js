@@ -773,6 +773,7 @@
         else {
           node.tabIndex = -1;
           node.focus();
+          node.scrollIntoView({block: 'center'});
         }
       }
     },
