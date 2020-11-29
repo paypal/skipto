@@ -108,7 +108,7 @@
 .skip-to [role="menuitem"].skip-to-h6.no-level .label { grid-column: 6 / 8; }
 
 
-.skip-to [role="menuitem"].noitems .label,
+.skip-to [role="menuitem"].no-items .label,
 .skip-to [role="menuitem"].action .label,
 .skip-to [role="menuitem"].landmark .label {
   grid-column: 1 / 8;

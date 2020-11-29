@@ -420,8 +420,8 @@
       if (menuitems.length === 0) {
         var item = {};
         item.name = msgNoItemsFound;
-        item.tagName = 'notag';
-        item.class = 'noitems';
+        item.tagName = 'no tag';
+        item.class = 'no-items';
         item.dataId = '';
         this.addMenuitemToGroup(groupNode, item);
       }
@@ -578,21 +578,21 @@
     },
 
     createMenu: function() {
-      var groupNode, landmarkElems, headingElems;
+      var groupNode, landmarkElements, headingElements;
       // remove current menu items from menu
       while (this.menuNode.lastElementChild) {
         this.menuNode.removeChild(this.menuNode.lastElementChild);
       }
 
       // Create landmarks group
-      landmarkElems = this.getLandmarks();
+      landmarkElements = this.getLandmarks();
       groupNode = this.addMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkImportantGroupLabel);
-      this.addMenuitemsToGroup(groupNode, landmarkElems, this.config.msgNoLandmarksFound);
+      this.addMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
 
       // Create headings group
-      headingElems = this.getHeadings();
+      headingElements = this.getHeadings();
       groupNode = this.addMenuitemGroup('id-skip-to-group-headings', this.config.headingImportantGroupLabel);
-      this.addMenuitemsToGroup(groupNode, headingElems, this.config.msgNoHeadingsFound);
+      this.addMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
 
       // Create actions, if enabled
       if (this.config.enableActions) {
@@ -887,7 +887,7 @@
         }
       }
     },
-    // methods to extract lanndmarks, headings and ids
+    // methods to extract landmarks, headings and ids
     normalizeName: function(name) {
       if (typeof name === 'string') return name.replace(/\w\S*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -1039,12 +1039,12 @@
         targets = this.config.landmarks;
       }
       var landmarks = document.querySelectorAll(targets);
-      var mainElems = [];
-      var searchElems = [];
-      var navElems = [];
-      var asideElems = [];
-      var footerElems = [];
-      var otherElems = [];
+      var mainElements = [];
+      var searchElements = [];
+      var navElements = [];
+      var asideElements = [];
+      var footerElements = [];
+      var otherElements = [];
       var dataId = '';
       for (var i = 0, j = 0, len = landmarks.length; i < len; i = i + 1) {
         var landmark = landmarks[i];
@@ -1107,27 +1107,27 @@
           // For sorting landmarks into groups
           switch (tagName) {
             case 'main':
-              mainElems.push(landmarkItem);
+              mainElements.push(landmarkItem);
               break;
             case 'search':
-              searchElems.push(landmarkItem);
+              searchElements.push(landmarkItem);
               break;
             case 'nav':
-              navElems.push(landmarkItem);
+              navElements.push(landmarkItem);
               break;
             case 'aside':
-              asideElems.push(landmarkItem);
+              asideElements.push(landmarkItem);
               break;
             case 'footer':
-              footerElems.push(landmarkItem);
+              footerElements.push(landmarkItem);
               break;
             default:
-              otherElems.push(landmarkItem);
+              otherElements.push(landmarkItem);
               break;
           }
         }
       }
-      return [].concat(mainElems, searchElems, navElems, asideElems, footerElems, otherElems);
+      return [].concat(mainElements, searchElements, navElements, asideElements, footerElements, otherElements);
     }
   };
   // Initialize skipto menu button with onload event
