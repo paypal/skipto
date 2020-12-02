@@ -52,7 +52,8 @@
       headingAllGroupLabel: 'All Headings',
       mainLabel: 'main',
       searchLabel: 'search',
-      navLabel: 'menu',
+      navLabel: 'nav',
+      regionLabel: 'region',
       asideLabel: 'aside',
       footerLabel: 'footer',
       headerLabel: 'header',
@@ -124,7 +125,7 @@
         menuitemFocusBorderColor: '#ff552e',
       },
       'aria': {
-        positionLeft: '380px',
+        positionLeft: '',
         buttonColor: '#005a9c;',
         buttonBackgroundColor: '#def',
         buttonBorderColor: '#def',
@@ -353,7 +354,7 @@
     },
 
     addMenuitemToGroup: function (groupNode, mi) {
-      var tagNode, tagNodeChild, labelNode;
+      var tagNode, tagNodeChild, labelNode, nestingNode;
 
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
@@ -387,6 +388,20 @@
         }
       }
 
+      // add nesting level for landmarks
+      if (mi.class.includes('landmark')) {
+        menuitemNode.setAttribute('data-nesting', mi.nestingLevel);
+        menuitemNode.classList.add('skip-to-nesting-level-' + mi.nestingLevel);
+
+        if (mi.nestingLevel > 0 && (mi.nestingLevel > this.lastNestingLevel)) {
+          nestingNode = document.createElement('span');
+//          nestingNode.appendChild(document.createTextNode('\u2514'));
+          nestingNode.classList.add('nesting');
+          menuitemNode.append(nestingNode);
+        }
+        this.lastNestingLevel = mi.nestingLevel;
+      }
+
       labelNode = document.createElement('span');
       labelNode.appendChild(document.createTextNode(mi.name));
       labelNode.classList.add('label');
@@ -416,6 +431,7 @@
 
     addMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
       groupNode.innerHTML = '';
+      this.lastNestingLevel = 0;
 
       if (menuitems.length === 0) {
         var item = {};
@@ -551,7 +567,7 @@
 
     updateLandmarksGroupMenuitems: function(option) {
       var selector = this.getShowMoreLandmarksSelector(option);
-      var landmarks = this.getLandmarks(selector);
+      var landmarks = this.getLandmarks(selector, option === 'all');
       var groupNode = document.getElementById('id-skip-to-group-landmarks');
       this.addMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
       this.updateMenuitems();
@@ -976,7 +992,7 @@
       var headingElementsArr = [];
       if (typeof targets !== 'string' || targets.length === 0) return;
       var headings = document.querySelectorAll(targets);
-      for (var i = 0, j = 0, len = headings.length; i < len; i += 1) {
+      for (var i = 0, len = headings.length; i < len; i += 1) {
         var heading = headings[i];
         var role = heading.getAttribute('role');
         if ((typeof role === 'string') && (role === 'presentation')) continue;
@@ -994,7 +1010,6 @@
           headingItem.tagName = heading.tagName.toLowerCase();
           headingItem.role = 'heading';
           headingElementsArr.push(headingItem);
-          j += 1;
           this.skipToIdIndex += 1;
         }
       }
@@ -1021,6 +1036,9 @@
         case 'nav':
           n = this.config.navLabel;
           break;
+        case 'region':
+          n = this.config.regionLabel;
+          break;
         case 'search':
           n = this.config.searchLabel;
           break;
@@ -1034,7 +1052,28 @@
       }
       return n;
     },
-    getLandmarks: function(targets) {
+    getNestingLevel: function(landmark, landmarks) {
+      var nestingLevel = 0;
+      var parentNode = landmark.parentNode;
+      while (parentNode) {
+        for (var i = 0; i < landmarks.length; i += 1) {
+          if (landmarks[i] === parentNode) {
+            nestingLevel += 1;
+            // no more than 3 levels of nesting supported
+            if (nestingLevel === 3) {
+              return 3;
+            }
+            continue;
+          }
+        }
+        parentNode = parentNode.parentNode;
+      }
+      return nestingLevel;
+    },
+    getLandmarks: function(targets, allFlag) {
+      if (typeof allFlag !== 'boolean') {
+        allFlag = false;
+      }
       if (typeof targets !== 'string') {
         targets = this.config.landmarks;
       }
@@ -1044,9 +1083,11 @@
       var navElements = [];
       var asideElements = [];
       var footerElements = [];
+      var regionElements = [];
       var otherElements = [];
+      var allLandmarks = [];
       var dataId = '';
-      for (var i = 0, j = 0, len = landmarks.length; i < len; i = i + 1) {
+      for (var i = 0, len = landmarks.length; i < len; i += 1) {
         var landmark = landmarks[i];
         // if skipto is a landmark don't include it in the list
         if (landmark === this.domNode) {
@@ -1056,7 +1097,7 @@
         var tagName = landmark.tagName.toLowerCase();
         if ((typeof role === 'string') && (role === 'presentation')) continue;
         if (this.isVisible(landmark)) {
-          if (!role) role = landmark.tagName.toLowerCase();
+          if (!role) role = tagName;
           var name = this.getAccessibleName(landmark);
           if (typeof name !== 'string') {
             name = '';
@@ -1081,6 +1122,9 @@
             case 'navigation':
               tagName = 'nav';
               break;
+            case 'section':
+              tagName = 'region';
+              break;
             case 'search':
               tagName = 'search';
               break;
@@ -1088,7 +1132,7 @@
               break;
           }
           // if using ID for selectQuery give tagName as main
-          if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'search'].indexOf(tagName) < 0) {
+          if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'region', 'search'].indexOf(tagName) < 0) {
             tagName = 'main';
           }
           if (landmark.hasAttribute('data-skip-to-id')) {
@@ -1102,8 +1146,12 @@
           landmarkItem.class = 'landmark';
           landmarkItem.name = this.getLocalizedLandmarkName(tagName, name);
           landmarkItem.tagName = tagName;
-          j += 1;
+          landmarkItem.nestingLevel = 0;
+          if (allFlag) {
+            landmarkItem.nestingLevel = this.getNestingLevel(landmark, landmarks);
+          }
           this.skipToIdIndex += 1;
+          allLandmarks.push(landmarkItem);
           // For sorting landmarks into groups
           switch (tagName) {
             case 'main':
@@ -1121,13 +1169,19 @@
             case 'footer':
               footerElements.push(landmarkItem);
               break;
+            case 'region':
+              regionElements.push(landmarkItem);
+              break;
             default:
               otherElements.push(landmarkItem);
               break;
           }
         }
       }
-      return [].concat(mainElements, searchElements, navElements, asideElements, footerElements, otherElements);
+      if (allFlag) {
+        return allLandmarks;
+      }
+      return [].concat(mainElements, regionElements, searchElements, navElements, asideElements, footerElements, otherElements);
     }
   };
   // Initialize skipto menu button with onload event

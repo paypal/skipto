@@ -107,10 +107,17 @@
 .skip-to [role="menuitem"].skip-to-h5.no-level .label { grid-column: 5 / 8; }
 .skip-to [role="menuitem"].skip-to-h6.no-level .label { grid-column: 6 / 8; }
 
+.skip-to [role="menuitem"].skip-to-nesting-level-1 .nesting { grid-column: 1; }
+.skip-to [role="menuitem"].skip-to-nesting-level-2 .nesting { grid-column: 2; }
+.skip-to [role="menuitem"].skip-to-nesting-level-3 .nesting { grid-column: 3; }
+
+.skip-to [role="menuitem"].skip-to-nesting-level-0 .label { grid-column: 1 / 8; }
+.skip-to [role="menuitem"].skip-to-nesting-level-1 .label { grid-column: 2 / 8; }
+.skip-to [role="menuitem"].skip-to-nesting-level-2 .label { grid-column: 3 / 8; }
+.skip-to [role="menuitem"].skip-to-nesting-level-3 .label { grid-column: 4 / 8; }
 
 .skip-to [role="menuitem"].no-items .label,
-.skip-to [role="menuitem"].action .label,
-.skip-to [role="menuitem"].landmark .label {
+.skip-to [role="menuitem"].action .label {
   grid-column: 1 / 8;
 }
 
