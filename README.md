@@ -96,6 +96,7 @@ The labels and messages can be localized for s specific languages or updated to 
 | `headingImportantGroupLabel` | 'Important Headings' | Menu group label for landmarks when important headings are in the menu. |
 | `landmarkAllGroupLabel` | 'All Landmarks' | Menu group label for landmarks when all landmarks are in the menu. |
 | `headingAllGroupLabel` | 'All Headings' | Menu group label for headings when all headings are in the menu. |
+| `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
 | `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
 | `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
