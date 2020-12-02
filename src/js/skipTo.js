@@ -50,6 +50,7 @@
       landmarkAllGroupLabel: 'All Landmarks',
       headingImportantGroupLabel: 'Important Headings',
       headingAllGroupLabel: 'All Headings',
+      headingLevelLabel: 'Heading level',
       mainLabel: 'main',
       searchLabel: 'search',
       navLabel: 'nav',
@@ -354,7 +355,7 @@
     },
 
     addMenuitemToGroup: function (groupNode, mi) {
-      var tagNode, tagNodeChild, labelNode, nestingNode;
+      var tagNode, tagNodeChild, labelNode, nestingNode, accName;
 
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
@@ -374,7 +375,7 @@
         if (this.config.enableHeadingLevelShortcuts) {
           tagNode = document.createElement('span');
           tagNodeChild = document.createElement('span');
-          tagNodeChild.appendChild(document.createTextNode(mi.tagName.substring(1)));
+          tagNodeChild.appendChild(document.createTextNode(mi.level));
           tagNode.append(tagNodeChild);
           tagNode.appendChild(document.createTextNode(')'));
           tagNode.classList.add('level');
@@ -382,10 +383,13 @@
         } else {
           menuitemNode.classList.add('no-level');
         }
-        menuitemNode.setAttribute('data-level', mi.tagName.substring(1));
+        menuitemNode.setAttribute('data-level', mi.level);
         if (mi.tagName && mi.tagName.length) {
           menuitemNode.classList.add('skip-to-' + mi.tagName);
         }
+        accName = mi.name + ', ';
+        accName += this.config.headingLevelLabel + ' ' + mi.level;
+        menuitemNode.setAttribute('aria-label', accName);
       }
 
       // add nesting level for landmarks
@@ -1009,6 +1013,7 @@
           headingItem.name = this.getTextContent(heading);
           headingItem.tagName = heading.tagName.toLowerCase();
           headingItem.role = 'heading';
+          headingItem.level = heading.tagName.substring(1);
           headingElementsArr.push(headingItem);
           this.skipToIdIndex += 1;
         }
@@ -1044,7 +1049,7 @@
           break;
           // When an ID is used as a selector, assume for main content
         default:
-          n = this.config.mainLabel;
+          n = tagName;
           break;
       }
       if (this.isNotEmptyString(name)) {
@@ -1134,6 +1139,9 @@
           // if using ID for selectQuery give tagName as main
           if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'region', 'search'].indexOf(tagName) < 0) {
             tagName = 'main';
+          }
+          if (landmark.hasAttribute('aria-roledescription')) {
+            tagName = landmark.getAttribute('aria-roledescription');
           }
           if (landmark.hasAttribute('data-skip-to-id')) {
             dataId = landmark.getAttribute('data-skip-to-id');

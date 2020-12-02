@@ -357,6 +357,10 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 ### Version 3.1
+* For heading menuitems, use `aria-label` to make the label more like a screen reader
+* Use element names as landmark labels instead of landmark names
+* Support `aria-roledescription` for labeling landmark roles in menu
+* Nested landmarks and header levels are indented
 * Added actions to toggle between "Important" and "All" landmarks and headings.
 * Added additional keyboard shortcuts in the menu based on heading level.
 * Added more information about accesskey in help.
