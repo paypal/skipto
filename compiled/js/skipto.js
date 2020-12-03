@@ -76,6 +76,11 @@
       actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
       actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
 
+      actionShowImportantHeadingsAriaLabel: 'Show $num Important Headings',
+      actionShowAllHeadingsAriaLabel: 'Show All $num headings',
+      actionShowImportantLandmarksAriaLabel: 'Show $num Important landmarks',
+      actionShowAllLandmarksAriaLabel: 'Show All $num landmarks',
+
       // Selectors for landmark and headings sections
       landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
       headings: 'main h1, [role="main"] h1, main h2, [role="main"] h2',
@@ -360,13 +365,16 @@
     },
 
     addMenuitemToGroup: function (groupNode, mi) {
-      var tagNode, tagNodeChild, labelNode, nestingNode, accName;
+      var tagNode, tagNodeChild, labelNode, nestingNode;
 
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
+      if (mi.ariaLabel) {
+        menuitemNode.setAttribute('aria-label', mi.ariaLabel);
+      }
 
       // add event handlers
       menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
@@ -392,9 +400,6 @@
         if (mi.tagName && mi.tagName.length) {
           menuitemNode.classList.add('skip-to-' + mi.tagName);
         }
-        accName = mi.name + ', ';
-        accName += this.config.headingLevelLabel + ' ' + mi.level;
-        menuitemNode.setAttribute('aria-label', accName);
       }
 
       // add nesting level for landmarks
@@ -404,7 +409,6 @@
 
         if (mi.nestingLevel > 0 && (mi.nestingLevel > this.lastNestingLevel)) {
           nestingNode = document.createElement('span');
-//          nestingNode.appendChild(document.createTextNode('\u2514'));
           nestingNode.classList.add('nesting');
           menuitemNode.append(nestingNode);
         }
@@ -489,9 +493,28 @@
       return label.replace('$num', n);
     },
 
+    getShowMoreHeadingsAriaLabel: function(option) {
+      var label, n;
+
+      label = this.config.actionShowImportantHeadingsAriaLabel;
+
+      if (option === 'all') {
+        label = this.config.actionShowAllHeadingsAriaLabel;
+      }
+      n = this.getHeadings(this.getShowMoreHeadingsSelector(option));
+      if (n && n.length) {
+        n = n.length;
+      } else {
+        n = '0';
+      }
+
+      return label.replace('$num', n);
+    },
+
     addActionMoreHeadings: function(groupNode) {
       var item = {};
       item.name = this.getShowMoreHeadingsLabel('all');
+      item.ariaLabel = this.getShowMoreHeadingsAriaLabel('all');
       item.tagName = 'action';
       item.role = 'menuitem';
       item.class = 'action';
@@ -524,6 +547,7 @@
 
       var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-headings]');
       menuitemNode.setAttribute('data-show-heading-option', option);
+      menuitemNode.setAttribute('aria-label', this.getShowMoreHeadingsAriaLabel(option));
 
       labelNode = menuitemNode.querySelector('span.label');
       labelNode.textContent = this.getShowMoreHeadingsLabel(option);
@@ -562,9 +586,29 @@
       return label.replace('$num', n);
     },
 
+    getShowMoreLandmarksAriaLabel: function(option) {
+      var label, n;
+
+      if (option === 'all') {
+        label = this.config.actionShowAllLandmarksAriaLabel;
+      } else {
+        label = this.config.actionShowImportantLandmarksAriaLabel;
+      }
+
+      n = this.getLandmarks(this.getShowMoreLandmarksSelector(option));
+      if (n && n.length) {
+        n = n.length;
+      } else {
+        n = '0';
+      }
+
+      return label.replace('$num', n);
+    },
+
     addActionMoreLandmarks: function(groupNode) {
       var item = {};
       item.name = this.getShowMoreLandmarksLabel('all');
+      item.ariaLabel =  this.getShowMoreLandmarksAriaLabel('all');
       item.tagName = 'action';
       item.role = 'menuitem';
       item.class = 'action';
@@ -597,6 +641,7 @@
 
       var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-landmarks]');
       menuitemNode.setAttribute('data-show-landmark-option', option);
+      menuitemNode.setAttribute('aria-label', this.getShowMoreLandmarksAriaLabel(option));
 
       labelNode = menuitemNode.querySelector('span.label');
       labelNode.textContent = this.getShowMoreLandmarksLabel(option);
@@ -994,7 +1039,7 @@
       return isVisibleRec(element);
     },
     getHeadings: function(targets) {
-      var dataId;
+      var dataId, level;
       if (typeof targets !== 'string') {
         targets = this.config.headings;
       }
@@ -1012,13 +1057,16 @@
             heading.setAttribute('data-skip-to-id', this.skipToIdIndex);
             dataId = this.skipToIdIndex;
           }
+          level = heading.tagName.substring(1);
           var headingItem = {};
           headingItem.dataId = dataId.toString();
           headingItem.class = 'heading';
           headingItem.name = this.getTextContent(heading);
+          headingItem.ariaLabel = headingItem.name + ', ';
+          headingItem.ariaLabel += this.config.headingLevelLabel + ' ' + level;
           headingItem.tagName = heading.tagName.toLowerCase();
           headingItem.role = 'heading';
-          headingItem.level = heading.tagName.substring(1);
+          headingItem.level = level;
           headingElementsArr.push(headingItem);
           this.skipToIdIndex += 1;
         }
