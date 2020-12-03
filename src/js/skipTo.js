@@ -53,7 +53,7 @@
       headingLevelLabel: 'Heading level',
       mainLabel: 'main',
       searchLabel: 'search',
-      navLabel: 'nav',
+      navLabel: 'navigation',
       regionLabel: 'region',
       asideLabel: 'aside',
       footerLabel: 'footer',
