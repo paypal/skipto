@@ -122,6 +122,10 @@ The labels and messages can be localized for s specific languages or updated to 
 | `actionShowLandmarksHelp` | 'Toggles between showing "All" and "Important" landmarks.' | The value of the title attribute for the show landmarks action menu item. |
 | `actionShowImportantLandmarksLabel` | 'Show Important landmarks ($num)' | The label for the menu item when the button action is to show "Important" landmarks. |
 | `actionShowAllLandmarksLabel` | 'Show All landmarks ($num)'  | The label for the menu item when the button action is to show "All" landmarks. |
+| `actionShowImportantHeadingsAriaLabel` | 'Show $num Important Headings' | The `aria-label` for the menu item when the button action is to show "Important" headings. |
+| `actionShowAllHeadingsAriaLabel` | 'Show All $num headings'| The `aria-label` for the menu item when the button action is to show "All" headings. |
+| `actionShowImportantLandmarksAriaLabel` | 'Show $num Important landmarks' | The `aria-label` for the menu item when the button action is to show "Important" landmarks. |
+| `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
 
 ### Colors used for Button and Menu styling
 
