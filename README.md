@@ -358,6 +358,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 ### Version 3.1
+* Added `aria-label` for action menu items to make the label screen reader friendly
 * For heading menuitems, use `aria-label` to make the label more like a screen reader
 * Use element names as landmark labels instead of landmark names
 * Support `aria-roledescription` for labeling landmark roles in menu
