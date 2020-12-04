@@ -96,6 +96,7 @@ The labels and messages can be localized for s specific languages or updated to 
 | `headingImportantGroupLabel` | 'Important Headings' | Menu group label for landmarks when important headings are in the menu. |
 | `landmarkAllGroupLabel` | 'All Landmarks' | Menu group label for landmarks when all landmarks are in the menu. |
 | `headingAllGroupLabel` | 'All Headings' | Menu group label for headings when all headings are in the menu. |
+| `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
 | `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
 | `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
@@ -121,6 +122,10 @@ The labels and messages can be localized for s specific languages or updated to 
 | `actionShowLandmarksHelp` | 'Toggles between showing "All" and "Important" landmarks.' | The value of the title attribute for the show landmarks action menu item. |
 | `actionShowImportantLandmarksLabel` | 'Show Important landmarks ($num)' | The label for the menu item when the button action is to show "Important" landmarks. |
 | `actionShowAllLandmarksLabel` | 'Show All landmarks ($num)'  | The label for the menu item when the button action is to show "All" landmarks. |
+| `actionShowImportantHeadingsAriaLabel` | 'Show $num Important Headings' | The `aria-label` for the menu item when the button action is to show "Important" headings. |
+| `actionShowAllHeadingsAriaLabel` | 'Show All $num headings'| The `aria-label` for the menu item when the button action is to show "All" headings. |
+| `actionShowImportantLandmarksAriaLabel` | 'Show $num Important landmarks' | The `aria-label` for the menu item when the button action is to show "Important" landmarks. |
+| `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
 
 ### Colors used for Button and Menu styling
 
@@ -357,6 +362,11 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 ### Version 3.1
+* Added `aria-label` for action menu items to make the label screen reader friendly
+* For heading menuitems, use `aria-label` to make the label more like a screen reader
+* Use element names as landmark labels instead of landmark names
+* Support `aria-roledescription` for labeling landmark roles in menu
+* Nested landmarks and header levels are indented
 * Added actions to toggle between "Important" and "All" landmarks and headings.
 * Added additional keyboard shortcuts in the menu based on heading level.
 * Added more information about accesskey in help.
