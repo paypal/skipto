@@ -1,3 +1,5 @@
+// jshint node: true, strict: false
+
 module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -30,7 +32,12 @@ module.exports = function(grunt) {
 			'// @include *' + '\n' +
 			'// ==/UserScript==' + '\n' + '\n',
 		jshint: {
-			files: ['src/js/<%= pkg.name %>.js'],
+			files: [
+				'**/*.js',
+				'!**/*.min.js',
+				'!compiled/**',
+				'!node_modules/**'
+			],
 			options: {
 				jshintrc: "./src/js/.jshintrc"
 			}

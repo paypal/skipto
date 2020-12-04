@@ -1,4 +1,3 @@
-/*jslint devel: true */
 /* ========================================================================
 * Copyright (c) <2020> PayPal
 * All rights reserved.
@@ -297,7 +296,7 @@
           ) {
           localConfig[name] = appConfigSettings[name];
         } else {
-          console.log('** SkipTo Problem with user configuration option "' + name + '".');
+          console.log('** SkipTo Problem with user configuration option "' + name + '".'); // jshint ignore:line
         }
       }
     },
@@ -1243,6 +1242,6 @@
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
     SkipTo.init(window.SkipToConfig || window.Wordpress || {});
-    console.log('SkipTo loaded...');
+    console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();
