@@ -23,3 +23,6 @@ Thumbs.db
 # Jekyll Generated pages
 ######################
 _site
+
+# Diff files
+*.orig
