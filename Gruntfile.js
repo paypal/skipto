@@ -78,11 +78,11 @@ module.exports = function(grunt) {
 		},
 
 		cssmin: {
-		  target:{
-		  	files: {
-		  		'src/css/SkipTo.css': ['src/css/SkipTo.template.css']
-		  	}
-		  }
+			target:{
+				files: {
+					'src/css/SkipTo.css': ['src/css/SkipTo.template.css']
+				}
+			}
 		},
 
 		replace: {
