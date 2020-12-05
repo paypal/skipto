@@ -48,7 +48,7 @@ Setting properties is optional, when a property is not defined it's default valu
 
 ### Options for adding the `button` element
 
-The following options are usefule for identify where the menu will be in the DOM structure of the page and which elements will be used as the container for the menu button.  The options are of type `string`.
+The following options are useful for identify where the menu will be in the DOM structure of the page and which elements will be used as the container for the menu button.  The options are of type `string`.
 
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
