@@ -61,7 +61,7 @@ The following options are usefule for identify where the menu will be in the DOM
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be realtively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
+The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be relatively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
 
 The options are of type `string`.
 
