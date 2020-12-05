@@ -149,7 +149,7 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 | `menuitemColor` | Color | `#1a1a1a`  | Menuitem text color. |
 | `menuitemBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color. |
 | `menuitemFocusColor` | Color | `#eeeeee`  | Menuitem text color then it has focus. |
-| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text backgroundcolor then it has focus. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background color then it has focus. |
 | `menuitemFocusBorderColor` | Color | `#1a1a1a`  | Menuitem border color then it has focus. |
 | `menuitemLevelColor` | Color | `#1a1a1a`  | Menuitem text color for the heading level number indicator used as a shortcut key. |
 | `menuitemLevelBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color for the heading level number indicator used as a shortcut key. |
