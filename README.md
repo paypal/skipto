@@ -178,18 +178,18 @@ If have different requirements for your web site and include other heading level
 
 ```html
 <script>
-    var SkipToConfig =  {
-        'settings': {
-            'skipTo': {
-                landmarks: 'main, [role="main"], [role="search"], nav',
-                headings: 'main h1, main h2, main h3',
-                headingGroupLabel:  'Headings',
-                accessKey: 'S',
-                displayOption: 'popup',
-                colorTheme: 'illinois',
-            }
-        }
-    };
+var SkipToConfig =  {
+  'settings': {
+    'skipTo': {
+      landmarks: 'main, [role="main"], [role="search"], nav',
+      headings: 'main h1, main h2, main h3',
+      headingGroupLabel:  'Headings',
+      accessKey: 'S',
+      displayOption: 'popup',
+      colorTheme: 'illinois',
+    }
+  }
+};
 </script>
 ```
 
@@ -202,22 +202,28 @@ The source code in this section is for developers to understand the HTML, classe
   class="skip-to"
   title='Keyboard Navigation Accesskey is "Alt+0"'
 >
+  <!--
   //
   // Menu Button
   //
+  -->
   <button
     aria-haspopup="true"
     aria-expanded="true"
     accesskey="0">
     Skip To Content
   </button>
+  <!--
   //
   // ARIA enabled menu
   //
+  -->
   <div role="menu">
+    <!--
     //
     // Landmark group label and menu items
     //
+    -->
     <div id="id-skip-to-group-landmarks-label"
       role="separator">
       Important Landmarks
@@ -234,13 +240,17 @@ The source code in this section is for developers to understand the HTML, classe
         data-id="6">
         <span class="label skip-to-main">main: Main using main element a...</span>
       </div>
-
+      <!--
       ... more menu items ...
+      -->
+    </div>
+    <!-- End Landmarks Group -->
 
-    </div>  // End Landmarks Group
+    <!--
     //
     // Heading group label and menu items
     //
+    -->
     <div id="id-skip-to-group-headings-label"
       role="separator">
       Important Headings
@@ -262,13 +272,17 @@ The source code in this section is for developers to understand the HTML, classe
         <span class="level"><span>2</span>)</span>
         <span class="label skip-to-h2">Pastrami</span>
       </div>
-
+      <!--
       ... more menu items ...
+      -->
+    </div>
+    <!-- End Headings Group -->
 
-    </div>  // End Headings Group
+    <!--
     //
     // Action group label and menu items
     //
+    -->
     <div role="separator"
       id="id-skip-to-group-actions-label">
       Actions
@@ -288,7 +302,8 @@ The source code in this section is for developers to understand the HTML, classe
         data-show-landmark-option="all">
         <span class="label skip-to-action">Show All landmarks (10)</span>
       </div>
-    </div> // End Action Group
+    </div>
+    <!-- End Action Group -->
   </div>
 </div>
 
@@ -303,9 +318,9 @@ The source code in this section is for developers to understand the HTML, classe
 
 ```css
 .skipTo.MyCustomClass {
- background:  red;
- left: 50px;
- top: 50px;
+  background:  red;
+  left: 50px;
+  top: 50px;
 }
 ```
 
@@ -314,11 +329,11 @@ The source code in this section is for developers to understand the HTML, classe
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
 ```sh
-  git clone https://github.com/paypal/skipto.git
-  cd skipto
-  sudo npm install grunt-cli -g
-  npm install
-  grunt
+git clone https://github.com/paypal/skipto.git
+cd skipto
+sudo npm install grunt-cli -g
+npm install
+grunt
 ```
 
 1. You should now have a directory called **`compiled`** with the necessary files in it.
