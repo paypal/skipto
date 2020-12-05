@@ -102,13 +102,13 @@ The labels and messages can be localized for s specific languages or updated to 
 | `landmarkAllGroupLabel` | 'All Landmarks' | Menu group label for landmarks when all landmarks are in the menu. |
 | `headingAllGroupLabel` | 'All Headings' | Menu group label for headings when all headings are in the menu. |
 | `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
-| `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
+| `mainLabel` | 'main' | The label in the menu for `main` landmarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
 | `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
 | `asideLabel` | 'aside' | The label in the menu for `complementary` landmarks |
 | `footerLabel` | 'footer' | The label in the menu for `contentinfo` landmarks |
 | `headerLabel` | 'header' | The label in the menu for `banner` landmarks |
-| `formLabel` | 'form' | The label in the menu for `form` landmdrks |
+| `formLabel` | 'form' | The label in the menu for `form` landmarks |
 | `msgNoLandmarksFound` | 'No landmarks to skip to'| Message for when no landmarks are found. |
 | `msgNoHeadingsFound` | 'No main headings to skip to'| Message for when no headings are found. |
 
