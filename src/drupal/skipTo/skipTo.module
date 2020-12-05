@@ -62,8 +62,8 @@ function skipto_help($path, $arg) {
       return '<p>' .
         t('<p>Make certain that you install SkipTo.min.js into libraries/skipto. For more information, please see info on our <a href="@github">GitHub page</a>. You can also <a href="@jslink">download the version we use on that page</a>.</p>',
             array(
-              '@jslink' => url('http://paypal.github.io/skipto/downloads/js/SkipTo.min.js'),
-              '@github' => url('http://paypal.github.io/skipto/')));
+              '@jslink' => url('https://paypal.github.io/skipto/downloads/js/SkipTo.min.js'),
+              '@github' => url('https://paypal.github.io/skipto/')));
   }
 }
 
@@ -92,8 +92,8 @@ function skipto_form($form, &$form_state) {
   $form['intro'] = array(
     '#markup' => t('<p>Make certain that you install SkipTo.min.js into libraries/skipto. For more information, please see info on our <a href="@github">GitHub page</a>. You can also <a href="@jslink">download the version we use on that page</a>.</p>',
             array(
-              '@jslink' => url('http://paypal.github.io/skipto/downloads/js/SkipTo.min.js'),
-              '@github' => url('http://paypal.github.io/skipto/'))),
+              '@jslink' => url('https://paypal.github.io/skipto/downloads/js/SkipTo.min.js'),
+              '@github' => url('https://paypal.github.io/skipto/'))),
   );
 
   $form['skipto_headings_array'] = array(

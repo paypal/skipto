@@ -11,7 +11,7 @@ See the [Authors](#authors) section for more information.
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
-![Example Screen Shot](http://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
+![Example Screen Shot](https://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
 
@@ -22,7 +22,7 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 
 ## How do I get it on my web site
 
-If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems below. The SkipTo can also be related from the [Drupal](https://drupal.org/project/SkipTo) and [Wordpress](http://wordpress.org/plugins/skip-to/) repositories.
+If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems below. The SkipTo can also be related from the [Drupal](https://drupal.org/project/SkipTo) and [Wordpress](https://wordpress.org/plugins/skip-to/) repositories.
 
 To sweeten your day even more, the GreaseMonkey script and Safari bookmarklet are also available. See the "downloads" section below for related links.
 By the way, this page is a great chance to see the "SkipTo menu" in action! Did you find the menu at the top?
@@ -35,7 +35,7 @@ If you would like to be able to debug your production-ready script, include the 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
 
 ```html
-<script type="text/javascript" src="http://paypal.github.io/skipto/downloads/js/SkipTo.min.js"></script>
+<script type="text/javascript" src="https://paypal.github.io/skipto/downloads/js/SkipTo.min.js"></script>
 ```
 
 Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
@@ -94,8 +94,8 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 
 You may feel slightly adventurous and decide to change some colors or even enhance the script with your changes. Once you do this, here is how you compile the skipTo script for production.
 
-1. [Get NodeJS from http://nodejs.org](http://nodejs.org) and install it on the operating system of your choice.
-2. Get the [latest code from Github from http://github.com/paypal/skipto](http://github.com/paypal/skipto).
+1. [Get NodeJS from https://nodejs.org](https://nodejs.org) and install it on the operating system of your choice.
+2. Get the [latest code from Github from https://github.com/paypal/skipto](https://github.com/paypal/skipto).
 3. After unzipping or downloading the source code into the directory of your choice, switch to that directory and type these commands:
 
     ```sh
@@ -124,7 +124,7 @@ Please do not hesitate to [raise issues and comment on Github](https://github.co
 Happy skipping!
 
 PayPal Accessibility Gang
-[Twitter: @PayPalInclusive](http://www.twitter.com/PayPalInclusive)
+[Twitter: @PayPalInclusive](https://www.twitter.com/PayPalInclusive)
 
 ## Authors
 
@@ -156,10 +156,10 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## SkipTo Gallery
 
-[An inclusive car booking company in Bangalore](http://www.kickstartcabs.com/)
+[An inclusive car booking company in Bangalore](https://www.kickstartcabs.com/)
 
-[Sai Gagan Accessibility Solutions](http://sgaccessibility.com/sites/)
+[Sai Gagan Accessibility Solutions](https://sgaccessibility.com/sites/)
 
-[Srinivasu blog](http://srinivasu.org/blog/)
+[Srinivasu blog](https://srinivasu.org/blog/)
 
 If you like your site to be listed in this list, please comment on this [github ticket](https://github.com/paypal/skipto/issues/21)

@@ -33,7 +33,7 @@ If you would like to be able to debug your production-ready script, include the 
 To use the SkipTo script, just include it anywhere on your HTML page or template, as follows:
 
 ```html
-<script src="http://[your domain]/[path to javascript directory]/SkipTo.min.js"></script>
+<script src="https://[your domain]/[path to javascript directory]/SkipTo.min.js"></script>
 ```
 
 NOTE: Make sure that "src" points to the place where you put the SkipTo Javascript file, otherwise, things will not work as intended.
@@ -358,7 +358,7 @@ Please do not hesitate to [raise issues and comment on Github](https://github.co
 Happy skipping!
 
 PayPal Accessibility Team
-[Twitter: @PayPalInclusive](http://www.twitter.com/PayPalInclusive)
+[Twitter: @PayPalInclusive](https://www.twitter.com/PayPalInclusive)
 
 ## Authors
 
