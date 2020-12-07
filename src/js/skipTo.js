@@ -229,7 +229,7 @@
         }
       }
       this.addCSSColors();
-      this.addStyleElement(this.defaultCSS);
+      this.renderStyleElement(this.defaultCSS);
       this.domNode = document.createElement(this.config.containerElement);
       this.domNode.classList.add('skip-to');
       if (this.isNotEmptyString(this.config.customClass)) {
@@ -301,7 +301,7 @@
         }
       }
     },
-    addStyleElement: function(cssString) {
+    renderStyleElement: function(cssString) {
       var styleNode = document.createElement('style');
       var headNode = document.getElementsByTagName('head')[0];
       var css = document.createTextNode(cssString);
@@ -359,7 +359,7 @@
       this.updateKeyboardShortCuts();
     },
 
-    addMenuitemToGroup: function (groupNode, mi) {
+    renderMenuitemToGroup: function (groupNode, mi) {
       var tagNode, tagNodeChild, labelNode, nestingNode;
 
       var menuitemNode = document.createElement('div');
@@ -418,7 +418,7 @@
       return menuitemNode;
     },
 
-    addMenuitemGroup: function(groupId, title) {
+    renderMenuitemGroup: function(groupId, title) {
       var labelNode, groupNode;
       var menuNode = this.menuNode;
       if (title) {
@@ -437,7 +437,7 @@
       return groupNode;
     },
 
-    addMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
+    renderMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
       groupNode.innerHTML = '';
       this.lastNestingLevel = 0;
 
@@ -447,11 +447,11 @@
         item.tagName = 'no tag';
         item.class = 'no-items';
         item.dataId = '';
-        this.addMenuitemToGroup(groupNode, item);
+        this.renderMenuitemToGroup(groupNode, item);
       }
       else {
         for (var i = 0; i < menuitems.length; i += 1) {
-          this.addMenuitemToGroup(groupNode, menuitems[i]);
+          this.renderMenuitemToGroup(groupNode, menuitems[i]);
         }
       }
     },
@@ -506,7 +506,7 @@
       return label.replace('$num', n);
     },
 
-    addActionMoreHeadings: function(groupNode) {
+    renderActionMoreHeadings: function(groupNode) {
       var item = {};
       item.name = this.getShowMoreHeadingsLabel('all');
       item.ariaLabel = this.getShowMoreHeadingsAriaLabel('all');
@@ -514,7 +514,7 @@
       item.role = 'menuitem';
       item.class = 'action';
       item.dataId = 'skip-to-more-headings';
-      var menuitemNode = this.addMenuitemToGroup(groupNode, item);
+      var menuitemNode = this.renderMenuitemToGroup(groupNode, item);
       menuitemNode.setAttribute('data-show-heading-option', 'all');
       menuitemNode.title = this.config.actionShowHeadingsHelp;
     },
@@ -523,7 +523,7 @@
       var selector = this.getShowMoreHeadingsSelector(option);
       var headings = this.getHeadings(selector);
       var groupNode = document.getElementById('id-skip-to-group-headings');
-      this.addMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
+      this.renderMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
       this.updateMenuitems();
 
       // Move focus to first heading menuitem
@@ -600,7 +600,7 @@
       return label.replace('$num', n);
     },
 
-    addActionMoreLandmarks: function(groupNode) {
+    renderActionMoreLandmarks: function(groupNode) {
       var item = {};
       item.name = this.getShowMoreLandmarksLabel('all');
       item.ariaLabel =  this.getShowMoreLandmarksAriaLabel('all');
@@ -608,7 +608,7 @@
       item.role = 'menuitem';
       item.class = 'action';
       item.dataId = 'skip-to-more-landmarks';
-      var menuitemNode = this.addMenuitemToGroup(groupNode, item);
+      var menuitemNode = this.renderMenuitemToGroup(groupNode, item);
       menuitemNode.setAttribute('data-show-landmark-option', 'all');
       menuitemNode.title = this.config.actionShowLandmarksHelp;
     },
@@ -617,7 +617,7 @@
       var selector = this.getShowMoreLandmarksSelector(option);
       var landmarks = this.getLandmarks(selector, option === 'all');
       var groupNode = document.getElementById('id-skip-to-group-landmarks');
-      this.addMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
+      this.renderMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
       this.updateMenuitems();
 
       // Move focus to first landmark menuitem
@@ -642,7 +642,7 @@
       labelNode.textContent = this.getShowMoreLandmarksLabel(option);
     },
 
-    createMenu: function() {
+    renderMenu: function() {
       var groupNode, landmarkElements, headingElements;
       // remove current menu items from menu
       while (this.menuNode.lastElementChild) {
@@ -651,19 +651,19 @@
 
       // Create landmarks group
       landmarkElements = this.getLandmarks();
-      groupNode = this.addMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkImportantGroupLabel);
-      this.addMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkImportantGroupLabel);
+      this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
 
       // Create headings group
       headingElements = this.getHeadings();
-      groupNode = this.addMenuitemGroup('id-skip-to-group-headings', this.config.headingImportantGroupLabel);
-      this.addMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingImportantGroupLabel);
+      this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
 
       // Create actions, if enabled
       if (this.config.enableActions) {
-        groupNode = this.addMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
-        this.addActionMoreHeadings(groupNode);
-        this.addActionMoreLandmarks(groupNode);
+        groupNode = this.renderMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
+        this.renderActionMoreHeadings(groupNode);
+        this.renderActionMoreLandmarks(groupNode);
       }
 
       // Update list of menuitems
@@ -760,7 +760,7 @@
     },
     // Popup menu methods
     openPopup: function() {
-      this.createMenu();
+      this.renderMenu();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
     },
