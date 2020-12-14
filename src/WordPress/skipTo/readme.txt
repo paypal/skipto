@@ -8,7 +8,7 @@ License: Apache-2.0
 
 == Description ==
 
-# [SkipTo](http://paypal.github.io/SkipTo/)
+# [SkipTo](https://paypal.github.io/SkipTo/)
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the most important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
