@@ -1,3 +1,4 @@
+/* exported Wordpress */
 var Wordpress =	{
 	"settings": {
 		"skipTo": {

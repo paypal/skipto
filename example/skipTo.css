@@ -1,0 +1,13 @@
+body {
+  color: #000;
+  background: #fff;
+}
+
+a[aria-current] {
+  text-decoration: none;
+}
+
+a[aria-current]:focus,
+a[aria-current]:hover {
+  text-decoration: underline;
+}
