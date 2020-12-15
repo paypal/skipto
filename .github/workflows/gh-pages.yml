@@ -31,15 +31,15 @@ jobs:
     - name: Cleanup old files
       run: |
         rm -rf deploy/downloads/
-        rm -rf deploy/examples/
+        rm -rf deploy/example/
         rm -rf deploy/src/
         rm -rf deploy/index.md
         rm -rf deploy/LICENSE.md
 
     - name: Copy files
       run: |
-        cp -R main/compiled deploy/downloads
-        cp -R main/examples deploy
+        cp -RT main/compiled deploy/downloads
+        cp -R main/example deploy
         cp -R main/images deploy
         cp -R main/src deploy
         cp main/index.md deploy
