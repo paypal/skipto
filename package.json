@@ -1,7 +1,7 @@
 {
   "name": "skipto",
   "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to quickly skip to the most important places on the webpage.",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "keywords": [
     "accessibility",
     "Navigation",

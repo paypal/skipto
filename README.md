@@ -361,6 +361,9 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Safari -- Control+Option+0.
 
 ## Version History
+### Version 3.1.1
+* Changed "Important" to "Selected" landmarks and headings.
+
 ### Version 3.1
 * Added `aria-label` for action menu items to make the label screen reader friendly
 * For heading menuitems, use `aria-label` to make the label more like a screen reader

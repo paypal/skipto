@@ -3,7 +3,7 @@ layout: index
 ---
 
 
-# SkipTo, version 3.1
+# SkipTo, version 3.1.1
 ## by PayPal Accessibility Team and University of Illinois
 See the [Authors](#authors) section for more information.
 

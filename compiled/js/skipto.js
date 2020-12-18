@@ -1,4 +1,4 @@
-/*! skipto - v3.1.0 - 2020-12-07
+/*! skipto - v3.1.1 - 2020-12-18
 * https://github.com/paypal/skipto
 * Copyright (c) 2020 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -51,10 +51,10 @@
 
       // Menu labels and messages
       menuLabel: 'Landmarks and Headings',
-      landmarkImportantGroupLabel: 'Important Landmarks',
-      landmarkAllGroupLabel: 'All Landmarks',
-      headingImportantGroupLabel: 'Important Headings',
-      headingAllGroupLabel: 'All Headings',
+      landmarkSelectedGroupLabel: 'Landmarks',
+      landmarkAllGroupLabel: 'Landmarks',
+      headingSelectedGroupLabel: 'Headings',
+      headingAllGroupLabel: 'Headings',
       headingLevelLabel: 'Heading level',
       mainLabel: 'main',
       searchLabel: 'search',
@@ -69,17 +69,17 @@
 
       // Action labels and messages
       actionGroupLabel: 'Actions',
-      actionShowHeadingsHelp: 'Toggles between showing "All" and "Important" headings.',
-      actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
-      actionShowAllHeadingsLabel: 'Show All headings ($num)',
-      actionShowLandmarksHelp: 'Toggles between showing "All" and "Important" landmarks.',
-      actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
-      actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
+      actionShowHeadingsHelp: 'Toggles between showing "All" and "Selected" Headings.',
+      actionShowSelectedHeadingsLabel: 'Show Selected Headings ($num)',
+      actionShowAllHeadingsLabel: 'Show All Headings ($num)',
+      actionShowLandmarksHelp: 'Toggles between showing "All" and "Selected" Landmarks.',
+      actionShowSelectedLandmarksLabel: 'Show Selected Landmarks ($num)',
+      actionShowAllLandmarksLabel: 'Show All Landmarks ($num)',
 
-      actionShowImportantHeadingsAriaLabel: 'Show $num Important Headings',
-      actionShowAllHeadingsAriaLabel: 'Show All $num headings',
-      actionShowImportantLandmarksAriaLabel: 'Show $num Important landmarks',
-      actionShowAllLandmarksAriaLabel: 'Show All $num landmarks',
+      actionShowSelectedHeadingsAriaLabel: 'Show $num selected headings',
+      actionShowAllHeadingsAriaLabel: 'Show all $num headings',
+      actionShowSelectedLandmarksAriaLabel: 'Show $num selected landmarks',
+      actionShowAllLandmarksAriaLabel: 'Show all $num landmarks',
 
       // Selectors for landmark and headings sections
       landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
@@ -465,7 +465,7 @@
         if (option === 'all') {
           return this.config.headingAllGroupLabel;
         }
-        return this.config.headingImportantGroupLabel;
+        return this.config.headingSelectedGroupLabel;
     },
 
     getShowMoreHeadingsSelector: function(option) {
@@ -478,7 +478,7 @@
     getShowMoreHeadingsLabel: function(option) {
       var label, n;
 
-      label = this.config.actionShowImportantHeadingsLabel;
+      label = this.config.actionShowSelectedHeadingsLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllHeadingsLabel;
@@ -496,7 +496,7 @@
     getShowMoreHeadingsAriaLabel: function(option) {
       var label, n;
 
-      label = this.config.actionShowImportantHeadingsAriaLabel;
+      label = this.config.actionShowSelectedHeadingsAriaLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllHeadingsAriaLabel;
@@ -540,7 +540,7 @@
       labelNode.textContent = this.getHeadingsGroupLabel(option);
 
       if (option === 'all') {
-        option = 'important';
+        option = 'selected';
       } else {
         option = 'all';
       }
@@ -557,7 +557,7 @@
       if (option === 'all') {
         return this.config.landmarkAllGroupLabel;
       }
-      return this.config.landmarkImportantGroupLabel;
+      return this.config.landmarkSelectedGroupLabel;
     },
 
     getShowMoreLandmarksSelector: function(option) {
@@ -573,7 +573,7 @@
       if (option === 'all') {
         label = this.config.actionShowAllLandmarksLabel;
       } else {
-        label = this.config.actionShowImportantLandmarksLabel;
+        label = this.config.actionShowSelectedLandmarksLabel;
       }
 
       n = this.getLandmarks(this.getShowMoreLandmarksSelector(option));
@@ -592,7 +592,7 @@
       if (option === 'all') {
         label = this.config.actionShowAllLandmarksAriaLabel;
       } else {
-        label = this.config.actionShowImportantLandmarksAriaLabel;
+        label = this.config.actionShowSelectedLandmarksAriaLabel;
       }
 
       n = this.getLandmarks(this.getShowMoreLandmarksSelector(option));
@@ -634,7 +634,7 @@
       labelNode.textContent = this.getLandmarksGroupLabel(option);
 
       if (option === 'all') {
-        option = 'important';
+        option = 'selected';
       } else {
         option = 'all';
       }
@@ -656,19 +656,19 @@
 
       // Create landmarks group
       landmarkElements = this.getLandmarks();
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkImportantGroupLabel);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkSelectedGroupLabel);
       this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
 
       // Create headings group
       headingElements = this.getHeadings();
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingImportantGroupLabel);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingSelectedGroupLabel);
       this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
 
       // Create actions, if enabled
       if (this.config.enableActions) {
         groupNode = this.renderMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
-        this.renderActionMoreHeadings(groupNode);
         this.renderActionMoreLandmarks(groupNode);
+        this.renderActionMoreHeadings(groupNode);
       }
 
       // Update list of menuitems
