@@ -21,7 +21,9 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
-    showAllLandmarksSelector: "main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]",
+    lastLandmarkOption: 'selected',
+    lastHeadingOption: 'selected',
+    showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     // Default configuration values
     config: {
@@ -508,14 +510,18 @@
 
     renderActionMoreHeadings: function(groupNode) {
       var item = {};
-      item.name = this.getShowMoreHeadingsLabel('all');
-      item.ariaLabel = this.getShowMoreHeadingsAriaLabel('all');
+      var option = 'all';
+      if (this.lastHeadingOption === option) {
+        option = 'selected';
+      }
+      item.name = this.getShowMoreHeadingsLabel(option);
+      item.ariaLabel = this.getShowMoreHeadingsAriaLabel(option);
       item.tagName = 'action';
       item.role = 'menuitem';
       item.class = 'action';
       item.dataId = 'skip-to-more-headings';
       var menuitemNode = this.renderMenuitemToGroup(groupNode, item);
-      menuitemNode.setAttribute('data-show-heading-option', 'all');
+      menuitemNode.setAttribute('data-show-heading-option', option);
       menuitemNode.title = this.config.actionShowHeadingsHelp;
     },
 
@@ -533,6 +539,7 @@
 
       var labelNode = this.menuNode.querySelector('#id-skip-to-group-headings-label');
       labelNode.textContent = this.getHeadingsGroupLabel(option);
+      this.lastHeadingOption = option;
 
       if (option === 'all') {
         option = 'selected';
@@ -546,6 +553,7 @@
 
       labelNode = menuitemNode.querySelector('span.label');
       labelNode.textContent = this.getShowMoreHeadingsLabel(option);
+
     },
 
     getLandmarksGroupLabel: function(option) {
@@ -601,15 +609,19 @@
     },
 
     renderActionMoreLandmarks: function(groupNode) {
+      var option = 'all';
+      if (this.lastLandmarkOption === option) {
+        option = 'selected';
+      }
       var item = {};
-      item.name = this.getShowMoreLandmarksLabel('all');
-      item.ariaLabel =  this.getShowMoreLandmarksAriaLabel('all');
+      item.name = this.getShowMoreLandmarksLabel(option);
+      item.ariaLabel =  this.getShowMoreLandmarksAriaLabel(option);
       item.tagName = 'action';
       item.role = 'menuitem';
       item.class = 'action';
       item.dataId = 'skip-to-more-landmarks';
       var menuitemNode = this.renderMenuitemToGroup(groupNode, item);
-      menuitemNode.setAttribute('data-show-landmark-option', 'all');
+      menuitemNode.setAttribute('data-show-landmark-option', option);
       menuitemNode.title = this.config.actionShowLandmarksHelp;
     },
 
@@ -627,6 +639,7 @@
 
       var labelNode = this.menuNode.querySelector('#id-skip-to-group-landmarks-label');
       labelNode.textContent = this.getLandmarksGroupLabel(option);
+      this.lastLandmarkOption = option;
 
       if (option === 'all') {
         option = 'selected';
@@ -643,19 +656,23 @@
     },
 
     renderMenu: function() {
-      var groupNode, landmarkElements, headingElements;
+      var groupNode, landmarkElements, headingElements, selector, option;
       // remove current menu items from menu
       while (this.menuNode.lastElementChild) {
         this.menuNode.removeChild(this.menuNode.lastElementChild);
       }
 
       // Create landmarks group
-      landmarkElements = this.getLandmarks();
+      option = this.lastLandmarkOption;
+      selector = this.getShowMoreLandmarksSelector(option);
+      landmarkElements = this.getLandmarks(selector, option === 'all');
       groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkSelectedGroupLabel);
       this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
 
       // Create headings group
-      headingElements = this.getHeadings();
+      option = this.lastHeadingOption;
+      selector = this.getShowMoreHeadingsSelector(option);
+      headingElements = this.getHeadings(selector);
       groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingSelectedGroupLabel);
       this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
 
