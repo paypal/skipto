@@ -92,7 +92,7 @@ The inclusion of heading level and the action buttons are enabled by default, bu
 
 ### Menu, Group and Menuitem Labeling
 
-The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
+The labels and messages can be localized for specific languages or updated to reflect custom selectors.
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
@@ -114,7 +114,7 @@ The labels and messages can be localized for s specific languages or updated to 
 
 ### Action labeling
 
-The labels and messages can be localized for s specific languages or updated to reflect custom selectors.
+The labels and messages can be localized for specific languages or updated to reflect custom selectors.
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
