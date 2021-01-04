@@ -145,7 +145,7 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 | `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | Background color of text for "Skip To Content" button when it has focus. |
 | `buttonFocusBorderColor` | Color | `#1a1a1a`  | Border color of "Skip To Content" button when it has focus. |
 | `menuBackgroundColor` | Color | `#eeeeee` | Menu background color. |
-| `menuBorderColor` | Color | `1a1a1a` | Menu border color |
+| `menuBorderColor` | Color | `#1a1a1a` | Menu border color |
 | `menuitemColor` | Color | `#1a1a1a`  | Menuitem text color. |
 | `menuitemBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color. |
 | `menuitemFocusColor` | Color | `#eeeeee`  | Menuitem text color then it has focus. |
