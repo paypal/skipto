@@ -507,14 +507,14 @@
 
       var selectedHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('selected')).length;
       var allHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('all')).length;
-      var noAdditional = selectedHeadingsLen === allHeadingsLen;
+      var noAction = selectedHeadingsLen === allHeadingsLen;
       var headingsLen = allHeadingsLen;
 
       if (option !== 'all') {
         headingsLen = selectedHeadingsLen;
       }
 
-      if (!noAdditional) {
+      if (!noAction) {
         item = {};
         item.tagName = 'action';
         item.role = 'menuitem';
@@ -527,7 +527,7 @@
         menuitemNode.setAttribute('data-show-heading-option', option);
         menuitemNode.title = this.config.actionShowHeadingsHelp;
       }
-      return noAdditional;
+      return noAction;
     },
 
     updateHeadingGroupMenuitems: function(option) {
@@ -538,6 +538,7 @@
       var allHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('all'));
       var allHeadingsLen = allHeadings.length;
 
+      // Update list of headings
       if ( option === 'all' ) {
         headings = allHeadings;
       }
@@ -554,6 +555,7 @@
         groupNode.firstElementChild.focus();
       }
 
+      // Update heading action menuitem
       if (option === 'all') {
         option = 'selected';
         headingsLen = selectedHeadingsLen;
@@ -602,14 +604,14 @@
 
       var selectedLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('selected')).length;
       var allLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('all')).length;
-      var noAdditional = selectedLandmarksLen === allLandmarksLen;
+      var noAction = selectedLandmarksLen === allLandmarksLen;
       var landmarksLen = allLandmarksLen;
 
       if (option !== 'all') {
         landmarksLen = selectedLandmarksLen;
       }
 
-      if (!noAdditional) {
+      if (!noAction) {
         item = {};
         item.tagName = 'action';
         item.role = 'menuitem';
@@ -623,16 +625,17 @@
         menuitemNode.setAttribute('data-show-landmark-option', option);
         menuitemNode.title = this.config.actionShowLandmarksHelp;
       }
-      return noAdditional;
+      return noAction;
     },
 
     updateLandmarksGroupMenuitems: function(option) {
       var landmarks, landmarksLen, labelNode;
       var selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
       var selectedLandmarksLen = selectedLandmarks.length;
-      var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'));
+      var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
       var allLandmarksLen = allLandmarks.length;
 
+      // Update landmark menu items
       if ( option === 'all' ) {
         landmarks = allLandmarks;
       }
@@ -649,6 +652,7 @@
         groupNode.firstElementChild.focus();
       }
 
+      // Update landmark action menuitem
       if (option === 'all') {
         option = 'selected';
         landmarksLen = selectedLandmarksLen;
@@ -696,6 +700,7 @@
         groupNode = this.renderMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
         hasNoAction1 = this.renderActionMoreLandmarks(groupNode);
         hasNoAction2 = this.renderActionMoreHeadings(groupNode);
+        // Remove action label if no actions are available
         if (hasNoAction1 && hasNoAction2) {
           this.removeMenuitemGroup('id-skip-to-group-actions');
         }
