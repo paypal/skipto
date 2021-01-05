@@ -53,7 +53,7 @@ The following options are useful for identify where the menu will be in the DOM 
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
 | `displayOption` | 'static' | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
-| `accessKey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
+| `accesskey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
 | `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container. |
 | `containerElement` | 'div' | Element to use as a container for the button and the menu.
 | `customClass` | none | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
@@ -184,7 +184,7 @@ var SkipToConfig =  {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
       headingGroupLabel:  'Headings',
-      accessKey: 'S',
+      accesskey: 'S',
       displayOption: 'popup',
       colorTheme: 'illinois',
     }
