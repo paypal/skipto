@@ -92,10 +92,8 @@ The labels and messages can be localized for s specific languages or updated to 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
 | `menuLabel` | 'Landmarks and Headings' | Change the label for the menu. |
-| `landmarkImportantGroupLabel` | 'Important Landmarks' | Menu group label for landmarks when important landmarks are in the menu. |
-| `headingImportantGroupLabel` | 'Important Headings' | Menu group label for landmarks when important headings are in the menu. |
-| `landmarkAllGroupLabel` | 'All Landmarks' | Menu group label for landmarks when all landmarks are in the menu. |
-| `headingAllGroupLabel` | 'All Headings' | Menu group label for headings when all headings are in the menu. |
+| `landmarkGroupLabel` | 'Landmarks' | Menu group label for landmarks . |
+| `headingGroupLabel` | 'Headings' | Menu group label for headings. |
 | `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
 | `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
@@ -361,6 +359,9 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Safari -- Control+Option+0.
 
 ## Version History
+### Version 3.1.2
+* Changed "Important" to "Selected" landmarks and headings.
+
 ### Version 3.1.1
 * Changed "Important" to "Selected" landmarks and headings.
 
@@ -416,4 +417,4 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Copyright and license
 
-Copyright 2019, PayPal under the [BSD license](LICENSE.md).
+Copyright 2021, PayPal and University of Illinois under the [BSD license](LICENSE.md).
