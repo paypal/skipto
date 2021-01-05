@@ -104,7 +104,7 @@ The labels and messages can be localized for specific languages or updated to re
 | `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
 | `mainLabel` | 'main' | The label in the menu for `main` landmarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
-| `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
+| `navLabel` | 'navigation' | The label in the menu for `navigation` landmarks |
 | `asideLabel` | 'aside' | The label in the menu for `complementary` landmarks |
 | `footerLabel` | 'footer' | The label in the menu for `contentinfo` landmarks |
 | `headerLabel` | 'header' | The label in the menu for `banner` landmarks |
