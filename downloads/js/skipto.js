@@ -110,7 +110,7 @@
         buttonFocusBackgroundColor: '#dcdcdc',
         buttonFocusBorderColor: '#1a1a1a',
         menuBackgroundColor: '#eeeeee',
-        menuBorderColor: '1a1a1a',
+        menuBorderColor: '#1a1a1a',
         menuitemColor: '#1a1a1a',
         menuitemBackgroundColor: '#eeeeee',
         menuitemFocusColor: '#eeeeee',
