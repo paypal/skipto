@@ -1241,7 +1241,7 @@
   };
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
-    SkipTo.init(window.SkipToConfig || window.Wordpress || (window.Joomla && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings') : {});
+    SkipTo.init(window.SkipToConfig || window.Wordpress || (window.Joomla && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {});
     console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();
