@@ -1,4 +1,4 @@
-/*! skipto - v3.1.2 - 2021-01-05
+/*! skipto - v3.1.2 - 2021-01-08
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -27,6 +27,7 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
+    contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     // Default configuration values
@@ -378,6 +379,7 @@
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
+      menuitemNode.classList.add(mi.tagName);
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
       if (mi.ariaLabel) {
@@ -865,17 +867,30 @@
       event.preventDefault();
     },
     skipToElement: function(menuitem) {
-      var inputNode = false;
-      var isSearch = menuitem.classList.contains('skip-to-search');
+      var focusNode = false;
+      var scrollNode = false;
+      var isLandmark = menuitem.classList.contains('landmark');
+      var isSearch = menuitem.classList.contains('search');
+      var isNav = menuitem.classList.contains('nav');
       var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
       if (node) {
         if (isSearch) {
-          inputNode = node.querySelector('input');
+          focusNode = node.querySelector('input');
         }
-        if (inputNode && this.isVisible(inputNode)) {
-          inputNode.focus();
+        if (isNav) {
+          focusNode = node.querySelector('a');
+        }
+        if (focusNode && this.isVisible(focusNode)) {
+          focusNode.focus();
+          focusNode.scrollIntoView({block: 'nearest'});
         }
         else {
+          if (isLandmark) {
+            scrollNode = node.querySelector(this.contentSelector);
+            if (scrollNode) {
+              node = scrollNode;
+            }
+          }
           node.tabIndex = -1;
           node.focus();
           node.scrollIntoView({block: 'center'});
