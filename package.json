@@ -33,7 +33,6 @@
     "grunt-contrib-less": "~2.0.0",
     "grunt-contrib-uglify": "~4.0.1",
     "grunt-replace": "~1.0.1",
-    "jshint": "~2.10.2",
     "uglify-js": "~2.8.0"
   },
   "readmeFilename": "README.md",
@@ -46,5 +45,6 @@
   "scripts": {
     "test": "grunt test"
   },
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {}
 }
