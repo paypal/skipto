@@ -56,7 +56,7 @@ The following options are usefule for identify where the menu will be in the DOM
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be realtively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
+The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be relatively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
 
 The options are of type `string`.
 
@@ -95,7 +95,7 @@ The labels and messages can be localized for s specific languages or updated to 
 | `landmarkGroupLabel` | 'Landmarks' | Menu group label for landmarks . |
 | `headingGroupLabel` | 'Headings' | Menu group label for headings. |
 | `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
-| `mainLabel` | 'main' | The label in the menu for `main` lanamarks |
+| `mainLabel` | 'main' | The label in the menu for `main` landmarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
 | `navLabel` | 'menu' | The label in the menu for `navigation` landmarks |
 | `asideLabel` | 'aside' | The label in the menu for `complementary` landmarks |
@@ -360,7 +360,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 ### Version 3.1.2
-* Changed "Important" to "Selected" landmarks and headings.
+* Fixed bug in moving focus for landmarks.
 
 ### Version 3.1.1
 * Changed "Important" to "Selected" landmarks and headings.
