@@ -1,4 +1,4 @@
-/*! skipto - v3.1.0 - 2021-01-05
+/*! skipto - v3.1.0 - 2021-01-10
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -1246,7 +1246,7 @@
   };
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
-    SkipTo.init(window.SkipToConfig || window.Wordpress || {});
+    SkipTo.init(window.SkipToConfig || window.Wordpress || (window.Joomla && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {});
     console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();
