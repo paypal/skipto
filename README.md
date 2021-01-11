@@ -81,6 +81,12 @@ The labels and messages can be localized for specific languages or updated to re
 | `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
 | `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
 
+### Button Positioning
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
+
 ### Menu Content Options
 
 The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
@@ -130,6 +136,15 @@ The labels and messages can be localized for specific languages or updated to re
 | `actionShowImportantLandmarksAriaLabel` | 'Show $num Important landmarks' | The `aria-label` for the menu item when the button action is to show "Important" landmarks. |
 | `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
 
+
+### Color Theme Options
+
+A color theme sets all the color options defined by the theme.  There is only one theme at this time.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
+
 ### Colors used for Button and Menu styling
 
 Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
@@ -156,19 +171,6 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
-### Color Theme Options
-
-A color theme sets all the color options defined by the theme.  There is only one theme at this time.
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
-
-### Position of Button
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
 
 ### Example Settings
 
