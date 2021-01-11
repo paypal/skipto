@@ -59,6 +59,12 @@ The following options are useful for identify where the menu will be in the DOM 
 | `customClass` | none | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
 | `containerRole` | none | Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark (e.g. `header` element. |
 
+### Button Positioning
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
+
 ### CSS Selectors for identifying Landmarks and Headings
 
 The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be relatively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
@@ -80,12 +86,6 @@ The labels and messages can be localized for specific languages or updated to re
 | `buttonTitle` | 'Keyboard Navigation' | Help message when accesskey is not defined. |
 | `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
 | `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
-
-### Button Positioning
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
 
 ### Menu Content Options
 
