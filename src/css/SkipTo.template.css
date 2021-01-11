@@ -11,6 +11,11 @@
   left: $positionLeft;
 }
 
+.skip-to.fixed {
+  position: fixed;
+}
+
+
 .skip-to button {
   position: relative;
   margin: 0;

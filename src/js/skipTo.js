@@ -187,6 +187,9 @@
         displayOption = displayOption.trim().toLowerCase();
         if (displayOption.length) {
           switch (this.config.displayOption) {
+            case 'fixed':
+              this.domNode.classList.add('fixed');
+              break;
             case 'onfocus':  // Legacy option
             case 'popup':
               this.domNode.classList.add('popup');

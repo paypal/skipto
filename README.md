@@ -47,7 +47,7 @@ The following options are usefule for identify where the menu will be in the DOM
 
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
-| `displayOption` | 'static' | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
+| `displayOption` | 'static' | Values of `static`, 'fixed' or `popup` are defined.  The value `static` the button is always visible, the value `fixed` the button is always visible at the top of the page even when the page scrolls, and the value `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
 | `accessKey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
 | `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container. |
 | `containerElement` | 'div' | Element to use as a container for the button and the menu.
@@ -359,6 +359,9 @@ Access keys work  just like regular shortcut keys except that they need a browse
 *  Safari -- Control+Option+0.
 
 ## Version History
+### Version 3.1.3
+* Added "fixed" to the `displayOptions` customization.
+
 ### Version 3.1.2
 * Fixed bug in moving focus for landmarks.
 
