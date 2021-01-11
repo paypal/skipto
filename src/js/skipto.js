@@ -1,4 +1,3 @@
-/*jslint devel: true */
 /* ========================================================================
 * Copyright (c) <2021> PayPal and University of Illinois
 * All rights reserved.
@@ -106,7 +105,7 @@
         buttonFocusBackgroundColor: '#dcdcdc',
         buttonFocusBorderColor: '#1a1a1a',
         menuBackgroundColor: '#eeeeee',
-        menuBorderColor: '1a1a1a',
+        menuBorderColor: '#1a1a1a',
         menuitemColor: '#1a1a1a',
         menuitemBackgroundColor: '#eeeeee',
         menuitemFocusColor: '#eeeeee',
@@ -307,7 +306,7 @@
           ) {
           localConfig[name] = appConfigSettings[name];
         } else {
-          console.log('** SkipTo Problem with user configuration option "' + name + '".');
+          console.log('** SkipTo Problem with user configuration option "' + name + '".'); // jshint ignore:line
         }
       }
     },
@@ -1295,7 +1294,7 @@
   };
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
-    SkipTo.init(window.SkipToConfig || window.Wordpress || {});
-    console.log('SkipTo loaded...');
+    SkipTo.init(window.SkipToConfig || window.Wordpress || (window.Joomla && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {});
+    console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();
