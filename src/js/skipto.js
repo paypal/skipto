@@ -157,7 +157,6 @@
       // Check if skipto is already loaded
 
       if (document.querySelector('style#' + this.skipToId)) {
-        console.log('** SkipTo is already loaded!');
         return;
       }
 
@@ -430,6 +429,13 @@
       return menuitemNode;
     },
 
+    getGroupLabel: function (title, m, n) {
+      if ((typeof m === 'number') && (typeof n === 'number')) {
+        title = title + ' (' + m + ' of ' + n + ')';
+      }
+      return title;
+    },
+
     renderMenuitemGroup: function(groupId, title) {
       var labelNode, groupNode;
       var menuNode = this.menuNode;
@@ -530,7 +536,7 @@
     },
 
     updateHeadingGroupMenuitems: function(option) {
-      var headings, headingsLen, labelNode;
+      var headings, headingsLen, labelNode, groupNode, groupLabel;
 
       var selectedHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('selected'));
       var selectedHeadingsLen = selectedHeadings.length;
@@ -545,7 +551,11 @@
         headings = selectedHeadings;
       }
 
-      var groupNode = document.getElementById('id-skip-to-group-headings');
+      groupLabel = this.getGroupLabel(this.config.headingGroupLabel, headings.length, allHeadings.length);
+      groupNode = document.getElementById('id-skip-to-group-headings-label');
+      groupNode.textContent = groupLabel;
+
+      groupNode = document.getElementById('id-skip-to-group-headings');
       this.renderMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
       this.updateMenuitems();
 
@@ -628,7 +638,7 @@
     },
 
     updateLandmarksGroupMenuitems: function(option) {
-      var landmarks, landmarksLen, labelNode;
+      var landmarks, landmarksLen, labelNode, groupNode, groupLabel;
       var selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
       var selectedLandmarksLen = selectedLandmarks.length;
       var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
@@ -642,7 +652,11 @@
         landmarks = selectedLandmarks;
       }
 
-      var groupNode = document.getElementById('id-skip-to-group-landmarks');
+      groupLabel = this.getGroupLabel(this.config.landmarkGroupLabel, landmarks.length, allLandmarks.length);
+      groupNode = document.getElementById('id-skip-to-group-landmarks-label');
+      groupNode.textContent = groupLabel;
+
+      groupNode = document.getElementById('id-skip-to-group-landmarks');
       this.renderMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
       this.updateMenuitems();
 
@@ -670,7 +684,12 @@
 
     renderMenu: function() {
       var groupNode,
+      groupTitle,
+      selectedLandmarks,
+      allLandmarks,
       landmarkElements,
+      selectedHeadings,
+      allHeadings,
       headingElements,
       selector,
       option,
@@ -683,15 +702,34 @@
 
       option = 'selected';
       // Create landmarks group
-      selector = this.getShowMoreLandmarksSelector(option);
-      landmarkElements = this.getLandmarks(selector, option === 'all');
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkGroupLabel);
+      selector = this.getShowMoreLandmarksSelector('all');
+      allLandmarks = this.getLandmarks(selector, true);
+      selector = this.getShowMoreLandmarksSelector('selected');
+      selectedLandmarks = this.getLandmarks(selector);
+      landmarkElements = selectedLandmarks;
+
+      if (option === 'all') {
+        landmarkElements = allLandmarks;
+      }
+
+      groupTitle = this.getGroupLabel(this.config.landmarkGroupLabel, landmarkElements.length, allLandmarks.length);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', groupTitle);
+
       this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
 
       // Create headings group
-      selector = this.getShowMoreHeadingsSelector(option);
-      headingElements = this.getHeadings(selector);
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingGroupLabel);
+      selector = this.getShowMoreHeadingsSelector('all');
+      allHeadings = this.getHeadings(selector);
+      selector = this.getShowMoreHeadingsSelector('selected');
+      selectedHeadings = this.getHeadings(selector);
+      headingElements = selectedHeadings;
+
+      if (option === 'all') {
+        headingElements = allHeadings;
+      }
+
+      groupTitle = this.getGroupLabel(this.config.headingGroupLabel, headingElements.length, allHeadings.length);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', groupTitle);
       this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
 
       // Create actions, if enabled
@@ -1294,7 +1332,10 @@
   };
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
-    SkipTo.init(window.SkipToConfig || window.Wordpress || (window.Joomla && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {});
+    SkipTo.init(window.SkipToConfig ||
+                window.Wordpress ||
+                ((typeof window.Joomla === 'object' && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {})
+                );
     console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();

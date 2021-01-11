@@ -2,13 +2,8 @@
 layout: index
 ---
 
-<<<<<<< HEAD
-
-# SkipTo, version 3.1.2
-=======
 # SkipTo, version 3.1
 
->>>>>>> upstream/main
 ## by PayPal Accessibility Team and University of Illinois
 
 See the [Authors](#authors) section for more information.
