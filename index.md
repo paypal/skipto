@@ -59,15 +59,13 @@ You will need to provide a JSON object containing the necessary configuration pa
 
 ```html
 <script>
-var skipToConfig =
-{
- "settings": {
-    "skipTo": {
-      "headings"     : "main h1, main h2",
-      "landmarks"    : "main search nav aside",
-      "customClass"  : "MyClass",
-      "displayOption": "popup",
-      "attachElement": ".MyCustomClass" // or "attachElement": "#MyCustomId"
+var SkipToConfig =  {
+  'settings': {
+    'skipTo': {
+      landmarks: 'main, [role="main"], [role="search"], nav',
+      headings: 'main h1, main h2, main h3',
+      accesskey: 'S',
+      colorTheme: 'illinois',
     }
   }
 };
@@ -146,20 +144,4 @@ PayPal Accessibility Gang
 **Nicholas Hoyt**
 [https://github.com/nhoyt](https://github.com/nhoyt)
 
-## Access keys
 
-Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
-
-* Mozilla Firefox -- ALT+SHIFT+0.
-* Google Chrome -- CONTROL+ALT+0 (Windows) and CONTROL+OPTION+0 (Mac OS).
-* Safari -- CONTROL+0.
-
-## SkipTo Gallery
-
-[An inclusive car booking company in Bangalore](https://www.kickstartcabs.com/)
-
-[Sai Gagan Accessibility Solutions](https://sgaccessibility.com/sites/)
-
-[Srinivasu blog](https://srinivasu.org/blog/)
-
-If you like your site to be listed in this list, please comment on this [github ticket](https://github.com/paypal/skipto/issues/21)

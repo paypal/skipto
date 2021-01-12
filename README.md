@@ -184,9 +184,7 @@ var SkipToConfig =  {
     'skipTo': {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
-      headingGroupLabel:  'Headings',
       accesskey: 'S',
-      displayOption: 'popup',
       colorTheme: 'illinois',
     }
   }
@@ -391,10 +389,12 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 
-### Version 3.1.3
-* Added "fixed" to the `displayOptions` customization.
+### Version 3.1.4
 * Fixed Joomla configuration option
 * Added _m_ of _n_ to landmark and heading group labels
+
+### Version 3.1.3
+* Added "fixed" to the `displayOptions` customization.
 
 ### Version 3.1.2
 * Fixed bug in moving focus for landmarks.
