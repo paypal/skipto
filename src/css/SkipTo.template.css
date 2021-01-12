@@ -11,6 +11,11 @@
   left: $positionLeft;
 }
 
+.skip-to.fixed {
+  position: fixed;
+}
+
+
 .skip-to button {
   position: relative;
   margin: 0;
@@ -134,6 +139,10 @@
   background-color: $menuitemBackgroundColor;
   color: $menuitemColor;
   z-index: 1000;
+}
+
+.skip-to [role="separator"] .mofn {
+  font-weight: normal;
 }
 
 .skip-to [role="separator"]:first-child {
