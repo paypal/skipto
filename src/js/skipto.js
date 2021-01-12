@@ -1,5 +1,5 @@
 /* ========================================================================
-* Copyright (c) <2020> PayPal
+* Copyright (c) <2021> PayPal and University of Illinois
 * All rights reserved.
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -11,6 +11,7 @@
 (function() {
   'use strict';
   var SkipTo = {
+    skipToId: 'is-skip-to-js-3',
     domNode: null,
     buttonNode: null,
     menuNode: null,
@@ -20,7 +21,8 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
-    showAllLandmarksSelector: "main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]",
+    contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
+    showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     // Default configuration values
     config: {
@@ -45,10 +47,8 @@
 
       // Menu labels and messages
       menuLabel: 'Landmarks and Headings',
-      landmarkImportantGroupLabel: 'Important Landmarks',
-      landmarkAllGroupLabel: 'All Landmarks',
-      headingImportantGroupLabel: 'Important Headings',
-      headingAllGroupLabel: 'All Headings',
+      landmarkGroupLabel: 'Landmarks',
+      headingGroupLabel: 'Headings',
       headingLevelLabel: 'Heading level',
       mainLabel: 'main',
       searchLabel: 'search',
@@ -63,17 +63,17 @@
 
       // Action labels and messages
       actionGroupLabel: 'Actions',
-      actionShowHeadingsHelp: 'Toggles between showing "All" and "Important" headings.',
-      actionShowImportantHeadingsLabel: 'Show Important Headings ($num)',
-      actionShowAllHeadingsLabel: 'Show All headings ($num)',
-      actionShowLandmarksHelp: 'Toggles between showing "All" and "Important" landmarks.',
-      actionShowImportantLandmarksLabel: 'Show Important landmarks ($num)',
-      actionShowAllLandmarksLabel: 'Show All landmarks ($num)',
+      actionShowHeadingsHelp: 'Toggles between showing "All" and "Selected" Headings.',
+      actionShowSelectedHeadingsLabel: 'Show Selected Headings ($num)',
+      actionShowAllHeadingsLabel: 'Show All Headings ($num)',
+      actionShowLandmarksHelp: 'Toggles between showing "All" and "Selected" Landmarks.',
+      actionShowSelectedLandmarksLabel: 'Show Selected Landmarks ($num)',
+      actionShowAllLandmarksLabel: 'Show All Landmarks ($num)',
 
-      actionShowImportantHeadingsAriaLabel: 'Show $num Important Headings',
-      actionShowAllHeadingsAriaLabel: 'Show All $num headings',
-      actionShowImportantLandmarksAriaLabel: 'Show $num Important landmarks',
-      actionShowAllLandmarksAriaLabel: 'Show All $num landmarks',
+      actionShowSelectedHeadingsAriaLabel: 'Show $num selected headings',
+      actionShowAllHeadingsAriaLabel: 'Show all $num headings',
+      actionShowSelectedLandmarksAriaLabel: 'Show $num selected landmarks',
+      actionShowAllLandmarksAriaLabel: 'Show all $num landmarks',
 
       // Selectors for landmark and headings sections
       landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
@@ -153,6 +153,82 @@
     // of skipTo
     //
 
+    init: function(config) {
+      // Check if skipto is already loaded
+
+      if (document.querySelector('style#' + this.skipToId)) {
+        return;
+      }
+
+      var attachElement = document.body;
+      if (config) {
+        this.setUpConfig(config);
+      }
+      if (typeof this.config.attachElement === 'string') {
+        var node = document.querySelector(this.config.attachElement);
+        if (node && node.nodeType === Node.ELEMENT_NODE) {
+          attachElement = node;
+        }
+      }
+      this.addCSSColors();
+      this.renderStyleElement(this.defaultCSS);
+      this.domNode = document.createElement(this.config.containerElement);
+      this.domNode.classList.add('skip-to');
+      if (this.isNotEmptyString(this.config.customClass)) {
+        this.domNode.classList.add(this.config.customClass);
+      }
+      if (this.isNotEmptyString(this.config.containerRole)) {
+        this.domNode.setAttribute('role', this.config.containerRole);
+      }
+      var displayOption = this.config.displayOption;
+      if (typeof displayOption === 'string') {
+        displayOption = displayOption.trim().toLowerCase();
+        if (displayOption.length) {
+          switch (this.config.displayOption) {
+            case 'fixed':
+              this.domNode.classList.add('fixed');
+              break;
+            case 'onfocus':  // Legacy option
+            case 'popup':
+              this.domNode.classList.add('popup');
+              break;
+            default:
+              break;
+          }
+        }
+      }
+      // Place skip to at the beginning of the document
+      if (attachElement.firstElementChild) {
+        attachElement.insertBefore(this.domNode, attachElement.firstElementChild);
+      } else {
+        attachElement.appendChild(this.domNode);
+      }
+      this.buttonNode = document.createElement('button');
+      this.buttonNode.textContent = this.config.buttonLabel;
+      this.buttonNode.setAttribute('aria-haspopup', 'true');
+      this.buttonNode.setAttribute('aria-expanded', 'false');
+      this.buttonNode.setAttribute('accesskey', this.config.accesskey);
+
+      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
+        (this.config.accesskey.length === 1)) {
+        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        this.buttonNode.setAttribute('title', title);
+      } else {
+        if (this.isNotEmptyString(this.config.buttonTitle)) {
+          this.buttonNode.setAttribute('title', this.config.buttonTitle);
+        }
+      }
+
+      this.domNode.appendChild(this.buttonNode);
+      this.menuNode = document.createElement('div');
+      this.menuNode.setAttribute('role', 'menu');
+      this.domNode.appendChild(this.menuNode);
+      this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
+      this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
+      this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
+      this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
+      window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
+    },
     updateStyle: function(stylePlaceholder, value, defaultValue) {
       if (typeof value !== 'string' || value.length === 0) {
         value = defaultValue;
@@ -216,73 +292,6 @@
 
       return accesskey + this.config.accesskeyNotSupported;
     },
-    init: function(config) {
-      var attachElement = document.body;
-      if (config) {
-        this.setUpConfig(config);
-      }
-      if (typeof this.config.attachElement === 'string') {
-        var node = document.querySelector(this.config.attachElement);
-        if (node && node.nodeType === Node.ELEMENT_NODE) {
-          attachElement = node;
-        }
-      }
-      this.addCSSColors();
-      this.addStyleElement(this.defaultCSS);
-      this.domNode = document.createElement(this.config.containerElement);
-      this.domNode.classList.add('skip-to');
-      if (this.isNotEmptyString(this.config.customClass)) {
-        this.domNode.classList.add(this.config.customClass);
-      }
-      if (this.isNotEmptyString(this.config.containerRole)) {
-        this.domNode.setAttribute('role', this.config.containerRole);
-      }
-      var displayOption = this.config.displayOption;
-      if (typeof displayOption === 'string') {
-        displayOption = displayOption.trim().toLowerCase();
-        if (displayOption.length) {
-          switch (this.config.displayOption) {
-            case 'onfocus':  // Legacy option
-            case 'popup':
-              this.domNode.classList.add('popup');
-              break;
-            default:
-              break;
-          }
-        }
-      }
-      // Place skip to at the beginning of the document
-      if (attachElement.firstElementChild) {
-        attachElement.insertBefore(this.domNode, attachElement.firstElementChild);
-      } else {
-        attachElement.appendChild(this.domNode);
-      }
-      this.buttonNode = document.createElement('button');
-      this.buttonNode.textContent = this.config.buttonLabel;
-      this.buttonNode.setAttribute('aria-haspopup', 'true');
-      this.buttonNode.setAttribute('aria-expanded', 'false');
-      this.buttonNode.setAttribute('accesskey', this.config.accesskey);
-
-      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
-        (this.config.accesskey.length === 1)) {
-        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.buttonNode.setAttribute('title', title);
-      } else {
-        if (this.isNotEmptyString(this.config.buttonTitle)) {
-          this.buttonNode.setAttribute('title', this.config.buttonTitle);
-        }
-      }
-
-      this.domNode.appendChild(this.buttonNode);
-      this.menuNode = document.createElement('div');
-      this.menuNode.setAttribute('role', 'menu');
-      this.domNode.appendChild(this.menuNode);
-      this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
-      this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
-      this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
-      this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
-      window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
-    },
     setUpConfig: function(appConfig) {
       var localConfig = this.config,
         name,
@@ -300,12 +309,14 @@
         }
       }
     },
-    addStyleElement: function(cssString) {
+    renderStyleElement: function(cssString) {
       var styleNode = document.createElement('style');
       var headNode = document.getElementsByTagName('head')[0];
       var css = document.createTextNode(cssString);
 
       styleNode.setAttribute("type", "text/css");
+      // ID is used to test whether skipto is already loaded
+      styleNode.id = this.skipToId;
       styleNode.appendChild(css);
       headNode.appendChild(styleNode);
     },
@@ -358,12 +369,13 @@
       this.updateKeyboardShortCuts();
     },
 
-    addMenuitemToGroup: function (groupNode, mi) {
+    renderMenuitemToGroup: function (groupNode, mi) {
       var tagNode, tagNodeChild, labelNode, nestingNode;
 
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
+      menuitemNode.classList.add(mi.tagName);
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
       if (mi.ariaLabel) {
@@ -417,15 +429,39 @@
       return menuitemNode;
     },
 
-    addMenuitemGroup: function(groupId, title) {
-      var labelNode, groupNode;
+    renderGroupLabel: function (groupLabelId, title, m, n) {
+      var titleNode, mOfnNode;
+      var groupLabelNode = document.getElementById(groupLabelId);
+
+      titleNode = groupLabelNode.querySelector('.title');
+      mOfnNode = groupLabelNode.querySelector('.mofn');
+
+      titleNode.textContent = title;
+
+      if ((typeof m === 'number') && (typeof n === 'number')) {
+        mOfnNode.textContent = ' (' + m + ' of ' + n + ')';
+      }
+    },
+
+    renderMenuitemGroup: function(groupId, title) {
+      var labelNode, groupNode, spanNode;
       var menuNode = this.menuNode;
       if (title) {
         labelNode = document.createElement('div');
         labelNode.id = groupId + "-label";
         labelNode.setAttribute('role', 'separator');
-        labelNode.textContent = title;
         menuNode.appendChild(labelNode);
+
+        spanNode = document.createElement('span');
+        spanNode.classList.add('title');
+        spanNode.textContent = title;
+        labelNode.append(spanNode);
+
+        spanNode = document.createElement('span');
+        spanNode.classList.add('mofn');
+        spanNode.textContent = '()';
+        labelNode.append(spanNode);
+
         groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-labelledby', labelNode.id);
@@ -436,7 +472,14 @@
       return groupNode;
     },
 
-    addMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
+    removeMenuitemGroup: function(groupId) {
+      var node = document.getElementById(groupId);
+      this.menuNode.removeChild(node);
+      node = document.getElementById(groupId + "-label");
+      this.menuNode.removeChild(node);
+    },
+
+    renderMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
       groupNode.innerHTML = '';
       this.lastNestingLevel = 0;
 
@@ -446,20 +489,13 @@
         item.tagName = 'no tag';
         item.class = 'no-items';
         item.dataId = '';
-        this.addMenuitemToGroup(groupNode, item);
+        this.renderMenuitemToGroup(groupNode, item);
       }
       else {
         for (var i = 0; i < menuitems.length; i += 1) {
-          this.addMenuitemToGroup(groupNode, menuitems[i]);
+          this.renderMenuitemToGroup(groupNode, menuitems[i]);
         }
       }
-    },
-
-    getHeadingsGroupLabel: function(option) {
-        if (option === 'all') {
-          return this.config.headingAllGroupLabel;
-        }
-        return this.config.headingImportantGroupLabel;
     },
 
     getShowMoreHeadingsSelector: function(option) {
@@ -469,60 +505,73 @@
       return this.config.headings;
     },
 
-    getShowMoreHeadingsLabel: function(option) {
-      var label, n;
-
-      label = this.config.actionShowImportantHeadingsLabel;
-
+    getShowMoreHeadingsLabel: function(option, n) {
+      var label = this.config.actionShowSelectedHeadingsLabel;
       if (option === 'all') {
         label = this.config.actionShowAllHeadingsLabel;
       }
-      n = this.getHeadings(this.getShowMoreHeadingsSelector(option));
-      if (n && n.length) {
-        n = n.length;
-      } else {
-        n = '0';
-      }
-
       return label.replace('$num', n);
     },
 
-    getShowMoreHeadingsAriaLabel: function(option) {
-      var label, n;
-
-      label = this.config.actionShowImportantHeadingsAriaLabel;
+    getShowMoreHeadingsAriaLabel: function(option, n) {
+      var label = this.config.actionShowSelectedHeadingsAriaLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllHeadingsAriaLabel;
       }
-      n = this.getHeadings(this.getShowMoreHeadingsSelector(option));
-      if (n && n.length) {
-        n = n.length;
-      } else {
-        n = '0';
-      }
 
       return label.replace('$num', n);
     },
 
-    addActionMoreHeadings: function(groupNode) {
-      var item = {};
-      item.name = this.getShowMoreHeadingsLabel('all');
-      item.ariaLabel = this.getShowMoreHeadingsAriaLabel('all');
-      item.tagName = 'action';
-      item.role = 'menuitem';
-      item.class = 'action';
-      item.dataId = 'skip-to-more-headings';
-      var menuitemNode = this.addMenuitemToGroup(groupNode, item);
-      menuitemNode.setAttribute('data-show-heading-option', 'all');
-      menuitemNode.title = this.config.actionShowHeadingsHelp;
+    renderActionMoreHeadings: function(groupNode) {
+      var item, menuitemNode;
+      var option = 'all';
+
+      var selectedHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('selected')).length;
+      var allHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('all')).length;
+      var noAction = selectedHeadingsLen === allHeadingsLen;
+      var headingsLen = allHeadingsLen;
+
+      if (option !== 'all') {
+        headingsLen = selectedHeadingsLen;
+      }
+
+      if (!noAction) {
+        item = {};
+        item.tagName = 'action';
+        item.role = 'menuitem';
+        item.class = 'action';
+        item.dataId = 'skip-to-more-headings';
+        item.name = this.getShowMoreHeadingsLabel(option, headingsLen);
+        item.ariaLabel = this.getShowMoreHeadingsAriaLabel(option, headingsLen);
+
+        menuitemNode = this.renderMenuitemToGroup(groupNode, item);
+        menuitemNode.setAttribute('data-show-heading-option', option);
+        menuitemNode.title = this.config.actionShowHeadingsHelp;
+      }
+      return noAction;
     },
 
     updateHeadingGroupMenuitems: function(option) {
-      var selector = this.getShowMoreHeadingsSelector(option);
-      var headings = this.getHeadings(selector);
-      var groupNode = document.getElementById('id-skip-to-group-headings');
-      this.addMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
+      var headings, headingsLen, labelNode, groupNode;
+
+      var selectedHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('selected'));
+      var selectedHeadingsLen = selectedHeadings.length;
+      var allHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('all'));
+      var allHeadingsLen = allHeadings.length;
+
+      // Update list of headings
+      if ( option === 'all' ) {
+        headings = allHeadings;
+      }
+      else {
+        headings = selectedHeadings;
+      }
+
+      this.renderGroupLabel('id-skip-to-group-headings-label', this.config.headingGroupLabel, headings.length, allHeadings.length);
+
+      groupNode = document.getElementById('id-skip-to-group-headings');
+      this.renderMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
       this.updateMenuitems();
 
       // Move focus to first heading menuitem
@@ -530,28 +579,21 @@
         groupNode.firstElementChild.focus();
       }
 
-      var labelNode = this.menuNode.querySelector('#id-skip-to-group-headings-label');
-      labelNode.textContent = this.getHeadingsGroupLabel(option);
-
+      // Update heading action menuitem
       if (option === 'all') {
-        option = 'important';
+        option = 'selected';
+        headingsLen = selectedHeadingsLen;
       } else {
         option = 'all';
+        headingsLen = allHeadingsLen;
       }
 
       var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-headings]');
       menuitemNode.setAttribute('data-show-heading-option', option);
-      menuitemNode.setAttribute('aria-label', this.getShowMoreHeadingsAriaLabel(option));
+      menuitemNode.setAttribute('aria-label', this.getShowMoreHeadingsAriaLabel(option, headingsLen));
 
       labelNode = menuitemNode.querySelector('span.label');
-      labelNode.textContent = this.getShowMoreHeadingsLabel(option);
-    },
-
-    getLandmarksGroupLabel: function(option) {
-      if (option === 'all') {
-        return this.config.landmarkAllGroupLabel;
-      }
-      return this.config.landmarkImportantGroupLabel;
+      labelNode.textContent = this.getShowMoreHeadingsLabel(option, headingsLen);
     },
 
     getShowMoreLandmarksSelector: function(option) {
@@ -561,62 +603,74 @@
       return this.config.landmarks;
     },
 
-    getShowMoreLandmarksLabel: function(option) {
-      var label, n;
+    getShowMoreLandmarksLabel: function(option, n) {
+      var label = this.config.actionShowSelectedLandmarksLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllLandmarksLabel;
-      } else {
-        label = this.config.actionShowImportantLandmarksLabel;
       }
-
-      n = this.getLandmarks(this.getShowMoreLandmarksSelector(option));
-      if (n && n.length) {
-        n = n.length;
-      } else {
-        n = '0';
-      }
-
       return label.replace('$num', n);
     },
 
-    getShowMoreLandmarksAriaLabel: function(option) {
-      var label, n;
+    getShowMoreLandmarksAriaLabel: function(option, n) {
+      var label = this.config.actionShowSelectedLandmarksAriaLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllLandmarksAriaLabel;
-      } else {
-        label = this.config.actionShowImportantLandmarksAriaLabel;
-      }
-
-      n = this.getLandmarks(this.getShowMoreLandmarksSelector(option));
-      if (n && n.length) {
-        n = n.length;
-      } else {
-        n = '0';
       }
 
       return label.replace('$num', n);
     },
 
-    addActionMoreLandmarks: function(groupNode) {
-      var item = {};
-      item.name = this.getShowMoreLandmarksLabel('all');
-      item.ariaLabel =  this.getShowMoreLandmarksAriaLabel('all');
-      item.tagName = 'action';
-      item.role = 'menuitem';
-      item.class = 'action';
-      item.dataId = 'skip-to-more-landmarks';
-      var menuitemNode = this.addMenuitemToGroup(groupNode, item);
-      menuitemNode.setAttribute('data-show-landmark-option', 'all');
-      menuitemNode.title = this.config.actionShowLandmarksHelp;
+    renderActionMoreLandmarks: function(groupNode) {
+      var item, menuitemNode;
+      var option = 'all';
+
+      var selectedLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('selected')).length;
+      var allLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('all')).length;
+      var noAction = selectedLandmarksLen === allLandmarksLen;
+      var landmarksLen = allLandmarksLen;
+
+      if (option !== 'all') {
+        landmarksLen = selectedLandmarksLen;
+      }
+
+      if (!noAction) {
+        item = {};
+        item.tagName = 'action';
+        item.role = 'menuitem';
+        item.class = 'action';
+        item.dataId = 'skip-to-more-landmarks';
+        item.name = this.getShowMoreLandmarksLabel(option, landmarksLen);
+        item.ariaLabel =  this.getShowMoreLandmarksAriaLabel(option, landmarksLen);
+
+        menuitemNode = this.renderMenuitemToGroup(groupNode, item);
+
+        menuitemNode.setAttribute('data-show-landmark-option', option);
+        menuitemNode.title = this.config.actionShowLandmarksHelp;
+      }
+      return noAction;
     },
 
     updateLandmarksGroupMenuitems: function(option) {
-      var selector = this.getShowMoreLandmarksSelector(option);
-      var landmarks = this.getLandmarks(selector, option === 'all');
-      var groupNode = document.getElementById('id-skip-to-group-landmarks');
-      this.addMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
+      var landmarks, landmarksLen, labelNode, groupNode;
+      var selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
+      var selectedLandmarksLen = selectedLandmarks.length;
+      var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
+      var allLandmarksLen = allLandmarks.length;
+
+      // Update landmark menu items
+      if ( option === 'all' ) {
+        landmarks = allLandmarks;
+      }
+      else {
+        landmarks = selectedLandmarks;
+      }
+
+      this.renderGroupLabel('id-skip-to-group-landmarks-label', this.config.landmarkGroupLabel, landmarks.length, allLandmarks.length);
+
+      groupNode = document.getElementById('id-skip-to-group-landmarks');
+      this.renderMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
       this.updateMenuitems();
 
       // Move focus to first landmark menuitem
@@ -624,45 +678,80 @@
         groupNode.firstElementChild.focus();
       }
 
-      var labelNode = this.menuNode.querySelector('#id-skip-to-group-landmarks-label');
-      labelNode.textContent = this.getLandmarksGroupLabel(option);
-
+      // Update landmark action menuitem
       if (option === 'all') {
-        option = 'important';
+        option = 'selected';
+        landmarksLen = selectedLandmarksLen;
       } else {
         option = 'all';
+        landmarksLen = allLandmarksLen;
       }
 
       var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-landmarks]');
       menuitemNode.setAttribute('data-show-landmark-option', option);
-      menuitemNode.setAttribute('aria-label', this.getShowMoreLandmarksAriaLabel(option));
+      menuitemNode.setAttribute('aria-label', this.getShowMoreLandmarksAriaLabel(option, landmarksLen));
 
       labelNode = menuitemNode.querySelector('span.label');
-      labelNode.textContent = this.getShowMoreLandmarksLabel(option);
+      labelNode.textContent = this.getShowMoreLandmarksLabel(option, landmarksLen);
     },
 
-    createMenu: function() {
-      var groupNode, landmarkElements, headingElements;
+    renderMenu: function() {
+      var groupNode,
+      selectedLandmarks,
+      allLandmarks,
+      landmarkElements,
+      selectedHeadings,
+      allHeadings,
+      headingElements,
+      selector,
+      option,
+      hasNoAction1,
+      hasNoAction2;
       // remove current menu items from menu
       while (this.menuNode.lastElementChild) {
         this.menuNode.removeChild(this.menuNode.lastElementChild);
       }
 
+      option = 'selected';
       // Create landmarks group
-      landmarkElements = this.getLandmarks();
-      groupNode = this.addMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkImportantGroupLabel);
-      this.addMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
+      selector = this.getShowMoreLandmarksSelector('all');
+      allLandmarks = this.getLandmarks(selector, true);
+      selector = this.getShowMoreLandmarksSelector('selected');
+      selectedLandmarks = this.getLandmarks(selector);
+      landmarkElements = selectedLandmarks;
+
+      if (option === 'all') {
+        landmarkElements = allLandmarks;
+      }
+
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkGroupLabel);
+      this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
+      this.renderGroupLabel('id-skip-to-group-landmarks-label', this.config.landmarkGroupLabel, landmarkElements.length, allLandmarks.length);
 
       // Create headings group
-      headingElements = this.getHeadings();
-      groupNode = this.addMenuitemGroup('id-skip-to-group-headings', this.config.headingImportantGroupLabel);
-      this.addMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
+      selector = this.getShowMoreHeadingsSelector('all');
+      allHeadings = this.getHeadings(selector);
+      selector = this.getShowMoreHeadingsSelector('selected');
+      selectedHeadings = this.getHeadings(selector);
+      headingElements = selectedHeadings;
+
+      if (option === 'all') {
+        headingElements = allHeadings;
+      }
+
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingGroupLabel);
+      this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
+      this.renderGroupLabel('id-skip-to-group-headings-label', this.config.headingGroupLabel, headingElements.length, allHeadings.length);
 
       // Create actions, if enabled
       if (this.config.enableActions) {
-        groupNode = this.addMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
-        this.addActionMoreHeadings(groupNode);
-        this.addActionMoreLandmarks(groupNode);
+        groupNode = this.renderMenuitemGroup('id-skip-to-group-actions', this.config.actionGroupLabel);
+        hasNoAction1 = this.renderActionMoreLandmarks(groupNode);
+        hasNoAction2 = this.renderActionMoreHeadings(groupNode);
+        // Remove action label if no actions are available
+        if (hasNoAction1 && hasNoAction2) {
+          this.removeMenuitemGroup('id-skip-to-group-actions');
+        }
       }
 
       // Update list of menuitems
@@ -759,7 +848,7 @@
     },
     // Popup menu methods
     openPopup: function() {
-      this.createMenu();
+      this.renderMenu();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
     },
@@ -824,17 +913,30 @@
       event.preventDefault();
     },
     skipToElement: function(menuitem) {
-      var inputNode = false;
-      var isSearch = menuitem.classList.contains('skip-to-search');
+      var focusNode = false;
+      var scrollNode = false;
+      var isLandmark = menuitem.classList.contains('landmark');
+      var isSearch = menuitem.classList.contains('search');
+      var isNav = menuitem.classList.contains('nav');
       var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
       if (node) {
         if (isSearch) {
-          inputNode = node.querySelector('input');
+          focusNode = node.querySelector('input');
         }
-        if (inputNode && this.isVisible(inputNode)) {
-          inputNode.focus();
+        if (isNav) {
+          focusNode = node.querySelector('a');
+        }
+        if (focusNode && this.isVisible(focusNode)) {
+          focusNode.focus();
+          focusNode.scrollIntoView({block: 'nearest'});
         }
         else {
+          if (isLandmark) {
+            scrollNode = node.querySelector(this.contentSelector);
+            if (scrollNode) {
+              node = scrollNode;
+            }
+          }
           node.tabIndex = -1;
           node.focus();
           node.scrollIntoView({block: 'center'});
@@ -1002,7 +1104,7 @@
         for (var i = 0, l = ids.length; i < l; i += 1) {
           var e = document.getElementById(ids[i]);
           if (e) str = this.getTextContent(e);
-          if (str.length) strings.push(str);
+          if (str && str.length) strings.push(str);
         }
         name = strings.join(" ");
       } else {
@@ -1241,7 +1343,10 @@
   };
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
-    SkipTo.init(window.SkipToConfig || window.Wordpress || (window.Joomla && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {});
+    SkipTo.init(window.SkipToConfig ||
+                window.Wordpress ||
+                ((typeof window.Joomla === 'object' && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {})
+                );
     console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();

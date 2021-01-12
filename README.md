@@ -52,12 +52,18 @@ The following options are useful for identify where the menu will be in the DOM 
 
 | Property       | default     | Description |
 | :------------- | :---------- | :---------- |
-| `displayOption` | 'static' | Values of `static` or `popup` are defined.  The value `static` the button is visible, when `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
-| `accesskey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
+| `displayOption` | 'static' | Values of `static`, `fixed` or `popup` are defined.  The value `static` the button is always visible, the value `fixed` the button is always visible at the top of the page even when the page scrolls, and the value `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
+| `accessKey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
 | `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container. |
 | `containerElement` | 'div' | Element to use as a container for the button and the menu.
 | `customClass` | none | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
 | `containerRole` | none | Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark (e.g. `header` element. |
+
+### Button Positioning
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
 
 ### CSS Selectors for identifying Landmarks and Headings
 
@@ -97,10 +103,8 @@ The labels and messages can be localized for specific languages or updated to re
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
 | `menuLabel` | 'Landmarks and Headings' | Change the label for the menu. |
-| `landmarkImportantGroupLabel` | 'Important Landmarks' | Menu group label for landmarks when important landmarks are in the menu. |
-| `headingImportantGroupLabel` | 'Important Headings' | Menu group label for landmarks when important headings are in the menu. |
-| `landmarkAllGroupLabel` | 'All Landmarks' | Menu group label for landmarks when all landmarks are in the menu. |
-| `headingAllGroupLabel` | 'All Headings' | Menu group label for headings when all headings are in the menu. |
+| `landmarkGroupLabel` | 'Landmarks' | Menu group label for landmarks . |
+| `headingGroupLabel` | 'Headings' | Menu group label for headings. |
 | `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
 | `mainLabel` | 'main' | The label in the menu for `main` landmarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
@@ -132,6 +136,15 @@ The labels and messages can be localized for specific languages or updated to re
 | `actionShowImportantLandmarksAriaLabel` | 'Show $num Important landmarks' | The `aria-label` for the menu item when the button action is to show "Important" landmarks. |
 | `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
 
+
+### Color Theme Options
+
+A color theme sets all the color options defined by the theme.  There is only one theme at this time.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
+
 ### Colors used for Button and Menu styling
 
 Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
@@ -158,19 +171,6 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
-### Color Theme Options
-
-A color theme sets all the color options defined by the theme.  There is only one theme at this time.
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
-
-### Position of Button
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
 
 ### Example Settings
 
@@ -390,6 +390,15 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 
+### Version 3.1.3
+* Added "fixed" to the `displayOptions` customization.
+
+### Version 3.1.2
+* Fixed bug in moving focus for landmarks.
+
+### Version 3.1.1
+* Changed "Important" to "Selected" landmarks and headings.
+
 ### Version 3.1
 
 * Added `aria-label` for action menu items to make the label screen reader friendly
@@ -444,4 +453,4 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Copyright and license
 
-Copyright 2019, PayPal under the [BSD license](LICENSE.md).
+Copyright 2021, PayPal and University of Illinois under the [BSD license](LICENSE.md).
