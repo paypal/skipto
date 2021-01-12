@@ -105,6 +105,7 @@ The labels and messages can be localized for specific languages or updated to re
 | `menuLabel` | 'Landmarks and Headings' | Change the label for the menu. |
 | `landmarkGroupLabel` | 'Landmarks' | Menu group label for landmarks . |
 | `headingGroupLabel` | 'Headings' | Menu group label for headings. |
+| `mofnGroupLabel` | '$m of $n' | Provides information on the number of items that are displayed and the total number of items in the document.  The information is added to the landmark and heading group labels. |
 | `headingLevelLabel` | 'Heading level' | Used for `aria-label` to improve labeling of heading menu items for screen reader users. |
 | `mainLabel` | 'main' | The label in the menu for `main` landmarks |
 | `searchLabel` | 'search' | The label in the menu for `search` landmarks |
