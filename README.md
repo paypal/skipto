@@ -393,6 +393,8 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ### Version 3.1.3
 * Added "fixed" to the `displayOptions` customization.
+* Fixed Joomla configuration option
+* Added _m_ of _n_ to landmark and heading group labels
 
 ### Version 3.1.2
 * Fixed bug in moving focus for landmarks.
