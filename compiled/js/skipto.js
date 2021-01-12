@@ -151,7 +151,7 @@
         menuitemFocusBorderColor: '#005a9c',
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuitemColor;background-color:$menuitemBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuitemColor;background-color:$menuitemBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}',
 
     //
     // Functions related to configuring the features
@@ -434,22 +434,39 @@
       return menuitemNode;
     },
 
-    getGroupLabel: function (title, m, n) {
+    renderGroupLabel: function (groupLabelId, title, m, n) {
+      var titleNode, mOfnNode;
+      var groupLabelNode = document.getElementById(groupLabelId);
+
+      titleNode = groupLabelNode.querySelector('.title');
+      mOfnNode = groupLabelNode.querySelector('.mofn');
+
+      titleNode.textContent = title;
+
       if ((typeof m === 'number') && (typeof n === 'number')) {
-        title = title + ' (' + m + ' of ' + n + ')';
+        mOfnNode.textContent = ' (' + m + ' of ' + n + ')';
       }
-      return title;
     },
 
     renderMenuitemGroup: function(groupId, title) {
-      var labelNode, groupNode;
+      var labelNode, groupNode, spanNode;
       var menuNode = this.menuNode;
       if (title) {
         labelNode = document.createElement('div');
         labelNode.id = groupId + "-label";
         labelNode.setAttribute('role', 'separator');
-        labelNode.textContent = title;
         menuNode.appendChild(labelNode);
+
+        spanNode = document.createElement('span');
+        spanNode.classList.add('title');
+        spanNode.textContent = title;
+        labelNode.append(spanNode);
+
+        spanNode = document.createElement('span');
+        spanNode.classList.add('mofn');
+        spanNode.textContent = '()';
+        labelNode.append(spanNode);
+
         groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-labelledby', labelNode.id);
@@ -541,7 +558,7 @@
     },
 
     updateHeadingGroupMenuitems: function(option) {
-      var headings, headingsLen, labelNode, groupNode, groupLabel;
+      var headings, headingsLen, labelNode, groupNode;
 
       var selectedHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('selected'));
       var selectedHeadingsLen = selectedHeadings.length;
@@ -556,9 +573,7 @@
         headings = selectedHeadings;
       }
 
-      groupLabel = this.getGroupLabel(this.config.headingGroupLabel, headings.length, allHeadings.length);
-      groupNode = document.getElementById('id-skip-to-group-headings-label');
-      groupNode.textContent = groupLabel;
+      this.renderGroupLabel('id-skip-to-group-headings-label', this.config.headingGroupLabel, headings.length, allHeadings.length);
 
       groupNode = document.getElementById('id-skip-to-group-headings');
       this.renderMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
@@ -643,7 +658,7 @@
     },
 
     updateLandmarksGroupMenuitems: function(option) {
-      var landmarks, landmarksLen, labelNode, groupNode, groupLabel;
+      var landmarks, landmarksLen, labelNode, groupNode;
       var selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
       var selectedLandmarksLen = selectedLandmarks.length;
       var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
@@ -657,9 +672,7 @@
         landmarks = selectedLandmarks;
       }
 
-      groupLabel = this.getGroupLabel(this.config.landmarkGroupLabel, landmarks.length, allLandmarks.length);
-      groupNode = document.getElementById('id-skip-to-group-landmarks-label');
-      groupNode.textContent = groupLabel;
+      this.renderGroupLabel('id-skip-to-group-landmarks-label', this.config.landmarkGroupLabel, landmarks.length, allLandmarks.length);
 
       groupNode = document.getElementById('id-skip-to-group-landmarks');
       this.renderMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
@@ -689,7 +702,6 @@
 
     renderMenu: function() {
       var groupNode,
-      groupTitle,
       selectedLandmarks,
       allLandmarks,
       landmarkElements,
@@ -717,10 +729,9 @@
         landmarkElements = allLandmarks;
       }
 
-      groupTitle = this.getGroupLabel(this.config.landmarkGroupLabel, landmarkElements.length, allLandmarks.length);
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', groupTitle);
-
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkGroupLabel);
       this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
+      this.renderGroupLabel('id-skip-to-group-landmarks-label', this.config.landmarkGroupLabel, landmarkElements.length, allLandmarks.length);
 
       // Create headings group
       selector = this.getShowMoreHeadingsSelector('all');
@@ -733,9 +744,9 @@
         headingElements = allHeadings;
       }
 
-      groupTitle = this.getGroupLabel(this.config.headingGroupLabel, headingElements.length, allHeadings.length);
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', groupTitle);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingGroupLabel);
       this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
+      this.renderGroupLabel('id-skip-to-group-headings-label', this.config.headingGroupLabel, headingElements.length, allHeadings.length);
 
       // Create actions, if enabled
       if (this.config.enableActions) {

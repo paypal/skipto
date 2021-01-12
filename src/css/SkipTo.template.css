@@ -141,6 +141,10 @@
   z-index: 1000;
 }
 
+.skip-to [role="separator"] .mofn {
+  font-weight: normal;
+}
+
 .skip-to [role="separator"]:first-child {
   border-radius: 5px 5px 0 0;
 }

@@ -429,22 +429,39 @@
       return menuitemNode;
     },
 
-    getGroupLabel: function (title, m, n) {
+    renderGroupLabel: function (groupLabelId, title, m, n) {
+      var titleNode, mOfnNode;
+      var groupLabelNode = document.getElementById(groupLabelId);
+
+      titleNode = groupLabelNode.querySelector('.title');
+      mOfnNode = groupLabelNode.querySelector('.mofn');
+
+      titleNode.textContent = title;
+
       if ((typeof m === 'number') && (typeof n === 'number')) {
-        title = title + ' (' + m + ' of ' + n + ')';
+        mOfnNode.textContent = ' (' + m + ' of ' + n + ')';
       }
-      return title;
     },
 
     renderMenuitemGroup: function(groupId, title) {
-      var labelNode, groupNode;
+      var labelNode, groupNode, spanNode;
       var menuNode = this.menuNode;
       if (title) {
         labelNode = document.createElement('div');
         labelNode.id = groupId + "-label";
         labelNode.setAttribute('role', 'separator');
-        labelNode.textContent = title;
         menuNode.appendChild(labelNode);
+
+        spanNode = document.createElement('span');
+        spanNode.classList.add('title');
+        spanNode.textContent = title;
+        labelNode.append(spanNode);
+
+        spanNode = document.createElement('span');
+        spanNode.classList.add('mofn');
+        spanNode.textContent = '()';
+        labelNode.append(spanNode);
+
         groupNode = document.createElement('div');
         groupNode.setAttribute('role', 'group');
         groupNode.setAttribute('aria-labelledby', labelNode.id);
@@ -536,7 +553,7 @@
     },
 
     updateHeadingGroupMenuitems: function(option) {
-      var headings, headingsLen, labelNode, groupNode, groupLabel;
+      var headings, headingsLen, labelNode, groupNode;
 
       var selectedHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('selected'));
       var selectedHeadingsLen = selectedHeadings.length;
@@ -551,9 +568,7 @@
         headings = selectedHeadings;
       }
 
-      groupLabel = this.getGroupLabel(this.config.headingGroupLabel, headings.length, allHeadings.length);
-      groupNode = document.getElementById('id-skip-to-group-headings-label');
-      groupNode.textContent = groupLabel;
+      this.renderGroupLabel('id-skip-to-group-headings-label', this.config.headingGroupLabel, headings.length, allHeadings.length);
 
       groupNode = document.getElementById('id-skip-to-group-headings');
       this.renderMenuitemsToGroup(groupNode, headings, this.config.msgNoHeadingsFound);
@@ -638,7 +653,7 @@
     },
 
     updateLandmarksGroupMenuitems: function(option) {
-      var landmarks, landmarksLen, labelNode, groupNode, groupLabel;
+      var landmarks, landmarksLen, labelNode, groupNode;
       var selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
       var selectedLandmarksLen = selectedLandmarks.length;
       var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
@@ -652,9 +667,7 @@
         landmarks = selectedLandmarks;
       }
 
-      groupLabel = this.getGroupLabel(this.config.landmarkGroupLabel, landmarks.length, allLandmarks.length);
-      groupNode = document.getElementById('id-skip-to-group-landmarks-label');
-      groupNode.textContent = groupLabel;
+      this.renderGroupLabel('id-skip-to-group-landmarks-label', this.config.landmarkGroupLabel, landmarks.length, allLandmarks.length);
 
       groupNode = document.getElementById('id-skip-to-group-landmarks');
       this.renderMenuitemsToGroup(groupNode, landmarks, this.config.msgNoLandmarksFound);
@@ -684,7 +697,6 @@
 
     renderMenu: function() {
       var groupNode,
-      groupTitle,
       selectedLandmarks,
       allLandmarks,
       landmarkElements,
@@ -712,10 +724,9 @@
         landmarkElements = allLandmarks;
       }
 
-      groupTitle = this.getGroupLabel(this.config.landmarkGroupLabel, landmarkElements.length, allLandmarks.length);
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', groupTitle);
-
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-landmarks', this.config.landmarkGroupLabel);
       this.renderMenuitemsToGroup(groupNode, landmarkElements, this.config.msgNoLandmarksFound);
+      this.renderGroupLabel('id-skip-to-group-landmarks-label', this.config.landmarkGroupLabel, landmarkElements.length, allLandmarks.length);
 
       // Create headings group
       selector = this.getShowMoreHeadingsSelector('all');
@@ -728,9 +739,9 @@
         headingElements = allHeadings;
       }
 
-      groupTitle = this.getGroupLabel(this.config.headingGroupLabel, headingElements.length, allHeadings.length);
-      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', groupTitle);
+      groupNode = this.renderMenuitemGroup('id-skip-to-group-headings', this.config.headingGroupLabel);
       this.renderMenuitemsToGroup(groupNode, headingElements, this.config.msgNoHeadingsFound);
+      this.renderGroupLabel('id-skip-to-group-headings-label', this.config.headingGroupLabel, headingElements.length, allHeadings.length);
 
       // Create actions, if enabled
       if (this.config.enableActions) {
