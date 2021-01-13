@@ -49,6 +49,7 @@
       menuLabel: 'Landmarks and Headings',
       landmarkGroupLabel: 'Landmarks',
       headingGroupLabel: 'Headings',
+      mofnGroupLabel: ' ($m of $n)',
       headingLevelLabel: 'Heading level',
       mainLabel: 'main',
       searchLabel: 'search',
@@ -430,16 +431,19 @@
     },
 
     renderGroupLabel: function (groupLabelId, title, m, n) {
-      var titleNode, mOfnNode;
+      var titleNode, mofnNode, s;
       var groupLabelNode = document.getElementById(groupLabelId);
 
       titleNode = groupLabelNode.querySelector('.title');
-      mOfnNode = groupLabelNode.querySelector('.mofn');
+      mofnNode = groupLabelNode.querySelector('.mofn');
 
       titleNode.textContent = title;
 
       if ((typeof m === 'number') && (typeof n === 'number')) {
-        mOfnNode.textContent = ' (' + m + ' of ' + n + ')';
+        s = this.config.mofnGroupLabel;
+        s = s.replace('$m', m);
+        s = s.replace('$n', n);
+        mofnNode.textContent = s;
       }
     },
 
@@ -459,7 +463,6 @@
 
         spanNode = document.createElement('span');
         spanNode.classList.add('mofn');
-        spanNode.textContent = '()';
         labelNode.append(spanNode);
 
         groupNode = document.createElement('div');
