@@ -83,68 +83,34 @@
       // Custom CSS position and colors
       colorTheme: '',
       positionLeft: '',
-      buttonColor: '',
-      buttonBackgroundColor: '',
-      buttonBorderColor: '',
-      buttonColorFocus: '',
-      buttonFocusBackgroundColor: '',
-      buttonFocusBorderColor: '',
+      menuTextColor: '',
       menuBackgroundColor: '',
-      menuitemColor: '',
-      menuitemBackgroundColor: '',
-      menuitemFocusColor: '',
+      menuitemFocusTextColor: '',
       menuitemFocusBackgroundColor: '',
-      menuitemFocusBorderColor: '',
+      focusBorderColor: '',
+      buttonTextColor: '',
+      buttonBackgroundColor: '',
     },
     colorThemes: {
       'default': {
         positionLeft: '46%',
-        buttonColor: '#1a1a1a',
-        buttonBackgroundColor: '#eeeeee',
-        buttonBorderColor: '#eeeeee',
-        buttonFocusColor: '#000000',
-        buttonFocusBackgroundColor: '#dcdcdc',
-        buttonFocusBorderColor: '#1a1a1a',
-        menuBackgroundColor: '#eeeeee',
-        menuBorderColor: '#1a1a1a',
-        menuitemColor: '#1a1a1a',
-        menuitemBackgroundColor: '#eeeeee',
-        menuitemFocusColor: '#eeeeee',
+        menuTextColor: '#1a1a1a',
+        menuBackgroundColor: '#dcdcdc',
+        menuitemFocusTextColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#1a1a1a',
-        menuitemFocusBorderColor: '#1a1a1a',
+        focusBorderColor: '#1a1a1a',
+        buttonTextColor: '#1a1a1a',
+        buttonBackgroundColor: '#eeeeee',
       },
       'illinois': {
         positionLeft: '46%',
-        buttonColor: '#00132c',
-        buttonBackgroundColor: '#dddede',
-        buttonBorderColor: '#dddede',
-        buttonFocusColor: '#00132c',
-        buttonFocusBackgroundColor: '#cad9ef',
-        buttonFocusBorderColor: '#ff552e',
+        menuTextColor: '#00132c',
         menuBackgroundColor: '#cad9ef',
-        menuitemLevelOpacity: '0.7',
-        menuBorderColor: '#ff552e',
-        menuitemColor: '#00132c',
-        menuitemBackgroundColor: '#cad9ef',
-        menuitemFocusColor: '#eeeeee',
+        menuitemFocusTextColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
-        menuitemFocusBorderColor: '#ff552e',
-      },
-      'aria': {
-        positionLeft: '',
-        buttonColor: '#005a9c;',
-        buttonBackgroundColor: '#def',
-        buttonBorderColor: '#def',
-        buttonFocusColor: '#fff',
-        buttonFocusBackgroundColor: '#005a9c',
-        buttonFocusBorderColor: '#005a9c;',
-        menuBackgroundColor: '#def',
-        menuBorderColor: '#005a9c',
-        menuitemColor: '#000',
-        menuitemBackgroundColor: '#def',
-        menuitemFocusColor: '#fff',
-        menuitemFocusBackgroundColor: '#005a9c',
-        menuitemFocusBorderColor: '#005a9c',
+        focusBorderColor: '#ff552e',
+        buttonTextColor: '#555555',
+        buttonBackgroundColor: '#dddede',
       }
     },
     defaultCSS: '@@cssContent',
@@ -248,19 +214,17 @@
         theme = this.colorThemes[this.config.colorTheme];
       }
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
-      this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
-      this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
-      this.updateStyle('$buttonBorderColor', this.config.buttonBorderColor, theme.buttonBorderColor);
-      this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
-      this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
-      this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);
+
+      this.updateStyle('$menuTextColor', this.config.menuTextColor, theme.menuTextColor);
       this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
-      this.updateStyle('$menuBorderColor', this.config.menuBorderColor, theme.menuBorderColor);
-      this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
-      this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
-      this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
+
+      this.updateStyle('$menuitemFocusTextColor', this.config.menuitemFocusTextColor, theme.menuitemFocusTextColor);
       this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
-      this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
+
+      this.updateStyle('$focusBorderColor', this.config.focusBorderColor, theme.focusBorderColor);
+
+      this.updateStyle('$buttonTextColor', this.config.buttonTextColor, theme.buttonTextColor);
+      this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
     },
     isNotEmptyString: function(str) {
       return (typeof str === 'string') && str.length;
@@ -376,7 +340,9 @@
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
-      menuitemNode.classList.add(mi.tagName);
+      if (mi.tagName && mi.tagName.length) {
+        menuitemNode.classList.add(mi.tagName);
+      }
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
       if (mi.ariaLabel) {
@@ -489,7 +455,7 @@
       if (menuitems.length === 0) {
         var item = {};
         item.name = msgNoItemsFound;
-        item.tagName = 'no tag';
+        item.tagName = '';
         item.class = 'no-items';
         item.dataId = '';
         this.renderMenuitemToGroup(groupNode, item);

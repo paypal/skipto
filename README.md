@@ -152,23 +152,13 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
-| `buttonColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
+| `buttonTextColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
 | `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
-| `buttonBorderColor` | Color | `#eeeeee` | Border color of text for "Skip To Content" button. |
-| `buttonColorFocus` | Color | `#000000` | Color of text for "Skip To Content" button when it has focus. |
-| `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | Background color of text for "Skip To Content" button when it has focus. |
-| `buttonFocusBorderColor` | Color | `#1a1a1a`  | Border color of "Skip To Content" button when it has focus. |
-| `menuBackgroundColor` | Color | `#eeeeee` | Menu background color. |
-| `menuBorderColor` | Color | `#1a1a1a` | Menu border color |
-| `menuitemColor` | Color | `#1a1a1a`  | Menuitem text color. |
-| `menuitemBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color. |
-| `menuitemFocusColor` | Color | `#eeeeee`  | Menuitem text color then it has focus. |
-| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background color then it has focus. |
-| `menuitemFocusBorderColor` | Color | `#1a1a1a`  | Menuitem border color then it has focus. |
-| `menuitemLevelColor` | Color | `#1a1a1a`  | Menuitem text color for the heading level number indicator used as a shortcut key. |
-| `menuitemLevelBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color for the heading level number indicator used as a shortcut key. |
-| `menuitemFocusLevelColor` | Color | `#eeeeee`  | Menuitem text color for the heading level number indicator used as a shortcut key when menu item has focus. |
-| `menuitemFocusLevelBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background color for the heading level number indicator used as a shortcut key when menu item has focus. |
+| `focusBorderColor` | Color | `#1a1a1a` | Border color for items with keyboard focus. |
+| `menuTextColor` | Color | `#1a1a1a` | Menu border color |
+| `menuBackgroundColor` | Color | `#dcdcdc` | Menu background color. |
+| `menuitemFocusTextColor` | Color | `#eeeeee`  | Menuitem text color when menu item has focus. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background when menu item has focus. |
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 

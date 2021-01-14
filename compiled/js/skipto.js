@@ -1,4 +1,4 @@
-/*! skipto - v3.1.4 - 2021-01-12
+/*! skipto - v3.1.4 - 2021-01-14
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -88,71 +88,37 @@
       // Custom CSS position and colors
       colorTheme: '',
       positionLeft: '',
-      buttonColor: '',
-      buttonBackgroundColor: '',
-      buttonBorderColor: '',
-      buttonColorFocus: '',
-      buttonFocusBackgroundColor: '',
-      buttonFocusBorderColor: '',
+      menuTextColor: '',
       menuBackgroundColor: '',
-      menuitemColor: '',
-      menuitemBackgroundColor: '',
-      menuitemFocusColor: '',
+      menuitemFocusTextColor: '',
       menuitemFocusBackgroundColor: '',
-      menuitemFocusBorderColor: '',
+      focusBorderColor: '',
+      buttonTextColor: '',
+      buttonBackgroundColor: '',
     },
     colorThemes: {
       'default': {
         positionLeft: '46%',
-        buttonColor: '#1a1a1a',
-        buttonBackgroundColor: '#eeeeee',
-        buttonBorderColor: '#eeeeee',
-        buttonFocusColor: '#000000',
-        buttonFocusBackgroundColor: '#dcdcdc',
-        buttonFocusBorderColor: '#1a1a1a',
-        menuBackgroundColor: '#eeeeee',
-        menuBorderColor: '#1a1a1a',
-        menuitemColor: '#1a1a1a',
-        menuitemBackgroundColor: '#eeeeee',
-        menuitemFocusColor: '#eeeeee',
+        menuTextColor: '#1a1a1a',
+        menuBackgroundColor: '#dcdcdc',
+        menuitemFocusTextColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#1a1a1a',
-        menuitemFocusBorderColor: '#1a1a1a',
+        focusBorderColor: '#1a1a1a',
+        buttonTextColor: '#1a1a1a',
+        buttonBackgroundColor: '#eeeeee',
       },
       'illinois': {
         positionLeft: '46%',
-        buttonColor: '#00132c',
-        buttonBackgroundColor: '#dddede',
-        buttonBorderColor: '#dddede',
-        buttonFocusColor: '#00132c',
-        buttonFocusBackgroundColor: '#cad9ef',
-        buttonFocusBorderColor: '#ff552e',
+        menuTextColor: '#00132c',
         menuBackgroundColor: '#cad9ef',
-        menuitemLevelOpacity: '0.7',
-        menuBorderColor: '#ff552e',
-        menuitemColor: '#00132c',
-        menuitemBackgroundColor: '#cad9ef',
-        menuitemFocusColor: '#eeeeee',
+        menuitemFocusTextColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
-        menuitemFocusBorderColor: '#ff552e',
-      },
-      'aria': {
-        positionLeft: '',
-        buttonColor: '#005a9c;',
-        buttonBackgroundColor: '#def',
-        buttonBorderColor: '#def',
-        buttonFocusColor: '#fff',
-        buttonFocusBackgroundColor: '#005a9c',
-        buttonFocusBorderColor: '#005a9c;',
-        menuBackgroundColor: '#def',
-        menuBorderColor: '#005a9c',
-        menuitemColor: '#000',
-        menuitemBackgroundColor: '#def',
-        menuitemFocusColor: '#fff',
-        menuitemFocusBackgroundColor: '#005a9c',
-        menuitemFocusBorderColor: '#005a9c',
+        focusBorderColor: '#ff552e',
+        buttonTextColor: '#555555',
+        buttonBackgroundColor: '#dddede',
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBorderColor;color:$buttonColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$menuBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuitemColor;background-color:$menuitemBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuitemColor;background-color:$menuitemBackgroundColor;color:$menuitemColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$buttonFocusBackgroundColor;color:$buttonFocusColor;outline:0}.skip-to button:focus{padding:4px 7px 5px 7px;border-width:2px 2px 2px 2px;border-color:$buttonFocusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$menuitemFocusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusColor;outline:0}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;background-color:$buttonBackgroundColor;border-color:$buttonBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuitemTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}',
 
     //
     // Functions related to configuring the features
@@ -253,19 +219,17 @@
         theme = this.colorThemes[this.config.colorTheme];
       }
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
-      this.updateStyle('$buttonColor', this.config.buttonColor, theme.buttonColor);
-      this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
-      this.updateStyle('$buttonBorderColor', this.config.buttonBorderColor, theme.buttonBorderColor);
-      this.updateStyle('$buttonFocusColor', this.config.buttonFocusColor, theme.buttonFocusColor);
-      this.updateStyle('$buttonFocusBackgroundColor', this.config.buttonFocusBackgroundColor, theme.buttonFocusBackgroundColor);
-      this.updateStyle('$buttonFocusBorderColor', this.config.buttonFocusBorderColor, theme.buttonFocusBorderColor);
+
+      this.updateStyle('$menuTextColor', this.config.menuTextColor, theme.menuTextColor);
       this.updateStyle('$menuBackgroundColor', this.config.menuBackgroundColor, theme.menuBackgroundColor);
-      this.updateStyle('$menuBorderColor', this.config.menuBorderColor, theme.menuBorderColor);
-      this.updateStyle('$menuitemColor', this.config.menuitemColor, theme.menuitemColor);
-      this.updateStyle('$menuitemBackgroundColor', this.config.menuitemBackgroundColor, theme.menuitemBackgroundColor);
-      this.updateStyle('$menuitemFocusColor', this.config.menuitemFocusColor, theme.menuitemFocusColor);
+
+      this.updateStyle('$menuitemFocusTextColor', this.config.menuitemFocusTextColor, theme.menuitemFocusTextColor);
       this.updateStyle('$menuitemFocusBackgroundColor', this.config.menuitemFocusBackgroundColor, theme.menuitemFocusBackgroundColor);
-      this.updateStyle('$menuitemFocusBorderColor', this.config.menuitemFocusBorderColor, theme.menuitemFocusBorderColor);
+
+      this.updateStyle('$focusBorderColor', this.config.focusBorderColor, theme.focusBorderColor);
+
+      this.updateStyle('$buttonTextColor', this.config.buttonTextColor, theme.buttonTextColor);
+      this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
     },
     isNotEmptyString: function(str) {
       return (typeof str === 'string') && str.length;
@@ -381,7 +345,9 @@
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
-      menuitemNode.classList.add(mi.tagName);
+      if (mi.tagName && mi.tagName.length) {
+        menuitemNode.classList.add(mi.tagName);
+      }
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
       if (mi.ariaLabel) {
@@ -494,7 +460,7 @@
       if (menuitems.length === 0) {
         var item = {};
         item.name = msgNoItemsFound;
-        item.tagName = 'no tag';
+        item.tagName = '';
         item.class = 'no-items';
         item.dataId = '';
         this.renderMenuitemToGroup(groupNode, item);
