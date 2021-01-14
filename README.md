@@ -379,6 +379,9 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 
+### Version 3.1.5
+* Simplified color configuration options
+
 ### Version 3.1.4
 * Fixed Joomla configuration option
 * Added _m_ of _n_ to landmark and heading group labels
