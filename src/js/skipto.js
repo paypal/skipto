@@ -109,7 +109,7 @@
         menuitemFocusTextColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
         focusBorderColor: '#ff552e',
-        buttonTextColor: '#555555',
+        buttonTextColor: '#444444',
         buttonBackgroundColor: '#dddede',
       }
     },

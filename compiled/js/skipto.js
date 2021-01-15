@@ -1,4 +1,4 @@
-/*! skipto - v3.1.5 - 2021-01-14
+/*! skipto - v3.1.5 - 2021-01-15
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -114,7 +114,7 @@
         menuitemFocusTextColor: '#eeeeee',
         menuitemFocusBackgroundColor: '#00132c',
         focusBorderColor: '#ff552e',
-        buttonTextColor: '#555555',
+        buttonTextColor: '#444444',
         buttonBackgroundColor: '#dddede',
       }
     },
