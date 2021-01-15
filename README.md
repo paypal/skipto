@@ -220,11 +220,6 @@ The source code in this section is for developers to understand the HTML, classe
     <div role="group"
       aria-labelledby="id-skip-to-group-landmarks-label" id="id-skip-to-group-landmarks">
       <div role="menuitem"
-        class="landmark"
-        data-id="4">
-        <span class="label skip-to-main">main</span>
-      </div>
-      <div role="menuitem"
         class="landmark main skipto-nesting-level-0"
         data-id="1">
         <span class="label">Main</span>
