@@ -225,9 +225,14 @@ The source code in this section is for developers to understand the HTML, classe
         <span class="label skip-to-main">main</span>
       </div>
       <div role="menuitem"
-        class="landmark"
-        data-id="6">
-        <span class="label skip-to-main">main: Main using main element a...</span>
+        class="landmark main skipto-nesting-level-0"
+        data-id="1">
+        <span class="label">Main</span>
+      </div>
+      <div role="menuitem"
+        class="landmark nav skipto-nesting-level-0"
+        data-id="2">
+        <span class="label">Navigation: SkipTo test pages</span>
       </div>
       <!--
       ... more menu items ...
@@ -248,18 +253,18 @@ The source code in this section is for developers to understand the HTML, classe
       aria-labelledby="id-skip-to-group-headings-label"
       id="id-skip-to-group-headings">
       <div role="menuitem"
-        class="heading"
+        class="heading h1 skip-to-h1"
         data-id="9"
         data-level="1">
         <span class="level"><span>1</span>)</span>
-        <span class="label skip-to-h1">Example Content</span>
+        <span class="label">Example Content</span>
       </div>
       <div role="menuitem"
-        class="heading"
+        class="heading h2 skip-to-h2"
         data-id="10"
         data-level="2">
         <span class="level"><span>2</span>)</span>
-        <span class="label skip-to-h2">Pastrami</span>
+        <span class="label">Pastrami</span>
       </div>
       <!--
       ... more menu items ...
