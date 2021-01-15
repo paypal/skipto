@@ -50,7 +50,7 @@
 }
 
 .skip-to [role="separator"]:first-child {
-	border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 
 .skip-to [role="menuitem"] {
@@ -131,11 +131,11 @@
   padding: 3px;
   display: block;
   width: auto;
-	font-weight: bold;
-	text-align: left;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: $menuTextColor;
+  font-weight: bold;
+  text-align: left;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: $menuTextColor;
   background-color: $menuBackgroundColor;
   color: $menuTextColor;
   z-index: 1000;
@@ -151,13 +151,13 @@
 }
 
 .skip-to [role="menuitem"].last {
-	border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
 }
 
 /* focus styling */
 
 .skip-to.focus {
-	display: block;
+  display: block;
 }
 
 .skip-to button:focus,
