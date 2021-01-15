@@ -23,9 +23,9 @@
   border-width: 0px 1px 1px 1px;
   border-style: solid;
   border-radius: 0px 0px 6px 6px;
-  background-color: $buttonBackgroundColor;
   border-color: $buttonBackgroundColor;
   color: $menuTextColor;
+  background-color: $buttonBackgroundColor;
   z-index: 1000;
 }
 
