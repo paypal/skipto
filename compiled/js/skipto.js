@@ -1,4 +1,4 @@
-/*! skipto - v3.1.5 - 2021-01-15
+/*! skipto - v4.0.0 - 2021-01-19
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -16,7 +16,7 @@
 (function() {
   'use strict';
   var SkipTo = {
-    skipToId: 'is-skip-to-js-3',
+    skipToId: 'is-skip-to-js-4',
     domNode: null,
     buttonNode: null,
     menuNode: null,

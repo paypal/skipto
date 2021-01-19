@@ -11,7 +11,7 @@
 (function() {
   'use strict';
   var SkipTo = {
-    skipToId: 'is-skip-to-js-3',
+    skipToId: 'is-skip-to-js-4',
     domNode: null,
     buttonNode: null,
     menuNode: null,

@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@3.1
+# skipto@4.0
 
 ## by PayPal Accessibility Team & University of Illinois
 
@@ -379,7 +379,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 
-### Version 3.1.5
+### Version 4.0.0
 * Simplified color configuration options
 
 ### Version 3.1.4
