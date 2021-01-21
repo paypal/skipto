@@ -380,12 +380,13 @@ Access keys work  just like regular shortcut keys except that they need a browse
 ## Version History
 
 ### Version 4.0.2
-* Fixed bug when no landmarks or headings found
-* Simplified color configuration options
+* Changed landmarks from using the tag name in the class list to custom skip-to prefixed tag name.
+* Fixed bug when no landmarks or headings found.
+* Simplified color configuration options.
 
 ### Version 3.1.4
-* Fixed Joomla configuration option
-* Added _m_ of _n_ to landmark and heading group labels
+* Fixed Joomla configuration option.
+* Added _m_ of _n_ to landmark and heading group labels.
 
 ### Version 3.1.3
 * Added "fixed" to the `displayOptions` customization.
