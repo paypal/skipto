@@ -356,7 +356,7 @@
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
       if (mi.tagName && mi.tagName.length) {
-        menuitemNode.classList.add(mi.tagName);
+        menuitemNode.classList.add('skip-to-' + mi.tagName);
       }
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
@@ -900,8 +900,8 @@
       var focusNode = false;
       var scrollNode = false;
       var isLandmark = menuitem.classList.contains('landmark');
-      var isSearch = menuitem.classList.contains('search');
-      var isNav = menuitem.classList.contains('nav');
+      var isSearch = menuitem.classList.contains('skip-to-search');
+      var isNav = menuitem.classList.contains('skip-to-nav');
       var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
       if (node) {
         if (isSearch) {
