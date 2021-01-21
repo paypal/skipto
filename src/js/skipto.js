@@ -111,6 +111,16 @@
         focusBorderColor: '#ff552e',
         buttonTextColor: '#444444',
         buttonBackgroundColor: '#dddede',
+      },
+      'aria': {
+        positionLeft: '',
+        menuTextColor: '#000',
+        menuBackgroundColor: '#def',
+        menuitemFocusTextColor: '#fff',
+        menuitemFocusBackgroundColor: '#005a9c',
+        focusBorderColor: '#005a9c',
+        buttonTextColor: '#005a9c',
+        buttonBackgroundColor: '#ddd',
       }
     },
     defaultCSS: '@@cssContent',

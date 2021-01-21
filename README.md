@@ -379,7 +379,8 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 
-### Version 4.0.0
+### Version 4.0.2
+* Fixed bug when no landmarks or headings found
 * Simplified color configuration options
 
 ### Version 3.1.4
