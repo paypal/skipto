@@ -23,9 +23,9 @@
   border-width: 0px 1px 1px 1px;
   border-style: solid;
   border-radius: 0px 0px 6px 6px;
+  border-color: $buttonBackgroundColor;
+  color: $menuTextColor;
   background-color: $buttonBackgroundColor;
-  border-color: $buttonBorderColor;
-  color: $buttonColor;
   z-index: 1000;
 }
 
@@ -38,7 +38,7 @@
   background-color: $menuBackgroundColor;
   border-width: 2px;
   border-style: solid;
-  border-color: $menuBorderColor;
+  border-color: $focusBorderColor;
   border-radius: 5px;
   z-index: 1000;
 }
@@ -50,7 +50,7 @@
 }
 
 .skip-to [role="separator"]:first-child {
-	border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 
 .skip-to [role="menuitem"] {
@@ -59,8 +59,8 @@
   width: auto;
   border-width: 0px;
   border-style: solid;
-  color: $menuitemColor;
-  background-color: $menuitemBackgroundColor;
+  color: $menuitemTextColor;
+  background-color: $menuBackgroundColor;
   z-index: 1000;
 
   display: grid;
@@ -131,13 +131,13 @@
   padding: 3px;
   display: block;
   width: auto;
-	font-weight: bold;
-	text-align: left;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: $menuitemColor;
-  background-color: $menuitemBackgroundColor;
-  color: $menuitemColor;
+  font-weight: bold;
+  text-align: left;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: $menuTextColor;
+  background-color: $menuBackgroundColor;
+  color: $menuTextColor;
   z-index: 1000;
 }
 
@@ -151,34 +151,34 @@
 }
 
 .skip-to [role="menuitem"].last {
-	border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
 }
 
 /* focus styling */
 
 .skip-to.focus {
-	display: block;
+  display: block;
 }
 
 .skip-to button:focus,
 .skip-to button:hover {
-  background-color: $buttonFocusBackgroundColor;
-  color: $buttonFocusColor;
+  background-color: $menuBackgroundColor;
+  color: $menuTextColor;
   outline: none;
 }
 
 .skip-to button:focus {
-  padding: 4px 7px 5px 7px;
-  border-width: 2px 2px 2px 2px;
-  border-color: $buttonFocusBorderColor;
+  padding: 6px 7px 5px 7px;
+  border-width: 0px 2px 2px 2px;
+  border-color: $focusBorderColor;
 }
 
 .skip-to [role="menuitem"]:focus {
   padding: 1px;
   border-width: 2px;
   border-style: solid;
-  border-color: $menuitemFocusBorderColor;
+  border-color: $focusBorderColor;
   background-color: $menuitemFocusBackgroundColor;
-  color: $menuitemFocusColor;
+  color: $menuitemFocusTextColor;
   outline: none;
 }

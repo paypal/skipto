@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@3.1
+# skipto@4.0
 
 ## by PayPal Accessibility Team & University of Illinois
 
@@ -152,23 +152,13 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
-| `buttonColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
+| `buttonTextColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
 | `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
-| `buttonBorderColor` | Color | `#eeeeee` | Border color of text for "Skip To Content" button. |
-| `buttonColorFocus` | Color | `#000000` | Color of text for "Skip To Content" button when it has focus. |
-| `buttonFocusBackgroundColor` | Color | `#dcdcdc`  | Background color of text for "Skip To Content" button when it has focus. |
-| `buttonFocusBorderColor` | Color | `#1a1a1a`  | Border color of "Skip To Content" button when it has focus. |
-| `menuBackgroundColor` | Color | `#eeeeee` | Menu background color. |
-| `menuBorderColor` | Color | `#1a1a1a` | Menu border color |
-| `menuitemColor` | Color | `#1a1a1a`  | Menuitem text color. |
-| `menuitemBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color. |
-| `menuitemFocusColor` | Color | `#eeeeee`  | Menuitem text color then it has focus. |
-| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background color then it has focus. |
-| `menuitemFocusBorderColor` | Color | `#1a1a1a`  | Menuitem border color then it has focus. |
-| `menuitemLevelColor` | Color | `#1a1a1a`  | Menuitem text color for the heading level number indicator used as a shortcut key. |
-| `menuitemLevelBackgroundColor` | Color | `#eeeeee`  | Menuitem text background color for the heading level number indicator used as a shortcut key. |
-| `menuitemFocusLevelColor` | Color | `#eeeeee`  | Menuitem text color for the heading level number indicator used as a shortcut key when menu item has focus. |
-| `menuitemFocusLevelBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background color for the heading level number indicator used as a shortcut key when menu item has focus. |
+| `focusBorderColor` | Color | `#1a1a1a` | Border color for items with keyboard focus. |
+| `menuTextColor` | Color | `#1a1a1a` | Menu text color |
+| `menuBackgroundColor` | Color | `#dcdcdc` | Menu background color. |
+| `menuitemFocusTextColor` | Color | `#eeeeee`  | Menuitem text color when a menuitem has focus. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background when a menuitem has focus. |
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
@@ -230,14 +220,14 @@ The source code in this section is for developers to understand the HTML, classe
     <div role="group"
       aria-labelledby="id-skip-to-group-landmarks-label" id="id-skip-to-group-landmarks">
       <div role="menuitem"
-        class="landmark"
-        data-id="4">
-        <span class="label skip-to-main">main</span>
+        class="landmark main skipto-nesting-level-0"
+        data-id="1">
+        <span class="label">Main</span>
       </div>
       <div role="menuitem"
-        class="landmark"
-        data-id="6">
-        <span class="label skip-to-main">main: Main using main element a...</span>
+        class="landmark nav skipto-nesting-level-0"
+        data-id="2">
+        <span class="label">Navigation: SkipTo test pages</span>
       </div>
       <!--
       ... more menu items ...
@@ -258,18 +248,18 @@ The source code in this section is for developers to understand the HTML, classe
       aria-labelledby="id-skip-to-group-headings-label"
       id="id-skip-to-group-headings">
       <div role="menuitem"
-        class="heading"
+        class="heading h1 skip-to-h1"
         data-id="9"
         data-level="1">
         <span class="level"><span>1</span>)</span>
-        <span class="label skip-to-h1">Example Content</span>
+        <span class="label">Example Content</span>
       </div>
       <div role="menuitem"
-        class="heading"
+        class="heading h2 skip-to-h2"
         data-id="10"
         data-level="2">
         <span class="level"><span>2</span>)</span>
-        <span class="label skip-to-h2">Pastrami</span>
+        <span class="label">Pastrami</span>
       </div>
       <!--
       ... more menu items ...
@@ -389,9 +379,14 @@ Access keys work  just like regular shortcut keys except that they need a browse
 
 ## Version History
 
+### Version 4.0.2
+* Changed landmarks from using the tag name in the class list to custom skip-to prefixed tag name.
+* Fixed bug when no landmarks or headings found.
+* Simplified color configuration options.
+
 ### Version 3.1.4
-* Fixed Joomla configuration option
-* Added _m_ of _n_ to landmark and heading group labels
+* Fixed Joomla configuration option.
+* Added _m_ of _n_ to landmark and heading group labels.
 
 ### Version 3.1.3
 * Added "fixed" to the `displayOptions` customization.
