@@ -280,7 +280,7 @@
           ) {
           localConfig[name] = appConfigSettings[name];
         } else {
-          console.log('** SkipTo Problem with user configuration option "' + name + '".'); // jshint ignore:line
+          throw new Error('** SkipTo Problem with user configuration option "' + name + '".');
         }
       }
     },
