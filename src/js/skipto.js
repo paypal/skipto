@@ -1326,6 +1326,5 @@
                 window.Wordpress ||
                 ((typeof window.Joomla === 'object' && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {})
                 );
-    console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();
