@@ -405,7 +405,6 @@ Happy skipping!
 * Fixed bug in using role description as a class name for menuitem
 * Fixed bug in setting `menuTextColor` property.
 * Updated documentation.
-* Removed some unused class names from action menu items.
 
 ### Version 4.0.2
 * Changed landmarks from using the tag name in the class list to custom skip-to prefixed tag name.
