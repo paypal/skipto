@@ -9,8 +9,9 @@ Need to setup AWS S3 on your computer.
 
 ## Copy Command
 
-To copy files to the disabiluty CDN use the following command:
+To copy files to the disability CDN and clear the caches use the following commands:
 
 ```
 aws s3 cp skipto.min.js s3://cdn.disability.illinois.edu/content/
+aws cloudfront create-invalidation --distribution-id E2WVDTDW1T9JCL --paths "/*"
 ```
