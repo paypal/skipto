@@ -402,6 +402,7 @@ Happy skipping!
 ## Version History
 
 ### Version 4.0.3
+* Fixed bug in using role description as a class name for menuitem
 * Fixed bug in setting `menuTextColor` property.
 * Updated documentation.
 * Removed some unused class names from action menu items.

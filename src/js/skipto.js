@@ -304,7 +304,7 @@
     getFirstChar: function(menuitem) {
       var c = '';
       var label = menuitem.querySelector('.label');
-      if (label && label.textContent.length) {
+      if (this.isNotEmptyString(label)) {
         c = label.textContent.trim()[0].toLowerCase();
       }
       return c;
@@ -350,12 +350,12 @@
       var menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
-      if (mi.tagName && mi.tagName.length) {
-        menuitemNode.classList.add('skip-to-' + mi.tagName);
+      if (this.isNotEmptyString(mi.tagName)) {
+        menuitemNode.classList.add('skip-to-' + mi.tagName.toLowerCase());
       }
       menuitemNode.setAttribute('data-id', mi.dataId);
       menuitemNode.tabIndex = -1;
-      if (mi.ariaLabel) {
+      if (this.isNotEmptyString(mi.ariaLabel)) {
         menuitemNode.setAttribute('aria-label', mi.ariaLabel);
       }
 
@@ -380,7 +380,7 @@
           menuitemNode.classList.add('no-level');
         }
         menuitemNode.setAttribute('data-level', mi.level);
-        if (mi.tagName && mi.tagName.length) {
+        if (this.isNotEmptyString(mi.tagName)) {
           menuitemNode.classList.add('skip-to-' + mi.tagName);
         }
       }
@@ -426,7 +426,7 @@
     renderMenuitemGroup: function(groupId, title) {
       var labelNode, groupNode, spanNode;
       var menuNode = this.menuNode;
-      if (title) {
+      if (this.isNotEmptyString(title)) {
         labelNode = document.createElement('div');
         labelNode.id = groupId + "-label";
         labelNode.setAttribute('role', 'separator');
@@ -519,7 +519,7 @@
         item = {};
         item.tagName = '';
         item.role = 'menuitem';
-        item.class = 'skip-to-action';
+        item.class = 'action';
         item.dataId = 'skip-to-more-headings';
         item.name = this.getShowMoreHeadingsLabel(option, headingsLen);
         item.ariaLabel = this.getShowMoreHeadingsAriaLabel(option, headingsLen);
@@ -618,7 +618,7 @@
         item = {};
         item.tagName = '';
         item.role = 'menuitem';
-        item.class = 'skip-to-action';
+        item.class = 'action';
         item.dataId = 'skip-to-more-landmarks';
         item.name = this.getShowMoreLandmarksLabel(option, landmarksLen);
         item.ariaLabel =  this.getShowMoreLandmarksAriaLabel(option, landmarksLen);
@@ -1087,10 +1087,10 @@
         }
         name = strings.join(" ");
       } else {
-        if (label && label.length) {
+        if (this.isNotEmptyString(label)) {
           name = label;
         } else {
-          if (title && title.length) {
+          if (this.isNotEmptyString(title)) {
             name = title;
           }
         }
@@ -1269,7 +1269,7 @@
             tagName = 'main';
           }
           if (landmark.hasAttribute('aria-roledescription')) {
-            tagName = landmark.getAttribute('aria-roledescription');
+            tagName = landmark.getAttribute('aria-roledescription').trim().replace(' ', '-');
           }
           if (landmark.hasAttribute('data-skip-to-id')) {
             dataId = landmark.getAttribute('data-skip-to-id');
