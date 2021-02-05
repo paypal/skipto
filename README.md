@@ -30,15 +30,27 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
-You can use the SkipTo CDN service to include it anywhere on your HTML page or template, as follows:
+### Local File
+
+Copy the SkipTo.js or SkipTo.min.js to the file system of your website and reference it from you web page or templates.
+
+```html
+<script src="https://[path to Javascript files]/SkipTo.min.js"></script>
+```
+
+### CDN Service
+
+The easiest way is to include a reference to the SkipTo CDN service on your HTML page or template, as follows:
 
 ```html
 <script src="https://cdn.disability.illinois.edu/SkipTo.min.js"></script>
 ```
 
-## What About WordPress
+NOTE: CDN referenced files may not available behind firewall protected networks.
 
-A module is being considered for WordPress.
+### What About WordPress?
+
+A module is under development for WordPress.
 
 ## Configuring SkipTo
 
