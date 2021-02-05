@@ -53,7 +53,7 @@ Copy the SkipTo.js or SkipTo.min.js to the file system of your website and refer
 
 ### CDN Service
 
-The easiest way is to include a reference to the SkipTo CDN service on your HTML page or template, as follows:
+The easiest way is to include a reference to `skipto.min.js`  on your HTML page or template is through the CDN service, as follows:
 
 ```html
 <script src="https://cdn.disability.illinois.edu/SkipTo.min.js"></script>
