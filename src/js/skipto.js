@@ -517,9 +517,9 @@
 
       if (!noAction) {
         item = {};
-        item.tagName = 'action';
+        item.tagName = '';
         item.role = 'menuitem';
-        item.class = 'action';
+        item.class = 'skip-to-action';
         item.dataId = 'skip-to-more-headings';
         item.name = this.getShowMoreHeadingsLabel(option, headingsLen);
         item.ariaLabel = this.getShowMoreHeadingsAriaLabel(option, headingsLen);
@@ -616,9 +616,9 @@
 
       if (!noAction) {
         item = {};
-        item.tagName = 'action';
+        item.tagName = '';
         item.role = 'menuitem';
-        item.class = 'action';
+        item.class = 'skip-to-action';
         item.dataId = 'skip-to-more-landmarks';
         item.name = this.getShowMoreLandmarksLabel(option, landmarksLen);
         item.ariaLabel =  this.getShowMoreLandmarksAriaLabel(option, landmarksLen);

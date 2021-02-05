@@ -59,7 +59,7 @@
   width: auto;
   border-width: 0px;
   border-style: solid;
-  color: $menuitemTextColor;
+  color: $menuTextColor;
   background-color: $menuBackgroundColor;
   z-index: 1000;
 
@@ -122,7 +122,7 @@
 .skip-to [role="menuitem"].skip-to-nesting-level-3 .label { grid-column: 4 / 8; }
 
 .skip-to [role="menuitem"].no-items .label,
-.skip-to [role="menuitem"].action .label {
+.skip-to [role="menuitem"].skip-to-action .label {
   grid-column: 1 / 8;
 }
 

@@ -220,12 +220,12 @@ The source code in this section is for developers to understand the HTML, classe
     <div role="group"
       aria-labelledby="id-skip-to-group-landmarks-label" id="id-skip-to-group-landmarks">
       <div role="menuitem"
-        class="landmark main skipto-nesting-level-0"
+        class="landmark skip-to-main skipto-nesting-level-0"
         data-id="1">
         <span class="label">Main</span>
       </div>
       <div role="menuitem"
-        class="landmark nav skipto-nesting-level-0"
+        class="landmark skip-to-nav skipto-nesting-level-0"
         data-id="2">
         <span class="label">Navigation: SkipTo test pages</span>
       </div>
@@ -248,14 +248,14 @@ The source code in this section is for developers to understand the HTML, classe
       aria-labelledby="id-skip-to-group-headings-label"
       id="id-skip-to-group-headings">
       <div role="menuitem"
-        class="heading h1 skip-to-h1"
+        class="heading skip-to-h1"
         data-id="9"
         data-level="1">
         <span class="level"><span>1</span>)</span>
         <span class="label">Example Content</span>
       </div>
       <div role="menuitem"
-        class="heading h2 skip-to-h2"
+        class="heading skip-to-h2"
         data-id="10"
         data-level="2">
         <span class="level"><span>2</span>)</span>
@@ -378,6 +378,11 @@ Access keys work  just like regular shortcut keys except that they need a browse
 * Safari -- Control+Option+0.
 
 ## Version History
+
+### Version 4.0.3
+* Fixed bug in setting `menuTextColor` property.
+* Updated documentation.
+* Removed some unused class names from action menu items.
 
 ### Version 4.0.2
 * Changed landmarks from using the tag name in the class list to custom skip-to prefixed tag name.
