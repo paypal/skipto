@@ -46,7 +46,7 @@ The easiest way is to include a reference to the SkipTo CDN service on your HTML
 <script src="https://cdn.disability.illinois.edu/SkipTo.min.js"></script>
 ```
 
-NOTE: CDN referenced files may not available behind firewall protected networks.
+NOTE: CDN referenced files may not available to computers behind firewall protected networks.
 
 ### What About WordPress?
 
