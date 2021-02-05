@@ -105,7 +105,7 @@ A color theme sets all the color options defined by the theme.  There is only on
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
-| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default', 'illinois' and 'aria'|
 
 ### Colors used for Button and Menu styling
 
