@@ -38,7 +38,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
-## How do I get it on my web site
+## Adding to Website
 
 All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
