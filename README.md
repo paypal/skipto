@@ -124,7 +124,7 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
 
-## Internationalization (I18n)
+## Internationalization (I18N)
 
 The text labels and messages can be updated through configuration to local language requirements.
 
