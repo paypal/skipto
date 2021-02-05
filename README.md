@@ -18,6 +18,11 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
+## Websites using SkipTo
+
+* [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
+* [College of Applied Health Sciences](https://ahs.illinois.edu/)
+
 ## How it works
 
 1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
