@@ -280,7 +280,7 @@
           ) {
           localConfig[name] = appConfigSettings[name];
         } else {
-          console.log('** SkipTo Problem with user configuration option "' + name + '".'); // jshint ignore:line
+          throw new Error('** SkipTo Problem with user configuration option "' + name + '".');
         }
       }
     },
@@ -1326,6 +1326,5 @@
                 window.Wordpress ||
                 ((typeof window.Joomla === 'object' && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {})
                 );
-    console.log('SkipTo loaded...'); // jshint ignore:line
   });
 })();
