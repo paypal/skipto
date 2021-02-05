@@ -91,6 +91,35 @@ The options are of type `string`.
 | `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
 | `headings` | 'main h1, [role="main"] h1, main h2, [role="main"] h2' | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
 
+### Color Theme Options
+
+A color theme sets all the color options defined by the theme.  There is only one theme at this time.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
+
+### Colors used for Button and Menu styling
+
+Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `buttonTextColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
+| `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
+| `focusBorderColor` | Color | `#1a1a1a` | Border color for items with keyboard focus. |
+| `menuTextColor` | Color | `#1a1a1a` | Menu text color |
+| `menuBackgroundColor` | Color | `#dcdcdc` | Menu background color. |
+| `menuitemFocusTextColor` | Color | `#eeeeee`  | Menuitem text color when a menuitem has focus. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background when a menuitem has focus. |
+
+NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
+
+
+## Internationalization (I18n)
+
+The text labels can be updated through configuration to local language requirements.
+
 ### Button Labeling
 
 The labels and messages can be localized for specific languages or updated to reflect custom selectors.
@@ -153,32 +182,8 @@ The labels and messages can be localized for specific languages or updated to re
 | `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
 
 
-### Color Theme Options
 
-A color theme sets all the color options defined by the theme.  There is only one theme at this time.
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
-
-### Colors used for Button and Menu styling
-
-Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `buttonTextColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
-| `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
-| `focusBorderColor` | Color | `#1a1a1a` | Border color for items with keyboard focus. |
-| `menuTextColor` | Color | `#1a1a1a` | Menu text color |
-| `menuBackgroundColor` | Color | `#dcdcdc` | Menu background color. |
-| `menuitemFocusTextColor` | Color | `#eeeeee`  | Menuitem text color when a menuitem has focus. |
-| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background when a menuitem has focus. |
-
-NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
-
-
-### Example Settings
+## Example Settings
 
 If have different requirements for your web site and include other heading levels as well as ARIA landmarks, you will need to provide a JSON object containing the necessary configuration parameters. The following is a sample configuration:
 
