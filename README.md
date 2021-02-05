@@ -65,7 +65,7 @@ NOTE: CDN referenced files may not available to computers behind firewall protec
 
 A module is under development for WordPress.
 
-## Configuring SkipTo
+## Configure Options
 
 Setting properties is optional, when a property is not defined it's default value is used.
 
