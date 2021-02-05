@@ -45,10 +45,10 @@ If you would like to be able to debug your production-ready script, include the 
 
 ### Local File on Your Web Server
 
-Copy the SkipTo.js or SkipTo.min.js to the file system of your website and reference it from you web page or templates.
+Copy the `skipto.js` or `skipto.min.js` to the file system of your web server and reference it from your web page or templates using a `script` tag, as follows:
 
 ```html
-<script src="https://[path to Javascript files]/SkipTo.min.js"></script>
+<script src="https://[path to Javascript files]/skipto.min.js"></script>
 ```
 
 ### CDN Service
@@ -56,7 +56,7 @@ Copy the SkipTo.js or SkipTo.min.js to the file system of your website and refer
 The easiest way is to include a reference to `skipto.min.js`  on your HTML page or template is through the CDN service, as follows:
 
 ```html
-<script src="https://cdn.disability.illinois.edu/SkipTo.min.js"></script>
+<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
 ```
 
 NOTE: CDN referenced files may not available to computers behind firewall protected networks.
