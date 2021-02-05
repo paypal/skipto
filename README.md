@@ -123,6 +123,14 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
+### Menu Content Options
+
+The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
+
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
+| `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
 
 ## Internationalization (I18N)
 
@@ -138,15 +146,6 @@ The labels and messages can be localized for specific languages or updated to re
 | `buttonTitle` | 'Keyboard Navigation' | Help message when accesskey is not defined. |
 | `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
 | `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
-
-### Menu Content Options
-
-The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
-
-| Property       | Default | Description |
-| :------------- | :------ |:---------- |
-| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
-| `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
 
 ### Menu, Group and Menuitem Labeling
 
