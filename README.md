@@ -123,9 +123,9 @@ Color values must use [CSS color values](https://developer.mozilla.org/en-US/doc
 
 NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
-### Menu Content Options
+### Heading Shortcuts and Action Menu Options
 
-The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
+The inclusion of heading level shortcut keys and the more landmarks and more headings action buttons are enabled by default, but they can be disabled through configuration.  The values are of type boolean.
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
