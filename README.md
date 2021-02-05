@@ -118,7 +118,7 @@ NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
 
 ## Internationalization (I18n)
 
-The text labels can be updated through configuration to local language requirements.
+The text labels and messages can be updated through configuration to local language requirements.
 
 ### Button Labeling
 
@@ -366,13 +366,20 @@ Please do not hesitate to [raise issues and comment on Github](https://github.co
 
 Happy skipping!
 
-PayPal Accessibility Team
-[Twitter: @PayPalInclusive](https://www.twitter.com/PayPalInclusive)
-
 ## Authors
+
+### Current Contributors
+
+**Jon Gunderson**
+[https://github.com/jongund](https://github.com/jongund)
+
+**Nicholas Hoyt**
+[https://github.com/nhoyt](https://github.com/nhoyt)
 
 **Prem Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
+
+### Previous Contributors
 
 **Victor Tsaran**
 [https://github.com/vick08](https://github.com/vick08) || [@vick08](https://twitter.com/vick08)
@@ -382,12 +389,6 @@ PayPal Accessibility Team
 
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
-
-**Jon Gunderson**
-[https://github.com/jongund](https://github.com/jongund)
-
-**Nicholas Hoyt**
-[https://github.com/nhoyt](https://github.com/nhoyt)
 
 ## Access keys
 
