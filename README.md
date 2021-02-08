@@ -18,6 +18,19 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
+## Access keys
+
+Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
+
+* Mozilla Firefox -- Alt+Shift+0.
+* Google Chrome -- Alt+0 (Windows) and Control+Option+0 (Mac OS).
+* Safari -- Control+Option+0.
+
+## Websites using SkipTo
+
+* [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
+* [College of Applied Health Sciences](https://ahs.illinois.edu/)
+
 ## How it works
 
 1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
@@ -25,24 +38,34 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
-## How do I get it on my web site
+## Adding to Website
 
 All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
-To use the SkipTo script, just include it anywhere on your HTML page or template, as follows:
+### Local File on Your Web Server
+
+Copy the `skipto.js` or `skipto.min.js` to the file system of your web server and reference it from your web page or templates using a `script` tag, as follows:
 
 ```html
-<script src="https://[your domain]/[path to javascript directory]/SkipTo.min.js"></script>
+<script src="https://[path to Javascript files]/skipto.min.js"></script>
 ```
 
-NOTE: Make sure that "src" points to the place where you put the SkipTo Javascript file, otherwise, things will not work as intended.
+### CDN Service
 
-## What About WordPress
+The easiest way is to include a reference to `skipto.min.js`  on your HTML page or template is through the CDN service, as follows:
 
-A module is being considered for WordPress.
+```html
+<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+```
 
-## Configuring SkipTo
+NOTE: CDN referenced files may not available to computers behind firewall protected networks.
+
+### What About WordPress?
+
+A module is under development for WordPress.
+
+## Configure Options
 
 Setting properties is optional, when a property is not defined it's default value is used.
 
@@ -76,6 +99,43 @@ The options are of type `string`.
 | `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
 | `headings` | 'main h1, [role="main"] h1, main h2, [role="main"] h2' | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
 
+### Color Theme Options
+
+A color theme sets all the color options defined by the theme.  There is only one theme at this time.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default', 'illinois' and 'aria'|
+
+### Colors used for Button and Menu styling
+
+Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `buttonTextColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
+| `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
+| `focusBorderColor` | Color | `#1a1a1a` | Border color for items with keyboard focus. |
+| `menuTextColor` | Color | `#1a1a1a` | Menu text color |
+| `menuBackgroundColor` | Color | `#dcdcdc` | Menu background color. |
+| `menuitemFocusTextColor` | Color | `#eeeeee`  | Menuitem text color when a menuitem has focus. |
+| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background when a menuitem has focus. |
+
+NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
+
+### Heading Shortcuts and Action Menu Options
+
+The inclusion of heading level shortcut keys and the more landmarks and more headings action buttons are enabled by default, but they can be disabled through configuration.  The values are of type boolean.
+
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
+| `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
+
+## Internationalization (I18N)
+
+The text labels and messages can be updated through configuration to local language requirements.
+
 ### Button Labeling
 
 The labels and messages can be localized for specific languages or updated to reflect custom selectors.
@@ -86,15 +146,6 @@ The labels and messages can be localized for specific languages or updated to re
 | `buttonTitle` | 'Keyboard Navigation' | Help message when accesskey is not defined. |
 | `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
 | `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
-
-### Menu Content Options
-
-The inclusion of heading level and the action buttons are enabled by default, but can be disabled through configuration.  The values are of type boolean.
-
-| Property       | Default | Description |
-| :------------- | :------ |:---------- |
-| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
-| `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
 
 ### Menu, Group and Menuitem Labeling
 
@@ -138,32 +189,8 @@ The labels and messages can be localized for specific languages or updated to re
 | `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
 
 
-### Color Theme Options
 
-A color theme sets all the color options defined by the theme.  There is only one theme at this time.
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `colorTheme` | string | `default`  | A predefined color scheme for skipTo, currently values 'default' and 'illinois' |
-
-### Colors used for Button and Menu styling
-
-Color values must use [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), for example `#8AF`, `rgb(40, 50, 90)`, `#a0bf32`, `blue`.
-
-| Property       | Type   | Default | Description |
-| :------------- | :----- | :------ | :---------- |
-| `buttonTextColor` | Color | `#1a1a1a`  | Color of text for "Skip To Content" button. |
-| `buttonBackgroundColor` | Color | `#eeeeee` | Background color of text for "Skip To Content" button. |
-| `focusBorderColor` | Color | `#1a1a1a` | Border color for items with keyboard focus. |
-| `menuTextColor` | Color | `#1a1a1a` | Menu text color |
-| `menuBackgroundColor` | Color | `#dcdcdc` | Menu background color. |
-| `menuitemFocusTextColor` | Color | `#eeeeee`  | Menuitem text color when a menuitem has focus. |
-| `menuitemFocusBackgroundColor` | Color | `#1a1a1a`  | Menuitem text background when a menuitem has focus. |
-
-NOTE: Make sure colors meet the color contrast requirements of WCAG 2.1 for text
-
-
-### Example Settings
+## Example Settings
 
 If have different requirements for your web site and include other heading levels as well as ARIA landmarks, you will need to provide a JSON object containing the necessary configuration parameters. The following is a sample configuration:
 
@@ -220,12 +247,12 @@ The source code in this section is for developers to understand the HTML, classe
     <div role="group"
       aria-labelledby="id-skip-to-group-landmarks-label" id="id-skip-to-group-landmarks">
       <div role="menuitem"
-        class="landmark main skipto-nesting-level-0"
+        class="landmark skip-to-main skipto-nesting-level-0"
         data-id="1">
         <span class="label">Main</span>
       </div>
       <div role="menuitem"
-        class="landmark nav skipto-nesting-level-0"
+        class="landmark skip-to-nav skipto-nesting-level-0"
         data-id="2">
         <span class="label">Navigation: SkipTo test pages</span>
       </div>
@@ -248,14 +275,14 @@ The source code in this section is for developers to understand the HTML, classe
       aria-labelledby="id-skip-to-group-headings-label"
       id="id-skip-to-group-headings">
       <div role="menuitem"
-        class="heading h1 skip-to-h1"
+        class="heading skip-to-h1"
         data-id="9"
         data-level="1">
         <span class="level"><span>1</span>)</span>
         <span class="label">Example Content</span>
       </div>
       <div role="menuitem"
-        class="heading h2 skip-to-h2"
+        class="heading skip-to-h2"
         data-id="10"
         data-level="2">
         <span class="level"><span>2</span>)</span>
@@ -346,13 +373,20 @@ Please do not hesitate to [raise issues and comment on Github](https://github.co
 
 Happy skipping!
 
-PayPal Accessibility Team
-[Twitter: @PayPalInclusive](https://www.twitter.com/PayPalInclusive)
-
 ## Authors
+
+### Current Contributors
+
+**Jon Gunderson**
+[https://github.com/jongund](https://github.com/jongund)
+
+**Nicholas Hoyt**
+[https://github.com/nhoyt](https://github.com/nhoyt)
 
 **Prem Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
+
+### Previous Contributors
 
 **Victor Tsaran**
 [https://github.com/vick08](https://github.com/vick08) || [@vick08](https://twitter.com/vick08)
@@ -363,21 +397,13 @@ PayPal Accessibility Team
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
-**Jon Gunderson**
-[https://github.com/jongund](https://github.com/jongund)
-
-**Nicholas Hoyt**
-[https://github.com/nhoyt](https://github.com/nhoyt)
-
-## Access keys
-
-Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
-
-* Mozilla Firefox -- Alt+Shift+0.
-* Google Chrome -- Alt+0 (Windows) and Control+Option+0 (Mac OS).
-* Safari -- Control+Option+0.
 
 ## Version History
+
+### Version 4.0.3
+* Fixed bug in using role description as a class name for menuitem
+* Fixed bug in setting `menuTextColor` property.
+* Updated documentation.
 
 ### Version 4.0.2
 * Changed landmarks from using the tag name in the class list to custom skip-to prefixed tag name.
