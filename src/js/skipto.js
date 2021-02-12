@@ -851,16 +851,12 @@
       this.renderMenu();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
-      this.tooltipNode.classList.remove('show');
     },
 
     closePopup: function() {
       if (this.isOpen()) {
         this.buttonNode.setAttribute('aria-expanded', 'false');
         this.menuNode.style.display = 'none';
-        if (this.tooltipFocus && this.tooltipHover) {
-          this.tooltipNode.classList.add('show');
-        }
       }
     },
     isOpen: function() {
@@ -917,26 +913,18 @@
       event.preventDefault();
     },
     handleButtonFocus: function() {
-      this.tooltipFocus = true;
-      this.tooltipNode.classList.add('show');
+      this.tooltipNode.classList.add('show-focus');
     },
     handleButtonBlur: function() {
-      this.tooltipFocus = false;
-      if (!this.tooltipHover) {
-       this.tooltipNode.classList.remove('show');
-      }
+      this.tooltipNode.classList.remove('show-focus');
     },
     handleButtonPointerover: function() {
-      this.tooltipHover = true;
       if (!this.isOpen()) {
-        this.tooltipNode.classList.add('show');
+        this.tooltipNode.classList.add('show-hover');
       }
     },
     handleButtonPointerout: function() {
-      this.tooltipHover = false;
-      if (!this.tooltipFocus) {
-        this.tooltipNode.classList.remove('show');
-      }
+      this.tooltipNode.classList.remove('show-hover');
     },
     skipToElement: function(menuitem) {
       var focusNode = false;

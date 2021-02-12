@@ -32,8 +32,6 @@
 .skip-to .tooltip {
   position: absolute;
   padding: 0.25em;
-  top: 0.5em;
-  left: 7em;
   display: none;
   width: 12em;
   color: $menuTextColor;
@@ -42,9 +40,24 @@
   border-radius: 4px;
 }
 
-.skip-to .tooltip.show {
+.skip-to .tooltip.show-focus {
   display: block;
+  top: 2.5em;
+  left: 0em;
 }
+
+.skip-to .tooltip.show-hover,
+.skip-to .tooltip.show-focus.show-hover {
+  display: block;
+  top: 0.5em;
+  left: 7em;
+}
+
+.skip-to [aria-expanded="true"] + .tooltip.show-focus,
+.skip-to [aria-expanded="true"] + .tooltip.show-hover {
+  display: none;
+}
+
 
 .skip-to [role="menu"] {
   position: absolute;
