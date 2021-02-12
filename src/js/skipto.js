@@ -24,10 +24,13 @@
     contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
+    tooltipFocus: false,
+    tooltipHover: false,
     // Default configuration values
     config: {
       // Feature switches
-      enableActions: true,
+      enableActions: false,
+      enableMofN: true,
       enableHeadingLevelShortcuts: true,
       enableHelp: true,
       // Customization of button and menu
@@ -41,8 +44,8 @@
 
       // Button labels and messages
       accesskeyNotSupported: ' is not supported on this browser.',
-      buttonTitle: 'Keyboard Navigation',
-      buttonTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
+      buttonTooltip: 'Keyboard Navigation',
+      buttonTooltipAccesskey: 'Accesskey is "$key"',
       buttonLabel: 'Skip To Content',
 
       // Menu labels and messages
@@ -131,6 +134,7 @@
     //
 
     init: function(config) {
+      var node;
       // Check if skipto is already loaded
 
       if (document.querySelector('style#' + this.skipToId)) {
@@ -142,14 +146,18 @@
         this.setUpConfig(config);
       }
       if (typeof this.config.attachElement === 'string') {
-        var node = document.querySelector(this.config.attachElement);
+        node = document.querySelector(this.config.attachElement);
         if (node && node.nodeType === Node.ELEMENT_NODE) {
           attachElement = node;
         }
       }
       this.addCSSColors();
       this.renderStyleElement(this.defaultCSS);
-      this.domNode = document.createElement(this.config.containerElement);
+      var elem = this.config.containerElement.toLowerCase().trim();
+      if (!this.isNotEmptyString(elem)) {
+        elem = 'div';
+      }
+      this.domNode = document.createElement(elem);
       this.domNode.classList.add('skip-to');
       if (this.isNotEmptyString(this.config.customClass)) {
         this.domNode.classList.add(this.config.customClass);
@@ -185,23 +193,34 @@
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
+      this.buttonNode.setAttribute('aria-describedby', 'id-skip-to-tooltip');
 
-      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
+      this.tooltipNode = document.createElement('div');
+      this.tooltipNode.id = 'id-skip-to-tooltip';
+      this.tooltipNode.classList.add('tooltip');
+      node = document.createElement('div');
+      node.textContent = this.config.buttonTooltip;
+      this.tooltipNode.appendChild(node);
+
+
+      if (this.isNotEmptyString(this.config.buttonTooltipAccesskey) &&
         (this.config.accesskey.length === 1)) {
-        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.buttonNode.setAttribute('title', title);
-      } else {
-        if (this.isNotEmptyString(this.config.buttonTitle)) {
-          this.buttonNode.setAttribute('title', this.config.buttonTitle);
-        }
+        node = document.createElement('div');
+        node.textContent = this.config.buttonTooltipAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        this.tooltipNode.appendChild(node);
       }
 
       this.domNode.appendChild(this.buttonNode);
+      this.domNode.appendChild(this.tooltipNode);
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
       this.domNode.appendChild(this.menuNode);
       this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
       this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
+      this.buttonNode.addEventListener('focus', this.handleButtonFocus.bind(this));
+      this.buttonNode.addEventListener('blur', this.handleButtonBlur.bind(this));
+      this.buttonNode.addEventListener('pointerover', this.handleButtonPointerover.bind(this));
+      this.buttonNode.addEventListener('pointerout', this.handleButtonPointerout.bind(this));
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
       window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
@@ -415,11 +434,13 @@
 
       titleNode.textContent = title;
 
-      if ((typeof m === 'number') && (typeof n === 'number')) {
-        s = this.config.mofnGroupLabel;
-        s = s.replace('$m', m);
-        s = s.replace('$n', n);
-        mofnNode.textContent = s;
+      if (this.config.enableActions && this.config.enableMofN) {
+        if ((typeof m === 'number') && (typeof n === 'number')) {
+          s = this.config.mofnGroupLabel;
+          s = s.replace('$m', m);
+          s = s.replace('$n', n);
+          mofnNode.textContent = s;
+        }
       }
     },
 
@@ -830,12 +851,16 @@
       this.renderMenu();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
+      this.tooltipNode.classList.remove('show');
     },
 
     closePopup: function() {
       if (this.isOpen()) {
         this.buttonNode.setAttribute('aria-expanded', 'false');
         this.menuNode.style.display = 'none';
+        if (this.tooltipFocus && this.tooltipHover) {
+          this.tooltipNode.classList.add('show');
+        }
       }
     },
     isOpen: function() {
@@ -890,6 +915,28 @@
       }
       event.stopPropagation();
       event.preventDefault();
+    },
+    handleButtonFocus: function() {
+      this.tooltipFocus = true;
+      this.tooltipNode.classList.add('show');
+    },
+    handleButtonBlur: function() {
+      this.tooltipFocus = false;
+      if (!this.tooltipHover) {
+       this.tooltipNode.classList.remove('show');
+      }
+    },
+    handleButtonPointerover: function() {
+      this.tooltipHover = true;
+      if (!this.isOpen()) {
+        this.tooltipNode.classList.add('show');
+      }
+    },
+    handleButtonPointerout: function() {
+      this.tooltipHover = false;
+      if (!this.tooltipFocus) {
+        this.tooltipNode.classList.remove('show');
+      }
     },
     skipToElement: function(menuitem) {
       var focusNode = false;

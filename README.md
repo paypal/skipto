@@ -400,6 +400,11 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.0.4
+* Popup tooltip shows accesskey to open menu when button on hover or focus.
+* Actions are disabled by default.
+* M of N is disabled by default.
+
 ### Version 4.0.3
 * Fixed bug in using role description as a class name for menuitem
 * Fixed bug in setting `menuTextColor` property.

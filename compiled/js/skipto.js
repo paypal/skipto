@@ -1,4 +1,4 @@
-/*! skipto - v4.0.3 - 2021-02-05
+/*! skipto - v4.0.4 - 2021-02-12
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -29,10 +29,13 @@
     contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
+    tooltipFocus: false,
+    tooltipHover: false,
     // Default configuration values
     config: {
       // Feature switches
-      enableActions: true,
+      enableActions: false,
+      enableMofN: true,
       enableHeadingLevelShortcuts: true,
       enableHelp: true,
       // Customization of button and menu
@@ -46,8 +49,8 @@
 
       // Button labels and messages
       accesskeyNotSupported: ' is not supported on this browser.',
-      buttonTitle: 'Keyboard Navigation',
-      buttonTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
+      buttonTooltip: 'Keyboard Navigation',
+      buttonTooltipAccesskey: 'Accesskey is "$key"',
       buttonLabel: 'Skip To Content',
 
       // Menu labels and messages
@@ -128,7 +131,7 @@
         buttonBackgroundColor: '#ddd',
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;border-color:$buttonBackgroundColor;color:$menuTextColor;background-color:$buttonBackgroundColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;border-color:$buttonBackgroundColor;color:$menuTextColor;background-color:$buttonBackgroundColor;z-index:1000}.skip-to .tooltip{position:absolute;padding:.25em;top:.5em;left:7em;display:none;width:12em;color:$menuTextColor;background-color:$buttonBackgroundColor;border:$menuTextColor 2px solid;border-radius:4px}.skip-to .tooltip.show{display:block}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}',
 
     //
     // Functions related to configuring the features
@@ -136,6 +139,7 @@
     //
 
     init: function(config) {
+      var node;
       // Check if skipto is already loaded
 
       if (document.querySelector('style#' + this.skipToId)) {
@@ -147,14 +151,18 @@
         this.setUpConfig(config);
       }
       if (typeof this.config.attachElement === 'string') {
-        var node = document.querySelector(this.config.attachElement);
+        node = document.querySelector(this.config.attachElement);
         if (node && node.nodeType === Node.ELEMENT_NODE) {
           attachElement = node;
         }
       }
       this.addCSSColors();
       this.renderStyleElement(this.defaultCSS);
-      this.domNode = document.createElement(this.config.containerElement);
+      var elem = this.config.containerElement.toLowerCase().trim();
+      if (!this.isNotEmptyString(elem)) {
+        elem = 'div';
+      }
+      this.domNode = document.createElement(elem);
       this.domNode.classList.add('skip-to');
       if (this.isNotEmptyString(this.config.customClass)) {
         this.domNode.classList.add(this.config.customClass);
@@ -190,23 +198,34 @@
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
+      this.buttonNode.setAttribute('aria-describedby', 'id-skip-to-tooltip');
 
-      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
+      this.tooltipNode = document.createElement('div');
+      this.tooltipNode.id = 'id-skip-to-tooltip';
+      this.tooltipNode.classList.add('tooltip');
+      node = document.createElement('div');
+      node.textContent = this.config.buttonTooltip;
+      this.tooltipNode.appendChild(node);
+
+
+      if (this.isNotEmptyString(this.config.buttonTooltipAccesskey) &&
         (this.config.accesskey.length === 1)) {
-        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.buttonNode.setAttribute('title', title);
-      } else {
-        if (this.isNotEmptyString(this.config.buttonTitle)) {
-          this.buttonNode.setAttribute('title', this.config.buttonTitle);
-        }
+        node = document.createElement('div');
+        node.textContent = this.config.buttonTooltipAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        this.tooltipNode.appendChild(node);
       }
 
       this.domNode.appendChild(this.buttonNode);
+      this.domNode.appendChild(this.tooltipNode);
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
       this.domNode.appendChild(this.menuNode);
       this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
       this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
+      this.buttonNode.addEventListener('focus', this.handleButtonFocus.bind(this));
+      this.buttonNode.addEventListener('blur', this.handleButtonBlur.bind(this));
+      this.buttonNode.addEventListener('pointerover', this.handleButtonPointerover.bind(this));
+      this.buttonNode.addEventListener('pointerout', this.handleButtonPointerout.bind(this));
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
       window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
@@ -420,11 +439,13 @@
 
       titleNode.textContent = title;
 
-      if ((typeof m === 'number') && (typeof n === 'number')) {
-        s = this.config.mofnGroupLabel;
-        s = s.replace('$m', m);
-        s = s.replace('$n', n);
-        mofnNode.textContent = s;
+      if (this.config.enableActions && this.config.enableMofN) {
+        if ((typeof m === 'number') && (typeof n === 'number')) {
+          s = this.config.mofnGroupLabel;
+          s = s.replace('$m', m);
+          s = s.replace('$n', n);
+          mofnNode.textContent = s;
+        }
       }
     },
 
@@ -835,12 +856,16 @@
       this.renderMenu();
       this.menuNode.style.display = 'block';
       this.buttonNode.setAttribute('aria-expanded', 'true');
+      this.tooltipNode.classList.remove('show');
     },
 
     closePopup: function() {
       if (this.isOpen()) {
         this.buttonNode.setAttribute('aria-expanded', 'false');
         this.menuNode.style.display = 'none';
+        if (this.tooltipFocus && this.tooltipHover) {
+          this.tooltipNode.classList.add('show');
+        }
       }
     },
     isOpen: function() {
@@ -895,6 +920,28 @@
       }
       event.stopPropagation();
       event.preventDefault();
+    },
+    handleButtonFocus: function() {
+      this.tooltipFocus = true;
+      this.tooltipNode.classList.add('show');
+    },
+    handleButtonBlur: function() {
+      this.tooltipFocus = false;
+      if (!this.tooltipHover) {
+       this.tooltipNode.classList.remove('show');
+      }
+    },
+    handleButtonPointerover: function() {
+      this.tooltipHover = true;
+      if (!this.isOpen()) {
+        this.tooltipNode.classList.add('show');
+      }
+    },
+    handleButtonPointerout: function() {
+      this.tooltipHover = false;
+      if (!this.tooltipFocus) {
+        this.tooltipNode.classList.remove('show');
+      }
     },
     skipToElement: function(menuitem) {
       var focusNode = false;
