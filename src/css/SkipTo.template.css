@@ -29,35 +29,29 @@
   z-index: 1000;
 }
 
-.skip-to .tooltip {
+.skip-to .skip-to-tooltip {
   position: absolute;
-  padding: 0.25em;
-  display: none;
-  width: 12em;
-  color: $menuTextColor;
-  background-color: $buttonBackgroundColor;
-  border: $menuTextColor 2px solid;
-  border-radius: 4px;
-}
-
-.skip-to .tooltip.show-focus {
-  display: block;
-  top: 2.5em;
-  left: 0em;
-}
-
-.skip-to .tooltip.show-hover,
-.skip-to .tooltip.show-focus.show-hover {
-  display: block;
-  top: 0.5em;
+  top: 0;
   left: 7em;
 }
 
-.skip-to [aria-expanded="true"] + .tooltip.show-focus,
-.skip-to [aria-expanded="true"] + .tooltip.show-hover {
+.skip-to .skip-to-tooltip.skip-to-hide-tooltip {
+  display: none;
+
+}
+.skip-to .skip-to-tooltip.skip-to-show-tooltip,
+.skip-to .skip-to-tooltip.skip-to-show-tooltip-focus {
+  display: block;
+}
+
+.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip,
+.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip-focus {
   display: none;
 }
 
+.skip-to .skip-to-tooltip svg text {
+  font-size: 1em;
+}
 
 .skip-to [role="menu"] {
   position: absolute;

@@ -129,7 +129,7 @@ The inclusion of heading level shortcut keys and the more landmarks and more hea
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
-| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
+| `enableActions` | 'false' | Enable ('true') or disable ('false') the action buttons in the menu.  This should only be enabled if you feel the full heading and landmark strcuture of your pages would be useful for keyboard navigation.  Enabling this feature can result in long lists of headings or landmarks that may not be very useful to users.  |
 | `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
 
 ## Internationalization (I18N)
@@ -402,7 +402,8 @@ Happy skipping!
 
 ### Version 4.0.4
 * Popup tooltip shows accesskey to open menu when button on hover or focus.
-* Actions are disabled by default.
+* Popup tooltip supports high contrast operating system settings.
+* Actions are disabled by default, but user request.
 * M of N is disabled by default.
 
 ### Version 4.0.3

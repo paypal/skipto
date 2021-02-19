@@ -15,6 +15,7 @@
     domNode: null,
     buttonNode: null,
     menuNode: null,
+    tooltipNode: null,
     menuitemNodes: [],
     firstMenuitem: false,
     lastMenuitem: false,
@@ -193,25 +194,11 @@
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
-      this.buttonNode.setAttribute('aria-describedby', 'id-skip-to-tooltip');
-
-      this.tooltipNode = document.createElement('div');
-      this.tooltipNode.id = 'id-skip-to-tooltip';
-      this.tooltipNode.classList.add('tooltip');
-      node = document.createElement('div');
-      node.textContent = this.config.buttonTooltip;
-      this.tooltipNode.appendChild(node);
-
-
-      if (this.isNotEmptyString(this.config.buttonTooltipAccesskey) &&
-        (this.config.accesskey.length === 1)) {
-        node = document.createElement('div');
-        node.textContent = this.config.buttonTooltipAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.tooltipNode.appendChild(node);
-      }
 
       this.domNode.appendChild(this.buttonNode);
-      this.domNode.appendChild(this.tooltipNode);
+
+      this.renderTooltip(this.domNode, this.buttonNode);
+
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
       this.domNode.appendChild(this.menuNode);
@@ -224,7 +211,91 @@
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
       window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
+
     },
+    renderTooltip: function(attachNode, buttonNode) {
+      var NS="http://www.w3.org/2000/svg";
+      var svgNode;
+      var width, height, totalHeight, d;
+      var paddingWidth = 8;
+      var pointerLength = 20;
+      var pointerHeight = 12;
+      var id = 'id-skip-to-tooltip';
+      var buttonWidth = buttonNode.getBoundingClientRect().width;
+
+      this.tooltipNode = document.createElement('div');
+      this.tooltipNode.id = id;
+      this.tooltipNode.classList.add('skip-to-tooltip');
+      this.tooltipNode.style.left = (buttonWidth + 1) + 'px';
+
+      svgNode=document.createElementNS(NS,"svg");
+      this.tooltipNode.appendChild(svgNode);
+
+      this.tooltipPathNode = document.createElementNS(NS,"path");
+      svgNode.appendChild(this.tooltipPathNode);
+
+      this.tooltipRectNode = document.createElementNS(NS,"rect");
+      svgNode.appendChild(this.tooltipRectNode);
+
+      this.tooltipTextNode1 = document.createElementNS(NS,"text");
+      this.tooltipTextNode1.textContent = this.config.buttonTooltip;
+      this.tooltipTextNode1.id = id + '-1';
+      buttonNode.setAttribute('aria-describedby', id + '-1');
+
+      svgNode.appendChild(this.tooltipTextNode1);
+
+      if (this.isNotEmptyString(this.config.buttonTooltipAccesskey) &&
+        (this.config.accesskey.length === 1)) {
+        this.tooltipTextNode2 = document.createElementNS(NS,"text");
+        this.tooltipTextNode2.textContent = this.config.buttonTooltipAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        svgNode.appendChild(this.tooltipTextNode2);
+
+        this.tooltipTextNode2.id = id + '-2';
+        buttonNode.setAttribute('aria-describedby', id + '-1 ' + id + '-2');
+      }
+
+      attachNode.appendChild(this.tooltipNode);
+
+      // Initialize sizes and position
+
+      width = Math.max(this.tooltipTextNode1.getBoundingClientRect().width, this.tooltipTextNode2.getBoundingClientRect().width);
+      width += 2 * paddingWidth;
+      height = this.tooltipTextNode1.getBoundingClientRect().height;
+      totalHeight = 2 * height + paddingWidth;
+
+      d = 'M 1 ' + (pointerHeight / 2 + paddingWidth);
+      d += ' l ' + pointerLength + ' -' + (pointerHeight / 2);
+      d += ' v ' + pointerHeight;
+      d += ' Z';
+      this.tooltipPathNode.setAttribute('d', d);
+
+      this.tooltipRectNode.setAttribute('x', pointerLength + 1);
+      this.tooltipRectNode.setAttribute('y', 1);
+      this.tooltipRectNode.setAttribute('width', width);
+      this.tooltipRectNode.setAttribute('height', totalHeight);
+      this.tooltipRectNode.setAttribute('rx', paddingWidth);
+
+      svgNode.setAttribute('width', pointerLength + width);
+      svgNode.setAttribute('height', pointerLength + totalHeight);
+
+      this.tooltipTextNode1.setAttribute('x', pointerLength + paddingWidth);
+      this.tooltipTextNode1.setAttribute('y', height);
+
+      this.tooltipTextNode2.setAttribute('x', pointerLength + paddingWidth);
+      this.tooltipTextNode2.setAttribute('y', 2 * height);
+
+
+      this.tooltipNode.classList.add('skip-to-hide-tooltip');
+    },
+
+    setTooltipColors: function() {
+      var style = getComputedStyle(this.buttonNode, ':hover');
+      this.tooltipPathNode.setAttribute('fill', style.backgroundColor);
+      this.tooltipRectNode.setAttribute('fill', style.backgroundColor);
+      this.tooltipTextNode1.setAttribute('color', style.color);
+      this.tooltipTextNode2.setAttribute('color', style.color);
+    },
+
     updateStyle: function(stylePlaceholder, value, defaultValue) {
       if (typeof value !== 'string' || value.length === 0) {
         value = defaultValue;
@@ -913,18 +984,22 @@
       event.preventDefault();
     },
     handleButtonFocus: function() {
-      this.tooltipNode.classList.add('show-focus');
+      this.tooltipNode.classList.remove('skip-to-hide-tooltip');
+      this.tooltipNode.classList.add('skip-to-show-tooltip-focus');
+      this.setTooltipColors();
     },
     handleButtonBlur: function() {
-      this.tooltipNode.classList.remove('show-focus');
+      this.tooltipNode.classList.remove('skip-to-show-tooltip-focus');
+      this.tooltipNode.classList.add('skip-to-hide-tooltip');
     },
     handleButtonPointerover: function() {
-      if (!this.isOpen()) {
-        this.tooltipNode.classList.add('show-hover');
-      }
+      this.tooltipNode.classList.remove('skip-to-hide-tooltip');
+      this.tooltipNode.classList.add('skip-to-show-tooltip');
+      this.setTooltipColors();
     },
     handleButtonPointerout: function() {
-      this.tooltipNode.classList.remove('show-hover');
+      this.tooltipNode.classList.remove('skip-to-show-tooltip');
+      this.tooltipNode.classList.add('skip-to-hide-tooltip');
     },
     skipToElement: function(menuitem) {
       var focusNode = false;
