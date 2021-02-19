@@ -258,6 +258,12 @@
 
       // Initialize sizes and position
 
+      var style = getComputedStyle(this.buttonNode, ':hover');
+      this.tooltipTextNode1.setAttribute('font-size', style.fontSize);
+      this.tooltipTextNode1.setAttribute('font-family', style.fontFamily);
+      this.tooltipTextNode2.setAttribute('font-size', style.fontSize);
+      this.tooltipTextNode2.setAttribute('font-family', style.fontFamily);
+
       width = Math.max(this.tooltipTextNode1.getBoundingClientRect().width, this.tooltipTextNode2.getBoundingClientRect().width);
       width += 2 * paddingWidth;
       height = this.tooltipTextNode1.getBoundingClientRect().height;
@@ -293,7 +299,11 @@
       this.tooltipPathNode.setAttribute('fill', style.backgroundColor);
       this.tooltipRectNode.setAttribute('fill', style.backgroundColor);
       this.tooltipTextNode1.setAttribute('color', style.color);
+      this.tooltipTextNode1.setAttribute('font-size', style.fontSize);
+      this.tooltipTextNode1.setAttribute('font-family', style.fontFamily);
       this.tooltipTextNode2.setAttribute('color', style.color);
+      this.tooltipTextNode2.setAttribute('font-size', style.fontSize);
+      this.tooltipTextNode2.setAttribute('font-family', style.fontFamily);
     },
 
     updateStyle: function(stylePlaceholder, value, defaultValue) {

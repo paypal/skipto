@@ -49,10 +49,6 @@
   display: none;
 }
 
-.skip-to .skip-to-tooltip svg text {
-  font-size: 1em;
-}
-
 .skip-to [role="menu"] {
   position: absolute;
   min-width: 17em;
