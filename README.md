@@ -402,6 +402,7 @@ Happy skipping!
 
 ### Version 4.0.4
 * Popup tooltip shows accesskey to open menu when button on hover or focus.
+* Popup is only displayed if their is a known accesskey supported by the browser and operating system.
 * Popup tooltip supports high contrast operating system settings.
 * Actions are disabled by default, but user request.
 * M of N is disabled by default.

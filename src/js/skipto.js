@@ -34,6 +34,7 @@
       enableMofN: true,
       enableHeadingLevelShortcuts: true,
       enableHelp: true,
+      enableTooltip: true,
       // Customization of button and menu
       accesskey: '0', // default is the number zero
       attachElement: 'header',
@@ -222,6 +223,7 @@
       var pointerHeight = 12;
       var id = 'id-skip-to-tooltip';
       var buttonWidth = buttonNode.getBoundingClientRect().width;
+      var accessKey = this.getBrowserSpecificAccesskey(this.config.accesskey);
 
       this.tooltipNode = document.createElement('div');
       this.tooltipNode.id = id;
@@ -242,16 +244,22 @@
       this.tooltipTextNode1.id = id + '-1';
       buttonNode.setAttribute('aria-describedby', id + '-1');
 
+      this.tooltipTextNode2 = document.createElementNS(NS,"text");
+      svgNode.appendChild(this.tooltipTextNode2);
+
       svgNode.appendChild(this.tooltipTextNode1);
 
-      if (this.isNotEmptyString(this.config.buttonTooltipAccesskey) &&
-        (this.config.accesskey.length === 1)) {
+      if (accessKey.length) {
         this.tooltipTextNode2 = document.createElementNS(NS,"text");
-        this.tooltipTextNode2.textContent = this.config.buttonTooltipAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
+        this.tooltipTextNode2.textContent = this.config.buttonTooltipAccesskey.replace('$key', accessKey);
         svgNode.appendChild(this.tooltipTextNode2);
 
         this.tooltipTextNode2.id = id + '-2';
         buttonNode.setAttribute('aria-describedby', id + '-1 ' + id + '-2');
+      } else {
+        // if there is no access key information
+        // do not display tooltip
+        this.config.enableTooltip = false;
       }
 
       attachNode.appendChild(this.tooltipNode);
@@ -289,7 +297,6 @@
 
       this.tooltipTextNode2.setAttribute('x', pointerLength + paddingWidth);
       this.tooltipTextNode2.setAttribute('y', 2 * height);
-
 
       this.tooltipNode.classList.add('skip-to-hide-tooltip');
     },
@@ -351,6 +358,10 @@
       var hasChrome = userAgent.indexOf('chrome') >= 0;
       var hasOpera = userAgent.indexOf('opr') >= 0;
 
+      if (typeof accesskey !== 'string' || accesskey.length === 0) {
+        return '';
+      }
+
       if (hasWin || hasLinux) {
         if (hasFirefox) {
           return "Shift+Alt+" + accesskey;
@@ -365,7 +376,7 @@
         return "Control+Option+" + accesskey;
       }
 
-      return accesskey + this.config.accesskeyNotSupported;
+      return '';
     },
     setUpConfig: function(appConfig) {
       var localConfig = this.config,
@@ -994,22 +1005,30 @@
       event.preventDefault();
     },
     handleButtonFocus: function() {
-      this.tooltipNode.classList.remove('skip-to-hide-tooltip');
-      this.tooltipNode.classList.add('skip-to-show-tooltip-focus');
-      this.setTooltipColors();
+      if (this.config.enableTooltip) {
+        this.tooltipNode.classList.remove('skip-to-hide-tooltip');
+        this.tooltipNode.classList.add('skip-to-show-tooltip-focus');
+        this.setTooltipColors();
+      }
     },
     handleButtonBlur: function() {
-      this.tooltipNode.classList.remove('skip-to-show-tooltip-focus');
-      this.tooltipNode.classList.add('skip-to-hide-tooltip');
+      if (this.config.enableTooltip) {
+        this.tooltipNode.classList.remove('skip-to-show-tooltip-focus');
+        this.tooltipNode.classList.add('skip-to-hide-tooltip');
+      }
     },
     handleButtonPointerover: function() {
-      this.tooltipNode.classList.remove('skip-to-hide-tooltip');
-      this.tooltipNode.classList.add('skip-to-show-tooltip');
-      this.setTooltipColors();
+      if (this.config.enableTooltip) {
+        this.tooltipNode.classList.remove('skip-to-hide-tooltip');
+        this.tooltipNode.classList.add('skip-to-show-tooltip');
+        this.setTooltipColors();
+      }
     },
     handleButtonPointerout: function() {
-      this.tooltipNode.classList.remove('skip-to-show-tooltip');
-      this.tooltipNode.classList.add('skip-to-hide-tooltip');
+      if (this.config.enableTooltip) {
+        this.tooltipNode.classList.remove('skip-to-show-tooltip');
+        this.tooltipNode.classList.add('skip-to-hide-tooltip');
+      }
     },
     skipToElement: function(menuitem) {
       var focusNode = false;
