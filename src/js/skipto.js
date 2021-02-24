@@ -25,8 +25,9 @@
     contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
-    tooltipFocus: false,
-    tooltipHover: false,
+    showTooltipFocus: false,
+    showTooltipHover: false,
+    tooltipTimerDelay: 750,  // in milliseconds
     // Default configuration values
     config: {
       // Feature switches
@@ -45,9 +46,8 @@
       customClass: '',
 
       // Button labels and messages
-      accesskeyNotSupported: ' is not supported on this browser.',
-      buttonTooltip: 'Keyboard Navigation',
-      buttonTooltipAccesskey: 'Accesskey is "$key"',
+      buttonTooltip: '',
+      buttonTooltipAccesskey: 'Accesskey is $key',
       buttonLabel: 'Skip To Content',
 
       // Menu labels and messages
@@ -134,7 +134,12 @@
     // Functions related to configuring the features
     // of skipTo
     //
-
+    isNotEmptyString: function(str) {
+      return (typeof str === 'string') && str.length;
+    },
+    isEmptyString: function(str) {
+      return (typeof str !== 'string') || str.length === 0;
+    },
     init: function(config) {
       var node;
       // Check if skipto is already loaded
@@ -215,102 +220,30 @@
 
     },
     renderTooltip: function(attachNode, buttonNode) {
-      var NS="http://www.w3.org/2000/svg";
-      var svgNode;
-      var width, height, totalHeight, d;
-      var paddingWidth = 8;
-      var pointerLength = 20;
-      var pointerHeight = 12;
       var id = 'id-skip-to-tooltip';
-      var buttonWidth = buttonNode.getBoundingClientRect().width;
       var accessKey = this.getBrowserSpecificAccesskey(this.config.accesskey);
+      var offsetLeft = buttonNode.getBoundingClientRect().width;
 
       this.tooltipNode = document.createElement('div');
       this.tooltipNode.id = id;
       this.tooltipNode.classList.add('skip-to-tooltip');
-      this.tooltipNode.style.left = (buttonWidth + 1) + 'px';
 
-      svgNode=document.createElementNS(NS,"svg");
-      this.tooltipNode.appendChild(svgNode);
+      var tooltip = this.config.buttonTooltipAccesskey.replace('$key', accessKey);
+      if (this.isEmptyString(tooltip)) {
+        tooltip = this.config.buttonTooltip;
+      }
 
-      this.tooltipPathNode = document.createElementNS(NS,"path");
-      svgNode.appendChild(this.tooltipPathNode);
-
-      this.tooltipRectNode = document.createElementNS(NS,"rect");
-      svgNode.appendChild(this.tooltipRectNode);
-
-      this.tooltipTextNode1 = document.createElementNS(NS,"text");
-      this.tooltipTextNode1.textContent = this.config.buttonTooltip;
-      this.tooltipTextNode1.id = id + '-1';
-      buttonNode.setAttribute('aria-describedby', id + '-1');
-
-      this.tooltipTextNode2 = document.createElementNS(NS,"text");
-      svgNode.appendChild(this.tooltipTextNode2);
-
-      svgNode.appendChild(this.tooltipTextNode1);
-
-      if (accessKey.length) {
-        this.tooltipTextNode2 = document.createElementNS(NS,"text");
-        this.tooltipTextNode2.textContent = this.config.buttonTooltipAccesskey.replace('$key', accessKey);
-        svgNode.appendChild(this.tooltipTextNode2);
-
-        this.tooltipTextNode2.id = id + '-2';
-        buttonNode.setAttribute('aria-describedby', id + '-1 ' + id + '-2');
-      } else {
-        // if there is no access key information
+      if (this.isEmptyString(tooltip)) {
+        // if there is no tooltip information
         // do not display tooltip
         this.config.enableTooltip = false;
+      } else {
+        this.tooltipNode.textContent = tooltip;
+        buttonNode.setAttribute('aria-describedby', id);
       }
 
       attachNode.appendChild(this.tooltipNode);
-
-      // Initialize sizes and position
-
-      var style = getComputedStyle(this.buttonNode, ':hover');
-      this.tooltipTextNode1.setAttribute('font-size', style.fontSize);
-      this.tooltipTextNode1.setAttribute('font-family', style.fontFamily);
-      this.tooltipTextNode2.setAttribute('font-size', style.fontSize);
-      this.tooltipTextNode2.setAttribute('font-family', style.fontFamily);
-
-      width = Math.max(this.tooltipTextNode1.getBoundingClientRect().width, this.tooltipTextNode2.getBoundingClientRect().width);
-      width += 2 * paddingWidth;
-      height = this.tooltipTextNode1.getBoundingClientRect().height;
-      totalHeight = 2 * height + paddingWidth;
-
-      d = 'M 1 ' + (pointerHeight / 2 + paddingWidth);
-      d += ' l ' + pointerLength + ' -' + (pointerHeight / 2);
-      d += ' v ' + pointerHeight;
-      d += ' Z';
-      this.tooltipPathNode.setAttribute('d', d);
-
-      this.tooltipRectNode.setAttribute('x', pointerLength + 1);
-      this.tooltipRectNode.setAttribute('y', 1);
-      this.tooltipRectNode.setAttribute('width', width);
-      this.tooltipRectNode.setAttribute('height', totalHeight);
-      this.tooltipRectNode.setAttribute('rx', paddingWidth);
-
-      svgNode.setAttribute('width', pointerLength + width);
-      svgNode.setAttribute('height', pointerLength + totalHeight);
-
-      this.tooltipTextNode1.setAttribute('x', pointerLength + paddingWidth);
-      this.tooltipTextNode1.setAttribute('y', height);
-
-      this.tooltipTextNode2.setAttribute('x', pointerLength + paddingWidth);
-      this.tooltipTextNode2.setAttribute('y', 2 * height);
-
-      this.tooltipNode.classList.add('skip-to-hide-tooltip');
-    },
-
-    setTooltipColors: function() {
-      var style = getComputedStyle(this.buttonNode, ':hover');
-      this.tooltipPathNode.setAttribute('fill', style.backgroundColor);
-      this.tooltipRectNode.setAttribute('fill', style.backgroundColor);
-      this.tooltipTextNode1.setAttribute('color', style.color);
-      this.tooltipTextNode1.setAttribute('font-size', style.fontSize);
-      this.tooltipTextNode1.setAttribute('font-family', style.fontFamily);
-      this.tooltipTextNode2.setAttribute('color', style.color);
-      this.tooltipTextNode2.setAttribute('font-size', style.fontSize);
-      this.tooltipTextNode2.setAttribute('font-family', style.fontFamily);
+      this.tooltipNode.style.left = offsetLeft + 'px';
     },
 
     updateStyle: function(stylePlaceholder, value, defaultValue) {
@@ -343,9 +276,7 @@
       this.updateStyle('$buttonTextColor', this.config.buttonTextColor, theme.buttonTextColor);
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
     },
-    isNotEmptyString: function(str) {
-      return (typeof str === 'string') && str.length;
-    },
+
     getBrowserSpecificAccesskey: function (accesskey) {
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
@@ -373,7 +304,7 @@
       }
 
       if (hasMac) {
-        return "Control+Option+" + accesskey;
+        return "Ctrl+Option+" + accesskey;
       }
 
       return '';
@@ -1004,30 +935,33 @@
       event.stopPropagation();
       event.preventDefault();
     },
+    showTooltip: function() {
+      if (this.showTooltipFocus || this.showTooltipHover) {
+        this.tooltipNode.classList.add('skip-to-show-tooltip');
+      }
+    },
     handleButtonFocus: function() {
+      this.showTooltipFocus = true;
       if (this.config.enableTooltip) {
-        this.tooltipNode.classList.remove('skip-to-hide-tooltip');
-        this.tooltipNode.classList.add('skip-to-show-tooltip-focus');
-        this.setTooltipColors();
+        setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
       }
     },
     handleButtonBlur: function() {
-      if (this.config.enableTooltip) {
-        this.tooltipNode.classList.remove('skip-to-show-tooltip-focus');
-        this.tooltipNode.classList.add('skip-to-hide-tooltip');
+      this.showTooltipFocus = false;
+      if(!this.showTooltipHover) {
+        this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
     },
     handleButtonPointerover: function() {
+      this.showTooltipHover = true;
       if (this.config.enableTooltip) {
-        this.tooltipNode.classList.remove('skip-to-hide-tooltip');
-        this.tooltipNode.classList.add('skip-to-show-tooltip');
-        this.setTooltipColors();
+        setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
       }
     },
     handleButtonPointerout: function() {
-      if (this.config.enableTooltip) {
+      this.showTooltipHover = false;
+      if(!this.showTooltipFocus) {
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
-        this.tooltipNode.classList.add('skip-to-hide-tooltip');
       }
     },
     skipToElement: function(menuitem) {

@@ -31,21 +31,26 @@
 
 .skip-to .skip-to-tooltip {
   position: absolute;
-  top: 0;
-  left: 7em;
-}
-
-.skip-to .skip-to-tooltip.skip-to-hide-tooltip {
+  top: 2em;
+  left: 8em;
+  margin: 1px;
+  padding: 4px;
+  border: 1px solid currentColor;
+  background-color: #eee;
+  color: black;
+  font-family: Helvetica, Arial, Sans-Serif;
+  font-variant-numeric: slash-zero;
+  font-size: 9pt;
+  width: auto;
   display: none;
-
+  white-space: nowrap;
 }
-.skip-to .skip-to-tooltip.skip-to-show-tooltip,
-.skip-to .skip-to-tooltip.skip-to-show-tooltip-focus {
+
+.skip-to .skip-to-tooltip.skip-to-show-tooltip {
   display: block;
 }
 
-.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip,
-.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip-focus {
+.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip {
   display: none;
 }
 

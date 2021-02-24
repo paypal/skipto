@@ -143,9 +143,9 @@ The labels and messages can be localized for specific languages or updated to re
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
 | `buttonLabel` | 'Skip to Content' | Change the label for the button. |
-| `buttonTitle` | 'Keyboard Navigation' | Help message when accesskey is not defined. |
-| `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
-| `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
+| `buttonTooltip` | '' | Help message when accesskey is not defined. |
+| `buttonTooltipAccesskey` | 'Accesskey is "$key"' | Help message when an accesskey is defined. |
+| `accesskeyNotSupported` | '' | No longer used in tooltip. |
 
 ### Menu, Group and Menuitem Labeling
 
