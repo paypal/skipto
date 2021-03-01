@@ -286,9 +286,10 @@
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
 
-      var hasWin = platform.indexOf('win') >= 0;
+      var hasWin     = platform.indexOf('win') >= 0;
       var hasMac     = platform.indexOf('mac') >= 0;
       var hasLinux   = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
+      var hasAndroid = platform.indexOf('android') >= 0;
 
       var hasFirefox = userAgent.indexOf('firefox') >= 0;
       var hasChrome = userAgent.indexOf('chrome') >= 0;
@@ -298,7 +299,7 @@
         return '';
       }
 
-      if (hasWin || hasLinux) {
+      if (hasWin || (hasLinux && !hasAndroid)) {
         if (hasFirefox) {
           return "Shift + Alt + " + accesskey;
         } else {
