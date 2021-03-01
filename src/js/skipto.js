@@ -229,7 +229,7 @@
       this.tooltipNode.classList.add('skip-to-tooltip');
 
       var tooltip = this.config.buttonTooltipAccesskey.replace('$key', accessKey);
-      if (this.isEmptyString(tooltip)) {
+      if (this.isEmptyString(accesskey)) {
         tooltip = this.config.buttonTooltip;
       }
 
