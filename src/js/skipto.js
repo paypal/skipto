@@ -281,9 +281,11 @@
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
 
-      var hasWin     = platform.indexOf('win') >= 0;
-      var hasMac     = platform.indexOf('mac') >= 0;
-      var hasLinux   = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
+      var hasWin    = platform.indexOf('win') >= 0;
+      var hasMac    = platform.indexOf('mac') >= 0;
+      var hasLinux  = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
+      var hasIPhone = platform.indexOf('iphone') >= 0 || platform.indexOf('bsd') >= 0;
+      var hasIPad   = platform.indexOf('ipad') >= 0 || platform.indexOf('bsd') >= 0;
 
       var hasAndroid = userAgent.indexOf('android') >= 0;
       var hasFirefox = userAgent.indexOf('firefox') >= 0;
@@ -304,7 +306,7 @@
         }
       }
 
-      if (hasMac) {
+      if (hasMac || hasIPhone || hasIPad) {
         return "Ctrl + Option + " + accesskey;
       }
 
