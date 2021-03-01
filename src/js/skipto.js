@@ -221,16 +221,16 @@
     },
     renderTooltip: function(attachNode, buttonNode) {
       var id = 'id-skip-to-tooltip';
-      var accessKey = this.getBrowserSpecificAccesskey(this.config.accesskey);
+      var accesskey = this.getBrowserSpecificAccesskey(this.config.accesskey);
       var offsetLeft = buttonNode.getBoundingClientRect().width;
+      var tooltip = this.config.buttonTooltip;
 
       this.tooltipNode = document.createElement('div');
       this.tooltipNode.id = id;
       this.tooltipNode.classList.add('skip-to-tooltip');
 
-      var tooltip = this.config.buttonTooltipAccesskey.replace('$key', accessKey);
-      if (this.isEmptyString(accesskey)) {
-        tooltip = this.config.buttonTooltip;
+      if (this.isNotEmptyString(accesskey)) {
+        tooltip = this.config.buttonTooltipAccesskey.replace('$key', accesskey);
       }
 
       if (this.isEmptyString(tooltip)) {
