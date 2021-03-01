@@ -27,7 +27,7 @@
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     showTooltipFocus: false,
     showTooltipHover: false,
-    tooltipTimerDelay: 750,  // in milliseconds
+    tooltipTimerDelay: 500,  // in milliseconds
     // Default configuration values
     config: {
       // Feature switches
@@ -295,16 +295,16 @@
 
       if (hasWin || hasLinux) {
         if (hasFirefox) {
-          return "Shift+Alt+" + accesskey;
+          return "Shift + Alt + " + accesskey;
         } else {
           if (hasChrome || hasOpera) {
-            return "Alt+" + accesskey;
+            return "Alt + " + accesskey;
           }
         }
       }
 
       if (hasMac) {
-        return "Ctrl+Option+" + accesskey;
+        return "Ctrl + Option + " + accesskey;
       }
 
       return '';

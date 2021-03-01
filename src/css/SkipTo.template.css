@@ -35,7 +35,8 @@
   left: 8em;
   margin: 1px;
   padding: 4px;
-  border: 1px solid currentColor;
+  border: 1px solid #ccc;
+  box-shadow: 2px 3px 5px #ddd;
   background-color: #eee;
   color: black;
   font-family: Helvetica, Arial, Sans-Serif;
