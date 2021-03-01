@@ -20,11 +20,13 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 
 ## Access keys
 
-Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
+Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 is the default accesskey). A list for how this would work in most popular browsers and operating systems.
 
-* Mozilla Firefox -- Alt+Shift+0.
-* Google Chrome -- Alt+0 (Windows) and Control+Option+0 (Mac OS).
-* Safari -- Control+Option+0.
+* Mozilla Firefox -- Alt+Shift+0 (Windows or Linux) and Control+Option+0 (Mac OS, iPhone and iPad)
+* Google Chrome -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS, iPhone and iPad).
+* Safari -- Control+Option+0 (MacOS, iPhone, iPad).
+
+NOTE: Android operating system does not support accesskey in browsers.
 
 ## Websites using SkipTo
 
