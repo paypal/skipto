@@ -47,7 +47,7 @@
 
       // Button labels and messages
       buttonTooltip: '',
-      buttonTooltipAccesskey: 'Accesskey is $key',
+      buttonTooltipAccesskey: 'Shortcut Key: $key',
       buttonLabel: 'Skip To Content',
 
       // Menu labels and messages
@@ -216,16 +216,19 @@
       this.buttonNode.addEventListener('pointerout', this.handleButtonPointerout.bind(this));
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
-      window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
+      window.addEventListener('pointerdown', this.handleBackgroundPointerdown.bind(this), true);
 
     },
     renderTooltip: function(attachNode, buttonNode) {
       var id = 'id-skip-to-tooltip';
       var accesskey = this.getBrowserSpecificAccesskey(this.config.accesskey);
-      var offsetLeft = buttonNode.getBoundingClientRect().width;
       var tooltip = this.config.buttonTooltip;
 
+      this.tooltipLeft = buttonNode.getBoundingClientRect().width;
+      this.tooltipTop  = buttonNode.getBoundingClientRect().height;
+
       this.tooltipNode = document.createElement('div');
+      this.tooltipNode.setAttribute('role', 'tooltip');
       this.tooltipNode.id = id;
       this.tooltipNode.classList.add('skip-to-tooltip');
 
@@ -243,7 +246,13 @@
       }
 
       attachNode.appendChild(this.tooltipNode);
-      this.tooltipNode.style.left = offsetLeft + 'px';
+      this.tooltipNode.style.left = this.tooltipLeft + 'px';
+      this.tooltipNode.style.top = this.tooltipTop + 'px';
+
+      this.tooltipNode.classList.add('skip-to-show-tooltip');
+      this.tooltipHeight = this.tooltipNode.getBoundingClientRect().height;
+      this.tooltipWidth = this.tooltipNode.getBoundingClientRect().width;
+      this.tooltipNode.classList.remove('skip-to-show-tooltip');
     },
 
     updateStyle: function(stylePlaceholder, value, defaultValue) {
@@ -405,7 +414,7 @@
       // add event handlers
       menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
       menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
-      menuitemNode.addEventListener('mouseover', this.handleMenuitemMouseover.bind(this));
+      menuitemNode.addEventListener('pointerover', this.handleMenuitemPointerover.bind(this));
 
       groupNode.appendChild(menuitemNode);
 
@@ -944,24 +953,36 @@
     handleButtonFocus: function() {
       this.showTooltipFocus = true;
       if (this.config.enableTooltip) {
+        this.tooltipNode.style.left = this.tooltipLeft + 'px';
+        this.tooltipNode.style.top = this.tooltipTop + 'px';
         setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
       }
     },
     handleButtonBlur: function() {
       this.showTooltipFocus = false;
-      if(!this.showTooltipHover) {
+      if(this.config.enableTooltip) {
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
     },
-    handleButtonPointerover: function() {
+    getLeftOffsetFromButton: function (x) {
+      var rect = this.buttonNode.getBoundingClientRect();
+      var left = x + (2 * this.tooltipHeight) - rect.left;
+      if (x > (rect.left + (0.5 * rect.width))) {
+        left = x - this.tooltipWidth - this.tooltipHeight / 2 - rect.left ;
+      }
+      return left;
+    },
+    handleButtonPointerover: function(event) {
       this.showTooltipHover = true;
       if (this.config.enableTooltip) {
+        var left = this.getLeftOffsetFromButton(event.pageX);
+        this.tooltipNode.style.left = left + 'px';
         setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
       }
     },
     handleButtonPointerout: function() {
       this.showTooltipHover = false;
-      if(!this.showTooltipFocus) {
+      if(this.config.enableTooltip) {
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
     },
@@ -1094,11 +1115,11 @@
       event.stopPropagation();
       event.preventDefault();
     },
-    handleMenuitemMouseover: function(event) {
+    handleMenuitemPointerover: function(event) {
       var tgt = event.currentTarget;
       tgt.focus();
     },
-    handleBackgroundMousedown: function(event) {
+    handleBackgroundPointerdown: function(event) {
       if (!this.domNode.contains(event.target)) {
         if (this.isOpen()) {
           this.closePopup();
