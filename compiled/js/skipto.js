@@ -950,6 +950,9 @@
       event.stopPropagation();
       event.preventDefault();
     },
+    isTooltipHidden: function() {
+      return this.tooltipNode.className.indexOf('skip-to-show-tooltip') < 0;
+    },
     showTooltip: function() {
       if (this.showTooltipFocus || this.showTooltipHover) {
         this.tooltipNode.classList.add('skip-to-show-tooltip');
@@ -957,7 +960,7 @@
     },
     handleButtonFocus: function() {
       this.showTooltipFocus = true;
-      if (this.config.enableTooltip) {
+      if (this.config.enableTooltip && this.isTooltipHidden()) {
         this.tooltipNode.style.left = this.tooltipLeft + 'px';
         this.tooltipNode.style.top = this.tooltipTop + 'px';
         setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
@@ -979,7 +982,7 @@
     },
     handleButtonPointerover: function(event) {
       this.showTooltipHover = true;
-      if (this.config.enableTooltip) {
+      if (this.config.enableTooltip && this.isTooltipHidden()) {
         var left = this.getLeftOffsetFromButton(event.pageX);
         this.tooltipNode.style.left = left + 'px';
         setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
