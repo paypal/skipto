@@ -969,7 +969,7 @@
     },
     getLeftOffsetFromButton: function (x) {
       var rect = this.buttonNode.getBoundingClientRect();
-      var left = x + (2 * this.tooltipHeight) - rect.left;
+      var left = x + this.tooltipHeight - rect.left;
       if (x > (rect.left + (0.5 * rect.width))) {
         left = x - this.tooltipWidth - this.tooltipHeight / 2 - rect.left ;
       }
