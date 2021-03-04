@@ -1,4 +1,4 @@
-/*! skipto - v4.0.4 - 2021-03-03
+/*! skipto - v4.0.4 - 2021-03-04
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -217,7 +217,7 @@
       this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
       this.buttonNode.addEventListener('focus', this.handleButtonFocus.bind(this));
       this.buttonNode.addEventListener('blur', this.handleButtonBlur.bind(this));
-      this.buttonNode.addEventListener('pointerover', this.handleButtonPointerover.bind(this));
+      this.buttonNode.addEventListener('pointerenter', this.handleButtonPointerenter.bind(this));
       this.buttonNode.addEventListener('pointerout', this.handleButtonPointerout.bind(this));
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
@@ -254,9 +254,9 @@
       this.tooltipNode.style.left = this.tooltipLeft + 'px';
       this.tooltipNode.style.top = this.tooltipTop + 'px';
 
+      // Need to temporarily show the tooltip to get it's height
       this.tooltipNode.classList.add('skip-to-show-tooltip');
       this.tooltipHeight = this.tooltipNode.getBoundingClientRect().height;
-      this.tooltipWidth = this.tooltipNode.getBoundingClientRect().width;
       this.tooltipNode.classList.remove('skip-to-show-tooltip');
     },
 
@@ -419,7 +419,7 @@
       // add event handlers
       menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
       menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
-      menuitemNode.addEventListener('pointerover', this.handleMenuitemPointerover.bind(this));
+      menuitemNode.addEventListener('pointerenter', this.handleMenuitemPointerenter.bind(this));
 
       groupNode.appendChild(menuitemNode);
 
@@ -972,18 +972,11 @@
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
     },
-    getLeftOffsetFromButton: function (x) {
-      var rect = this.buttonNode.getBoundingClientRect();
-      var left = x + this.tooltipHeight - rect.left;
-      if (x > (rect.left + (0.5 * rect.width))) {
-        left = x - this.tooltipWidth - this.tooltipHeight / 2 - rect.left ;
-      }
-      return left;
-    },
-    handleButtonPointerover: function(event) {
+    handleButtonPointerenter: function(event) {
       this.showTooltipHover = true;
       if (this.config.enableTooltip && this.isTooltipHidden()) {
-        var left = this.getLeftOffsetFromButton(event.pageX);
+        var rect = this.buttonNode.getBoundingClientRect();
+        var left = event.pageX - rect.left + this.tooltipHeight;
         this.tooltipNode.style.left = left + 'px';
         setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
       }
@@ -1123,7 +1116,7 @@
       event.stopPropagation();
       event.preventDefault();
     },
-    handleMenuitemPointerover: function(event) {
+    handleMenuitemPointerenter: function(event) {
       var tgt = event.currentTarget;
       tgt.focus();
     },
