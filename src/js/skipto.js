@@ -971,8 +971,10 @@
       this.showTooltipHover = true;
       if (this.config.enableTooltip && this.isTooltipHidden()) {
         var rect = this.buttonNode.getBoundingClientRect();
-        var left = event.pageX - rect.left + this.tooltipHeight;
+        var left = Math.min(this.tooltipLeft, event.pageX - rect.left + this.tooltipHeight);
         this.tooltipNode.style.left = left + 'px';
+        var top = event.pageY - rect.top;
+        this.tooltipNode.style.top = top + 'px';
         setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
       }
     },
