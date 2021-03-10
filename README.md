@@ -295,33 +295,6 @@ The source code in this section is for developers to understand the HTML, classe
       -->
     </div>
     <!-- End Headings Group -->
-
-    <!--
-    //
-    // Action group label and menu items
-    //
-    -->
-    <div role="separator"
-      id="id-skip-to-group-actions-label">
-      Actions
-    </div>
-    <div role="group"
-      aria-labelledby="id-skip-to-group-actions-label"
-      id="id-skip-to-group-actions">
-      <div role="menuitem"
-        class="action"
-        data-id="skip-to-more-headings"
-        data-show-heading-option="all">
-        <span class="label skip-to-action">Show All headings (15)</span>
-      </div>
-      <div role="menuitem"
-        class="action last"
-        data-id="skip-to-more-landmarks"
-        data-show-landmark-option="all">
-        <span class="label skip-to-action">Show All landmarks (10)</span>
-      </div>
-    </div>
-    <!-- End Action Group -->
   </div>
 </div>
 
@@ -406,8 +379,8 @@ Happy skipping!
 * Popup tooltip shows accesskey to open menu when button on hover or focus.
 * Popup tooltip is only displayed when a known accesskey is supported by the browser and device operating system.
 * Popup tooltip supports high contrast operating system settings.
-* Actions are disabled by default, but user request.
-* M of N is disabled by default.
+* Action menu items are disabled by default.
+* M of N items in landmark orheading list is disabled by default.
 
 ### Version 4.0.3
 * Fixed bug in using role description as a class name for menuitem
