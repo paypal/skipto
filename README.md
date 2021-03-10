@@ -381,6 +381,7 @@ Happy skipping!
 * Popup tooltip supports high contrast operating system settings.
 * Action menu items are disabled by default.
 * M of N items in landmark orheading list is disabled by default.
+* CDN reference to `SkipTo.min.js` is now available from University of Illinois.
 
 ### Version 4.0.3
 * Fixed bug in using role description as a class name for menuitem
