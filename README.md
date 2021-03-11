@@ -36,7 +36,7 @@ NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to t
 ## How it works
 
 1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
-2. Once the keyboard focus is on the menu button, pressing the ENTER or the SPACEBAR key will pull down the list of important landmarks and headings on the page.
+2. Once the keyboard focus is on the menu button, pressing the ENTER, SPACEBAR, DOWN ARROW or UP ARROW keys will pull down the list of important landmarks and headings on the page.  The button based on the ARIA Authoring Practice [design pattern for menu button](https://w3c.github.io/aria-practices/#menubutton).
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
