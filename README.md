@@ -67,7 +67,7 @@ A module is under development for WordPress.
 
 ## Configure Options
 
-Setting properties is optional, when a property is not defined it's default value is used.
+Setting properties is optional, when a property is not defined its default value is used.
 
 ### Options for adding the `button` element
 
