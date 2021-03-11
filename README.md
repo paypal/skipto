@@ -69,7 +69,7 @@ A module is under development for WordPress.
 
 ## Configure Options
 
-Setting properties is optional, when a property is not defined it's default value is used.
+All settings have a default value, a configuration object can be used to change the default values.
 
 ### Options for adding the `button` element
 
@@ -203,7 +203,6 @@ var SkipToConfig =  {
     'skipTo': {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
-      accesskey: 'S',
       colorTheme: 'illinois',
     }
   }
@@ -382,6 +381,7 @@ Happy skipping!
 * Action menu items are disabled by default.
 * M of N items in landmark orheading list is disabled by default.
 * CDN reference to `SkipTo.min.js` is now available from University of Illinois.
+* Changed the way the button is hidden visually in "popup" mode not to create wider pages
 
 ### Version 4.0.3
 * Fixed bug in using role description as a class name for menuitem

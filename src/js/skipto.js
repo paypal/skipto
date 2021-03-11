@@ -249,7 +249,7 @@
       this.tooltipNode.style.left = this.tooltipLeft + 'px';
       this.tooltipNode.style.top = this.tooltipTop + 'px';
 
-      // Need to temporarily show the tooltip to get it's height
+      // Temporarily show the tooltip to get rendered height
       this.tooltipNode.classList.add('skip-to-show-tooltip');
       this.tooltipHeight = this.tooltipNode.getBoundingClientRect().height;
       this.tooltipNode.classList.remove('skip-to-show-tooltip');
