@@ -1,7 +1,7 @@
 .skip-to.popup {
   position: absolute;
   top: -30em;
-  left: -3000em;
+  left: 0;
 }
 
 .skip-to,
@@ -26,7 +26,34 @@
   border-color: $buttonBackgroundColor;
   color: $menuTextColor;
   background-color: $buttonBackgroundColor;
-  z-index: 1000;
+  z-index: 200;
+}
+
+.skip-to .skip-to-tooltip {
+  position: absolute;
+  top: 2.25em;
+  left: 8em;
+  margin: 1px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 3px 5px #ddd;
+  background-color: #eee;
+  color: black;
+  font-family: Helvetica, Arial, Sans-Serif;
+  font-variant-numeric: slash-zero;
+  font-size: 9pt;
+  width: auto;
+  display: none;
+  white-space: nowrap;
+  z-index: 201;
+}
+
+.skip-to .skip-to-tooltip.skip-to-show-tooltip {
+  display: block;
+}
+
+.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip {
+  display: none;
 }
 
 .skip-to [role="menu"] {

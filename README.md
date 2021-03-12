@@ -20,11 +20,13 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 
 ## Access keys
 
-Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key (0 in this particular case). here is a quick list for how this would work in most popular browsers.
+Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key ("0" is the default accesskey). A list for how this would work in most popular browsers and operating systems.
 
-* Mozilla Firefox -- Alt+Shift+0.
-* Google Chrome -- Alt+0 (Windows) and Control+Option+0 (Mac OS).
-* Safari -- Control+Option+0.
+* Mozilla Firefox -- Alt+Shift+0 (Windows or Linux) and Control+Option+0 (Mac OS)
+* Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
+* Safari -- Control+Option+0 (MacOS).
+
+NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but to not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
 ## Websites using SkipTo
 
@@ -34,7 +36,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 ## How it works
 
 1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
-2. Once the keyboard focus is on the menu button, pressing the ENTER or the SPACEBAR key will pull down the list of important landmarks and headings on the page.
+2. Once the keyboard focus is on the menu button, pressing the ENTER, SPACE, DOWN ARROW or UP ARROW keys will pull down the list of important landmarks and headings on the page.  The button is based on the ARIA Authoring Practice [design pattern for menu button](https://w3c.github.io/aria-practices/#menubutton).
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
@@ -67,7 +69,7 @@ A module is under development for WordPress.
 
 ## Configure Options
 
-Setting properties is optional, when a property is not defined its default value is used.
+All settings have a default value, a configuration object can be used to change the default values.
 
 ### Options for adding the `button` element
 
@@ -129,7 +131,7 @@ The inclusion of heading level shortcut keys and the more landmarks and more hea
 
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
-| `enableActions` | 'true' | Enable ('true') or disable ('false') the action buttons in the menu. |
+| `enableActions` | 'false' | Enable ('true') or disable ('false') the action buttons in the menu.  This should only be enabled if you feel the full heading and landmark strcuture of your pages would be useful for keyboard navigation.  NOTE: Enabling this feature can result in long lists of headings or landmarks that may not be very useful to users.  |
 | `enableHeadingLevelShortcuts` | 'true' | Enable ('true') or disable ('false') the heading levels on the heading menu items. |
 
 ## Internationalization (I18N)
@@ -143,9 +145,9 @@ The labels and messages can be localized for specific languages or updated to re
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
 | `buttonLabel` | 'Skip to Content' | Change the label for the button. |
-| `buttonTitle` | 'Keyboard Navigation' | Help message when accesskey is not defined. |
-| `buttonTitleWithAccesskey` | 'Keyboard Navigation\nAccesskey is "$key"' | Help message when an accesskey is defined. |
-| `accesskeyNotSupported` | ' is not supported on this browser.' | Help message when a browser does not support accesskeys. |
+| `buttonTooltip` | '' | Help message when accesskey is not defined. |
+| `buttonTooltipAccesskey` | 'Accesskey is "$key"' | Help message when an accesskey is defined. |
+| `accesskeyNotSupported` | '' | No longer used in tooltip. |
 
 ### Menu, Group and Menuitem Labeling
 
@@ -201,7 +203,6 @@ var SkipToConfig =  {
     'skipTo': {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
-      accesskey: 'S',
       colorTheme: 'illinois',
     }
   }
@@ -293,33 +294,6 @@ The source code in this section is for developers to understand the HTML, classe
       -->
     </div>
     <!-- End Headings Group -->
-
-    <!--
-    //
-    // Action group label and menu items
-    //
-    -->
-    <div role="separator"
-      id="id-skip-to-group-actions-label">
-      Actions
-    </div>
-    <div role="group"
-      aria-labelledby="id-skip-to-group-actions-label"
-      id="id-skip-to-group-actions">
-      <div role="menuitem"
-        class="action"
-        data-id="skip-to-more-headings"
-        data-show-heading-option="all">
-        <span class="label skip-to-action">Show All headings (15)</span>
-      </div>
-      <div role="menuitem"
-        class="action last"
-        data-id="skip-to-more-landmarks"
-        data-show-landmark-option="all">
-        <span class="label skip-to-action">Show All landmarks (10)</span>
-      </div>
-    </div>
-    <!-- End Action Group -->
   </div>
 </div>
 
@@ -399,6 +373,15 @@ Happy skipping!
 
 
 ## Version History
+
+### Version 4.0.4
+* Popup tooltip shows accesskey to open menu when button on hover or focus.
+* Popup tooltip is only displayed when a known accesskey is supported by the browser and device operating system.
+* Popup tooltip supports high contrast operating system settings.
+* Action menu items are disabled by default.
+* M of N items in landmark or heading list is disabled by default.
+* CDN reference to `SkipTo.min.js` is now available from University of Illinois.
+* Changed the way the button is hidden visually in "popup" mode not to create wider pages
 
 ### Version 4.0.3
 * Fixed bug in using role description as a class name for menuitem

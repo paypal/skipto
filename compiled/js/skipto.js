@@ -1,4 +1,4 @@
-/*! skipto - v4.0.3 - 2021-02-20
+/*! skipto - v4.0.4 - 2021-03-11
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -20,6 +20,7 @@
     domNode: null,
     buttonNode: null,
     menuNode: null,
+    tooltipNode: null,
     menuitemNodes: [],
     firstMenuitem: false,
     lastMenuitem: false,
@@ -29,12 +30,17 @@
     contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
+    showTooltipFocus: false,
+    showTooltipHover: false,
+    tooltipTimerDelay: 500,  // in milliseconds
     // Default configuration values
     config: {
       // Feature switches
-      enableActions: true,
+      enableActions: false,
+      enableMofN: true,
       enableHeadingLevelShortcuts: true,
       enableHelp: true,
+      enableTooltip: true,
       // Customization of button and menu
       accesskey: '0', // default is the number zero
       attachElement: 'header',
@@ -45,9 +51,8 @@
       customClass: '',
 
       // Button labels and messages
-      accesskeyNotSupported: ' is not supported on this browser.',
-      buttonTitle: 'Keyboard Navigation',
-      buttonTitleWithAccesskey: 'Keyboard Navigation\nAccesskey is "$key"',
+      buttonTooltip: '',
+      buttonTooltipAccesskey: 'Shortcut Key: $key',
       buttonLabel: 'Skip To Content',
 
       // Menu labels and messages
@@ -128,14 +133,20 @@
         buttonBackgroundColor: '#ddd',
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:-3000em}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;border-color:$buttonBackgroundColor;color:$menuTextColor;background-color:$buttonBackgroundColor;z-index:1000}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:0}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;border-color:$buttonBackgroundColor;color:$menuTextColor;background-color:$buttonBackgroundColor;z-index:200}.skip-to .skip-to-tooltip{position:absolute;top:2.25em;left:8em;margin:1px;padding:4px;border:1px solid #ccc;box-shadow:2px 3px 5px #ddd;background-color:#eee;color:#000;font-family:Helvetica,Arial,Sans-Serif;font-variant-numeric:slash-zero;font-size:9pt;width:auto;display:none;white-space:nowrap;z-index:201}.skip-to .skip-to-tooltip.skip-to-show-tooltip{display:block}.skip-to [aria-expanded=true]+.skip-to-tooltip.skip-to-show-tooltip{display:none}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;display:block;width:auto;border-width:0;border-style:solid;color:$menuTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;text-align:left;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}',
 
     //
     // Functions related to configuring the features
     // of skipTo
     //
-
+    isNotEmptyString: function(str) {
+      return (typeof str === 'string') && str.length;
+    },
+    isEmptyString: function(str) {
+      return (typeof str !== 'string') || str.length === 0;
+    },
     init: function(config) {
+      var node;
       // Check if skipto is already loaded
 
       if (document.querySelector('style#' + this.skipToId)) {
@@ -147,14 +158,18 @@
         this.setUpConfig(config);
       }
       if (typeof this.config.attachElement === 'string') {
-        var node = document.querySelector(this.config.attachElement);
+        node = document.querySelector(this.config.attachElement);
         if (node && node.nodeType === Node.ELEMENT_NODE) {
           attachElement = node;
         }
       }
       this.addCSSColors();
       this.renderStyleElement(this.defaultCSS);
-      this.domNode = document.createElement(this.config.containerElement);
+      var elem = this.config.containerElement.toLowerCase().trim();
+      if (!this.isNotEmptyString(elem)) {
+        elem = 'div';
+      }
+      this.domNode = document.createElement(elem);
       this.domNode.classList.add('skip-to');
       if (this.isNotEmptyString(this.config.customClass)) {
         this.domNode.classList.add(this.config.customClass);
@@ -191,26 +206,60 @@
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
 
-      if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey) &&
-        (this.config.accesskey.length === 1)) {
-        var title = this.config.buttonTitleWithAccesskey.replace('$key', this.getBrowserSpecificAccesskey(this.config.accesskey));
-        this.buttonNode.setAttribute('title', title);
-      } else {
-        if (this.isNotEmptyString(this.config.buttonTitle)) {
-          this.buttonNode.setAttribute('title', this.config.buttonTitle);
-        }
-      }
-
       this.domNode.appendChild(this.buttonNode);
+
+      this.renderTooltip(this.domNode, this.buttonNode);
+
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
       this.domNode.appendChild(this.menuNode);
       this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
       this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
+      this.buttonNode.addEventListener('focus', this.handleButtonFocus.bind(this));
+      this.buttonNode.addEventListener('blur', this.handleButtonBlur.bind(this));
+      this.buttonNode.addEventListener('pointerenter', this.handleButtonPointerenter.bind(this));
+      this.buttonNode.addEventListener('pointerout', this.handleButtonPointerout.bind(this));
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
-      window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
+      window.addEventListener('pointerdown', this.handleBackgroundPointerdown.bind(this), true);
+
     },
+    renderTooltip: function(attachNode, buttonNode) {
+      var id = 'id-skip-to-tooltip';
+      var accesskey = this.getBrowserSpecificAccesskey(this.config.accesskey);
+      var tooltip = this.config.buttonTooltip;
+
+      this.tooltipLeft = buttonNode.getBoundingClientRect().width;
+      this.tooltipTop  = buttonNode.getBoundingClientRect().height;
+
+      this.tooltipNode = document.createElement('div');
+      this.tooltipNode.setAttribute('role', 'tooltip');
+      this.tooltipNode.id = id;
+      this.tooltipNode.classList.add('skip-to-tooltip');
+
+      if (this.isNotEmptyString(accesskey)) {
+        tooltip = this.config.buttonTooltipAccesskey.replace('$key', accesskey);
+      }
+
+      if (this.isEmptyString(tooltip)) {
+        // if there is no tooltip information
+        // do not display tooltip
+        this.config.enableTooltip = false;
+      } else {
+        this.tooltipNode.textContent = tooltip;
+        buttonNode.setAttribute('aria-describedby', id);
+      }
+
+      attachNode.appendChild(this.tooltipNode);
+      this.tooltipNode.style.left = this.tooltipLeft + 'px';
+      this.tooltipNode.style.top = this.tooltipTop + 'px';
+
+      // Temporarily show the tooltip to get rendered height
+      this.tooltipNode.classList.add('skip-to-show-tooltip');
+      this.tooltipHeight = this.tooltipNode.getBoundingClientRect().height;
+      this.tooltipNode.classList.remove('skip-to-show-tooltip');
+    },
+
     updateStyle: function(stylePlaceholder, value, defaultValue) {
       if (typeof value !== 'string' || value.length === 0) {
         value = defaultValue;
@@ -241,36 +290,39 @@
       this.updateStyle('$buttonTextColor', this.config.buttonTextColor, theme.buttonTextColor);
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
     },
-    isNotEmptyString: function(str) {
-      return (typeof str === 'string') && str.length;
-    },
+
     getBrowserSpecificAccesskey: function (accesskey) {
       var userAgent = navigator.userAgent.toLowerCase();
       var platform =  navigator.platform.toLowerCase();
 
-      var hasWin = platform.indexOf('win') >= 0;
-      var hasMac     = platform.indexOf('mac') >= 0;
-      var hasLinux   = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
+      var hasWin    = platform.indexOf('win') >= 0;
+      var hasMac    = platform.indexOf('mac') >= 0;
+      var hasLinux  = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
 
+      var hasAndroid = userAgent.indexOf('android') >= 0;
       var hasFirefox = userAgent.indexOf('firefox') >= 0;
       var hasChrome = userAgent.indexOf('chrome') >= 0;
       var hasOpera = userAgent.indexOf('opr') >= 0;
 
-      if (hasWin || hasLinux) {
+      if (typeof accesskey !== 'string' || accesskey.length === 0) {
+        return '';
+      }
+
+      if (hasWin || (hasLinux && !hasAndroid)) {
         if (hasFirefox) {
-          return "Shift+Alt+" + accesskey;
+          return "Shift + Alt + " + accesskey;
         } else {
           if (hasChrome || hasOpera) {
-            return "Alt+" + accesskey;
+            return "Alt + " + accesskey;
           }
         }
       }
 
       if (hasMac) {
-        return "Control+Option+" + accesskey;
+        return "Ctrl + Option + " + accesskey;
       }
 
-      return accesskey + this.config.accesskeyNotSupported;
+      return '';
     },
     setUpConfig: function(appConfig) {
       var localConfig = this.config,
@@ -367,7 +419,7 @@
       // add event handlers
       menuitemNode.addEventListener('keydown', this.handleMenuitemKeydown.bind(this));
       menuitemNode.addEventListener('click', this.handleMenuitemClick.bind(this));
-      menuitemNode.addEventListener('mouseover', this.handleMenuitemMouseover.bind(this));
+      menuitemNode.addEventListener('pointerenter', this.handleMenuitemPointerenter.bind(this));
 
       groupNode.appendChild(menuitemNode);
 
@@ -420,11 +472,13 @@
 
       titleNode.textContent = title;
 
-      if ((typeof m === 'number') && (typeof n === 'number')) {
-        s = this.config.mofnGroupLabel;
-        s = s.replace('$m', m);
-        s = s.replace('$n', n);
-        mofnNode.textContent = s;
+      if (this.config.enableActions && this.config.enableMofN) {
+        if ((typeof m === 'number') && (typeof n === 'number')) {
+          s = this.config.mofnGroupLabel;
+          s = s.replace('$m', m);
+          s = s.replace('$n', n);
+          mofnNode.textContent = s;
+        }
       }
     },
 
@@ -896,6 +950,45 @@
       event.stopPropagation();
       event.preventDefault();
     },
+    isTooltipHidden: function() {
+      return this.tooltipNode.className.indexOf('skip-to-show-tooltip') < 0;
+    },
+    showTooltip: function() {
+      if (this.showTooltipFocus || this.showTooltipHover) {
+        this.tooltipNode.classList.add('skip-to-show-tooltip');
+      }
+    },
+    handleButtonFocus: function() {
+      this.showTooltipFocus = true;
+      if (this.config.enableTooltip && this.isTooltipHidden()) {
+        this.tooltipNode.style.left = this.tooltipLeft + 'px';
+        this.tooltipNode.style.top = this.tooltipTop + 'px';
+        setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
+      }
+    },
+    handleButtonBlur: function() {
+      this.showTooltipFocus = false;
+      if(this.config.enableTooltip) {
+        this.tooltipNode.classList.remove('skip-to-show-tooltip');
+      }
+    },
+    handleButtonPointerenter: function(event) {
+      this.showTooltipHover = true;
+      if (this.config.enableTooltip && this.isTooltipHidden()) {
+        var rect = this.buttonNode.getBoundingClientRect();
+        var left = Math.min(this.tooltipLeft, event.pageX - rect.left + this.tooltipHeight);
+        this.tooltipNode.style.left = left + 'px';
+        var top = event.pageY - rect.top;
+        this.tooltipNode.style.top = top + 'px';
+        setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
+      }
+    },
+    handleButtonPointerout: function() {
+      this.showTooltipHover = false;
+      if(this.config.enableTooltip) {
+        this.tooltipNode.classList.remove('skip-to-show-tooltip');
+      }
+    },
     skipToElement: function(menuitem) {
       var focusNode = false;
       var scrollNode = false;
@@ -1025,11 +1118,11 @@
       event.stopPropagation();
       event.preventDefault();
     },
-    handleMenuitemMouseover: function(event) {
+    handleMenuitemPointerenter: function(event) {
       var tgt = event.currentTarget;
       tgt.focus();
     },
-    handleBackgroundMousedown: function(event) {
+    handleBackgroundPointerdown: function(event) {
       if (!this.domNode.contains(event.target)) {
         if (this.isOpen()) {
           this.closePopup();
