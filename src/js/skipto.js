@@ -46,6 +46,8 @@
       customClass: '',
 
       // Button labels and messages
+      buttonTitle: '',   // deprecated in favor of buttonTooltip
+      buttonTitleWithAccesskey: '',  // deprecated in favor of buttonTooltipAccesskey
       buttonTooltip: '',
       buttonTooltipAccesskey: 'Shortcut Key: $key',
       buttonLabel: 'Skip To Content',
@@ -222,7 +224,12 @@
     renderTooltip: function(attachNode, buttonNode) {
       var id = 'id-skip-to-tooltip';
       var accesskey = this.getBrowserSpecificAccesskey(this.config.accesskey);
+
       var tooltip = this.config.buttonTooltip;
+      // for backward compatibility, support 'this.config.buttonTitle' if defined
+      if (this.isNotEmptyString(this.config.buttonTitle)) {
+        tooltip = this.config.buttonTitle;
+      }
 
       this.tooltipLeft = buttonNode.getBoundingClientRect().width;
       this.tooltipTop  = buttonNode.getBoundingClientRect().height;
@@ -234,6 +241,10 @@
 
       if (this.isNotEmptyString(accesskey)) {
         tooltip = this.config.buttonTooltipAccesskey.replace('$key', accesskey);
+        // for backward compatibility support 'buttonTitleWithAccesskey' if defined
+        if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey)) {
+          tooltip = this.config.buttonTitleWithAccesskey.replace('$key', accesskey);
+        }
       }
 
       if (this.isEmptyString(tooltip)) {
