@@ -82,19 +82,16 @@
 
 .skip-to [role="menuitem"] {
   padding: 3px;
-  display: block;
   width: auto;
   border-width: 0px;
   border-style: solid;
   color: $menuTextColor;
   background-color: $menuBackgroundColor;
   z-index: 1000;
-
   display: grid;
   overflow-y: auto;
   grid-template-columns: repeat(6, 1.2rem) 1fr;
   grid-column-gap: 2px;
-
   font-size: 1em;
 }
 
@@ -159,7 +156,6 @@
   display: block;
   width: auto;
   font-weight: bold;
-  text-align: left;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: $menuTextColor;
