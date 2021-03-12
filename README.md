@@ -145,16 +145,18 @@ The labels and messages can be localized for specific languages or updated to re
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
 | `buttonLabel` | 'Skip to Content' | Change the label for the button. |
-| `buttonTooltip` | '' | Help message when accesskey is not defined. |
+| `buttonTooltip` | empty string | Help message when accesskey is not defined. |
 | `buttonTooltipAccesskey` | 'Accesskey is "$key"' | Help message when an accesskey is defined. |
-| `accesskeyNotSupported` | '' | No longer used in tooltip. |
+| `accesskeyNotSupported` | empty string | No longer used in tooltip. |
 
 #### Deprecated Button Labeling
 
+The following properties were deprecated for a more descriptive title of "tooltip", which now has keyboard suport.
+
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
-| `buttonTitle` | '' | Deprecated help message when accesskey is not defined, use `buttonTooltip` instead. |
-| `buttonTitleAccesskey` | '' | Deprecated help message when an accesskey is defined, use `buttonTooltipAccesskey` instead. |
+| `buttonTitle` | empty string | Deprecated help message when accesskey is not defined, use `buttonTooltip` instead. |
+| `buttonTitleAccesskey` | empty string | Deprecated help message when an accesskey is defined, use `buttonTooltipAccesskey` instead. |
 
 
 ### Menu, Group and Menuitem Labeling
