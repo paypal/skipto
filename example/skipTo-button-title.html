@@ -5,17 +5,28 @@
     <title>Defaults: SkipTo Menu Example Page</title>
     <link href="skipTo.css" rel="stylesheet"/>
     <script type="text/javascript" src="../compiled/js/skipto.js"></script>
+    <script>
+var SkipToConfig = {
+  settings: {
+    skipTo: {
+      colorTheme: 'illinois',
+      buttonTitle: 'Test Title',
+      buttonTitleWithAccesskey: 'Test Access Key Title: $key'
+    },
+  },
+};
+</script>
 </head>
 <body>
     <header role="banner">
         <hgroup>
-            <h1>SkipTo Menu Example: Defaults</h1>
+            <h1>SkipTo Menu Example: Test Deprecated buttonTitle and buttonTitleWithAccesskey</h1>
         </hgroup>
     </header>
     <nav aria-labelledby="id-test-pages-label">
         <h2 id="id-test-pages-label">SkipTo Test Pages</h2>
         <ul>
-            <li><a href="skipTo.html" aria-current="page">Default</a></li>
+            <li><a href="skipTo.html">Default</a></li>
             <li><a href="skipTo-illinois.html">Default: Illinois styling</a></li>
             <li><a href="skipTo-aria.html">Default: ARIA styling</a></li>
             <li><a href="skipTo-basic.html">Basic: No Actions and no heading level shortcuts</a></li>
@@ -24,7 +35,7 @@
             <li><a href="skipTo-no-additional.html">Selected and all landmarks or headings are the same</a></li>
             <li><a href="skipTo-onfocus.html">Popup Menu Button</a></li>
             <li><a href="skipTo-fixed.html">Fixed Menu Button</a></li>
-            <li><a href="skipTo-button-title.html">Test Deprecated Title Feature</a></li>
+            <li><a href="skipTo-button-title.html"  aria-current="page">Test Deprecated Title Feature</a></li>
         </ul>
     </nav>
     <div role="search">

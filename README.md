@@ -145,9 +145,19 @@ The labels and messages can be localized for specific languages or updated to re
 | Property       | Default | Description |
 | :------------- | :------ |:---------- |
 | `buttonLabel` | 'Skip to Content' | Change the label for the button. |
-| `buttonTooltip` | '' | Help message when accesskey is not defined. |
+| `buttonTooltip` | _empty string_ | Help message when accesskey is not defined. |
 | `buttonTooltipAccesskey` | 'Accesskey is "$key"' | Help message when an accesskey is defined. |
-| `accesskeyNotSupported` | '' | No longer used in tooltip. |
+| `accesskeyNotSupported` | _empty string_ | No longer used in tooltip. |
+
+#### Deprecated Button Labeling
+
+The following properties were deprecated for a more descriptive title of "tooltip", which now has keyboard suport.
+
+| Property       | Default | Description |
+| :------------- | :------ |:---------- |
+| `buttonTitle` | _empty string_ | Deprecated help message when accesskey is not defined, use `buttonTooltip` instead. |
+| `buttonTitleAccesskey` | _empty string_ | Deprecated help message when an accesskey is defined, use `buttonTooltipAccesskey` instead. |
+
 
 ### Menu, Group and Menuitem Labeling
 
@@ -373,6 +383,9 @@ Happy skipping!
 
 
 ## Version History
+
+### Version 4.0.5
+* Fixes a problem introduced in version 4.0.4 when button tooltip was updated, restores support for `buttonTitle` and `buttonTitleWithAccesskey` configuration properties.
 
 ### Version 4.0.4
 * Popup tooltip shows accesskey to open menu when button on hover or focus.
