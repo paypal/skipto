@@ -102,6 +102,7 @@
   color: $menuTextColor;
   background-color: $menuBackgroundColor;
   line-height: inherit;
+  display: inline-block;
 }
 
 .skip-to [role="menuitem"] .level {
@@ -113,7 +114,6 @@
   text-align: left;
   margin: 0;
   padding: 0;
-  display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
