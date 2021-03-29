@@ -17,6 +17,11 @@
 
 .skip-to.static {
   position: static;
+  display: inline-block;
+}
+
+.skip-to.static button {
+  display: inline-block;
 }
 
 .skip-to button {
