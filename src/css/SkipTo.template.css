@@ -15,6 +15,9 @@
   position: fixed;
 }
 
+.skip-to.static {
+  position: static;
+}
 
 .skip-to button {
   position: relative;

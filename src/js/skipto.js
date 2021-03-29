@@ -179,6 +179,9 @@
         displayOption = displayOption.trim().toLowerCase();
         if (displayOption.length) {
           switch (this.config.displayOption) {
+            case 'static':
+              this.domNode.classList.add('static');
+              break;
             case 'fixed':
               this.domNode.classList.add('fixed');
               break;
