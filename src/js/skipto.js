@@ -22,7 +22,6 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
-    contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     showTooltipFocus: false,
@@ -996,18 +995,42 @@
       }
     },
     skipToElement: function(menuitem) {
+
+      var isVisible = this.isVisible;
       var focusNode = false;
       var scrollNode = false;
+      var elem;
+
+      function findVisibleElement(e, selectors) {
+        if (e) {
+          for (var j = 0; j < selectors.length; j += 1) {
+            var elems = e.querySelectorAll(selectors[j]);
+            for(var i = 0; i < elems.length; i +=1) {
+              if (isVisible(elems[i])) {
+                return elems[i];
+              }
+            }
+          }
+        }
+        return e;
+      }
+
+      var searchSelectors = ['input', 'button', 'input[type=button]', 'input[type=submit]', 'a'];
+      var navigationSelectors = ['a', 'input', 'button', 'input[type=button]', 'input[type=submit]'];
+      var landmarkSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article', 'p', 'li', 'a'];
+
       var isLandmark = menuitem.classList.contains('landmark');
       var isSearch = menuitem.classList.contains('skip-to-search');
       var isNav = menuitem.classList.contains('skip-to-nav');
-      var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
-      if (node) {
+
+      elem = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
+
+      if (elem) {
         if (isSearch) {
-          focusNode = node.querySelector('input');
+          focusNode = findVisibleElement(elem, searchSelectors);
         }
         if (isNav) {
-          focusNode = node.querySelector('a');
+          focusNode = findVisibleElement(elem, navigationSelectors);
         }
         if (focusNode && this.isVisible(focusNode)) {
           focusNode.focus();
@@ -1015,14 +1038,14 @@
         }
         else {
           if (isLandmark) {
-            scrollNode = node.querySelector(this.contentSelector);
+            scrollNode = findVisibleElement(elem, landmarkSelectors);
             if (scrollNode) {
-              node = scrollNode;
+              elem = scrollNode;
             }
           }
-          node.tabIndex = -1;
-          node.focus();
-          node.scrollIntoView({block: 'center'});
+          elem.tabIndex = -1;
+          elem.focus();
+          elem.scrollIntoView({block: 'center'});
         }
       }
     },
