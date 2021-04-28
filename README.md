@@ -213,7 +213,7 @@ var SkipToConfig =  {
     'skipTo': {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
-      colorTheme: 'illinois',
+      colorTheme: 'illinois'
     }
   }
 };
