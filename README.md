@@ -94,7 +94,7 @@ The following options are useful for identify where the menu will be in the DOM 
 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
-| `fontSize` | CSS font sizes | `inherit`  | Set the CSS `font-size` using the configuration object. |
+| `fontSize` | CSS font size | `inherit`  | Set the CSS `font-size` using the configuration object. |
 | `fontFamily` | CSS font string | `inherit`  | Set the CSS `font-family` using the configuration object. |
 
 
