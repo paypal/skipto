@@ -126,8 +126,8 @@
       },
       'aria': {
         fontFamily: 'sans-serif',
-        fontSize: '11pt',
-        positionLeft: '',
+        fontSize: '10pt',
+        positionLeft: '5%',
         menuTextColor: '#000',
         menuBackgroundColor: '#def',
         menuitemFocusTextColor: '#fff',
