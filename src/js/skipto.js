@@ -88,6 +88,8 @@
 
       // Custom CSS position and colors
       colorTheme: '',
+      fontFamily: '',
+      fontSize: '',
       positionLeft: '',
       menuTextColor: '',
       menuBackgroundColor: '',
@@ -99,6 +101,8 @@
     },
     colorThemes: {
       'default': {
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
         positionLeft: '46%',
         menuTextColor: '#1a1a1a',
         menuBackgroundColor: '#dcdcdc',
@@ -109,6 +113,8 @@
         buttonBackgroundColor: '#eeeeee',
       },
       'illinois': {
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
         positionLeft: '46%',
         menuTextColor: '#00132c',
         menuBackgroundColor: '#cad9ef',
@@ -119,6 +125,8 @@
         buttonBackgroundColor: '#dddede',
       },
       'aria': {
+        fontFamily: 'sans-serif',
+        fontSize: '11pt',
         positionLeft: '',
         menuTextColor: '#000',
         menuBackgroundColor: '#def',
@@ -282,6 +290,9 @@
       if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
         theme = this.colorThemes[this.config.colorTheme];
       }
+      this.updateStyle('$fontFamily', this.config.fontFamily, theme.fontFamily);
+      this.updateStyle('$fontSize', this.config.fontSize, theme.fontSize);
+
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
 
       this.updateStyle('$menuTextColor', this.config.menuTextColor, theme.menuTextColor);

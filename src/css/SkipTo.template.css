@@ -9,6 +9,8 @@
   position: absolute;
   top: 0;
   left: $positionLeft;
+  font-family: $fontFamily;
+  font-size: $fontSize;
 }
 
 .skip-to.fixed {
@@ -26,6 +28,8 @@
   color: $menuTextColor;
   background-color: $buttonBackgroundColor;
   z-index: 200;
+  font-family: $fontFamily;
+  font-size: $fontSize;
 }
 
 .skip-to .skip-to-tooltip {

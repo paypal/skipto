@@ -2,23 +2,23 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Popup Menu Button: SkipTo Menu Example Page</title>
+    <title>Fonts: SkipTo Menu Example Page</title>
     <link href="skipTo.css" rel="stylesheet"/>
     <script type="text/javascript" src="../compiled/js/skipto.js"></script>
     <script>
         var SkipToConfig =  {
             'settings': {
                 'skipTo': {
-                    displayOption: 'popup'
+                    fontSize: '11pt',
+                    fontFamily: 'monospace'
                 }
             }
         };
-    </script>
-</head>
+    </script></head>
 <body>
     <header role="banner">
         <hgroup>
-            <h1>SkipTo Menu Example: Popup Menu Button</h1>
+            <h1>SkipTo Menu Example: Fonts</h1>
         </hgroup>
     </header>
     <nav aria-labelledby="id-test-pages-label">
@@ -30,14 +30,19 @@
             <li><a href="skipTo-basic.html">Basic: No Actions and no heading level shortcuts</a></li>
             <li><a href="skipTo-custom.html">Custom elements, classes and selectors</a></li>
             <li><a href="skipTo-no-landmarks.html">No landmarks or headings</a></li>
-            <li><a href="skipTo-onfocus.html" aria-current="page">Popup Menu Button</a></li>
+            <li><a href="skipTo-no-additional.html">Selected and all landmarks or headings are the same</a></li>
+            <li><a href="skipTo-onfocus.html">Popup Menu Button</a></li>
             <li><a href="skipTo-fixed.html">Fixed Menu Button</a></li>
             <li><a href="skipTo-button-title.html">Test Deprecated Title Feature</a></li>
-            <li><a href="skipTo-fonts.html">Setting font size and family in configuration</a></li>
+            <li><a href="skipTo-fonts.html" aria-current="page">Setting font size and family in configuration</a></li>
         </ul>
     </nav>
     <div role="search">
         <h2>Search Region</h2>
+        <button>Search Button</button>
+        <label hidden>Search Hidden<input type="text"/></label>
+        <label style="display: none">Search Hidden<input type="text"/></label>
+        <label style="visibility: hidden">Search Hidden<input type="text"/></label>
         <label>Search<input type="text"/></label>
     </div>
     <nav aria-label="Quick Links">

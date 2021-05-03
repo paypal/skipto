@@ -90,6 +90,14 @@ The following options are useful for identify where the menu will be in the DOM 
 | :------------- | :----- | :------ | :---------- |
 | `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
 
+### Button Font Family and Font Size
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `fontSize` | CSS font sizes | `inherit`  | Set the CSS `font-size` using the configuration object. |
+| `fontFamily` | CSS font string | `inherit`  | Set the CSS `font-family` using the configuration object. |
+
+
 ### CSS Selectors for identifying Landmarks and Headings
 
 The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be relatively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
@@ -385,6 +393,7 @@ Happy skipping!
 ## Version History
 
 ### Version 4.0.6
+* Added new properties to set font family and font size.
 * Adding CSS properties to the <code>.label</code> and <code>.level</code> class so the inherited values from <code>[role="menuitem"]</code> are not overridden as easily by other stylesheets used on a page.
 * Updated moving focus to improve moving focus to visible targets with in landmarks.
 
