@@ -132,7 +132,7 @@
       'aria': {
         fontFamily: 'sans-serif',
         fontSize: '10pt',
-        positionLeft: '5%',
+        positionLeft: '7%',
         menuTextColor: '#000',
         menuBackgroundColor: '#def',
         menuitemFocusTextColor: '#fff',
