@@ -1,4 +1,4 @@
-/*! skipto - v4.0.6 - 2021-05-03
+/*! skipto - v4.1.0 - 2021-05-13
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -944,6 +944,7 @@
         case 'Escape':
           this.closePopup();
           this.buttonNode.focus();
+          this.hideTooltip();
           flag = true;
           break;
         case 'Up':
@@ -974,24 +975,30 @@
     isTooltipHidden: function() {
       return this.tooltipNode.className.indexOf('skip-to-show-tooltip') < 0;
     },
-    showTooltip: function() {
+    displayTooltip: function() {
       if (this.showTooltipFocus || this.showTooltipHover) {
         this.tooltipNode.classList.add('skip-to-show-tooltip');
       }
     },
-    handleButtonFocus: function() {
+    showTooltip: function() {
       this.showTooltipFocus = true;
       if (this.config.enableTooltip && this.isTooltipHidden()) {
         this.tooltipNode.style.left = this.tooltipLeft + 'px';
         this.tooltipNode.style.top = this.tooltipTop + 'px';
-        setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
+        setTimeout(this.displayTooltip.bind(this), this.tooltipTimerDelay);
       }
     },
-    handleButtonBlur: function() {
+    hideTooltip: function() {
       this.showTooltipFocus = false;
       if(this.config.enableTooltip) {
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
+    },
+    handleButtonFocus: function() {
+      this.showTooltip();
+    },
+    handleButtonBlur: function() {
+      this.hideTooltip();
     },
     handleButtonPointerenter: function(event) {
       this.showTooltipHover = true;
