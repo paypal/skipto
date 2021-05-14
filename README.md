@@ -1,6 +1,6 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@4.0
+# skipto@4.1
 
 ## by PayPal Accessibility Team & University of Illinois
 
@@ -32,6 +32,7 @@ NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to t
 
 * [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
 * [College of Applied Health Sciences](https://ahs.illinois.edu/)
+* [Illinois Webcon](https://webcon.illinois.edu/)
 
 ## How it works
 
