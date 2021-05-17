@@ -30,6 +30,8 @@ NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to t
 
 ## Websites using SkipTo
 
+There are two main ways to include the menu button for SkipTo in a page.  In the default configuration the menu button always visible making it useful to all users to easily find and navigate to the important content regions identified by the author.  This is similar to how curb cuts help more than just people using wheelchairs.  It is also easier for people using voice recognition to activate the button using the "click skip to content" command and use similar voice commands to activate SkipTo menu items.  The "popup" option is the more traditional approach to fulfilling the "bypass bocks" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/), but this option makes the feature less visible to people who might benefit.
+
 ### Visible Menu Button (default)
 * [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
 * [College of Applied Health Sciences](https://ahs.illinois.edu/)
