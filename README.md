@@ -6,15 +6,16 @@
 
 See the [Authors](#authors) section for more information.
 
-SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+SkipTo is a replacement for your old classic "Skip To Main Content" link, (so please use it as such)!
+The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page identified by the author. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired region of a page by simply choosing it from the list of options.
 
 ### Benefits
 
-* All users can get an outline of the content on the page.
+* Modern way to conform to the "[Bypass Blocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/).
 * Screen reader users can get a higher level navigation menu without having to use the screen reader landmark and header navigation commands which typically include longer lists of lower level headings and less used landmarks.
 * Keyboard only users can more efficiently navigate to content on a page.
 * Speech recognition users can use the menu to more efficiently navigate to content on a page.
+* Authors can configure SkipTo to identify the most important regions for jumping to, ideally about 7-10 items to make it easier for people to read the list and choose an option.  Remember the more items, the long it will take for the user to identify which item they want to choose.
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
