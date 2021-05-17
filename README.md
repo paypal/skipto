@@ -16,7 +16,7 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 * Keyboard only users can more efficiently navigate to content on a page.
 * Speech recognition users can use the menu to more efficiently navigate to content on a page.
 * When the "Skip To Content" menu button is visible when the page is loaded everyone can use it to identify and navigate to important regions on a page.
-* Authors can configure SkipTo to identify the most important regions for jumping to, ideally about 7-10 items to make it easier for people to read the list and choose an option.  Remember the more items, the long it will take for the user to identify which item they want to choose.
+* Authors can configure SkipTo to identify the most important regions, ideally about 7-12 items to make it easier for people to read the list and choose an option.  Remember the more items, the longer it will take for the user to identify which item they want to choose.
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
