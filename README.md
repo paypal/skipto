@@ -19,16 +19,6 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
-## Access keys
-
-Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key ("0" is the default accesskey). A list for how this would work in most popular browsers and operating systems.
-
-* Mozilla Firefox -- Alt+Shift+0 (Windows or Linux) and Control+Option+0 (Mac OS)
-* Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
-* Safari -- Control+Option+0 (MacOS).
-
-NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but to not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
-
 ## Websites using SkipTo
 
 There are two main ways to include the menu button for SkipTo in a page.  In the default configuration the menu button is always visible making it useful to everyone to easily find and navigate to the important content regions identified by the author.  This is similar to how curb cuts help more than just people using wheelchairs.  It is also easier for people using voice recognition to activate the button using the "click skip to content" command and use similar voice commands to activate SkipTo menu items.  The "popup" option is the more traditional approach to fulfilling the "[bypass bocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/), but this option makes the feature less visible to people who might benefit.
@@ -52,6 +42,16 @@ NOTE: Popup menu button is available through configuration of SkipTo when it is 
 2. Once the keyboard focus is on the menu button, pressing the ENTER, SPACE, DOWN ARROW or UP ARROW keys will pull down the list of important landmarks and headings on the page.  The button is based on the ARIA Authoring Practice [design pattern for menu button](https://w3c.github.io/aria-practices/#menubutton).
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
+
+## Access keys
+
+Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key ("0" is the default accesskey). A list for how this would work in most popular browsers and operating systems.
+
+* Mozilla Firefox -- Alt+Shift+0 (Windows or Linux) and Control+Option+0 (Mac OS)
+* Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
+* Safari -- Control+Option+0 (MacOS).
+
+NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but to not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
 ## Adding to Website
 
