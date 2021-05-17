@@ -34,7 +34,7 @@ There are two main ways to include the menu button for SkipTo in a page.  In the
 * [Functional Accessibility Evaluator (FAE)](https://fae.disability.illinois.edu/)
 * [Study Abroad Program for College of Education](https://studyabroad.education.illinois.edu)
 
-NOTE: Popup menu button is available through configuration of SkipTo when it is loaded
+NOTE: Popup menu button option is available through configuration of SkipTo when it is loaded.
 
 ## How it works
 
@@ -74,7 +74,7 @@ The easiest way is to include a reference to `skipto.min.js`  on your HTML page 
 <script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
 ```
 
-NOTE: CDN referenced files may not available to computers behind firewall protected networks.
+NOTE: CDN referenced files may not be available to computers behind firewall protected networks.
 
 ### What About WordPress?
 
