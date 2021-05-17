@@ -410,7 +410,7 @@ Happy skipping!
 * Added feature for the <kbd>escape</kbd> key to hide tooltip when focus is on button.
 * Added new properties to set font family and font size.
 * Adding CSS properties to the <code>.label</code> and <code>.level</code> class so the inherited values from <code>[role="menuitem"]</code> are not overridden as easily by other stylesheets used on a page.
-* Updated moving focus to improve moving focus to visible targets with in landmarks.
+* Updated moving focus to improve moving focus to visible targets within landmarks.
 
 ### Version 4.0.5
 * Fixes a problem introduced in version 4.0.4 when button tooltip was updated, restores support for `buttonTitle` and `buttonTitleWithAccesskey` configuration properties.
