@@ -30,9 +30,18 @@ NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to t
 
 ## Websites using SkipTo
 
+### Visible Menu Button (default)
 * [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
 * [College of Applied Health Sciences](https://ahs.illinois.edu/)
 * [Illinois Webcon](https://webcon.illinois.edu/)
+
+### Popup Menu Button
+* [Nightingale Design Research](https://nightingaledesignresearch.com)
+* [cPanel Web Hosting Service @ Illinois](http://cpanel.web.illinois.edu)
+* [Functional Accessibility Evaluator (FAE)](https://fae.disability.illinois.edu/)
+* [Study Abroad Program for College of Education](https://studyabroad.education.illinois.edu)
+
+NOTE: Popup menu button is available through configuration of SkipTo when it is loaded
 
 ## How it works
 
