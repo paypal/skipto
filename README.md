@@ -52,7 +52,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 * Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
 * Safari -- Control+Option+0 (MacOS).
 
-NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but to not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
+NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
 ## Adding to Website
 

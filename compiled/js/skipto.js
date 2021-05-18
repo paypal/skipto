@@ -1,4 +1,4 @@
-/*! skipto - v4.1.0 - 2021-05-13
+/*! skipto - v4.1.0 - 2021-05-18
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -382,7 +382,7 @@
     getFirstChar: function(menuitem) {
       var c = '';
       var label = menuitem.querySelector('.label');
-      if (this.isNotEmptyString(label)) {
+      if (label && this.isNotEmptyString(label.textContent)) {
         c = label.textContent.trim()[0].toLowerCase();
       }
       return c;
