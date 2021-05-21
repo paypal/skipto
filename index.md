@@ -24,6 +24,8 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 
 If you are using Drupal or Wordpress, you are in great luck. We are providing plugins for both of these content management systems below. The SkipTo can also be related from the [Drupal](https://drupal.org/project/SkipTo) and [Wordpress](https://wordpress.org/plugins/skip-to/) repositories.
 
+Beginning with Joomla 4.0.0 **skipto** is provided as part of the core installation.
+
 To sweeten your day even more, the GreaseMonkey script and Safari bookmarklet are also available. See the "downloads" section below for related links.
 By the way, this page is a great chance to see the "SkipTo menu" in action! Did you find the menu at the top?
 
