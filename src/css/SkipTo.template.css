@@ -9,12 +9,13 @@
   position: absolute;
   top: 0;
   left: $positionLeft;
+  font-family: $fontFamily;
+  font-size: $fontSize;
 }
 
 .skip-to.fixed {
   position: fixed;
 }
-
 
 .skip-to button {
   position: relative;
@@ -27,6 +28,8 @@
   color: $menuTextColor;
   background-color: $buttonBackgroundColor;
   z-index: 200;
+  font-family: $fontFamily;
+  font-size: $fontSize;
 }
 
 .skip-to .skip-to-tooltip {
@@ -95,10 +98,15 @@
   font-size: 1em;
 }
 
-.skip-to [role="menuitem"] .level:first-letter,
-.skip-to [role="menuitem"] .label:first-letter {
-  text-decoration: underline;
-  text-transform: uppercase;
+.skip-to [role="menuitem"] .level,
+.skip-to [role="menuitem"] .label {
+  font-size: 100%;
+  font-weight: normal;
+  color: $menuTextColor;
+  display: inline-block;
+  background-color: $menuBackgroundColor;
+  line-height: inherit;
+  display: inline-block;
 }
 
 .skip-to [role="menuitem"] .level {
@@ -107,13 +115,20 @@
 }
 
 .skip-to [role="menuitem"] .label {
+  text-align: left;
   margin: 0;
   padding: 0;
-  display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.skip-to [role="menuitem"] .level:first-letter,
+.skip-to [role="menuitem"] .label:first-letter {
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
 
 .skip-to [role="menuitem"].skip-to-h1 .level { grid-column: 1; }
 .skip-to [role="menuitem"].skip-to-h2 .level { grid-column: 2; }
@@ -204,4 +219,10 @@
   background-color: $menuitemFocusBackgroundColor;
   color: $menuitemFocusTextColor;
   outline: none;
+}
+
+.skip-to [role="menuitem"]:focus .level,
+.skip-to [role="menuitem"]:focus .label {
+  background-color: $menuitemFocusBackgroundColor;
+  color: $menuitemFocusTextColor;
 }

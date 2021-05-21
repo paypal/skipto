@@ -1,4 +1,4 @@
-/*! skipto - v4.0.5 - 2021-03-12
+/*! skipto - v4.1.0 - 2021-05-18
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -27,7 +27,6 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
-    contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     showTooltipFocus: false,
@@ -94,6 +93,8 @@
 
       // Custom CSS position and colors
       colorTheme: '',
+      fontFamily: '',
+      fontSize: '',
       positionLeft: '',
       menuTextColor: '',
       menuBackgroundColor: '',
@@ -105,6 +106,8 @@
     },
     colorThemes: {
       'default': {
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
         positionLeft: '46%',
         menuTextColor: '#1a1a1a',
         menuBackgroundColor: '#dcdcdc',
@@ -115,6 +118,8 @@
         buttonBackgroundColor: '#eeeeee',
       },
       'illinois': {
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
         positionLeft: '46%',
         menuTextColor: '#00132c',
         menuBackgroundColor: '#cad9ef',
@@ -125,7 +130,9 @@
         buttonBackgroundColor: '#dddede',
       },
       'aria': {
-        positionLeft: '',
+        fontFamily: 'sans-serif',
+        fontSize: '10pt',
+        positionLeft: '7%',
         menuTextColor: '#000',
         menuBackgroundColor: '#def',
         menuitemFocusTextColor: '#fff',
@@ -135,7 +142,7 @@
         buttonBackgroundColor: '#ddd',
       }
     },
-    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:0}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;border-color:$buttonBackgroundColor;color:$menuTextColor;background-color:$buttonBackgroundColor;z-index:200}.skip-to .skip-to-tooltip{position:absolute;top:2.25em;left:8em;margin:1px;padding:4px;border:1px solid #ccc;box-shadow:2px 3px 5px #ddd;background-color:#eee;color:#000;font-family:Helvetica,Arial,Sans-Serif;font-variant-numeric:slash-zero;font-size:9pt;width:auto;display:none;white-space:nowrap;z-index:201}.skip-to .skip-to-tooltip.skip-to-show-tooltip{display:block}.skip-to [aria-expanded=true]+.skip-to-tooltip.skip-to-show-tooltip{display:none}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;width:auto;border-width:0;border-style:solid;color:$menuTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{margin:0;padding:0;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}',
+    defaultCSS: '.skip-to.popup{position:absolute;top:-30em;left:0}.skip-to,.skip-to.popup.focus{position:absolute;top:0;left:$positionLeft;font-family:$fontFamily;font-size:$fontSize}.skip-to.fixed{position:fixed}.skip-to button{position:relative;margin:0;padding:6px 8px 6px 8px;border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 6px 6px;border-color:$buttonBackgroundColor;color:$menuTextColor;background-color:$buttonBackgroundColor;z-index:200;font-family:$fontFamily;font-size:$fontSize}.skip-to .skip-to-tooltip{position:absolute;top:2.25em;left:8em;margin:1px;padding:4px;border:1px solid #ccc;box-shadow:2px 3px 5px #ddd;background-color:#eee;color:#000;font-family:Helvetica,Arial,Sans-Serif;font-variant-numeric:slash-zero;font-size:9pt;width:auto;display:none;white-space:nowrap;z-index:201}.skip-to .skip-to-tooltip.skip-to-show-tooltip{display:block}.skip-to [aria-expanded=true]+.skip-to-tooltip.skip-to-show-tooltip{display:none}.skip-to [role=menu]{position:absolute;min-width:17em;display:none;margin:0;padding:.25rem;background-color:$menuBackgroundColor;border-width:2px;border-style:solid;border-color:$focusBorderColor;border-radius:5px;z-index:1000}.skip-to [role=group]{display:grid;grid-auto-rows:min-content;grid-row-gap:1px}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem]{padding:3px;width:auto;border-width:0;border-style:solid;color:$menuTextColor;background-color:$menuBackgroundColor;z-index:1000;display:grid;overflow-y:auto;grid-template-columns:repeat(6,1.2rem) 1fr;grid-column-gap:2px;font-size:1em}.skip-to [role=menuitem] .label,.skip-to [role=menuitem] .level{font-size:100%;font-weight:400;color:$menuTextColor;display:inline-block;background-color:$menuBackgroundColor;line-height:inherit;display:inline-block}.skip-to [role=menuitem] .level{text-align:right;padding-right:4px}.skip-to [role=menuitem] .label{text-align:left;margin:0;padding:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.skip-to [role=menuitem] .label:first-letter,.skip-to [role=menuitem] .level:first-letter{text-decoration:underline;text-transform:uppercase}.skip-to [role=menuitem].skip-to-h1 .level{grid-column:1}.skip-to [role=menuitem].skip-to-h2 .level{grid-column:2}.skip-to [role=menuitem].skip-to-h3 .level{grid-column:3}.skip-to [role=menuitem].skip-to-h4 .level{grid-column:4}.skip-to [role=menuitem].skip-to-h5 .level{grid-column:5}.skip-to [role=menuitem].skip-to-h6 .level{grid-column:8}.skip-to [role=menuitem].skip-to-h1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h3 .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h4 .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h5 .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-h6 .label{grid-column:7/8}.skip-to [role=menuitem].skip-to-h1.no-level .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-h2.no-level .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-h3.no-level .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-h4.no-level .label{grid-column:4/8}.skip-to [role=menuitem].skip-to-h5.no-level .label{grid-column:5/8}.skip-to [role=menuitem].skip-to-h6.no-level .label{grid-column:6/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .nesting{grid-column:1}.skip-to [role=menuitem].skip-to-nesting-level-2 .nesting{grid-column:2}.skip-to [role=menuitem].skip-to-nesting-level-3 .nesting{grid-column:3}.skip-to [role=menuitem].skip-to-nesting-level-0 .label{grid-column:1/8}.skip-to [role=menuitem].skip-to-nesting-level-1 .label{grid-column:2/8}.skip-to [role=menuitem].skip-to-nesting-level-2 .label{grid-column:3/8}.skip-to [role=menuitem].skip-to-nesting-level-3 .label{grid-column:4/8}.skip-to [role=menuitem].action .label,.skip-to [role=menuitem].no-items .label{grid-column:1/8}.skip-to [role=separator]{margin:1px 0 1px 0;padding:3px;display:block;width:auto;font-weight:700;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:$menuTextColor;background-color:$menuBackgroundColor;color:$menuTextColor;z-index:1000}.skip-to [role=separator] .mofn{font-weight:400;font-size:85%}.skip-to [role=separator]:first-child{border-radius:5px 5px 0 0}.skip-to [role=menuitem].last{border-radius:0 0 5px 5px}.skip-to.focus{display:block}.skip-to button:focus,.skip-to button:hover{background-color:$menuBackgroundColor;color:$menuTextColor;outline:0}.skip-to button:focus{padding:6px 7px 5px 7px;border-width:0 2px 2px 2px;border-color:$focusBorderColor}.skip-to [role=menuitem]:focus{padding:1px;border-width:2px;border-style:solid;border-color:$focusBorderColor;background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor;outline:0}.skip-to [role=menuitem]:focus .label,.skip-to [role=menuitem]:focus .level{background-color:$menuitemFocusBackgroundColor;color:$menuitemFocusTextColor}',
 
     //
     // Functions related to configuring the features
@@ -288,6 +295,9 @@
       if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
         theme = this.colorThemes[this.config.colorTheme];
       }
+      this.updateStyle('$fontFamily', this.config.fontFamily, theme.fontFamily);
+      this.updateStyle('$fontSize', this.config.fontSize, theme.fontSize);
+
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
 
       this.updateStyle('$menuTextColor', this.config.menuTextColor, theme.menuTextColor);
@@ -372,7 +382,7 @@
     getFirstChar: function(menuitem) {
       var c = '';
       var label = menuitem.querySelector('.label');
-      if (this.isNotEmptyString(label)) {
+      if (label && this.isNotEmptyString(label.textContent)) {
         c = label.textContent.trim()[0].toLowerCase();
       }
       return c;
@@ -934,6 +944,7 @@
         case 'Escape':
           this.closePopup();
           this.buttonNode.focus();
+          this.hideTooltip();
           flag = true;
           break;
         case 'Up':
@@ -964,24 +975,30 @@
     isTooltipHidden: function() {
       return this.tooltipNode.className.indexOf('skip-to-show-tooltip') < 0;
     },
-    showTooltip: function() {
+    displayTooltip: function() {
       if (this.showTooltipFocus || this.showTooltipHover) {
         this.tooltipNode.classList.add('skip-to-show-tooltip');
       }
     },
-    handleButtonFocus: function() {
+    showTooltip: function() {
       this.showTooltipFocus = true;
       if (this.config.enableTooltip && this.isTooltipHidden()) {
         this.tooltipNode.style.left = this.tooltipLeft + 'px';
         this.tooltipNode.style.top = this.tooltipTop + 'px';
-        setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
+        setTimeout(this.displayTooltip.bind(this), this.tooltipTimerDelay);
       }
     },
-    handleButtonBlur: function() {
+    hideTooltip: function() {
       this.showTooltipFocus = false;
       if(this.config.enableTooltip) {
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
+    },
+    handleButtonFocus: function() {
+      this.showTooltip();
+    },
+    handleButtonBlur: function() {
+      this.hideTooltip();
     },
     handleButtonPointerenter: function(event) {
       this.showTooltipHover = true;
@@ -1001,18 +1018,42 @@
       }
     },
     skipToElement: function(menuitem) {
+
+      var isVisible = this.isVisible;
       var focusNode = false;
       var scrollNode = false;
+      var elem;
+
+      function findVisibleElement(e, selectors) {
+        if (e) {
+          for (var j = 0; j < selectors.length; j += 1) {
+            var elems = e.querySelectorAll(selectors[j]);
+            for(var i = 0; i < elems.length; i +=1) {
+              if (isVisible(elems[i])) {
+                return elems[i];
+              }
+            }
+          }
+        }
+        return e;
+      }
+
+      var searchSelectors = ['input', 'button', 'input[type=button]', 'input[type=submit]', 'a'];
+      var navigationSelectors = ['a', 'input', 'button', 'input[type=button]', 'input[type=submit]'];
+      var landmarkSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article', 'p', 'li', 'a'];
+
       var isLandmark = menuitem.classList.contains('landmark');
       var isSearch = menuitem.classList.contains('skip-to-search');
       var isNav = menuitem.classList.contains('skip-to-nav');
-      var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
-      if (node) {
+
+      elem = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
+
+      if (elem) {
         if (isSearch) {
-          focusNode = node.querySelector('input');
+          focusNode = findVisibleElement(elem, searchSelectors);
         }
         if (isNav) {
-          focusNode = node.querySelector('a');
+          focusNode = findVisibleElement(elem, navigationSelectors);
         }
         if (focusNode && this.isVisible(focusNode)) {
           focusNode.focus();
@@ -1020,14 +1061,14 @@
         }
         else {
           if (isLandmark) {
-            scrollNode = node.querySelector(this.contentSelector);
+            scrollNode = findVisibleElement(elem, landmarkSelectors);
             if (scrollNode) {
-              node = scrollNode;
+              elem = scrollNode;
             }
           }
-          node.tabIndex = -1;
-          node.focus();
-          node.scrollIntoView({block: 'center'});
+          elem.tabIndex = -1;
+          elem.focus();
+          elem.scrollIntoView({block: 'center'});
         }
       }
     },

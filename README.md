@@ -1,22 +1,48 @@
 <img src="images/logo_347x50_PPa11y.png" alt="PayPal accessibility logo">
 
-# skipto@4.0
+# skipto@4.1
 
 ## by PayPal Accessibility Team & University of Illinois
 
 See the [Authors](#authors) section for more information.
 
-SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+SkipTo is a replacement for your old classic "Skip To Main Content" link, (so please use it as such)!
+The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page identified by the author. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired region of a page by simply choosing it from the list of options.
 
 ### Benefits
 
-* All users can get an outline of the content on the page.
+* Modern way to conform to the "[Bypass Blocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/).
 * Screen reader users can get a higher level navigation menu without having to use the screen reader landmark and header navigation commands which typically include longer lists of lower level headings and less used landmarks.
 * Keyboard only users can more efficiently navigate to content on a page.
 * Speech recognition users can use the menu to more efficiently navigate to content on a page.
+* When the "Skip To Content" menu button is visible when the page is loaded everyone can use it to identify and navigate to important regions on a page.
+* Authors can configure SkipTo to identify the most important regions, ideally about 7-12 items to make it easier for people to read the list and choose an option.  Remember the more items, the longer it will take for the user to identify which item they want to choose.
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
+
+## Websites using SkipTo
+
+There are two main ways to include the menu button for SkipTo in a page.  In the default configuration the menu button is always visible making it useful to everyone to easily find and navigate to the important content regions identified by the author.  This is similar to how curb cuts help more than just people using wheelchairs.  It is also easier for people using voice recognition to activate the button using the "click skip to content" command and use similar voice commands to activate SkipTo menu items.  The "popup" option is the more traditional approach to fulfilling the "[bypass bocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/), but this option makes the feature less visible to people who might benefit.
+
+### Visible Menu Button (default)
+* [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
+* [College of Applied Health Sciences](https://ahs.illinois.edu/)
+* [Illinois Webcon](https://webcon.illinois.edu/)
+
+### Popup Menu Button
+* [Nightingale Design Research](https://nightingaledesignresearch.com)
+* [cPanel Web Hosting Service @ Illinois](http://cpanel.web.illinois.edu)
+* [Functional Accessibility Evaluator (FAE)](https://fae.disability.illinois.edu/)
+* [Study Abroad Program for College of Education](https://studyabroad.education.illinois.edu)
+
+NOTE: Popup menu button option is available through configuration of SkipTo when it is loaded.
+
+## How it works
+
+1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
+2. Once the keyboard focus is on the menu button, pressing the ENTER, SPACE, DOWN ARROW or UP ARROW keys will pull down the list of important landmarks and headings on the page.  The button is based on the ARIA Authoring Practice [design pattern for menu button](https://w3c.github.io/aria-practices/#menubutton).
+3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
+4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## Access keys
 
@@ -26,19 +52,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 * Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
 * Safari -- Control+Option+0 (MacOS).
 
-NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but to not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
-
-## Websites using SkipTo
-
-* [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
-* [College of Applied Health Sciences](https://ahs.illinois.edu/)
-
-## How it works
-
-1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
-2. Once the keyboard focus is on the menu button, pressing the ENTER, SPACE, DOWN ARROW or UP ARROW keys will pull down the list of important landmarks and headings on the page.  The button is based on the ARIA Authoring Practice [design pattern for menu button](https://w3c.github.io/aria-practices/#menubutton).
-3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
-4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
+NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
 ## Adding to Website
 
@@ -61,7 +75,7 @@ The easiest way is to include a reference to `skipto.min.js`  on your HTML page 
 <script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
 ```
 
-NOTE: CDN referenced files may not available to computers behind firewall protected networks.
+NOTE: CDN referenced files may not be available to computers behind firewall protected networks.
 
 ### What About WordPress?
 
@@ -89,6 +103,14 @@ The following options are useful for identify where the menu will be in the DOM 
 | Property       | Type   | Default | Description |
 | :------------- | :----- | :------ | :---------- |
 | `positionLeft` | length | `46%`  | The position of the "Skip To Content" button from left margin. |
+
+### Button Font Family and Font Size
+
+| Property       | Type   | Default | Description |
+| :------------- | :----- | :------ | :---------- |
+| `fontSize` | CSS font size | `inherit`  | Set the CSS `font-size` using the configuration object. |
+| `fontFamily` | CSS font string | `inherit`  | Set the CSS `font-family` using the configuration object. |
+
 
 ### CSS Selectors for identifying Landmarks and Headings
 
@@ -213,7 +235,7 @@ var SkipToConfig =  {
     'skipTo': {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
-      colorTheme: 'illinois',
+      colorTheme: 'illinois'
     }
   }
 };
@@ -383,6 +405,13 @@ Happy skipping!
 
 
 ## Version History
+
+### Version 4.1
+* Added feature for the <kbd>escape</kbd> key to hide tooltip when focus is on button.
+* Added new properties to set font family and font size.
+* Adding CSS properties to the <code>.label</code> and <code>.level</code> class so the inherited values from <code>[role="menuitem"]</code> are not overridden as easily by other stylesheets used on a page.
+* Updated moving focus to improve moving focus to visible targets within landmarks.
+* Fixed broken shortcut keys in the menu
 
 ### Version 4.0.5
 * Fixes a problem introduced in version 4.0.4 when button tooltip was updated, restores support for `buttonTitle` and `buttonTitleWithAccesskey` configuration properties.
