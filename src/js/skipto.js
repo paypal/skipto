@@ -22,7 +22,6 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
-    contentSelector: 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea',
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     showTooltipFocus: false,
@@ -89,6 +88,8 @@
 
       // Custom CSS position and colors
       colorTheme: '',
+      fontFamily: '',
+      fontSize: '',
       positionLeft: '',
       menuTextColor: '',
       menuBackgroundColor: '',
@@ -100,6 +101,8 @@
     },
     colorThemes: {
       'default': {
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
         positionLeft: '46%',
         menuTextColor: '#1a1a1a',
         menuBackgroundColor: '#dcdcdc',
@@ -110,6 +113,8 @@
         buttonBackgroundColor: '#eeeeee',
       },
       'illinois': {
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
         positionLeft: '46%',
         menuTextColor: '#00132c',
         menuBackgroundColor: '#cad9ef',
@@ -120,7 +125,9 @@
         buttonBackgroundColor: '#dddede',
       },
       'aria': {
-        positionLeft: '',
+        fontFamily: 'sans-serif',
+        fontSize: '10pt',
+        positionLeft: '7%',
         menuTextColor: '#000',
         menuBackgroundColor: '#def',
         menuitemFocusTextColor: '#fff',
@@ -283,6 +290,9 @@
       if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
         theme = this.colorThemes[this.config.colorTheme];
       }
+      this.updateStyle('$fontFamily', this.config.fontFamily, theme.fontFamily);
+      this.updateStyle('$fontSize', this.config.fontSize, theme.fontSize);
+
       this.updateStyle('$positionLeft', this.config.positionLeft, theme.positionLeft);
 
       this.updateStyle('$menuTextColor', this.config.menuTextColor, theme.menuTextColor);
@@ -367,7 +377,7 @@
     getFirstChar: function(menuitem) {
       var c = '';
       var label = menuitem.querySelector('.label');
-      if (this.isNotEmptyString(label)) {
+      if (label && this.isNotEmptyString(label.textContent)) {
         c = label.textContent.trim()[0].toLowerCase();
       }
       return c;
@@ -929,6 +939,7 @@
         case 'Escape':
           this.closePopup();
           this.buttonNode.focus();
+          this.hideTooltip();
           flag = true;
           break;
         case 'Up':
@@ -959,24 +970,30 @@
     isTooltipHidden: function() {
       return this.tooltipNode.className.indexOf('skip-to-show-tooltip') < 0;
     },
-    showTooltip: function() {
+    displayTooltip: function() {
       if (this.showTooltipFocus || this.showTooltipHover) {
         this.tooltipNode.classList.add('skip-to-show-tooltip');
       }
     },
-    handleButtonFocus: function() {
+    showTooltip: function() {
       this.showTooltipFocus = true;
       if (this.config.enableTooltip && this.isTooltipHidden()) {
         this.tooltipNode.style.left = this.tooltipLeft + 'px';
         this.tooltipNode.style.top = this.tooltipTop + 'px';
-        setTimeout(this.showTooltip.bind(this), this.tooltipTimerDelay);
+        setTimeout(this.displayTooltip.bind(this), this.tooltipTimerDelay);
       }
     },
-    handleButtonBlur: function() {
+    hideTooltip: function() {
       this.showTooltipFocus = false;
       if(this.config.enableTooltip) {
         this.tooltipNode.classList.remove('skip-to-show-tooltip');
       }
+    },
+    handleButtonFocus: function() {
+      this.showTooltip();
+    },
+    handleButtonBlur: function() {
+      this.hideTooltip();
     },
     handleButtonPointerenter: function(event) {
       this.showTooltipHover = true;
@@ -996,18 +1013,42 @@
       }
     },
     skipToElement: function(menuitem) {
+
+      var isVisible = this.isVisible;
       var focusNode = false;
       var scrollNode = false;
+      var elem;
+
+      function findVisibleElement(e, selectors) {
+        if (e) {
+          for (var j = 0; j < selectors.length; j += 1) {
+            var elems = e.querySelectorAll(selectors[j]);
+            for(var i = 0; i < elems.length; i +=1) {
+              if (isVisible(elems[i])) {
+                return elems[i];
+              }
+            }
+          }
+        }
+        return e;
+      }
+
+      var searchSelectors = ['input', 'button', 'input[type=button]', 'input[type=submit]', 'a'];
+      var navigationSelectors = ['a', 'input', 'button', 'input[type=button]', 'input[type=submit]'];
+      var landmarkSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article', 'p', 'li', 'a'];
+
       var isLandmark = menuitem.classList.contains('landmark');
       var isSearch = menuitem.classList.contains('skip-to-search');
       var isNav = menuitem.classList.contains('skip-to-nav');
-      var node = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
-      if (node) {
+
+      elem = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
+
+      if (elem) {
         if (isSearch) {
-          focusNode = node.querySelector('input');
+          focusNode = findVisibleElement(elem, searchSelectors);
         }
         if (isNav) {
-          focusNode = node.querySelector('a');
+          focusNode = findVisibleElement(elem, navigationSelectors);
         }
         if (focusNode && this.isVisible(focusNode)) {
           focusNode.focus();
@@ -1015,14 +1056,14 @@
         }
         else {
           if (isLandmark) {
-            scrollNode = node.querySelector(this.contentSelector);
+            scrollNode = findVisibleElement(elem, landmarkSelectors);
             if (scrollNode) {
-              node = scrollNode;
+              elem = scrollNode;
             }
           }
-          node.tabIndex = -1;
-          node.focus();
-          node.scrollIntoView({block: 'center'});
+          elem.tabIndex = -1;
+          elem.focus();
+          elem.scrollIntoView({block: 'center'});
         }
       }
     },
