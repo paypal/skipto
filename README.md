@@ -81,6 +81,10 @@ NOTE: CDN referenced files may not be available to computers behind firewall pro
 
 A module is under development for WordPress.
 
+### What About Joomla?
+
+Joomla 4.0 includes **skipto** as a default plugin
+
 ## Configure Options
 
 All settings have a default value, a configuration object can be used to change the default values.
@@ -110,7 +114,6 @@ The following options are useful for identify where the menu will be in the DOM 
 | :------------- | :----- | :------ | :---------- |
 | `fontSize` | CSS font size | `inherit`  | Set the CSS `font-size` using the configuration object. |
 | `fontFamily` | CSS font string | `inherit`  | Set the CSS `font-family` using the configuration object. |
-
 
 ### CSS Selectors for identifying Landmarks and Headings
 
@@ -391,6 +394,9 @@ Happy skipping!
 
 **Prem Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
+
+**Brian Teeman**
+[https://github.com/brianteeman](https://github.com/brianteeman)
 
 ### Previous Contributors
 
