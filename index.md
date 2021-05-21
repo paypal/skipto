@@ -24,9 +24,6 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 
 Beginning with Joomla 4.0.0 **skipto** is provided as part of the core installation.
 
-To sweeten your day even more, the GreaseMonkey script and Safari bookmarklet are also available. See the "downloads" section below for related links.
-By the way, this page is a great chance to see the "SkipTo menu" in action! Did you find the menu at the top?
-
 ## What about plain JavaScript
 
 All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
