@@ -61,6 +61,7 @@ module.exports = function(grunt) {
 				dest:  './compiled/js/<%= pkg.name %>.user.js'
 			}
 		},
+
 		uglify: {
 			options: {
 				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
@@ -101,57 +102,10 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-		copy: {
-			main: {
-				files: [{
-						expand: true,
-						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.min.js'],
-						dest: './src/WordPress/skipTo/js'
-					}, {
-						expand: true,
-						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.min.js'],
-						dest: './src/Drupal/skipTo/js'
-					}
 
-				]
-			}
-
-		},
-		compress: {
-			WordPress: {
-				options: {
-					mode: 'zip',
-					archive: './compiled/WordPress/<%= pkg.name %>.zip'
-				},
-				files: [{
-						expand: true,
-						cwd: './src/WordPress/',
-						src: ['**'],
-						dest: '.',
-						filter: 'isFile'
-					}
-				]
-			},
-			Drupal: {
-				options: {
-					mode: 'tar',
-					archive: './compiled/Drupal/<%= pkg.name %>.tar'
-				},
-				files: [{
-						expand: true,
-						cwd: './src/Drupal/',
-						src: ['**'],
-						dest: '.',
-						filter: 'isFile'
-					}
-				]
-			}
-		},
 		clean: {
 			compiled: {
-				src: ["compiled/*", "./src/WordPress/skipTo/js/<%= pkg.name %>.min.js", "./src/Drupal/skipTo/js/<%= pkg.name %>.min.js"]
+				src: ["compiled/*"]
 			}
 		}
 
@@ -161,15 +115,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-replace');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 	grunt.registerTask('test', ['jshint']);
-	grunt.registerTask('wordpress', ['compress:WordPress']);
-	grunt.registerTask('drupal', ['compress:Drupal']);
 	grunt.registerTask('gm', 'concat:gm');
-	grunt.registerTask('default', ['jshint', 'concat:core', 'uglify', 'cssmin', 'replace', 'copy','concat:gm']);
-	grunt.registerTask('all', ['jshint', 'concat:core', 'uglify', 'replace', 'copy', 'compress', 'concat:gm']);
+	grunt.registerTask('default', ['jshint', 'concat:core', 'uglify', 'cssmin', 'replace', 'concat:gm']);
+	grunt.registerTask('all', ['jshint', 'concat:core', 'uglify', 'replace', 'concat:gm']);
 };
