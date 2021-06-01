@@ -260,7 +260,6 @@
         this.config.enableTooltip = false;
       } else {
         this.tooltipNode.textContent = tooltip;
-        buttonNode.setAttribute('aria-describedby', id);
       }
 
       attachNode.appendChild(this.tooltipNode);

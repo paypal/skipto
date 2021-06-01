@@ -412,6 +412,9 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.1.1
+* Removed <code>aria-describedby</code> from button, since screen readers read the <code>accesskey</code> information.
+
 ### Version 4.1
 * Added feature for the <kbd>escape</kbd> key to hide tooltip when focus is on button.
 * Added new properties to set font family and font size.

@@ -1,4 +1,4 @@
-/*! skipto - v4.1.0 - 2021-05-18
+/*! skipto - v4.1.0 - 2021-05-31
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -265,7 +265,6 @@
         this.config.enableTooltip = false;
       } else {
         this.tooltipNode.textContent = tooltip;
-        buttonNode.setAttribute('aria-describedby', id);
       }
 
       attachNode.appendChild(this.tooltipNode);
