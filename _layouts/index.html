@@ -32,17 +32,6 @@
 			<section id="main_content" class="inner" role="main">
 				{{ content }}
 
-				<h2>Downloads</h2>
-				<ol>
-					<li><a href="https://wordpress.org/plugins/skip-to/">Wordpress plugin zip</a></li>
-					<li><a href="https://drupal.org/project/SkipTo">Drupal plugin Tar</a></li>
-					<li><a href="./downloads/js/SkipTo.user.js">GreaseMonkey User Script</a></li>
-					<li>
-						<a
-							href="javascript:(function(){var scr=document.createElement('SCRIPT');scr.type='text/javascript';scr.src='https://paypal.github.io/skipto/downloads/js/SkipTo.min.js?';document.getElementsByTagName('head')[0].appendChild(scr);})();">Skip
-							To bookmarklet</a>
-					</li>
-				</ol>
 			</section>
 		</div>
 
@@ -59,17 +48,12 @@
 					"skipTo": {
 						"headings": "h1 ,h2, h3",
 						"landmarks": "[role=banner],[role=main],[role=search]",
-						"accesskey": "0",
-						"wrap": "true",
-						"visibility": "onLoad"
+						"displayOption": "static"
 					}
 				}
 			};
 		</script>
 
 		<script src="downloads/js/skipto.js"></script>
-		<script>
-			skipToMenuInit(SkipToConfig)
-		</script>
 	</body>
 </html>
