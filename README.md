@@ -412,6 +412,11 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.1.2
+* Added <code>aria-busy="true"</code> to menu button when SkipTo is initialized and being updated with new menu items to support validators looking for required menu items.
+* Added <code>aria-controls</code> to button element to reference the <code>id</code> of the menu element as recommended by the W3C ARIA Authoring practices.
+
+
 ### Version 4.1.1
 * Removed <code>aria-describedby</code> from button, since screen readers read the <code>accesskey</code> information.
 
