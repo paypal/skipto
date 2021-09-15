@@ -8,16 +8,16 @@ layout: index
 
 See the [Authors](#authors) section for more information.
 
-SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
-The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
+SkipTo is a replacement for your old classic "Skip To Main" link, (so please use it as such)!
+The SkipTo script creates a drop-down menu consisting of the links to the important ARIA landmark regions and headings on a page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the menu items, which also .
 
 ![Example Screen Shot](https://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
 
 ## How it works
 
-1. The SkipTo menu becomes visible the first time the user tabs into the page.
-2. Once the keyboard focus is on the menu, pressing the ENTER or the SPACEBAR key will pull down the list of high-level headings and landmarks on the current page.
-3. Use arrow keys to select your choice and press ENTER to skip to it.
+1. The SkipTo menu by deafult is visible when the page loads.  It can be configured to become visible the first time the user tabs into the page.
+2. Once the keyboard focus is on the menu, pressing the <kbd>enter</kbd> or the <kbd>space</kbd> key will pull down the list of high-level headings and landmarks on the current page.
+3. Use arrow keys or the letter keys to select your choice and press ENTER to skip to it.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
 ## How do I get it on my web site
@@ -26,16 +26,28 @@ Beginning with Joomla 4.0.0 **skipto** is provided as part of the core installat
 
 ## What about plain JavaScript
 
-All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
+All you need are either <a href="https://raw.githubusercontent.com/paypal/skipto/main/compiled/js/skipto.js">skipto.js</a> or <a href="https://raw.githubusercontent.com/paypal/skipto/main/compiled/js/skipto.min.js">SkipTo.min.js</a> from the <a href="https://github.com/paypal/skipto/tree/main/compiled/js">"compiled/js" directory in GitHub</a>. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
 If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
 
-To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
+### Local File on Your Web Server
+
+Copy the `skipto.js` or `skipto.min.js` to the file system of your web server and reference it from your web page or templates using a `script` tag, as follows:
 
 ```html
-<script type="text/javascript" src="https://paypal.github.io/skipto/downloads/js/SkipTo.min.js"></script>
+<script src="https://[path to Javascript files]/skipto.min.js"></script>
 ```
 
-Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
+### CDN Service
+
+The easiest way is to include a reference to `skipto.min.js` on your HTML page or template is through the CDN service, as follows:
+
+```html
+<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+```
+
+Using the CDN service makes sure you have the latest version 4 release. For example if a bug is identified and fixed your website will automatically get update.
+
+NOTE: CDN referenced files may not be available to computers behind firewall protected networks.
 
 ## Configuring SkipTo options
 
@@ -52,7 +64,7 @@ and options:
 
 You may have different requirements for your web site and include other heading levels as well as ARIA landmarks.
 
-You will need to provide a JSON object containing the necessary configuration parameters for changing behaviors or styling from default values. This may look like the following:
+You will need to provide a JSON object containing the necessary [configuration parameters](https://github.com/paypal/skipto) for changing behaviors or styling from default values. The following is an examples configuration:
 
 ```html
 <script>
@@ -61,8 +73,7 @@ var SkipToConfig =  {
     'skipTo': {
       landmarks: 'main, [role="main"], [role="search"], nav',
       headings: 'main h1, main h2, main h3',
-      accesskey: 'S',
-      colorTheme: 'illinois',
+      colorTheme: 'illinois'
     }
   }
 };
@@ -74,11 +85,11 @@ The code above  will need  to be inserted before including the SkipTo.js or Skip
 ### Notes
 
 * Most parameters are optional.
-* SkipTo can be attached to any element on the page (see the "attachElement" parameter). if no "attachElement" is found, the script will be attached as the first element after body.
+* SkipTo can be attached to any element on the page (see the "attachElement" parameter). if no "attachElement" is found, the script will be attached as the first child of the `header` element, if a `header` element is not found it will attach as the first child of the `body` element.
 * When the custom class is specified (see the customClass parameter), the user can override the style, EG
 
 ```css
-.skipTo.MyCustomClass {
+.skip-to.MyCustomClass {
   background:  red;
   left: 50px;
   top: 50px;
@@ -123,8 +134,21 @@ PayPal Accessibility Gang
 
 ## Authors
 
-**Nawaz Khan**
+### Current Contributors
+
+**Jon Gunderson**
+[https://github.com/jongund](https://github.com/jongund)
+
+**Nicholas Hoyt**
+[https://github.com/nhoyt](https://github.com/nhoyt)
+
+**Prem Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
+
+**Brian Teeman**
+[https://github.com/brianteeman](https://github.com/brianteeman)
+
+### Previous Contributors
 
 **Victor Tsaran**
 [https://github.com/vick08](https://github.com/vick08) || [@vick08](https://twitter.com/vick08)
@@ -135,12 +159,4 @@ PayPal Accessibility Gang
 **Marc Kocher**
 [https://github.com/mdkocher](https://github.com/mdkocher) || [@marckocher](https://twitter.com/marckocher)
 
-**Jon Gunderson**
-[https://github.com/jongund](https://github.com/jongund)
-
-**Nicholas Hoyt**
-[https://github.com/nhoyt](https://github.com/nhoyt)
-
-**Brian Teeman** 
-[https://github.com/brianteeman](https://github.com/brianteeman)
 
