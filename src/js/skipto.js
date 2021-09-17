@@ -1468,7 +1468,6 @@
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
     SkipTo.init(window.SkipToConfig ||
-                window.Wordpress ||
                 ((typeof window.Joomla === 'object' && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {})
                 );
   });
