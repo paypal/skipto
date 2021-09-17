@@ -1,4 +1,4 @@
-/*! skipto - v4.1.0 - 2021-05-18
+/*! skipto - v4.1.0 - 2021-05-27
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -1473,7 +1473,6 @@
   // Initialize skipto menu button with onload event
   window.addEventListener('load', function() {
     SkipTo.init(window.SkipToConfig ||
-                window.Wordpress ||
                 ((typeof window.Joomla === 'object' && typeof window.Joomla.getOptions === 'function') ? window.Joomla.getOptions('skipto-settings', {}) : {})
                 );
   });

@@ -1,6 +1,0 @@
-name = SkipTo
-description = Enhances accessibility for keyboard and screen reader users by providing a dynamically-generated drop-down menu of the most important places on the page. This is an enhanced version of the widely-known "skipnav" mechanism for keyboard and screen reader users.
-core = 7.x
-package = Accessibility
-
-configure = admin/config/content/skipTo
