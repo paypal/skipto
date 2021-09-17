@@ -97,7 +97,7 @@ The following options are useful for identify where the menu will be in the DOM 
 | :------------- | :---------- | :---------- |
 | `displayOption` | 'static' | Values of `static`, `fixed` or `popup` are defined.  The value `static` the button is always visible, the value `fixed` the button is always visible at the top of the page even when the page scrolls, and the value `popup` is used the button is initially not visible, but becomes visible when it receives focus. |
 | `accessKey` | '0' | [Accesskey](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) provides a way to open the Skip To menu from anywhere on the page, the default is the number zero. |
-| `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container. |
+| `attachElement` | 'header' | A CSS selector for identifying which element to attach the menu button container.  If the `header` element is not present, it will use the `body` element as the default.|
 | `containerElement` | 'div' | Element to use as a container for the button and the menu.
 | `customClass` | none | CSS class added to the container element. Can be used for customize styling of the button and menu with author supplied stylesheet. |
 | `containerRole` | none | Optional landmark role added to a container element, if the container element is not within a landmark.  Ideally the menu button is placed within the `banner` landmark (e.g. `header` element. |
@@ -338,11 +338,11 @@ The source code in this section is for developers to understand the HTML, classe
 ### Notes
 
 * Parameters are optional.
-* SkipTo can be attached to any element on the page (see the "attachElement" parameter). if no "attachElement" is found, the script will be attached as the first element after body.
+* SkipTo will be attached to the `header`element as the first child by default.  If the `header`element is not present, it will be attached as the first child of the `body` element on the page.  The attachment can be changed using the "attachElement" parameter.
 * When the custom class is specified (see the customClass parameter), the user can override the style:
 
 ```css
-.skipTo.MyCustomClass {
+.skip-to.MyCustomClass {
   background:  red;
   left: 50px;
   top: 50px;
@@ -411,6 +411,13 @@ Happy skipping!
 
 
 ## Version History
+
+### Version 4.1.2
+* Added <code>aria-busy="true"</code> attribute to menu element when SkipTo is initialized and being updated with new menu items to support validators looking for required menu items for the <code>menu</code> role.
+* Added the <em>optional</em> <code>aria-controls</code> attribute to button element to reference the <code>id</code> of the menu element as defined in the W3C ARIA Authoring practices for [menu button pattern](https://w3c.github.io/aria-practices/#menubutton).
+
+### Version 4.1.1
+* Removed <code>aria-describedby</code> from button, since screen readers read the <code>accesskey</code> information.
 
 ### Version 4.1
 * Added feature for the <kbd>escape</kbd> key to hide tooltip when focus is on button.
