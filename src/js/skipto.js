@@ -11,7 +11,8 @@
 (function() {
   'use strict';
   var SkipTo = {
-    skipToId: 'is-skip-to-js-4',
+    skipToId: 'id-skip-to-js-4',
+    skipToMenuId: 'id-skip-to-menu-4',
     domNode: null,
     buttonNode: null,
     menuNode: null,
@@ -208,6 +209,7 @@
       this.buttonNode.textContent = this.config.buttonLabel;
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
+      this.buttonNode.setAttribute('aria-controls', this.skipToMenuId);
       this.buttonNode.setAttribute('accesskey', this.config.accesskey);
 
       this.domNode.appendChild(this.buttonNode);
@@ -216,6 +218,8 @@
 
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
+      this.menuNode.setAttribute('aria-busy', 'true');
+      this.menuNode.setAttribute('id', this.skipToMenuId);
       this.domNode.appendChild(this.menuNode);
       this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
       this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
@@ -260,7 +264,6 @@
         this.config.enableTooltip = false;
       } else {
         this.tooltipNode.textContent = tooltip;
-        buttonNode.setAttribute('aria-describedby', id);
       }
 
       attachNode.appendChild(this.tooltipNode);
@@ -902,8 +905,10 @@
     },
     // Popup menu methods
     openPopup: function() {
+      this.menuNode.setAttribute('aria-busy', 'true');
       this.renderMenu();
       this.menuNode.style.display = 'block';
+      this.menuNode.removeAttribute('aria-busy');
       this.buttonNode.setAttribute('aria-expanded', 'true');
     },
 
