@@ -15,7 +15,7 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 
 ## How it works
 
-1. The SkipTo menu by deafult is visible when the page loads.  It can be configured to become visible the first time the user tabs into the page.
+1. The SkipTo menu by default is visible when the page loads.  It can be configured to become visible the first time the user tabs into the page.
 2. Once the keyboard focus is on the menu, pressing the <kbd>enter</kbd> or the <kbd>space</kbd> key will pull down the list of high-level headings and landmarks on the current page.
 3. Use arrow keys or the letter keys to select your choice and press ENTER to skip to it.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
