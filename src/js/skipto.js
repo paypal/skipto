@@ -1463,11 +1463,6 @@
               if (landmarkItem.hasName) {
                 regionElements.push(landmarkItem);
               }
-
-              console.log('\n[section][hasName]: ' + landmarkItem.hasName);
-              console.log('[section][   name]: ' + landmarkItem.name);
-              console.log('[section][tagName]: ' + landmarkItem.tagName);
-
               break;
             default:
               otherElements.push(landmarkItem);

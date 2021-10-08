@@ -1,4 +1,4 @@
-/*! skipto - v4.1.2 - 2021-10-08
+/*! skipto - v4.1.3 - 2021-10-08
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -1468,11 +1468,6 @@
               if (landmarkItem.hasName) {
                 regionElements.push(landmarkItem);
               }
-
-              console.log('\n[section][hasName]: ' + landmarkItem.hasName);
-              console.log('[section][   name]: ' + landmarkItem.name);
-              console.log('[section][tagName]: ' + landmarkItem.tagName);
-
               break;
             default:
               otherElements.push(landmarkItem);

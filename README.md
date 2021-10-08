@@ -412,6 +412,13 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.1.3
+* Region landmarks must have an accessible name to be included as a landmark in the SkipTo menu to comply with ARIA specification for landmark regions, and will region landmarks be included after complementary landmarks in the SkipTo menu.
+* Updated landmark prefixes in menu to align with actual ARIA role names with the following changes:
+  * `header:` => `banner`
+  * `footer:` => `contentinfo`
+  * `aside:` => `complementary`
+
 ### Version 4.1.2
 * Added <code>aria-busy="true"</code> attribute to menu element when SkipTo is initialized and being updated with new menu items to support validators looking for required menu items for the <code>menu</code> role.
 * Added the <em>optional</em> <code>aria-controls</code> attribute to button element to reference the <code>id</code> of the menu element as defined in the W3C ARIA Authoring practices for [menu button pattern](https://w3c.github.io/aria-practices/#menubutton).
