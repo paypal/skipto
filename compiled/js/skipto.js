@@ -1,4 +1,4 @@
-/*! skipto - v4.1.2 - 2021-09-17
+/*! skipto - v4.1.2 - 2021-10-08
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -67,9 +67,9 @@
       searchLabel: 'search',
       navLabel: 'navigation',
       regionLabel: 'region',
-      asideLabel: 'aside',
-      footerLabel: 'footer',
-      headerLabel: 'header',
+      asideLabel: 'complementary',
+      footerLabel: 'contentinfo',
+      headerLabel: 'banner',
       formLabel: 'form',
       msgNoLandmarksFound: 'No landmarks found',
       msgNoHeadingsFound: 'No headings found',
@@ -1324,6 +1324,7 @@
         case 'nav':
           n = this.config.navLabel;
           break;
+        case 'section':
         case 'region':
           n = this.config.regionLabel;
           break;
@@ -1410,8 +1411,8 @@
             case 'navigation':
               tagName = 'nav';
               break;
-            case 'section':
-              tagName = 'region';
+            case 'region':
+              tagName = 'section';
               break;
             case 'search':
               tagName = 'search';
@@ -1420,7 +1421,7 @@
               break;
           }
           // if using ID for selectQuery give tagName as main
-          if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'region', 'search'].indexOf(tagName) < 0) {
+          if (['aside', 'footer', 'form', 'header', 'main', 'nav', 'section', 'search'].indexOf(tagName) < 0) {
             tagName = 'main';
           }
           if (landmark.hasAttribute('aria-roledescription')) {
@@ -1435,6 +1436,7 @@
           var landmarkItem = {};
           landmarkItem.dataId = dataId.toString();
           landmarkItem.class = 'landmark';
+          landmarkItem.hasName = name.length > 0;
           landmarkItem.name = this.getLocalizedLandmarkName(tagName, name);
           landmarkItem.tagName = tagName;
           landmarkItem.nestingLevel = 0;
@@ -1443,6 +1445,7 @@
           }
           this.skipToIdIndex += 1;
           allLandmarks.push(landmarkItem);
+
           // For sorting landmarks into groups
           switch (tagName) {
             case 'main':
@@ -1460,8 +1463,16 @@
             case 'footer':
               footerElements.push(landmarkItem);
               break;
-            case 'region':
-              regionElements.push(landmarkItem);
+            case 'section':
+              // Regions must have accessible name to be included
+              if (landmarkItem.hasName) {
+                regionElements.push(landmarkItem);
+              }
+
+              console.log('\n[section][hasName]: ' + landmarkItem.hasName);
+              console.log('[section][   name]: ' + landmarkItem.name);
+              console.log('[section][tagName]: ' + landmarkItem.tagName);
+
               break;
             default:
               otherElements.push(landmarkItem);
@@ -1472,7 +1483,7 @@
       if (allFlag) {
         return allLandmarks;
       }
-      return [].concat(mainElements, regionElements, searchElements, navElements, asideElements, footerElements, otherElements);
+      return [].concat(mainElements, searchElements, navElements, asideElements, regionElements, footerElements, otherElements);
     }
   };
   // Initialize skipto menu button with onload event
