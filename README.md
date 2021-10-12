@@ -22,7 +22,7 @@ The SkipTo script creates a drop-down menu consisting of the links to important 
 
 ## Websites using SkipTo
 
-There are two main ways to include the menu button for SkipTo in a page.  In the default configuration the menu button is always visible making it useful to everyone to easily find and navigate to the important content regions identified by the author.  This is similar to how curb cuts help more than just people using wheelchairs.  It is also easier for people using voice recognition to activate the button using the "click skip to content" command and use similar voice commands to activate SkipTo menu items.  The "popup" option is the more traditional approach to fulfilling the "[bypass bocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/), but this option makes the feature less visible to people who might benefit.
+There are two main ways to use the menu button for SkipTo in a page.  In the default configuration the menu button is always visible making it useful to everyone to easily find and navigate to the important content regions identified by the author.  This is similar to how curb cuts help more than just people using wheelchairs.  It is also easier for people using voice recognition to activate the button using the "click skip to content" command and use similar voice commands to activate SkipTo menu items.  The "popup" option is the more traditional approach to fulfilling the "[bypass bocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/), but this option makes the feature less visible to people who might benefit.
 
 ### Visible Menu Button (default)
 * [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
@@ -30,6 +30,7 @@ There are two main ways to include the menu button for SkipTo in a page.  In the
 * [Illinois Webcon](https://webcon.illinois.edu/)
 
 ### Popup Menu Button
+* [Admissions at the University of Illinois](https://admissions.illinois.edu/)
 * [Nightingale Design Research](https://nightingaledesignresearch.com)
 * [cPanel Web Hosting Service @ Illinois](http://cpanel.web.illinois.edu)
 * [Functional Accessibility Evaluator (FAE)](https://fae.disability.illinois.edu/)
@@ -39,7 +40,7 @@ NOTE: Popup menu button option is available through configuration of SkipTo when
 
 ## How it works
 
-1. The SkipTo menu button should be the first tabable element on the page, and if it is configured not to be visible when the page is loaded, the menu button becomes visible when it receives focus.
+1. The SkipTo menu button should be the first tabable element on the page, and by default the button is visible, but can be configured to "popup" when the button becomes receives focus.
 2. Once the keyboard focus is on the menu button, pressing the ENTER, SPACE, DOWN ARROW or UP ARROW keys will pull down the list of important landmarks and headings on the page.  The button is based on the ARIA Authoring Practice [design pattern for menu button](https://w3c.github.io/aria-practices/#menubutton).
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
@@ -52,7 +53,7 @@ Access keys work  just like regular shortcut keys except that they need a browse
 * Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
 * Safari -- Control+Option+0 (MacOS).
 
-NOTE: Browsers on iOS and iPadOS devices support `accesskey`s to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
+NOTE: Browsers on iOS and iPadOS devices support `accesskey` to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
 ## Adding to Website
 
@@ -76,10 +77,6 @@ The easiest way is to include a reference to `skipto.min.js`  on your HTML page 
 ```
 
 NOTE: CDN referenced files may not be available to computers behind firewall protected networks.
-
-### What About WordPress?
-
-A module is under development for WordPress.
 
 ### What About Joomla?
 
@@ -117,14 +114,14 @@ The following options are useful for identify where the menu will be in the DOM 
 
 ### CSS Selectors for identifying Landmarks and Headings
 
-The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be relatively short, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
+The `landmarks` and 'headings' options are CSS selectors used to identify the important landmarks and headings on the page for the purpose of keyboard navigation.  The list of landmarks and headings should be **relatively short**, the more items the menu contains the more time the user will need to scan and navigate to the section they want to "skip to".
 
 The options are of type `string`.
 
 | Property       | Default | Description |
 | :------------- | :------ | :---------- |
-| `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark nodes. |
-| `headings` | 'main h1, [role="main"] h1, main h2, [role="main"] h2' | A set of CSS selectors used by `querySelectorAll` to get an array of headings nodes. |
+| `landmarks` | 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]' | A set of CSS selectors used by `querySelectorAll` to get an array of landmark elements. |
+| `headings` | 'main h1, [role="main"] h1, main h2, [role="main"] h2' | A set of CSS selectors used by `querySelectorAll` to get an array of heading elements. |
 
 ### Color Theme Options
 
@@ -224,8 +221,6 @@ The labels and messages can be localized for specific languages or updated to re
 | `actionShowAllHeadingsAriaLabel` | 'Show All $num headings'| The `aria-label` for the menu item when the button action is to show "All" headings. |
 | `actionShowImportantLandmarksAriaLabel` | 'Show $num Important landmarks' | The `aria-label` for the menu item when the button action is to show "Important" landmarks. |
 | `actionShowAllLandmarksAriaLabel` | 'Show All $num landmarks'  | The `aria-label` for the menu item when the button action is to show "All" landmarks. |
-
-
 
 ## Example Settings
 
@@ -411,6 +406,13 @@ Happy skipping!
 
 
 ## Version History
+
+### Version 4.1.3
+* Region landmarks must have an accessible name to be included as a landmark in the SkipTo menu to comply with ARIA specification for landmark regions, and will region landmarks be included after complementary landmarks in the SkipTo menu.
+* Updated landmark prefixes in menu to align with actual ARIA role names with the following changes:
+  * `header:` => `banner`
+  * `footer:` => `contentinfo`
+  * `aside:` => `complementary`
 
 ### Version 4.1.2
 * Added <code>aria-busy="true"</code> attribute to menu element when SkipTo is initialized and being updated with new menu items to support validators looking for required menu items for the <code>menu</code> role.
