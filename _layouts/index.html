@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+		<meta name="description" content="SkipTo is a replacement for your old classic Skipnav link,! The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options." />
+		<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+		<title>SkipTo</title>
+	</head>
+
+	<body>
+		<!-- HEADER -->
+		<div id="header_wrap" class="outer">
+			<header class="inner" role="banner" style="max-width: 1076px;">
+				<a id="forkme_banner" href="https://github.com/paypal/skipto">View on GitHub</a>
+				<a href="https://paypal.github.io"><img src="images/accessibility_SkipTo_withedgewhite_transp.png"
+						alt="Skip To Logo"></a>
+				<h1 id="project_title" style="display:inline; margin-left:10px;position:relative;top:-100px;">SkipTo
+					plugin by PayPal Accessibility Team</h1>
+				<section id="downloads">
+					<a class="zip_download_link" href="https://github.com/paypal/skipto/zipball/main">Download this
+						project as a .zip file</a>
+					<a class="tar_download_link" href="https://github.com/paypal/skipto/tarball/main">Download this
+						project as a tar.gz file</a>
+				</section>
+			</header>
+		</div>
+
+		<!-- MAIN CONTENT -->
+		<div id="main_content_wrap" class="outer">
+			<section id="main_content" class="inner" role="main">
+				{{ content }}
+
+			</section>
+		</div>
+
+		<!-- FOOTER  -->
+		<div id="footer_wrap" class="outer" role="contentinfo">
+			<footer class="inner" role="contentinfo">
+				<p class="copyright">Skipto maintained by <a href="https://github.com/paypal">PayPal</a></p>
+				<p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+			</footer>
+		</div>
+		<script>
+			var SkipToConfig = {
+				"settings": {
+					"skipTo": {
+						"headings": "h1 ,h2, h3",
+						"landmarks": "[role=banner],[role=main],[role=search]",
+						"displayOption": "static"
+					}
+				}
+			};
+		</script>
+
+		<script src="downloads/js/skipto.js"></script>
+	</body>
+</html>
