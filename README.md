@@ -57,8 +57,8 @@ NOTE: Browsers on iOS and iPadOS devices support `accesskey` to move focus to th
 
 ## Adding to Website
 
-All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
-If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
+All you need are either skipto.js or skipto.min.js from the "downloads/js" directory. Please note that skipto.min.js is a minified (a lighter version) of the script.
+If you would like to be able to debug your production-ready script, include the provided skipto.min.js.map file as well.
 
 ### Local File on Your Web Server
 
@@ -437,7 +437,7 @@ Happy skipping!
 * Popup tooltip supports high contrast operating system settings.
 * Action menu items are disabled by default.
 * M of N items in landmark or heading list is disabled by default.
-* CDN reference to `SkipTo.min.js` is now available from University of Illinois.
+* CDN reference to `skipto.min.js` is now available from University of Illinois.
 * Changed the way the button is hidden visually in "popup" mode not to create wider pages
 
 ### Version 4.0.3

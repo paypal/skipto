@@ -26,13 +26,13 @@ Beginning with Joomla 4.0.0 **skipto** is provided as part of the core installat
 
 ## What about plain JavaScript
 
-All you need are either SkipTo.js or SkipTo.min.js from the "compiled/js" directory. Please note that SkipTo.min.js is a minified (a lighter version) of the script.
-If you would like to be able to debug your production-ready script, include the provided SkipTo.min.map file as well.
+All you need are either skipto.js or skipto.min.js from the "downloads/js" directory. Please note that skipto.min.js is a minified (a lighter version) of the script.
+If you would like to be able to debug your production-ready script, include the provided skipto.min.js.map file as well.
 
 To use the SkipTo script, just include it at the bottom of your HTML page or template, as follows:
 
 ```html
-<script type="text/javascript" src="https://paypal.github.io/skipto/downloads/js/SkipTo.min.js"></script>
+<script type="text/javascript" src="https://paypal.github.io/skipto/downloads/js/skipto.min.js"></script>
 ```
 
 Note that by default the path is set to load the script from the Github external source. If this is not what you want, please make sure that "src" points to the place where you put the Javascript file, otherwise, things will not work as intended.
@@ -69,7 +69,7 @@ var SkipToConfig =  {
 </script>
 ```
 
-The code above  will need  to be inserted before including the SkipTo.js or SkipTo.min.js into your page or template.
+The code above  will need  to be inserted before including the skipto.js or skipto.min.js into your page or template.
 
 ### Notes
 
@@ -141,6 +141,6 @@ PayPal Accessibility Gang
 **Nicholas Hoyt**
 [https://github.com/nhoyt](https://github.com/nhoyt)
 
-**Brian Teeman** 
+**Brian Teeman**
 [https://github.com/brianteeman](https://github.com/brianteeman)
 
