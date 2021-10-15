@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 			files: [
 				'**/*.js',
 				'!**/*.min.js',
-				'!compiled/**',
+				'!downloads/**',
 				'!node_modules/**'
 			],
 			options: {
@@ -51,20 +51,20 @@ module.exports = function(grunt) {
 					footer: '<%= footer %>'
 				},
 				src:   ['src/js/<%= pkg.name %>.js'],
-				dest:  './compiled/js/<%= pkg.name %>.js'
+				dest:  './downloads/js/<%= pkg.name %>.js'
 			},
 			gm: {
 				options: {
 					banner: '<%= greaseBanner %>'
 				},
-				src:   './compiled/js/<%= pkg.name %>.min.js',
-				dest:  './compiled/js/<%= pkg.name %>.user.js'
+				src:   './downloads/js/<%= pkg.name %>.min.js',
+				dest:  './downloads/js/<%= pkg.name %>.user.js'
 			}
 		},
 
 		uglify: {
 			options: {
-				sourceMap: './compiled/js/<%= pkg.name %>.min.map',
+				sourceMap: './downloads/js/<%= pkg.name %>.min.map',
 				banner: '<%= banner %> <%= bannerCond %>',
 				footer: '<%= footer %>',
 				mangle: false,
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'./compiled/js/<%= pkg.name %>.min.js': ['src/js/<%= pkg.name %>.js']
+					'./downloads/js/<%= pkg.name %>.min.js': ['src/js/<%= pkg.name %>.js']
 				}
 			}
 		},
@@ -96,16 +96,16 @@ module.exports = function(grunt) {
 				files: [{
 						expand: true,
 						flatten: true,
-						src: ['./compiled/js/<%= pkg.name %>.js', './compiled/js/<%= pkg.name %>.min.js'],
-						dest: './compiled/js/'
+						src: ['./downloads/js/<%= pkg.name %>.js', './downloads/js/<%= pkg.name %>.min.js'],
+						dest: './downloads/js/'
 					}
 				]
 			}
 		},
 
 		clean: {
-			compiled: {
-				src: ["compiled/*"]
+			downloads: {
+				src: ["downloads/*"]
 			}
 		}
 
