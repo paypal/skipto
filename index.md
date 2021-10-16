@@ -118,12 +118,10 @@ Please do not hesitate to [raise issues and comment on Github](https://github.co
 
 Happy skipping!
 
-PayPal Accessibility Gang
-[Twitter: @PayPalInclusive](https://www.twitter.com/PayPalInclusive)
 
 ## Authors
 
-**Nawaz Khan**
+**Prem Nawaz Khan**
 [https://github.com/mpnkhan](https://github.com/mpnkhan) || [@mpnkhan](https://twitter.com/mpnkhan)
 
 **Victor Tsaran**

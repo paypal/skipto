@@ -73,7 +73,7 @@ Copy the `skipto.js` or `skipto.min.js` to the file system of your web server an
 The easiest way is to include a reference to `skipto.min.js`  on your HTML page or template is through the CDN service, as follows:
 
 ```html
-<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+<script src="https://paypal.github.io/skipto/downloads/js/skipto.min.js"></script>
 ```
 
 NOTE: CDN referenced files may not be available to computers behind firewall protected networks.
