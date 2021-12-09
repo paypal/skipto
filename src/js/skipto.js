@@ -145,7 +145,7 @@
     // of skipTo
     //
     isNotEmptyString: function(str) {
-      return (typeof str === 'string') && str.trim() && "&nbsp;" !== str;
+      return (typeof str === 'string') && str.length && str.trim() && "&nbsp;" !== str;
     },
     isEmptyString: function(str) {
       return (typeof str !== 'string') || str.length === 0 && !str.trim();
