@@ -145,10 +145,10 @@
     // of skipTo
     //
     isNotEmptyString: function(str) {
-      return (typeof str === 'string') && str.length;
+      return (typeof str === 'string') && str.trim() && "&nbsp;" !== str;
     },
     isEmptyString: function(str) {
-      return (typeof str !== 'string') || str.length === 0;
+      return (typeof str !== 'string') || str.length === 0 && !str.trim();
     },
     init: function(config) {
       var node;
@@ -1275,7 +1275,7 @@
         var heading = headings[i];
         var role = heading.getAttribute('role');
         if ((typeof role === 'string') && (role === 'presentation')) continue;
-        if (this.isVisible(heading)) {
+        if (this.isVisible(heading) && this.isNotEmptyString(heading.innerHTML)) {
           if (heading.hasAttribute('data-skip-to-id')) {
             dataId = heading.getAttribute('data-skip-to-id');
           } else {
