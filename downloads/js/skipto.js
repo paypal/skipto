@@ -1,4 +1,4 @@
-/*! skipto - v4.1.3 - 2021-10-14
+/*! skipto - v4.1.3 - 2021-12-13
 * https://github.com/paypal/skipto
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -150,10 +150,10 @@
     // of skipTo
     //
     isNotEmptyString: function(str) {
-      return (typeof str === 'string') && str.length;
+      return (typeof str === 'string') && str.length && str.trim() && str !== "&nbsp;";
     },
     isEmptyString: function(str) {
-      return (typeof str !== 'string') || str.length === 0;
+      return (typeof str !== 'string') || str.length === 0 && !str.trim();
     },
     init: function(config) {
       var node;
@@ -1280,7 +1280,7 @@
         var heading = headings[i];
         var role = heading.getAttribute('role');
         if ((typeof role === 'string') && (role === 'presentation')) continue;
-        if (this.isVisible(heading)) {
+        if (this.isVisible(heading) && this.isNotEmptyString(heading.innerHTML)) {
           if (heading.hasAttribute('data-skip-to-id')) {
             dataId = heading.getAttribute('data-skip-to-id');
           } else {
