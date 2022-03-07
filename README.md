@@ -407,6 +407,9 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.1.4
+* Fixes bug in failure to create a menu
+
 ### Version 4.1.3
 * Region landmarks must have an accessible name to be included as a landmark in the SkipTo menu to comply with ARIA specification for landmark regions, and will region landmarks be included after complementary landmarks in the SkipTo menu.
 * Updated landmark prefixes in menu to align with actual ARIA role names with the following changes:
