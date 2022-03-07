@@ -2,32 +2,28 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Defaults: SkipTo Menu Example Page</title>
+    <title>Defaults: SkipTo Menu Example Page with Empty Headings</title>
     <link href="skipTo.css" rel="stylesheet"/>
     <script type="text/javascript" src="../downloads/js/skipto.js"></script>
-
-<script>
-var SkipToConfig = {
-  settings: {
-    skipTo: {
-      displayOption: 'fixed',
-      positionLeft: '250px',
-      colorTheme: 'illinois',
-      attachElement: 'body'
-    },
-  },
-};
-</script>
-
+    <script>
+        var SkipToConfig =  {
+            'settings': {
+                'skipTo': {
+                    landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], section, [role="region"]',
+                }
+            }
+        };
+    </script>
 </head>
 <body>
     <header role="banner">
         <hgroup>
-            <h1>SkipTo Menu Example: Defaults</h1>
+            <h1>SkipTo Menu Example: Regions with Empty Headings</h1>
         </hgroup>
     </header>
     <nav aria-labelledby="id-test-pages-label">
         <h2 id="id-test-pages-label">SkipTo Test Pages</h2>
+        <p>Page has several empty headers that should not prevent the skipto menu from being created.</p>
         <ul>
             <li><a href="skipTo.html" aria-current="page">Default</a></li>
             <li><a href="skipTo-illinois.html">Default: Illinois styling</a></li>
@@ -38,14 +34,17 @@ var SkipToConfig = {
             <li><a href="skipTo-no-additional.html">Selected and all landmarks or headings are the same</a></li>
             <li><a href="skipTo-onfocus.html">Popup Menu Button</a></li>
             <li><a href="skipTo-fixed.html">Fixed Menu Button</a></li>
-            <li><a href="skipTo-button-title.html">Test Deprecated Title Feature</a></li>
             <li><a href="skipTo-region-no-name.html">Regions with no accessible name</a></li>
-            <li><a href="skipTo-fonts.html">Setting font size and family in configuration</a></li>
-            <li><a href="skipTo-empty-headings.html">Empty headings</a></li>
+            <li><a href="skipTo-button-title.html">Test Deprecated Title Feature</a></li>
+            <li><a href="skipTo-empty-headings.html" aria-current="page">Empty headings</a></li>
         </ul>
     </nav>
     <div role="search">
         <h2>Search Region</h2>
+        <button>Search Button</button>
+        <label hidden>Search Hidden<input type="text"/></label>
+        <label style="display: none">Search Hidden<input type="text"/></label>
+        <label style="visibility: hidden">Search Hidden<input type="text"/></label>
         <label>Search<input type="text"/></label>
     </div>
     <nav aria-label="Quick Links">
@@ -62,13 +61,15 @@ var SkipToConfig = {
         <article>
             <header>
                 <h2>Pastrami</h2>
+                <h2></h2>
             </header>
-            <section>
+            <section aria-label="Pastami">
                 Boudin pastrami cow ham leberkas doner ground round pork. Turducken swine bresaola, flank kielbasa ground round beef ribs chuck meatball shoulder tail leberkas biltong pastrami andouille. Drumstick jowl brisket ribeye ham jerky shank cow bacon. Ham swine chuck, ball tip frankfurter meatball short loin bacon andouille ribeye beef ribs shoulder tail spare ribs bresaola. Swine meatball leberkas bacon. Beef ribs short loin pork belly meatloaf pastrami bacon pig andouille ham jowl pork chop shoulder jerky ribeye. Meatball doner t-bone strip steak tail biltong ham hock, shank jowl.
                 <a id="SkipToA1" href="#">Paypal.com</a>
                 <section>
                     <header>
                         <h3>More Pastrami</h3>
+                        <h3></h3>
                     </header>
                         Boudin pastrami cow ham leberkas doner ground round pork. Turducken swine bresaola, flank kielbasa ground round beef ribs chuck meatball shoulder tail leberkas biltong pastrami andouille. Drumstick jowl brisket ribeye ham jerky shank cow bacon. Ham swine chuck, ball tip frankfurter meatball short loin bacon andouille ribeye beef ribs shoulder tail spare ribs bresaola. Swine meatball leberkas bacon. Beef ribs short loin pork belly meatloaf pastrami bacon pig andouille ham jowl pork chop shoulder jerky ribeye. Meatball doner t-bone strip steak tail biltong ham hock, shank jowl.
                         <a id="SkipToA1" href="#">Paypal.com</a>
@@ -77,14 +78,16 @@ var SkipToConfig = {
         </article>
         <article>
             <header>
-                <h2>Turkey</h2>
+                <h2 id="id-h2-turkey">Turkey</h2>
+                <h2></h2>
             </header>
-            <section>
+            <section aria-labelledby="id-h2-turkey">
                 Turkey tri-tip sirloin tail hamburger, pancetta prosciutto pork chop pork tongue. Salami drumstick bacon jerky, pork sausage ham prosciutto capicola pancetta beef ribs fatback. Bresaola andouille sirloin, fatback beef ribs shoulder leberkas tongue. Shankle shank turducken, flank jerky leberkas strip steak chuck pancetta tail venison pork belly meatball.
                 <a id="SkipToA2" href="#">eBay.com</a>
                 <section>
                     <header>
                         <h3>More Turkey</h3>
+                        <h4></h4>
                     </header>
                     Turkey tri-tip sirloin tail hamburger, pancetta prosciutto pork chop pork tongue. Salami drumstick bacon jerky, pork sausage ham prosciutto capicola pancetta beef ribs fatback. Bresaola andouille sirloin, fatback beef ribs shoulder leberkas tongue. Shankle shank turducken, flank jerky leberkas strip steak chuck pancetta tail venison pork belly meatball.
                     <a id="SkipToA2" href="#">eBay.com</a>
@@ -93,21 +96,21 @@ var SkipToConfig = {
         </article>
         <article>
             <header>
-                <h2>Ribeye</h2>
+                <h2 id="id-h2-ribeye">Ribeye</h2>
             </header>
-            <section>
+            <div role="region" aria-labelledby="id-h2-ribeye">
                 Ribeye turkey beef ribs, ground round pork chop cow venison capicola shank pastrami. Salami pork ball tip tongue chicken tenderloin sausage short loin. Prosciutto jerky chuck sausage. Tri-tip shankle short ribs cow pastrami, sirloin drumstick pig ball tip shank meatball ground round hamburger.
                 <a id="SkipToA3" href="#">developer.paypal.com</a>
-            </section>
+            </div>
         </article>
         <article>
             <header>
                 <h2>Beef Chuck</h2>
             </header>
-            <section>
+            <div role="region" aria-label="Beef Chuck">
                 Doner beef chuck, tongue cow strip steak pork chop meatloaf pastrami short loin sausage ham hock. Pork belly corned beef meatball salami rump pork chop boudin kielbasa leberkas sausage sirloin pig pork venison. Pork tri-tip prosciutto, ground round meatloaf frankfurter filet mignon sirloin turducken. Flank sausage swine pork loin jerky sirloin. Andouille chuck sausage frankfurter meatball.
                 <a id="SkipToA4" href="#">Paypal.com</a>
-            </section>
+            </div>
         </article>
     </section>
 
@@ -128,10 +131,10 @@ var SkipToConfig = {
             <header>
                 <h2 role="presentation">More Pastrami</h2>
             </header>
-            <section>
+            <div role="region">
                 Boudin pastrami cow ham leberkas doner ground round pork. Turducken swine bresaola, flank kielbasa ground round beef ribs chuck meatball shoulder tail leberkas biltong pastrami andouille. Drumstick jowl brisket ribeye ham jerky shank cow bacon. Ham swine chuck, ball tip frankfurter meatball short loin bacon andouille ribeye beef ribs shoulder tail spare ribs bresaola. Swine meatball leberkas bacon. Beef ribs short loin pork belly meatloaf pastrami bacon pig andouille ham jowl pork chop shoulder jerky ribeye. Meatball doner t-bone strip steak tail biltong ham hock, shank jowl.
                 <a id="SkipToA1" href="#">Paypal.com</a>
-            </section>
+            </div>
         </article>
         <article hidden>
             <section>
