@@ -409,6 +409,7 @@ Happy skipping!
 
 ### Version 4.1.5
 * Corrects packaging error in 4.1.4
+
 ### Version 4.1.4
 * Fixes problem in failure to create the SkipTo menu due to invalid configuration
 
