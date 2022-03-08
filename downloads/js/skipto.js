@@ -1,4 +1,4 @@
-/*! skipto - v4.1.3 - 2022-03-07
+/*! skipto - v4.1.4 - 2022-03-08
 * https://github.com/paypal/skipto
 * Copyright (c) 2022 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
@@ -542,20 +542,23 @@
     },
 
     renderMenuitemsToGroup: function(groupNode, menuitems, msgNoItemsFound) {
-      groupNode.innerHTML = '';
-      this.lastNestingLevel = 0;
+      // make sure groupNode is defined, invalid configuration can make it null
+      if (groupNode.innerHTML) {
+        groupNode.innerHTML = '';
+        this.lastNestingLevel = 0;
 
-      if (menuitems.length === 0) {
-        var item = {};
-        item.name = msgNoItemsFound;
-        item.tagName = '';
-        item.class = 'no-items';
-        item.dataId = '';
-        this.renderMenuitemToGroup(groupNode, item);
-      }
-      else {
-        for (var i = 0; i < menuitems.length; i += 1) {
-          this.renderMenuitemToGroup(groupNode, menuitems[i]);
+        if (menuitems.length === 0) {
+          var item = {};
+          item.name = msgNoItemsFound;
+          item.tagName = '';
+          item.class = 'no-items';
+          item.dataId = '';
+          this.renderMenuitemToGroup(groupNode, item);
+        }
+        else {
+          for (var i = 0; i < menuitems.length; i += 1) {
+            this.renderMenuitemToGroup(groupNode, menuitems[i]);
+          }
         }
       }
     },

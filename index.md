@@ -99,7 +99,7 @@ You may feel slightly adventurous and decide to change some colors or even enhan
     grunt
     ```
 
-4. You should now have a directory called **`compiled`** with the necessary files in it.
+4. You should now have a directory called **`downloads`** with the necessary files in it.
 5. See instructions above on which files you need to get the SkipTo script running on your web site.
 
 ## Cleaning up
