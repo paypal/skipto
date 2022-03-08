@@ -356,7 +356,7 @@ npm install
 grunt
 ```
 
-1. You should now have a directory called **`compiled`** with the necessary files in it.
+1. You should now have a directory called **`downloads`** with the necessary files in it.
 1. See instructions above on which files you need to get the SkipTo script running on your web site.
 
 Note: On Windows, build-win.bat runs npm install and grunt modules (Step 3). To successfully run, you must launch a Windows command prompt as an Admin (Ctrl+Shift+Enter) and then run build-win.bat from this command prompt.
