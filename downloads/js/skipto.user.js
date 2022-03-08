@@ -1,6 +1,6 @@
 // -----------------------------------------------------
 // Title: Skip to Options User script
-// version: 4.1.4
+// version: 4.1.5
 // Date: 2022-03-08
 // Author: PayPal Accessibility Team and University of Illinois
 // Homepage: https://github.com/paypal/skipto
@@ -14,7 +14,7 @@
 // @include *
 // ==/UserScript==
 
-/*! skipto - v4.1.4 - 2022-03-08
+/*! skipto - v4.1.5 - 2022-03-08
 * https://github.com/paypal/skipto
 * Copyright (c) 2022 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
