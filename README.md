@@ -409,6 +409,7 @@ Happy skipping!
 
 ### Version 4.1.6
 * Revert the changes from 4.1.4
+
 ### Version 4.1.5
 * Corrects packaging error in 4.1.4
 
