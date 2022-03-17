@@ -23,6 +23,7 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
+    narrowWidth: 400,  // This is the width the narrow class is applied to container div, makes button static
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     showTooltipFocus: false,
@@ -230,7 +231,8 @@
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
       window.addEventListener('pointerdown', this.handleBackgroundPointerdown.bind(this), true);
-
+      window.addEventListener('resize', this.handleWindowResize.bind(this));
+      this.handleWindowResize();
     },
     renderTooltip: function(attachNode, buttonNode) {
       var id = 'id-skip-to-tooltip';
@@ -1182,6 +1184,17 @@
         }
       }
     },
+    // This function applies the narrow class to the container div
+    // by default it makes the menu button a static part of the page
+    // when the screen gets narrow so it does not cover up other content
+    // Initial value of narrowWidth is 390
+    handleWindowResize: function() {
+      if (window.innerWidth < this.narrowWidth) {
+        this.domNode.classList.add('narrow');
+      } else {
+        this.domNode.classList.remove('narrow');        
+      }
+    },   
     // methods to extract landmarks, headings and ids
     normalizeName: function(name) {
       if (typeof name === 'string') return name.replace(/\w\S*/g, function(txt) {

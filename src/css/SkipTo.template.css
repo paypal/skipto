@@ -1,16 +1,22 @@
-.skip-to.popup {
+.skip-to.popup,
+.skip-to.narrow {
   position: absolute;
   top: -30em;
   left: 0;
 }
 
 .skip-to,
-.skip-to.popup.focus {
+.skip-to.popup.focus,
+.skip-to.narrow.focus {
   position: absolute;
   top: 0;
   left: $positionLeft;
   font-family: $fontFamily;
   font-size: $fontSize;
+}
+
+.skip-to.narrow.focus {
+  position: static;
 }
 
 .skip-to.fixed {
@@ -209,6 +215,10 @@
   padding: 6px 7px 5px 7px;
   border-width: 0px 2px 2px 2px;
   border-color: $focusBorderColor;
+}
+
+.skip-to.narrow button:focus {
+  border-width: 2px;
 }
 
 .skip-to [role="menuitem"]:focus {
