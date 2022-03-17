@@ -407,6 +407,9 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.1.7
+* To make SkipTo more compatible with small screens, the "Skip To Content" button changes to popup mode for screen less than 400 pixels to minimize it covering up any other content at the top of the page.  Also when the screen is less than 400px when any popup is activated it uses "position: static", so the SkipTo button will push other page content down on the page and there for easier to read and operate.
+
 ### Version 4.1.6
 * Revert the changes from 4.1.4
 
