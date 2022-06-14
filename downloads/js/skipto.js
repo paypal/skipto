@@ -51,8 +51,8 @@
       altLabel: 'Alt',
       optionLabel: 'Option',
       buttonShortcut: ' ($modifier+$key)',
-      windowButtonAriaLabel: 'Skip To Content, shortcut Alt plus $key',
-      macButtonAriaLabel: 'Skip To Content, shortcut Option plus $key',
+      altButtonAriaLabel: 'Skip To Content, shortcut Alt plus $key',
+      optionButtonAriaLabel: 'Skip To Content, shortcut Option plus $key',
 
       // Menu labels and messages
       menuLabel: 'Landmarks and Headings',
@@ -310,7 +310,7 @@
             this.config.altLabel
           );
           label = label + buttonShortcut;
-          ariaLabel = this.config.windowButtonAriaLabel.replace('$key', this.config.altShortcut);
+          ariaLabel = this.config.altButtonAriaLabel.replace('$key', this.config.altShortcut);
         }
 
         if (this.usesOptionKey) {
@@ -319,7 +319,7 @@
             this.config.optionLabel
           );
           label = label + buttonShortcut;
-          ariaLabel = this.config.macButtonAriaLabel.replace('$key', this.config.altShortcut);
+          ariaLabel = this.config.optionButtonAriaLabel.replace('$key', this.config.altShortcut);
         }
       }
       return [label, ariaLabel];
