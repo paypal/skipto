@@ -45,13 +45,9 @@ NOTE: Popup menu button option is available through configuration of SkipTo when
 3. Use arrow keys to select your choice and press ENTER to move focus to the section of the page.
 4. If you decide to reach the menu again, simply press the built-in access key (0 by default). See the notes on [Access keys](#access-keys) for More information on how to use them.
 
-## Access keys
+## Shortcut key
 
-Access keys work  just like regular shortcut keys except that they need a browser-specific modifier key in order to work. For example, to use the "SkipTo" access key, you would press the modifier key + the access key ("0" is the default accesskey). A list for how this would work in most popular browsers and operating systems.
-
-* Mozilla Firefox -- Alt+Shift+0 (Windows or Linux) and Control+Option+0 (Mac OS)
-* Google Chrome and Opera -- Alt+0 (Windows or Linux) and Control+Option+0 (Mac OS).
-* Safari -- Control+Option+0 (MacOS).
+A shortcut key can be used to open the SKipTo menu from anywhere on the page.  Version 4.2 changes the operation form using the `accesskey` attribute to use a scripted method to improve consistency of the accesskey between broswers and support screen reader users.  Some screen readers do not support the use of accesskeys. For example, to use the "SkipTo" shortcut key, you would press either `alt + 0' (Windows/Unix/Linux) or 'Option + 0` (macOS).  macOS does not have an ALT key, so uses the Option key as the modifier.  
 
 NOTE: Browsers on iOS and iPadOS devices support `accesskey` to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
