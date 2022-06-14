@@ -50,8 +50,8 @@ NOTE: Popup menu button option is available through configuration of SkipTo when
 A shortcut key can be used to open the SKipTo menu from anywhere on the page.  Version 4.2 changes the shortcut key operation from using the HTML `accesskey` attribute to use a scripted method to improve consistency of the accesskey between broswers and support screen reader users.  Some screen readers do not support the use of accesskeys. For example, to use the "SkipTo" shortcut key, you would press either `alt + 0` (Windows/Unix/Linux) or `Option + 0` (macOS).  macOS does not have an ALT key, so uses the Option key as the modifier.  The access keys are the same for Firefox, Chrome and Safari on the same operating system.
 
 
-* `Alt + 0` : Windows, Unix and Linux.
-* `Option + 0` : macOS.
+* `Alt+0` : Windows, Unix and Linux.
+* `Option+0` : macOS.
 
 NOTE: Browsers on iOS and iPadOS devices support `accesskey` to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
 
