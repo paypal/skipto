@@ -407,6 +407,12 @@ Happy skipping!
 
 ## Version History
 
+### Version 4.2
+* Unify shortcut key to be consistent between browers and to support screen reader users using the shortcut by changing the chortcut to use Javascrpt rather than the accesskey attribute.
+* Support a scrollable menu if the list of meny items does not fit in the current window size
+* Removed tooltip by adding the shortcut key to the button label to make it simplier
+* Fix bug in moving focus to "hidden" elements
+
 ### Version 4.1.6
 * Revert the changes from 4.1.4
 

@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 				'!node_modules/**'
 			],
 			options: {
-				jshintrc: "./src/js/.jshintrc"
+				jshintrc: "./src/js/.jshintrc",
 			}
 		},
 

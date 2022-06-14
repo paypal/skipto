@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Defaults: SkipTo Menu Example Page</title>
-    <link href="skipTo.css" rel="stylesheet"/>
+    <link href="./skipTo.css" rel="stylesheet"/>
     <script type="text/javascript" src="../downloads/js/skipto.js"></script>
 </head>
 <body>
@@ -37,6 +37,7 @@
         <label>Search<input type="text"/></label>
     </div>
     <nav aria-label="Quick Links">
+        <div hidden><a href="#link1">Hidden link 1</a></div>
         <ul>
             <li><a href="#link1">Quick link 1</a></li>
             <li><a href="#link2">Quick link 2</a></li>
@@ -46,6 +47,9 @@
         </ul>
     </nav>
     <section role="main">
+        <header hidden>
+            <h1>Hidden h1 for testing</h1>
+        </header>
         <h1>Example Content</h1>
         <article>
             <header>
@@ -65,6 +69,7 @@
         </article>
         <article>
             <header>
+                <div style="visibility: hidden"><h2>Hidden Turkey</h2></h2>
                 <h2>Turkey</h2>
             </header>
             <section>
@@ -81,6 +86,7 @@
         </article>
         <article>
             <header>
+                <h2 style="display: none">Hidden Ribeye</h2>
                 <h2>Ribeye</h2>
             </header>
             <section>
@@ -90,6 +96,7 @@
         </article>
         <article>
             <header>
+                <h2 style="visibility: hidden">Hidden Beef Chuck</h2>
                 <h2>Beef Chuck</h2>
             </header>
             <section>

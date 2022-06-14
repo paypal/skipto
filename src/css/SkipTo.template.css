@@ -70,7 +70,8 @@
   border-style: solid;
   border-color: $focusBorderColor;
   border-radius: 5px;
-  z-index: 1000;
+  z-index: 100000;
+  overflow-x: hidden;
 }
 
 .skip-to [role="group"] {
@@ -90,7 +91,7 @@
   border-style: solid;
   color: $menuTextColor;
   background-color: $menuBackgroundColor;
-  z-index: 1000;
+  z-index: 100000;
   display: grid;
   overflow-y: auto;
   grid-template-columns: repeat(6, 1.2rem) 1fr;

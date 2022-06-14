@@ -1,5 +1,5 @@
 /* ========================================================================
-* Copyright (c) <2021> PayPal and University of Illinois
+* Copyright (c) <2022> PayPal and University of Illinois
 * All rights reserved.
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -11,12 +11,11 @@
 (function() {
   'use strict';
   var SkipTo = {
-    skipToId: 'id-skip-to-js-4',
-    skipToMenuId: 'id-skip-to-menu-4',
+    skipToId: 'id-skip-to-js-5',
+    skipToMenuId: 'id-skip-to-menu-5',
     domNode: null,
     buttonNode: null,
     menuNode: null,
-    tooltipNode: null,
     menuitemNodes: [],
     firstMenuitem: false,
     lastMenuitem: false,
@@ -25,19 +24,16 @@
     skipToIdIndex: 1,
     showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
     showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
-    showTooltipFocus: false,
-    showTooltipHover: false,
-    tooltipTimerDelay: 500,  // in milliseconds
     // Default configuration values
     config: {
       // Feature switches
       enableActions: false,
       enableMofN: true,
       enableHeadingLevelShortcuts: true,
-      enableHelp: true,
-      enableTooltip: true,
+
       // Customization of button and menu
-      accesskey: '0', // default is the number zero
+      altShortcut: '0', // default shortcut key is the number zero
+      optionShortcut: 'º', // default shortcut key character associated with option+0 on mac 
       attachElement: 'header',
       displayOption: 'static', // options: static (default), popup
       // container element, use containerClass for custom styling
@@ -46,11 +42,12 @@
       customClass: '',
 
       // Button labels and messages
-      buttonTitle: '',   // deprecated in favor of buttonTooltip
-      buttonTitleWithAccesskey: '',  // deprecated in favor of buttonTooltipAccesskey
-      buttonTooltip: '',
-      buttonTooltipAccesskey: 'Shortcut Key: $key',
       buttonLabel: 'Skip To Content',
+      altLabel: 'Alt',
+      optionLabel: 'Option',
+      buttonShortcut: ' ($modifier+$key)',
+      windowButtonAriaLabel: 'Skip To Content, shortcut Alt plus $key',
+      macButtonAriaLabel: 'Skip To Content, shortcut Option plus $key',
 
       // Menu labels and messages
       menuLabel: 'Landmarks and Headings',
@@ -151,14 +148,17 @@
       return (typeof str !== 'string') || str.length === 0 && !str.trim();
     },
     init: function(config) {
-      var node;
+      let node;
+      let buttonVisibleLabel;
+      let buttonAriaLabel;
+
       // Check if skipto is already loaded
 
       if (document.querySelector('style#' + this.skipToId)) {
         return;
       }
 
-      var attachElement = document.body;
+      let attachElement = document.body;
       if (config) {
         this.setUpConfig(config);
       }
@@ -199,89 +199,54 @@
           }
         }
       }
+
       // Place skip to at the beginning of the document
       if (attachElement.firstElementChild) {
         attachElement.insertBefore(this.domNode, attachElement.firstElementChild);
       } else {
         attachElement.appendChild(this.domNode);
       }
+      
+      // Menu button
+      [buttonVisibleLabel, buttonAriaLabel] = this.getBrowserSpecificShortcut();
+
       this.buttonNode = document.createElement('button');
-      this.buttonNode.textContent = this.config.buttonLabel;
+      this.buttonNode.textContent = buttonVisibleLabel;
+      this.buttonNode.setAttribute('aria-label', buttonAriaLabel);
       this.buttonNode.setAttribute('aria-haspopup', 'true');
       this.buttonNode.setAttribute('aria-expanded', 'false');
       this.buttonNode.setAttribute('aria-controls', this.skipToMenuId);
-      this.buttonNode.setAttribute('accesskey', this.config.accesskey);
+
+      this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
+      this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
 
       this.domNode.appendChild(this.buttonNode);
 
-      this.renderTooltip(this.domNode, this.buttonNode);
 
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
       this.menuNode.setAttribute('aria-busy', 'true');
       this.menuNode.setAttribute('id', this.skipToMenuId);
+
       this.domNode.appendChild(this.menuNode);
-      this.buttonNode.addEventListener('keydown', this.handleButtonKeydown.bind(this));
-      this.buttonNode.addEventListener('click', this.handleButtonClick.bind(this));
-      this.buttonNode.addEventListener('focus', this.handleButtonFocus.bind(this));
-      this.buttonNode.addEventListener('blur', this.handleButtonBlur.bind(this));
-      this.buttonNode.addEventListener('pointerenter', this.handleButtonPointerenter.bind(this));
-      this.buttonNode.addEventListener('pointerout', this.handleButtonPointerout.bind(this));
       this.domNode.addEventListener('focusin', this.handleFocusin.bind(this));
       this.domNode.addEventListener('focusout', this.handleFocusout.bind(this));
       window.addEventListener('pointerdown', this.handleBackgroundPointerdown.bind(this), true);
 
-    },
-    renderTooltip: function(attachNode, buttonNode) {
-      var id = 'id-skip-to-tooltip';
-      var accesskey = this.getBrowserSpecificAccesskey(this.config.accesskey);
-
-      var tooltip = this.config.buttonTooltip;
-      // for backward compatibility, support 'this.config.buttonTitle' if defined
-      if (this.isNotEmptyString(this.config.buttonTitle)) {
-        tooltip = this.config.buttonTitle;
+      if (this.usesAltKey || this.usesOptionKey) {
+        document.addEventListener(
+          'keydown',
+          this.handleDocumentKeydown.bind(this)
+        );
       }
-
-      this.tooltipLeft = buttonNode.getBoundingClientRect().width;
-      this.tooltipTop  = buttonNode.getBoundingClientRect().height;
-
-      this.tooltipNode = document.createElement('div');
-      this.tooltipNode.setAttribute('role', 'tooltip');
-      this.tooltipNode.id = id;
-      this.tooltipNode.classList.add('skip-to-tooltip');
-
-      if (this.isNotEmptyString(accesskey)) {
-        tooltip = this.config.buttonTooltipAccesskey.replace('$key', accesskey);
-        // for backward compatibility support 'buttonTitleWithAccesskey' if defined
-        if (this.isNotEmptyString(this.config.buttonTitleWithAccesskey)) {
-          tooltip = this.config.buttonTitleWithAccesskey.replace('$key', accesskey);
-        }
-      }
-
-      if (this.isEmptyString(tooltip)) {
-        // if there is no tooltip information
-        // do not display tooltip
-        this.config.enableTooltip = false;
-      } else {
-        this.tooltipNode.textContent = tooltip;
-      }
-
-      attachNode.appendChild(this.tooltipNode);
-      this.tooltipNode.style.left = this.tooltipLeft + 'px';
-      this.tooltipNode.style.top = this.tooltipTop + 'px';
-
-      // Temporarily show the tooltip to get rendered height
-      this.tooltipNode.classList.add('skip-to-show-tooltip');
-      this.tooltipHeight = this.tooltipNode.getBoundingClientRect().height;
-      this.tooltipNode.classList.remove('skip-to-show-tooltip');
     },
 
     updateStyle: function(stylePlaceholder, value, defaultValue) {
       if (typeof value !== 'string' || value.length === 0) {
         value = defaultValue;
       }
-      var index1 = this.defaultCSS.indexOf(stylePlaceholder);
-      var index2 = index1 + stylePlaceholder.length;
+      let index1 = this.defaultCSS.indexOf(stylePlaceholder);
+      let index2 = index1 + stylePlaceholder.length;
       while (index1 >= 0 && index2 < this.defaultCSS.length) {
         this.defaultCSS = this.defaultCSS.substring(0, index1) + value + this.defaultCSS.substring(index2);
         index1 = this.defaultCSS.indexOf(stylePlaceholder, index2);
@@ -289,7 +254,7 @@
       }
     },
     addCSSColors: function() {
-      var theme = this.colorThemes['default'];
+      let theme = this.colorThemes['default'];
       if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
         theme = this.colorThemes[this.config.colorTheme];
       }
@@ -310,41 +275,52 @@
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
     },
 
-    getBrowserSpecificAccesskey: function (accesskey) {
-      var userAgent = navigator.userAgent.toLowerCase();
-      var platform =  navigator.platform.toLowerCase();
+    getBrowserSpecificShortcut: function () {
+      const platform =  navigator.platform.toLowerCase();
+      const userAgent = navigator.userAgent.toLowerCase();
 
-      var hasWin    = platform.indexOf('win') >= 0;
-      var hasMac    = platform.indexOf('mac') >= 0;
-      var hasLinux  = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
+      const hasWin    = platform.indexOf('win') >= 0;
+      const hasMac    = platform.indexOf('mac') >= 0;
+      const hasLinux  = platform.indexOf('linux') >= 0 || platform.indexOf('bsd') >= 0;
+      const hasAndroid = userAgent.indexOf('android') >= 0;
 
-      var hasAndroid = userAgent.indexOf('android') >= 0;
-      var hasFirefox = userAgent.indexOf('firefox') >= 0;
-      var hasChrome = userAgent.indexOf('chrome') >= 0;
-      var hasOpera = userAgent.indexOf('opr') >= 0;
+      this.usesAltKey = hasWin || (hasLinux && !hasAndroid);
+      this.usesOptionKey = hasMac;
 
-      if (typeof accesskey !== 'string' || accesskey.length === 0) {
-        return '';
-      }
+      let label = this.config.buttonLabel;
+      let ariaLabel = this.config.buttonLabel;
+      let buttonShortcut;
 
-      if (hasWin || (hasLinux && !hasAndroid)) {
-        if (hasFirefox) {
-          return "Shift + Alt + " + accesskey;
-        } else {
-          if (hasChrome || hasOpera) {
-            return "Alt + " + accesskey;
-          }
+      // Check to make sure a shortcut key is defined
+      if (this.config.altShortcut && this.config.optionShortcut) {
+        if (this.usesAltKey || this.usesOptionKey) {
+          buttonShortcut = this.config.buttonShortcut.replace(
+            '$key',
+            this.config.altShortcut
+          );
+        }
+        if (this.usesAltKey) {
+          buttonShortcut = buttonShortcut.replace(
+            '$modifier',
+            this.config.altLabel
+          );
+          label = label + buttonShortcut;
+          ariaLabel = this.config.windowButtonAriaLabel.replace('$key', this.config.altShortcut);
+        }
+
+        if (this.usesOptionKey) {
+          buttonShortcut = buttonShortcut.replace(
+            '$modifier',
+            this.config.optionLabel
+          );
+          label = label + buttonShortcut;
+          ariaLabel = this.config.macButtonAriaLabel.replace('$key', this.config.altShortcut);
         }
       }
-
-      if (hasMac) {
-        return "Ctrl + Option + " + accesskey;
-      }
-
-      return '';
+      return [label, ariaLabel];
     },
     setUpConfig: function(appConfig) {
-      var localConfig = this.config,
+      let localConfig = this.config,
         name,
         appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
       for (name in appConfigSettings) {
@@ -906,6 +882,8 @@
     // Popup menu methods
     openPopup: function() {
       this.menuNode.setAttribute('aria-busy', 'true');
+      const h = (80 * window.innerHeight) / 100;
+      this.menuNode.style.maxHeight = h + 'px';
       this.renderMenu();
       this.menuNode.style.display = 'block';
       this.menuNode.removeAttribute('aria-busy');
@@ -944,7 +922,6 @@
         case 'Escape':
           this.closePopup();
           this.buttonNode.focus();
-          this.hideTooltip();
           flag = true;
           break;
         case 'Up':
@@ -972,63 +949,49 @@
       event.stopPropagation();
       event.preventDefault();
     },
-    isTooltipHidden: function() {
-      return this.tooltipNode.className.indexOf('skip-to-show-tooltip') < 0;
-    },
-    displayTooltip: function() {
-      if (this.showTooltipFocus || this.showTooltipHover) {
-        this.tooltipNode.classList.add('skip-to-show-tooltip');
+    handleDocumentKeydown: function (event) {
+      var key = event.key,
+        flag = false;
+
+      let altPressed =
+        this.usesAltKey &&
+        event.altKey &&
+        !event.ctrlKey &&
+        !event.shiftKey &&
+        !event.metaKey;
+
+      let optionPressed =
+        this.usesOptionKey &&
+        event.altKey &&
+        !event.ctrlKey &&
+        !event.shiftKey &&
+        !event.metaKey;
+
+      if (
+        (optionPressed && this.config.optionShortcut === key) ||
+        (altPressed && this.config.altShortcut === key)
+      ) {
+        this.openPopup();
+        this.setFocusToFirstMenuitem();
+        flag = true;
       }
-    },
-    showTooltip: function() {
-      this.showTooltipFocus = true;
-      if (this.config.enableTooltip && this.isTooltipHidden()) {
-        this.tooltipNode.style.left = this.tooltipLeft + 'px';
-        this.tooltipNode.style.top = this.tooltipTop + 'px';
-        setTimeout(this.displayTooltip.bind(this), this.tooltipTimerDelay);
+      if (flag) {
+        event.stopPropagation();
+        event.preventDefault();
       }
-    },
-    hideTooltip: function() {
-      this.showTooltipFocus = false;
-      if(this.config.enableTooltip) {
-        this.tooltipNode.classList.remove('skip-to-show-tooltip');
-      }
-    },
-    handleButtonFocus: function() {
-      this.showTooltip();
-    },
-    handleButtonBlur: function() {
-      this.hideTooltip();
-    },
-    handleButtonPointerenter: function(event) {
-      this.showTooltipHover = true;
-      if (this.config.enableTooltip && this.isTooltipHidden()) {
-        var rect = this.buttonNode.getBoundingClientRect();
-        var left = Math.min(this.tooltipLeft, event.pageX - rect.left + this.tooltipHeight);
-        this.tooltipNode.style.left = left + 'px';
-        var top = event.pageY - rect.top;
-        this.tooltipNode.style.top = top + 'px';
-        setTimeout(this.showTooltip. bind(this), this.tooltipTimerDelay);
-      }
-    },
-    handleButtonPointerout: function() {
-      this.showTooltipHover = false;
-      if(this.config.enableTooltip) {
-        this.tooltipNode.classList.remove('skip-to-show-tooltip');
-      }
-    },
+    },    
     skipToElement: function(menuitem) {
 
-      var isVisible = this.isVisible;
-      var focusNode = false;
-      var scrollNode = false;
-      var elem;
+      const isVisible = this.isVisible;
+      let focusNode = false;
+      let scrollNode = false;
+      let elem;
 
       function findVisibleElement(e, selectors) {
         if (e) {
-          for (var j = 0; j < selectors.length; j += 1) {
-            var elems = e.querySelectorAll(selectors[j]);
-            for(var i = 0; i < elems.length; i +=1) {
+          for (let j = 0; j < selectors.length; j += 1) {
+            const elems = e.querySelectorAll(selectors[j]);
+            for(let i = 0; i < elems.length; i +=1) {
               if (isVisible(elems[i])) {
                 return elems[i];
               }
@@ -1038,13 +1001,13 @@
         return e;
       }
 
-      var searchSelectors = ['input', 'button', 'input[type=button]', 'input[type=submit]', 'a'];
-      var navigationSelectors = ['a', 'input', 'button', 'input[type=button]', 'input[type=submit]'];
-      var landmarkSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article', 'p', 'li', 'a'];
+      const searchSelectors = ['input', 'button', 'input[type=button]', 'input[type=submit]', 'a'];
+      const navigationSelectors = ['a', 'input', 'button', 'input[type=button]', 'input[type=submit]'];
+      const landmarkSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article', 'p', 'li', 'a'];
 
-      var isLandmark = menuitem.classList.contains('landmark');
-      var isSearch = menuitem.classList.contains('skip-to-search');
-      var isNav = menuitem.classList.contains('skip-to-nav');
+      const isLandmark = menuitem.classList.contains('landmark');
+      const isSearch = menuitem.classList.contains('skip-to-search');
+      const isNav = menuitem.classList.contains('skip-to-nav');
 
       elem = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
 
@@ -1249,18 +1212,23 @@
     },
     isVisible: function(element) {
       function isVisibleRec(el) {
-        if (el.nodeType === 9) return true; /*IE8 does not support Node.DOCUMENT_NODE*/
-        var computedStyle = window.getComputedStyle(el);
-        var display = computedStyle.getPropertyValue('display');
-        var visibility = computedStyle.getPropertyValue('visibility');
-        var hidden = el.getAttribute('hidden');
+        if (el.parentNode.nodeType !== 1 || 
+            (el.parentNode.tagName === 'BODY')) {
+          return true;
+        }
+        const computedStyle = window.getComputedStyle(el);
+        const display = computedStyle.getPropertyValue('display');
+        const visibility = computedStyle.getPropertyValue('visibility');
+        const hidden = el.getAttribute('hidden');
         if ((display === 'none') ||
           (visibility === 'hidden') ||
           (hidden !== null)) {
           return false;
         }
-        return isVisibleRec(el.parentNode);
+        const isVis = isVisibleRec(el.parentNode);
+        return isVis;
       }
+
       return isVisibleRec(element);
     },
     getHeadings: function(targets) {
