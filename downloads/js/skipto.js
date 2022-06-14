@@ -15,7 +15,7 @@
 
 (function() {
   'use strict';
-  var SkipTo = {
+  const SkipTo = {
     skipToId: 'id-skip-to-js-5',
     skipToMenuId: 'id-skip-to-menu-5',
     domNode: null,
@@ -342,9 +342,9 @@
       }
     },
     renderStyleElement: function(cssString) {
-      var styleNode = document.createElement('style');
-      var headNode = document.getElementsByTagName('head')[0];
-      var css = document.createTextNode(cssString);
+      const styleNode = document.createElement('style');
+      const headNode = document.getElementsByTagName('head')[0];
+      const css = document.createTextNode(cssString);
 
       styleNode.setAttribute("type", "text/css");
       // ID is used to test whether skipto is already loaded
@@ -359,28 +359,26 @@
     //
 
     getFirstChar: function(menuitem) {
-      var c = '';
-      var label = menuitem.querySelector('.label');
+      const label = menuitem.querySelector('.label');
       if (label && this.isNotEmptyString(label.textContent)) {
-        c = label.textContent.trim()[0].toLowerCase();
+        return label.textContent.trim()[0].toLowerCase();
       }
-      return c;
+      return '';
     },
 
     getHeadingLevelFromAttribute: function(menuitem) {
-      var level = '';
       if (menuitem.hasAttribute('data-level')) {
-        level = menuitem.getAttribute('data-level');
+        return menuitem.getAttribute('data-level');
       }
-      return level;
+      return '';
     },
 
     updateKeyboardShortCuts: function () {
-      var mi;
+      let mi;
       this.firstChars = [];
       this.headingLevels = [];
 
-      for(var i = 0; i < this.menuitemNodes.length; i += 1) {
+      for(let i = 0; i < this.menuitemNodes.length; i += 1) {
         mi = this.menuitemNodes[i];
         this.firstChars.push(this.getFirstChar(mi));
         this.headingLevels.push(this.getHeadingLevelFromAttribute(mi));
@@ -388,10 +386,10 @@
     },
 
     updateMenuitems: function () {
-      var menuitemNodes = this.menuNode.querySelectorAll('[role=menuitem');
+      let menuitemNodes = this.menuNode.querySelectorAll('[role=menuitem');
 
       this.menuitemNodes = [];
-      for(var i = 0; i < menuitemNodes.length; i += 1) {
+      for(let i = 0; i < menuitemNodes.length; i += 1) {
         this.menuitemNodes.push(menuitemNodes[i]);
       }
 
@@ -402,9 +400,9 @@
     },
 
     renderMenuitemToGroup: function (groupNode, mi) {
-      var tagNode, tagNodeChild, labelNode, nestingNode;
+      let tagNode, tagNodeChild, labelNode, nestingNode;
 
-      var menuitemNode = document.createElement('div');
+      let menuitemNode = document.createElement('div');
       menuitemNode.setAttribute('role', 'menuitem');
       menuitemNode.classList.add(mi.class);
       if (this.isNotEmptyString(mi.tagName)) {
@@ -464,8 +462,8 @@
     },
 
     renderGroupLabel: function (groupLabelId, title, m, n) {
-      var titleNode, mofnNode, s;
-      var groupLabelNode = document.getElementById(groupLabelId);
+      let titleNode, mofnNode, s;
+      let groupLabelNode = document.getElementById(groupLabelId);
 
       titleNode = groupLabelNode.querySelector('.title');
       mofnNode = groupLabelNode.querySelector('.mofn');
@@ -483,8 +481,8 @@
     },
 
     renderMenuitemGroup: function(groupId, title) {
-      var labelNode, groupNode, spanNode;
-      var menuNode = this.menuNode;
+      let labelNode, groupNode, spanNode;
+      let menuNode = this.menuNode;
       if (this.isNotEmptyString(title)) {
         labelNode = document.createElement('div');
         labelNode.id = groupId + "-label";
@@ -511,7 +509,7 @@
     },
 
     removeMenuitemGroup: function(groupId) {
-      var node = document.getElementById(groupId);
+      let node = document.getElementById(groupId);
       this.menuNode.removeChild(node);
       node = document.getElementById(groupId + "-label");
       this.menuNode.removeChild(node);
@@ -522,7 +520,7 @@
     this.lastNestingLevel = 0;
 
     if (menuitems.length === 0) {
-        var item = {};
+        const item = {};
         item.name = msgNoItemsFound;
         item.tagName = '';
         item.class = 'no-items';
@@ -544,7 +542,7 @@
     },
 
     getShowMoreHeadingsLabel: function(option, n) {
-      var label = this.config.actionShowSelectedHeadingsLabel;
+      let label = this.config.actionShowSelectedHeadingsLabel;
       if (option === 'all') {
         label = this.config.actionShowAllHeadingsLabel;
       }
@@ -552,7 +550,7 @@
     },
 
     getShowMoreHeadingsAriaLabel: function(option, n) {
-      var label = this.config.actionShowSelectedHeadingsAriaLabel;
+      let label = this.config.actionShowSelectedHeadingsAriaLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllHeadingsAriaLabel;
@@ -562,13 +560,13 @@
     },
 
     renderActionMoreHeadings: function(groupNode) {
-      var item, menuitemNode;
-      var option = 'all';
+      let item, menuitemNode;
+      let option = 'all';
 
-      var selectedHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('selected')).length;
-      var allHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('all')).length;
-      var noAction = selectedHeadingsLen === allHeadingsLen;
-      var headingsLen = allHeadingsLen;
+      let selectedHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('selected')).length;
+      let allHeadingsLen = this.getHeadings(this.getShowMoreHeadingsSelector('all')).length;
+      let noAction = selectedHeadingsLen === allHeadingsLen;
+      let headingsLen = allHeadingsLen;
 
       if (option !== 'all') {
         headingsLen = selectedHeadingsLen;
@@ -591,12 +589,12 @@
     },
 
     updateHeadingGroupMenuitems: function(option) {
-      var headings, headingsLen, labelNode, groupNode;
+      let headings, headingsLen, labelNode, groupNode;
 
-      var selectedHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('selected'));
-      var selectedHeadingsLen = selectedHeadings.length;
-      var allHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('all'));
-      var allHeadingsLen = allHeadings.length;
+      const selectedHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('selected'));
+      const selectedHeadingsLen = selectedHeadings.length;
+      const allHeadings = this.getHeadings(this.getShowMoreHeadingsSelector('all'));
+      const allHeadingsLen = allHeadings.length;
 
       // Update list of headings
       if ( option === 'all' ) {
@@ -626,7 +624,7 @@
         headingsLen = allHeadingsLen;
       }
 
-      var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-headings]');
+      const menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-headings]');
       menuitemNode.setAttribute('data-show-heading-option', option);
       menuitemNode.setAttribute('aria-label', this.getShowMoreHeadingsAriaLabel(option, headingsLen));
 
@@ -642,7 +640,7 @@
     },
 
     getShowMoreLandmarksLabel: function(option, n) {
-      var label = this.config.actionShowSelectedLandmarksLabel;
+      let label = this.config.actionShowSelectedLandmarksLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllLandmarksLabel;
@@ -651,7 +649,7 @@
     },
 
     getShowMoreLandmarksAriaLabel: function(option, n) {
-      var label = this.config.actionShowSelectedLandmarksAriaLabel;
+      let label = this.config.actionShowSelectedLandmarksAriaLabel;
 
       if (option === 'all') {
         label = this.config.actionShowAllLandmarksAriaLabel;
@@ -661,13 +659,13 @@
     },
 
     renderActionMoreLandmarks: function(groupNode) {
-      var item, menuitemNode;
-      var option = 'all';
+      let item, menuitemNode;
+      let option = 'all';
 
-      var selectedLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('selected')).length;
-      var allLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('all')).length;
-      var noAction = selectedLandmarksLen === allLandmarksLen;
-      var landmarksLen = allLandmarksLen;
+      const selectedLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('selected')).length;
+      const allLandmarksLen = this.getLandmarks(this.getShowMoreLandmarksSelector('all')).length;
+      const noAction = selectedLandmarksLen === allLandmarksLen;
+      let landmarksLen = allLandmarksLen;
 
       if (option !== 'all') {
         landmarksLen = selectedLandmarksLen;
@@ -691,11 +689,12 @@
     },
 
     updateLandmarksGroupMenuitems: function(option) {
-      var landmarks, landmarksLen, labelNode, groupNode;
-      var selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
-      var selectedLandmarksLen = selectedLandmarks.length;
-      var allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
-      var allLandmarksLen = allLandmarks.length;
+      let landmarks, landmarksLen, labelNode, groupNode;
+
+      const selectedLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('selected'));
+      const selectedLandmarksLen = selectedLandmarks.length;
+      const allLandmarks = this.getLandmarks(this.getShowMoreLandmarksSelector('all'), true);
+      const allLandmarksLen = allLandmarks.length;
 
       // Update landmark menu items
       if ( option === 'all' ) {
@@ -725,7 +724,7 @@
         landmarksLen = allLandmarksLen;
       }
 
-      var menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-landmarks]');
+      const menuitemNode = this.menuNode.querySelector('[data-id=skip-to-more-landmarks]');
       menuitemNode.setAttribute('data-show-landmark-option', option);
       menuitemNode.setAttribute('aria-label', this.getShowMoreLandmarksAriaLabel(option, landmarksLen));
 
@@ -734,7 +733,7 @@
     },
 
     renderMenu: function() {
-      var groupNode,
+      let groupNode,
       selectedLandmarks,
       allLandmarks,
       landmarkElements,
@@ -815,7 +814,7 @@
     },
 
     setFocusToPreviousMenuitem: function(menuitem) {
-      var newMenuitem, index;
+      let newMenuitem, index;
       if (menuitem === this.firstMenuitem) {
         newMenuitem = this.lastMenuitem;
       } else {
@@ -827,7 +826,7 @@
     },
 
     setFocusToNextMenuitem: function(menuitem) {
-      var newMenuitem, index;
+      let newMenuitem, index;
       if (menuitem === this.lastMenuitem) {
         newMenuitem = this.firstMenuitem;
       } else {
@@ -839,7 +838,7 @@
     },
 
     setFocusByFirstCharacter: function(menuitem, char) {
-      var start, index;
+      let start, index;
       if (char.length > 1) {
         return;
       }
@@ -877,7 +876,7 @@
 
     // Utilities
     getIndexFirstChars: function(startIndex, char) {
-      for (var i = startIndex; i < this.firstChars.length; i += 1) {
+      for (let i = startIndex; i < this.firstChars.length; i += 1) {
         if (char === this.firstChars[i]) {
           return i;
         }
@@ -912,7 +911,7 @@
       this.domNode.classList.remove('focus');
     },
     handleButtonKeydown: function(event) {
-      var key = event.key,
+      let key = event.key,
         flag = false;
       switch (key) {
         case ' ':
@@ -955,7 +954,7 @@
       event.preventDefault();
     },
     handleDocumentKeydown: function (event) {
-      var key = event.key,
+      let key = event.key,
         flag = false;
 
       let altPressed =
@@ -1041,7 +1040,7 @@
       }
     },
     handleMenuitemAction: function(tgt) {
-      var option;
+      let option;
       switch (tgt.getAttribute('data-id')) {
         case '':
           // this means there were no headings or landmarks in the list
@@ -1064,7 +1063,7 @@
       }
     },
     handleMenuitemKeydown: function(event) {
-      var tgt = event.currentTarget,
+      let tgt = event.currentTarget,
         key = event.key,
         flag = false;
 
@@ -1139,7 +1138,7 @@
       event.preventDefault();
     },
     handleMenuitemPointerenter: function(event) {
-      var tgt = event.currentTarget;
+      let tgt = event.currentTarget;
       tgt.focus();
     },
     handleBackgroundPointerdown: function(event) {
@@ -1166,13 +1165,13 @@
           // if an element for through all the children elements looking for text
           if (e.nodeType === Node.ELEMENT_NODE) {
             // check to see if IMG or AREA element and to use ALT content if defined
-            var tagName = e.tagName.toLowerCase();
+            let tagName = e.tagName.toLowerCase();
             if ((tagName === 'img') || (tagName === 'area')) {
               if (e.alt) {
                 strings.push(e.alt);
               }
             } else {
-              var c = e.firstChild;
+              let c = e.firstChild;
               while (c) {
                 getText(c, strings);
                 c = c.nextSibling;
@@ -1182,24 +1181,24 @@
         }
       } // end function getStrings
       // Create return object
-      var str = "Test",
+      let str = "Test",
         strings = [];
       getText(elem, strings);
       if (strings.length) str = strings.join(" ");
       return str;
     },
     getAccessibleName: function(elem) {
-      var labelledbyIds = elem.getAttribute('aria-labelledby'),
+      let labelledbyIds = elem.getAttribute('aria-labelledby'),
         label = elem.getAttribute('aria-label'),
         title = elem.getAttribute('title'),
         name = "";
       if (labelledbyIds && labelledbyIds.length) {
-        var str,
+        let str,
           strings = [],
           ids = labelledbyIds.split(' ');
         if (!ids.length) ids = [labelledbyIds];
-        for (var i = 0, l = ids.length; i < l; i += 1) {
-          var e = document.getElementById(ids[i]);
+        for (let i = 0, l = ids.length; i < l; i += 1) {
+          let e = document.getElementById(ids[i]);
           if (e) str = this.getTextContent(e);
           if (str && str.length) strings.push(str);
         }
@@ -1237,16 +1236,16 @@
       return isVisibleRec(element);
     },
     getHeadings: function(targets) {
-      var dataId, level;
+      let dataId, level;
       if (typeof targets !== 'string') {
         targets = this.config.headings;
       }
-      var headingElementsArr = [];
+      let headingElementsArr = [];
       if (typeof targets !== 'string' || targets.length === 0) return;
-      var headings = document.querySelectorAll(targets);
-      for (var i = 0, len = headings.length; i < len; i += 1) {
-        var heading = headings[i];
-        var role = heading.getAttribute('role');
+      const headings = document.querySelectorAll(targets);
+      for (let i = 0, len = headings.length; i < len; i += 1) {
+        let heading = headings[i];
+        let role = heading.getAttribute('role');
         if ((typeof role === 'string') && (role === 'presentation')) continue;
         if (this.isVisible(heading) && this.isNotEmptyString(heading.innerHTML)) {
           if (heading.hasAttribute('data-skip-to-id')) {
@@ -1256,7 +1255,7 @@
             dataId = this.skipToIdIndex;
           }
           level = heading.tagName.substring(1);
-          var headingItem = {};
+          const headingItem = {};
           headingItem.dataId = dataId.toString();
           headingItem.class = 'heading';
           headingItem.name = this.getTextContent(heading);
@@ -1272,7 +1271,7 @@
       return headingElementsArr;
     },
     getLocalizedLandmarkName: function(tagName, name) {
-      var n;
+      let n;
       switch (tagName) {
         case 'aside':
           n = this.config.asideLabel;
@@ -1310,10 +1309,10 @@
       return n;
     },
     getNestingLevel: function(landmark, landmarks) {
-      var nestingLevel = 0;
-      var parentNode = landmark.parentNode;
+      let nestingLevel = 0;
+      let parentNode = landmark.parentNode;
       while (parentNode) {
-        for (var i = 0; i < landmarks.length; i += 1) {
+        for (let i = 0; i < landmarks.length; i += 1) {
           if (landmarks[i] === parentNode) {
             nestingLevel += 1;
             // no more than 3 levels of nesting supported
@@ -1334,28 +1333,28 @@
       if (typeof targets !== 'string') {
         targets = this.config.landmarks;
       }
-      var landmarks = document.querySelectorAll(targets);
-      var mainElements = [];
-      var searchElements = [];
-      var navElements = [];
-      var asideElements = [];
-      var footerElements = [];
-      var regionElements = [];
-      var otherElements = [];
-      var allLandmarks = [];
-      var dataId = '';
-      for (var i = 0, len = landmarks.length; i < len; i += 1) {
-        var landmark = landmarks[i];
+      let landmarks = document.querySelectorAll(targets);
+      let mainElements = [];
+      let searchElements = [];
+      let navElements = [];
+      let asideElements = [];
+      let footerElements = [];
+      let regionElements = [];
+      let otherElements = [];
+      let allLandmarks = [];
+      let dataId = '';
+      for (let i = 0, len = landmarks.length; i < len; i += 1) {
+        let landmark = landmarks[i];
         // if skipto is a landmark don't include it in the list
         if (landmark === this.domNode) {
           continue;
         }
-        var role = landmark.getAttribute('role');
-        var tagName = landmark.tagName.toLowerCase();
+        let role = landmark.getAttribute('role');
+        let tagName = landmark.tagName.toLowerCase();
         if ((typeof role === 'string') && (role === 'presentation')) continue;
         if (this.isVisible(landmark)) {
           if (!role) role = tagName;
-          var name = this.getAccessibleName(landmark);
+          let name = this.getAccessibleName(landmark);
           if (typeof name !== 'string') {
             name = '';
           }
@@ -1401,7 +1400,7 @@
             landmark.setAttribute('data-skip-to-id', this.skipToIdIndex);
             dataId =  this.skipToIdIndex;
           }
-          var landmarkItem = {};
+          const landmarkItem = {};
           landmarkItem.dataId = dataId.toString();
           landmarkItem.class = 'landmark';
           landmarkItem.hasName = name.length > 0;
