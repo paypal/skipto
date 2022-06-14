@@ -411,9 +411,9 @@ Happy skipping!
 ## Version History
 
 ### Version 4.2
-* Unify shortcut key to be consistent between browers and to support screen reader users using the shortcut by changing the shortcut to use Javascrpt rather than the HTML `accesskey` attribute.
+* Unify shortcut key to be consistent between browers and to support screen reader users using the shortcut by changing the shortcut to use Javascript rather than the HTML `accesskey` attribute.
 * Support a scrollable menu if the list of menu items does not fit in the current window size.
-* Removed tooltip by adding the shortcut key to the button label to simplify the identification of the shortcut key.
+* Removed tooltip and added the shortcut key information to the button label to simplify the identification of the shortcut key.
 * Fix bug in not moving focus to "hidden" elements.
 
 ### Version 4.1.6
