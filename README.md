@@ -53,8 +53,6 @@ A shortcut key can be used to open the SKipTo menu from anywhere on the page.  V
 * `Alt+0` : Windows, Unix and Linux.
 * `Option+0` : macOS.
 
-NOTE: Browsers on iOS and iPadOS devices support `accesskey` to move focus to the menu button, but do not support the menu button keyboard commands to use the menu at this time.  Browsers on Android devices do not support `accesskey`s at this time.
-
 ## Adding to Website
 
 All you need are either skipto.js or skipto.min.js from the "downloads/js" directory. Please note that skipto.min.js is a minified (a lighter version) of the script.
