@@ -18,8 +18,8 @@
 (function() {
   'use strict';
   const SkipTo = {
-    skipToId: 'id-skip-to-js-5',
-    skipToMenuId: 'id-skip-to-menu-5',
+    skipToId: 'id-skip-to-js-42',
+    skipToMenuId: 'id-skip-to-menu-42',
     domNode: null,
     buttonNode: null,
     menuNode: null,
