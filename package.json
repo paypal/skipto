@@ -8,7 +8,7 @@
     "Skip to"
   ],
   "homepage": "https://github.com/paypal/skipto",
-  "author": "PayPal Accessibility Team and University of Illinois",
+  "author": "Jon Gunderson and Matt King",
   "repository": {
     "type": "git",
     "url": "https://github.com/paypal/skipto"

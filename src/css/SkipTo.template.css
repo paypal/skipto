@@ -27,36 +27,9 @@
   border-color: $buttonBackgroundColor;
   color: $menuTextColor;
   background-color: $buttonBackgroundColor;
-  z-index: 200;
+  z-index: 100000 !important;
   font-family: $fontFamily;
   font-size: $fontSize;
-}
-
-.skip-to .skip-to-tooltip {
-  position: absolute;
-  top: 2.25em;
-  left: 8em;
-  margin: 1px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  box-shadow: 2px 3px 5px #ddd;
-  background-color: #eee;
-  color: black;
-  font-family: Helvetica, Arial, Sans-Serif;
-  font-variant-numeric: slashed-zero;
-  font-size: 9pt;
-  width: auto;
-  display: none;
-  white-space: nowrap;
-  z-index: 201;
-}
-
-.skip-to .skip-to-tooltip.skip-to-show-tooltip {
-  display: block;
-}
-
-.skip-to [aria-expanded="true"] + .skip-to-tooltip.skip-to-show-tooltip {
-  display: none;
 }
 
 .skip-to [role="menu"] {
@@ -70,7 +43,7 @@
   border-style: solid;
   border-color: $focusBorderColor;
   border-radius: 5px;
-  z-index: 100000;
+  z-index: 100000 !important;
   overflow-x: hidden;
 }
 
@@ -91,7 +64,7 @@
   border-style: solid;
   color: $menuTextColor;
   background-color: $menuBackgroundColor;
-  z-index: 100000;
+  z-index: 100000 !important;
   display: grid;
   overflow-y: auto;
   grid-template-columns: repeat(6, 1.2rem) 1fr;
@@ -177,7 +150,7 @@
   border-bottom-color: $menuTextColor;
   background-color: $menuBackgroundColor;
   color: $menuTextColor;
-  z-index: 1000;
+  z-index: 100000 !important;
 }
 
 .skip-to [role="separator"] .mofn {

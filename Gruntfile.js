@@ -7,11 +7,12 @@ module.exports = function(grunt) {
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
-			' Licensed <%= _.map(pkg.licenses, "type").join(", ") %> */\n' ,
+			' Licensed <%= _.map(pkg.licenses, "type").join(", ") %>\n' +
+			'* Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */\n',
 
 		bannerCond:
 			'/*@cc_on @*/\n' +
-			'/*@if (@_jscript_version >= 5.8) @*/\n',
+			'/*@if (@_jscript_version >= es6) @*/\n',
 
 		footer: '/*@end @*/\n',
 
