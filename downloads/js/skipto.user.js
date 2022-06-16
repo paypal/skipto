@@ -2,9 +2,9 @@
 // Title: Skip to Options User script
 // version: 4.2.0
 // Date: 2022-06-16
-// Author: Jon Gunderson and Matt King
+// Author: Jon Gunderson
 // Homepage: https://github.com/paypal/skipto
-// Copyright (c) 2022 Jon Gunderson and Matt King
+// Copyright (c) 2022 Jon Gunderson
 // -----------------------------------------------------
 //
 // ==UserScript==
@@ -16,7 +16,7 @@
 
 /*! skipto - v4.2.0 - 2022-06-16
 * https://github.com/paypal/skipto
-* Copyright (c) 2022 Jon Gunderson and Matt King; Licensed BSD
+* Copyright (c) 2022 Jon Gunderson; Licensed BSD
 * Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
  /*@cc_on @*/
 /*@if (@_jscript_version >= es6) @*/
