@@ -16,7 +16,7 @@
   "licenses": [
     {
       "type": "BSD",
-      "url": "https://github.com/paypal/skipto/blob/master/BSDLicense.txt"
+      "url": "https://github.com/paypal/skipto/blob/main/LICENSE.md"
     }
   ],
   "engines": {
