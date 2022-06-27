@@ -66,7 +66,7 @@
   background-color: $menuBackgroundColor;
   z-index: 100000 !important;
   display: grid;
-  overflow-y: auto;
+  overflow-y: clip;
   grid-template-columns: repeat(6, 1.2rem) 1fr;
   grid-column-gap: 2px;
   font-size: 1em;
