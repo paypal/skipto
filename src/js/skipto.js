@@ -12,8 +12,8 @@
 (function() {
   'use strict';
   const SkipTo = {
-    skipToId: 'id-skip-to-js-42',
-    skipToMenuId: 'id-skip-to-menu-42',
+    skipToId: 'id-skip-to-js-50',
+    skipToMenuId: 'id-skip-to-menu-50',
     domNode: null,
     buttonNode: null,
     menuNode: null,
@@ -23,13 +23,9 @@
     firstChars: [],
     headingLevels: [],
     skipToIdIndex: 1,
-    showAllLandmarksSelector: 'main, [role=main], [role=search], nav, [role=navigation], section[aria-label], section[aria-labelledby], section[title], [role=region][aria-label], [role=region][aria-labelledby], [role=region][title], form[aria-label], form[aria-labelledby], aside, [role=complementary], body > header, [role=banner], body > footer, [role=contentinfo]',
-    showAllHeadingsSelector: 'h1, h2, h3, h4, h5, h6',
     // Default configuration values
     config: {
       // Feature switches
-      enableActions: false,
-      enableMofN: true,
       enableHeadingLevelShortcuts: true,
 
       // Customization of button and menu
@@ -82,6 +78,24 @@
       focusBorderColor: '',
       buttonTextColor: '',
       buttonBackgroundColor: '',
+
+      // Deprecated configuration options, that are ignored during initialization
+      // These are included for compatibility with older configuration objects
+      // They are included so an error is not thrown during initialization
+      buttonTitle: '',
+      buttonTitleWithAccesskey: '',
+      enableActions: false,
+      actionGroupLabel: '',
+      actionShowHeadingsHelp: '',
+      actionShowSelectedHeadingsLabel: '',
+      actionShowAllHeadingsLabel: '',
+      actionShowLandmarksHelp: '',
+      actionShowSelectedLandmarksLabel: '',
+      actionShowAllLandmarksLabel: '',
+      actionShowSelectedHeadingsAriaLabel: '',
+      actionShowAllHeadingsAriaLabel: '',
+      actionShowSelectedLandmarksAriaLabel: '',
+      actionShowAllLandmarksAriaLabel: '',
     },
     colorThemes: {
       'default': {
@@ -95,6 +109,18 @@
         focusBorderColor: '#1a1a1a',
         buttonTextColor: '#1a1a1a',
         buttonBackgroundColor: '#eeeeee',
+      },
+      'aria': {
+        fontFamily: 'sans-serif',
+        fontSize: '10pt',
+        positionLeft: '7%',
+        menuTextColor: '#000',
+        menuBackgroundColor: '#def',
+        menuitemFocusTextColor: '#fff',
+        menuitemFocusBackgroundColor: '#005a9c',
+        focusBorderColor: '#005a9c',
+        buttonTextColor: '#005a9c',
+        buttonBackgroundColor: '#ddd',
       },
       'illinois': {
         fontFamily: 'inherit',
@@ -112,6 +138,7 @@
         fontFamily: 'sans-serif',
         fontSize: '10pt',
         positionLeft: '7%',
+        displayOption: 'popup',
         menuTextColor: '#000',
         menuBackgroundColor: '#def',
         menuitemFocusTextColor: '#fff',
@@ -123,30 +150,67 @@
     },
     defaultCSS: '@@cssContent',
 
-    //
-    // Functions related to configuring the features
-    // of skipTo
-    //
+    // Utility methods
+
+    /*
+     * @method isNotEmptyString
+     *
+     * @desc Tests a string to see if it contains any printable characters
+     *
+     * @return {boolean} True if contains printable characters, otherwise false
+     */
     isNotEmptyString: function(str) {
       return (typeof str === 'string') && str.length && str.trim() && str !== "&nbsp;";
     },
+
+    /*
+     * @method isEmptyString
+     *
+     * @desc Tests a string to see if it contains non-printable characters
+     *
+     * @return {boolean} True if contains only non-printable characters, otherwise false
+     */
     isEmptyString: function(str) {
       return (typeof str !== 'string') || str.length === 0 && !str.trim();
     },
+
+    /*
+     * @method getTheme
+     *
+     * @desc Returns a reference to named configuration options, if theme name
+     *       does not exist then return the default configuration options
+     *
+     * @return {object} see @desc
+     */
+    getTheme: function () {
+      if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
+        return this.colorThemes[this.config.colorTheme];
+      }
+      return this.colorThemes['default'];
+    },
+
+    /*
+     * @method init
+     *
+     * @desc Initializes the skipto button and menu with default and user 
+     *       defined options
+     *
+     * @param  {object} config - Reference to configuration object
+     *                           can be undefined
+     */
     init: function(config) {
       let node;
       let buttonVisibleLabel;
       let buttonAriaLabel;
 
       // Check if skipto is already loaded
-
       if (document.querySelector('style#' + this.skipToId)) {
         return;
       }
 
       let attachElement = document.body;
       if (config) {
-        this.setUpConfig(config);
+        this.setupConfig(config);
       }
       if (typeof this.config.attachElement === 'string') {
         node = document.querySelector(this.config.attachElement);
@@ -156,7 +220,7 @@
       }
       this.addCSSColors();
       this.renderStyleElement(this.defaultCSS);
-      var elem = this.config.containerElement.toLowerCase().trim();
+      let elem = this.config.containerElement.toLowerCase().trim();
       if (!this.isNotEmptyString(elem)) {
         elem = 'div';
       }
@@ -168,7 +232,7 @@
       if (this.isNotEmptyString(this.config.containerRole)) {
         this.domNode.setAttribute('role', this.config.containerRole);
       }
-      var displayOption = this.config.displayOption;
+      let displayOption = this.config.displayOption;
       if (typeof displayOption === 'string') {
         displayOption = displayOption.trim().toLowerCase();
         if (displayOption.length) {
@@ -211,6 +275,7 @@
 
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
+      this.menuNode.setAttribute('aria-label', this.config.menuLabel);
       this.menuNode.setAttribute('aria-busy', 'true');
       this.menuNode.setAttribute('id', this.skipToMenuId);
 
@@ -239,11 +304,16 @@
         index2 = index1 + stylePlaceholder.length;
       }
     },
+
+    /*
+     * @method addCSSColors
+     *
+     * @desc Updates the styling information in the attached
+     *       stylesheet to use the configured colors  
+     */
     addCSSColors: function() {
-      let theme = this.colorThemes['default'];
-      if (typeof this.colorThemes[this.config.colorTheme] === 'object') {
-        theme = this.colorThemes[this.config.colorTheme];
-      }
+      const theme = this.getTheme();
+
       this.updateStyle('$fontFamily', this.config.fontFamily, theme.fontFamily);
       this.updateStyle('$fontSize', this.config.fontSize, theme.fontSize);
 
@@ -261,6 +331,13 @@
       this.updateStyle('$buttonBackgroundColor', this.config.buttonBackgroundColor, theme.buttonBackgroundColor);
     },
 
+    /*
+     * @method getBrowserSpecificShortcut
+     *
+     * @desc Identifies the operating system and updates labels for 
+     *       shortcut key to use either the "alt" or the "option"
+     *       label  
+     */
     getBrowserSpecificShortcut: function () {
       const platform =  navigator.platform.toLowerCase();
       const userAgent = navigator.userAgent.toLowerCase();
@@ -305,20 +382,45 @@
       }
       return [label, ariaLabel];
     },
-    setUpConfig: function(appConfig) {
-      let localConfig = this.config,
-        name,
-        appConfigSettings = typeof appConfig.settings !== 'undefined' ? appConfig.settings.skipTo : {};
-      for (name in appConfigSettings) {
+
+    /*
+     * @method setupConfig
+     *
+     * @desc Get configuration information from user configuration to change 
+     *       default settings 
+     *
+     * @param  {object}  appConfig - Javascript object with configuration information
+     */
+    setupConfig: function(appConfig) {
+      let appConfigSettings;
+      // Support version 4.1 configuration object structure 
+      // If found use it
+      if ((typeof appConfig.settings === 'object') && 
+          (typeof appConfig.settings.skipTo === 'object')) {
+        appConfigSettings = appConfig.settings.skipTo;
+      }
+      else {
+        // Version 5.0 removes the requirement for the "settings" and "skipto" properties
+        // to reduce the complexity of configuring skipto
+        if ((typeof appConfig === 'undefined') || 
+             (typeof appConfig !== 'object')) {
+          appConfigSettings = {};
+        }
+        else {
+          appConfigSettings = appConfig;
+        }
+      }
+
+      for (const name in appConfigSettings) {
         //overwrite values of our local config, based on the external config
-        if ((typeof localConfig[name] !== 'undefined') &&
+        if ((typeof this.config[name] !== 'undefined') &&
            ((typeof appConfigSettings[name] === 'string') &&
             (appConfigSettings[name].length > 0 ) ||
            typeof appConfigSettings[name] === 'boolean')
           ) {
-          localConfig[name] = appConfigSettings[name];
+          this.config[name] = appConfigSettings[name];
         } else {
-          throw new Error('** SkipTo Problem with user configuration option "' + name + '".');
+          throw new Error('** SkipTo problem with configuration option "' + name + '".');
         }
       }
     },
@@ -489,7 +591,7 @@
           this.renderMenuitemToGroup(groupNode, item);
       }
       else {
-          for (var i = 0; i < menuitems.length; i += 1) {
+          for (let i = 0; i < menuitems.length; i += 1) {
           this.renderMenuitemToGroup(groupNode, menuitems[i]);
           }
       }
