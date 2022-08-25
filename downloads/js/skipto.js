@@ -1,7 +1,6 @@
-/*! skipto - v5.0.0 - 2022-08-25
+/*! skipto - v5.0.2 - 2022-08-25
 * https://github.com/paypal/skipto
-* Copyright (c) 2022 Jon Gunderson; Licensed BSD
-* Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */
+* Copyright (c) 2022 Jon Gunderson, University of Illinois and PayPal Accessibility Team; Licensed BSD
  /*@cc_on @*/
 /*@if (@_jscript_version >= es6) @*/
 /* ========================================================================
@@ -90,7 +89,18 @@
       // They are included so an error is not thrown during initialization
       buttonTitle: '',
       buttonTitleWithAccesskey: '',
-
+      enableActions: false,
+      actionGroupLabel: '',
+      actionShowHeadingsHelp: '',
+      actionShowSelectedHeadingsLabel: '',
+      actionShowAllHeadingsLabel: '',
+      actionShowLandmarksHelp: '',
+      actionShowSelectedLandmarksLabel: '',
+      actionShowAllLandmarksLabel: '',
+      actionShowSelectedHeadingsAriaLabel: '',
+      actionShowAllHeadingsAriaLabel: '',
+      actionShowSelectedLandmarksAriaLabel: '',
+      actionShowAllLandmarksAriaLabel: '',
     },
     colorThemes: {
       'default': {
@@ -270,6 +280,7 @@
 
       this.menuNode = document.createElement('div');
       this.menuNode.setAttribute('role', 'menu');
+      this.menuNode.setAttribute('aria-label', this.config.menuLabel);
       this.menuNode.setAttribute('aria-busy', 'true');
       this.menuNode.setAttribute('id', this.skipToMenuId);
 

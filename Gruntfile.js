@@ -7,8 +7,7 @@ module.exports = function(grunt) {
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
-			' Licensed <%= _.map(pkg.licenses, "type").join(", ") %>\n' +
-			'* Copyright (c) 2021 PayPal Accessibility Team and University of Illinois; Licensed BSD */\n',
+			' Licensed <%= _.map(pkg.licenses, "type").join(", ") %>\n',
 
 		bannerCond:
 			'/*@cc_on @*/\n' +
