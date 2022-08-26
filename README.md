@@ -118,8 +118,8 @@ The options are of type `string`.
 
 | Property       | Default | Description |
 | :------------- | :------ | :---------- |
-| `landmarks` | 'main search navigation complementary' | A space separated list of landmark names. |
-| `headings` | 'main h1 h2' | A space separated list of heading tags, "main" is included only headings contained in the main landmark will be in the SkipTo menu. |
+| `landmarks` | 'main search navigation complementary' | A space separated list of landmark names. Allowed values include: `banner`, `complementary`, `contentinfo`, `main`, `navigation`, `region` and `search` |
+| `headings` | 'main h1 h2' | A space separated list of heading tags, "main" is included only headings contained in the main.  Allowed values include: `h1`, `h2`, `h3`, `h4`, `h5`, `h6` and `main`  |
 
 ### Color Theme Options
 

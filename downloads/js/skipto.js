@@ -16,6 +16,96 @@
 
 (function() {
   'use strict';
+
+  // Helper functions
+
+  const skipableElements = [
+    'base',
+    'content',
+    'frame',
+    'iframe',
+    'input[type=hidden]',
+    'link',
+    'meta',
+    'noscript',
+    'script',
+    'style',
+    'template',
+    'shadow',
+    'title'
+  ];
+
+  const allowedHeadingsSelectors = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'main'
+  ];
+
+  const allowedLandmarkSelectors = [
+  'banner',
+  'complementary',
+  'contentinfo',
+  'main',
+  'navigation',
+  'region',
+  'search'
+  ];
+
+  // Tests if a tag name can be skipped
+  function isSkipableElement(tagName, type) {
+      const elemSelector = (typeof type !== 'string') ? tagName : `${tagName}[type=${type}]`;
+      return skipableElements.includes(elemSelector);
+  }
+
+  // Tests if a tag name is a custom element
+  function isCustomElement(tagName) {
+    return tagName.indexOf('-') >= 0;
+  }
+
+  // Tests if a node is a slot element
+  function isSlotElement(node) {
+    return (node instanceof HTMLSlotElement);
+  }
+
+  // checks if an element node is a landmark
+  function checkForLandmark (node) {
+    if (node.hasAttribute('role')) {
+      const role = node.getAttribute('role').toLowerCase();
+      console.log(`[role]: ${role}`);
+      if (allowedLandmarkSelectors.indexOf(role) >= 0) {
+        return role;
+      }
+    } else {
+      const tagName = node.tagName.toLowerCase();
+      console.log(`[tagName]: ${tagName}`);
+
+      switch (tagName) {
+        case 'aside':
+          return 'complementary';
+
+        case 'main':
+          return 'main';
+
+        case 'nav':
+          return 'navigation';
+
+        case 'section':
+          if (node.hasAttribute('aria-label') || node.hasAttribute('aria-labelledby')) {
+            return 'region';
+          }
+          break;
+
+        default:
+          break;  
+      }
+    }
+    return '';
+  }
+
   const SkipTo = {
     skipToId: 'id-skip-to-js-50',
     skipToMenuId: 'id-skip-to-menu-50',
@@ -68,8 +158,8 @@
       msgNoHeadingsFound: 'No headings found',
 
       // Selectors for landmark and headings sections
-      landmarks: 'main, [role="main"], [role="search"], nav, [role="navigation"], aside, [role="complementary"]',
-      headings: 'main h1, [role="main"] h1, main h2, [role="main"] h2',
+      landmarks: 'main search navigation complementary',
+      headings: 'main h1 h2 h3',
 
       // Custom CSS position and colors
       colorTheme: '',
@@ -817,6 +907,54 @@
         event.preventDefault();
       }
     },    
+
+    queryDOMForSkipToId: function (targetId) {
+      function transverseDOMForSkipToId(startingNode) {
+        var targetNode = null;
+        for (let node = startingNode.firstChild; node !== null; node = node.nextSibling ) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const tagName = node.tagName.toLowerCase();
+            if (node.getAttribute('data-skip-to-id') === targetId) {
+              return node;
+            }
+            if (!isSkipableElement(tagName, node.getAttribute('type'))) {
+              // check for slotted content
+              if (isSlotElement(node)) {
+                  // if no slotted elements, check for default slotted content
+                const assignedNodes = node.assignedNodes().length ?
+                                      node.assignedNodes() :
+                                      node.assignedNodes({ flatten: true });
+                for (let i = 0; i < assignedNodes.length; i += 1) {
+                  const assignedNode = assignedNodes[i];
+                  targetNode = transverseDOMForSkipToId(assignedNode);
+                  if (targetNode) {
+                    return targetNode;
+                  }
+                }
+              } else {
+                // check for custom elements
+                if (isCustomElement(tagName)) {
+                  if (node.shadowRoot) {
+                    targetNode = transverseDOMForSkipToId(node.shadowRoot);
+                    if (targetNode) {
+                      return targetNode;
+                    }
+                  }
+                } else {
+                  targetNode = transverseDOMForSkipToId(node);
+                  if (targetNode) {
+                    return targetNode;
+                  }
+                }
+              }
+            }
+          } // end if
+        } // end for
+        return false;
+      } // end function
+      return transverseDOMForSkipToId(document.body);
+    },
+
     skipToElement: function(menuitem) {
 
       const isVisible = this.isVisible;
@@ -846,7 +984,7 @@
       const isSearch = menuitem.classList.contains('skip-to-search');
       const isNav = menuitem.classList.contains('skip-to-nav');
 
-      elem = document.querySelector('[data-skip-to-id="' + menuitem.getAttribute('data-id') + '"]');
+      elem = this.queryDOMForSkipToId(menuitem.getAttribute('data-id'));
 
       if (elem) {
         if (isSearch) {
@@ -1057,6 +1195,74 @@
 
       return isVisibleRec(element);
     },
+
+    getHeadingTargets(targets) {
+      let targetHeadings = [];
+      let items = targets.split(' ');
+      items.forEach( item => {
+        item = item.toLowerCase().trim();
+        if ((allowedHeadingsSelectors.indexOf(item) >= 0) && 
+            (item !== 'main')) {
+          targetHeadings.push(item);
+        }
+      });
+      return targetHeadings;
+    },
+
+    queryDOMForHeadings: function (targets) {
+      let headingNodes = [];
+      let targetHeadings = this.getHeadingTargets(targets);
+      let onlyInMain = targets.toLowerCase().indexOf('main') >= 0;
+
+      function transverseDOMForHeadings(startingNode, inMain = false) {
+        for (let node = startingNode.firstChild; node !== null; node = node.nextSibling ) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const tagName = node.tagName.toLowerCase();
+            if (targetHeadings.indexOf(tagName) >= 0) {
+              if (!onlyInMain || inMain) {
+                headingNodes.push(node);
+              }
+            }
+            if ((tagName === 'main') || 
+                (node.hasAttribute('role') && node.getAttribute('role').toLowerCase === 'role')) {
+              inMain = true;
+            }
+            if (!isSkipableElement(tagName, node.getAttribute('type'))) {
+              // check for slotted content
+              if (isSlotElement(node)) {
+                  // if no slotted elements, check for default slotted content
+                const assignedNodes = node.assignedNodes().length ?
+                                      node.assignedNodes() :
+                                      node.assignedNodes({ flatten: true });
+                assignedNodes.forEach( assignedNode => {
+                  transverseDOMForHeadings(assignedNode, inMain);
+                });
+              } else {
+                // check for custom elements
+                if (isCustomElement(tagName)) {
+                  if (node.shadowRoot) {
+                    transverseDOMForHeadings(node.shadowRoot, inMain);
+                  }
+                } else {
+                  transverseDOMForHeadings(node, inMain);
+                }
+              }
+            }
+          } // end if
+        } // end for
+      } // end function
+
+      transverseDOMForHeadings(document.body);
+
+      // If no elements found when onlyInMain is set, try 
+      // to find any headings
+      if (headingNodes.length === 0 && onlyInMain) {
+        onlyInMain = false;
+        transverseDOMForHeadings(document.body);
+      }
+
+      return headingNodes;
+    },
     getHeadings: function(targets) {
       let dataId, level;
       if (typeof targets !== 'string') {
@@ -1064,7 +1270,7 @@
       }
       let headingElementsArr = [];
       if (typeof targets !== 'string' || targets.length === 0) return;
-      const headings = document.querySelectorAll(targets);
+      const headings = this.queryDOMForHeadings(targets);
       for (let i = 0, len = headings.length; i < len; i += 1) {
         let heading = headings[i];
         let role = heading.getAttribute('role');
@@ -1148,14 +1354,68 @@
       }
       return nestingLevel;
     },
-    getLandmarks: function(targets, allFlag) {
-      if (typeof allFlag !== 'boolean') {
-        allFlag = false;
-      }
+
+    getLandmarkTargets: function (targets) {
+      let targetLandmarks = [];
+      let items = targets.split(' ');
+      items.forEach( item => {
+        item = item.toLowerCase().trim();
+        if (allowedLandmarkSelectors.indexOf(item) >= 0) {
+          targetLandmarks.push(item);
+        }
+      });
+      return targetLandmarks;
+    },
+
+    queryDOMForLandmarks: function (targets) {
+      let landmarkNodes = [];
+      let targetLandmarks = this.getLandmarkTargets(targets);
+      console.log(`[targetLandmarks]: ${targetLandmarks}`);
+
+      function transverseDOMForLandmarks(startingNode) {
+        for (let node = startingNode.firstChild; node !== null; node = node.nextSibling ) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const tagName = node.tagName.toLowerCase();
+            console.log(`[checkForLandmark]: ${checkForLandmark(node)}`);
+            if (targetLandmarks.indexOf(checkForLandmark(node)) >= 0) {
+              landmarkNodes.push(node);
+            }
+
+            if (!isSkipableElement(tagName, node.getAttribute('type'))) {
+              // check for slotted content
+              if (isSlotElement(node)) {
+                  // if no slotted elements, check for default slotted content
+                const assignedNodes = node.assignedNodes().length ?
+                                      node.assignedNodes() :
+                                      node.assignedNodes({ flatten: true });
+                assignedNodes.forEach( assignedNode => {
+                  transverseDOMForLandmarks(assignedNode);
+                });
+              } else {
+                // check for custom elements
+                if (isCustomElement(tagName)) {
+                  if (node.shadowRoot) {
+                    transverseDOMForLandmarks(node.shadowRoot);
+                  }
+                } else {
+                  transverseDOMForLandmarks(node);
+                }
+              }
+            }
+          } // end if
+        } // end for
+      } // end function
+
+      transverseDOMForLandmarks(document.body);
+
+      return landmarkNodes;
+    },
+
+    getLandmarks: function(targets) {
       if (typeof targets !== 'string') {
         targets = this.config.landmarks;
       }
-      let landmarks = document.querySelectorAll(targets);
+      let landmarks = this.queryDOMForLandmarks(targets);
       let mainElements = [];
       let searchElements = [];
       let navElements = [];
@@ -1229,9 +1489,6 @@
           landmarkItem.name = this.getLocalizedLandmarkName(tagName, name);
           landmarkItem.tagName = tagName;
           landmarkItem.nestingLevel = 0;
-          if (allFlag) {
-            landmarkItem.nestingLevel = this.getNestingLevel(landmark, landmarks);
-          }
           this.skipToIdIndex += 1;
           allLandmarks.push(landmarkItem);
 
@@ -1263,9 +1520,6 @@
               break;
           }
         }
-      }
-      if (allFlag) {
-        return allLandmarks;
       }
       return [].concat(mainElements, searchElements, navElements, asideElements, regionElements, footerElements, otherElements);
     }

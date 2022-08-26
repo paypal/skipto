@@ -5,7 +5,12 @@
   "keywords": [
     "accessibility",
     "Navigation",
-    "Skip to"
+    "Skip to",
+    "WCAG 4.2.1",
+    "Bypass Blocks",
+    "Landmarks",
+    "Headings",
+    "Skip to main"
   ],
   "homepage": "https://github.com/paypal/skipto",
   "author": "Jon Gunderson, University of Illinois and PayPal Accessibility Team",
@@ -37,8 +42,7 @@
   "gitHead": "641457dfeea57fbedfba5ba2a65ce0c33ac411b7",
   "main": "Gruntfile.js",
   "directories": {
-    "example": "example",
-    "test": "test"
+    "example": "examples"
   },
   "scripts": {
     "test": "grunt test"
