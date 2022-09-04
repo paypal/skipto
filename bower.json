@@ -5,7 +5,7 @@
   "authors": [
     "PayPal Accessibility Team and DRES Accessible IT Group at the University of Illinois"
   ],
-  "description": "This plugin provides a dynamically-generated drop-down menu that allows keyboard and screen reader users to skip to the most important places on the webpage.",
+  "description": "A plugin providing a dynamically-generated drop-down menu that allows keyboard and screen reader users to skip to the most important places.",
   "main": "downloads/js/skipto.js",
   "keywords": [
     "accessibility",
