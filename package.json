@@ -11,14 +11,11 @@
   "author": "PayPal Accessibility Team and University of Illinois",
   "repository": {
     "type": "git",
-    "url": "https://github.com/paypal/skipto"
+    "url": "git+https://github.com/paypal/skipto.git"
   },
-  "licenses": [
-    {
-      "type": "BSD",
-      "url": "https://github.com/paypal/skipto/blob/master/BSDLicense.txt"
-    }
-  ],
+  "bugs": {
+    "url": "https://github.com/paypal/skipto/issues"
+  },
   "engines": {
     "node": ">=6"
   },
@@ -33,12 +30,9 @@
     "grunt-replace": "^2.0.2",
     "uglify-js": "~2.8.0"
   },
-  "readmeFilename": "README.md",
-  "gitHead": "641457dfeea57fbedfba5ba2a65ce0c33ac411b7",
   "main": "Gruntfile.js",
   "directories": {
-    "example": "example",
-    "test": "test"
+    "example": "example"
   },
   "scripts": {
     "test": "grunt test"
