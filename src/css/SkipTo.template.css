@@ -123,6 +123,10 @@
   text-overflow: ellipsis;
 }
 
+[dir=rtl] .skip-to [role="menuitem"] .label {
+  text-align: right;
+}
+
 .skip-to [role="menuitem"] .level:first-letter,
 .skip-to [role="menuitem"] .label:first-letter {
   text-decoration: underline;
