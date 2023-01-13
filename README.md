@@ -407,6 +407,11 @@ Happy skipping!
 
 ## Version History
 
+
+### Version 4.1.7
+* Update build tools dependencies
+* Fix RTL issues created by #91
+
 ### Version 4.1.6
 * Revert the changes from 4.1.4
 
