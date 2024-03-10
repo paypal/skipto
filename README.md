@@ -22,23 +22,9 @@ NOTE: [SkipTo version 5.3](https://skipto-landmarks-headings.github.io/page-scri
 
 ![Example Screen Shot](images/example_screen_shot.png "Example Screen Shot")
 
-## Websites using SkipTo
+## Using SkipTo
 
 There are two main ways to use the menu button for SkipTo in a page.  In the default configuration the menu button is always visible making it useful to everyone to easily find and navigate to the important content regions identified by the author.  This is similar to how curb cuts help more than just people using wheelchairs.  It is also easier for people using voice recognition to activate the button using the "click skip to content" command and use similar voice commands to activate SkipTo menu items.  The "popup" option is the more traditional approach to fulfilling the "[bypass bocks](https://www.w3.org/TR/WCAG/#bypass-blocks)" requirement of the [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG/), but this option makes the feature less visible to people who might benefit.
-
-### Visible Menu Button (default)
-* [DRES Accessible IT Group](https://accessibleit.disability.illinois.edu/)
-* [College of Applied Health Sciences](https://ahs.illinois.edu/)
-* [Illinois Webcon](https://webcon.illinois.edu/)
-
-### Popup Menu Button
-* [Admissions at the University of Illinois](https://admissions.illinois.edu/)
-* [Nightingale Design Research](https://nightingaledesignresearch.com)
-* [cPanel Web Hosting Service @ Illinois](http://cpanel.web.illinois.edu)
-* [Functional Accessibility Evaluator (FAE)](https://fae.disability.illinois.edu/)
-* [Study Abroad Program for College of Education](https://studyabroad.education.illinois.edu)
-
-NOTE: Popup menu button option is available through configuration of SkipTo when it is loaded.
 
 ## How it works
 
