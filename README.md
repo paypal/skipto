@@ -2,17 +2,18 @@
 
 # skipto@4.1
 
+## Important Change to SkipTo.js Development
+
+SkipTo.js development has been moved to a new repository.
+[SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/) is now available and includes new [bookmarklet](https://skipto-landmarks-headings.github.io/page-script-5/bookmarklets.html) and [browser extensions of SkipTo.js](https://skipto-landmarks-headings.github.io/page-script-5/extensions.html).
+
 ## by PayPal Accessibility Team & University of Illinois
+
 
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skip To Main Content" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to important landmarks and headings on a given web page identified by the author. Once installed and configured, the menu makes it easier for keyboard and screen reader users to quickly jump to the desired region of a page by simply choosing it from the list of options.
-
-## Important Change to SkipTo.js Development
-
-SkipTo.js development has been moved to a new repository.
-[SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/) is now available and includes new bookmarklet and browser extensions of SkipTo.js.
 
 
 ### Benefits

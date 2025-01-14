@@ -4,8 +4,13 @@ layout: index
 
 # SkipTo, version 4.1
 
-## by PayPal Accessibility Team and University of Illinois
+## Important Change to SkipTo.js Development
 
+SkipTo.js development has been moved to a new repository.
+[SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/) is now available and includes new [bookmarklet](https://skipto-landmarks-headings.github.io/page-script-5/bookmarklets.html) and [browser extensions of SkipTo.js](https://skipto-landmarks-headings.github.io/page-script-5/extensions.html).
+
+
+## by PayPal Accessibility Team and University of Illinois
 
 See the [Authors](#authors) section for more information.
 
@@ -14,10 +19,6 @@ The SkipTo script creates a drop-down menu consisting of the links to the import
 
 ![Example Screen Shot](https://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
 
-## Important Change to SkipTo.js Development
-
-SkipTo.js development has been moved to a new repository.
-[SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/) is now available and includes new bookmarklet and browser extensions of SkipTo.js.
 
 ## How it works
 
