@@ -6,12 +6,18 @@ layout: index
 
 ## by PayPal Accessibility Team and University of Illinois
 
+
 See the [Authors](#authors) section for more information.
 
 SkipTo is a replacement for your old classic "Skipnav" link, (so please use it as such)!
 The SkipTo script creates a drop-down menu consisting of the links to the important places on a given web page. The menu will make it easier for keyboard and screen reader users to quickly jump to the desired location by simply choosing it from the list of options.
 
 ![Example Screen Shot](https://paypal.github.io/skipto/images/example_screen_shot.png "Example Screen Shot")
+
+## Important Change to SkipTo.js Development
+
+SkipTo.js development has been moved to a new repository.
+[SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/) is now available and includes new bookmarklet and browser extensions of SkipTo.js.
 
 ## How it works
 
