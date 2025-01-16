@@ -4,7 +4,7 @@
 
 ## Important Change to SkipTo.js Development and Delivery
 
-[![SkipTo.js Version 5](https://paypal.github.io/skipto/images/skipto5.png "SkipTo.js Version 5")](https://skipto-landmarks-headings.github.io/page-script-5/)
+[![SkipTo.js Version 5 icon](https://paypal.github.io/skipto/images/skipto5.png "SkipTo.js Version 5") SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/)
 
 SkipTo.js development has been moved to a new repository.
 [SkipTo.js Version 5](https://skipto-landmarks-headings.github.io/page-script-5/) is now available and includes new [bookmarklet](https://skipto-landmarks-headings.github.io/page-script-5/bookmarklets.html) and [browser extensions of SkipTo.js](https://skipto-landmarks-headings.github.io/page-script-5/extensions.html).
