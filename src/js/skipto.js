@@ -186,7 +186,7 @@
       if (typeof displayOption === 'string') {
         displayOption = displayOption.trim().toLowerCase();
         if (displayOption.length) {
-          switch (this.config.displayOption) {
+          switch (displayOption) {
             case 'fixed':
               this.domNode.classList.add('fixed');
               break;
